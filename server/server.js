@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-// const dotenv = require('dotenv').config();
 const volleyball = require('volleyball');
+const dotenv = require('dotenv').config();
 // const config = require('config');
 const PORT = process.env.PORT_NUMBER || 8080;
 
@@ -10,6 +10,7 @@ const PORT = process.env.PORT_NUMBER || 8080;
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // logging middleware - disable during test
+app.use(volleyball);
 // if (config.util.getEnv('NODE_ENV') !== 'test') {
 //   app.use(volleyball);
 // }
@@ -19,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Start of API routes
-// app.use('/api', require('./API'));
+app.use('/api', require('./API'));
 
 app.get('/ping', function (req, res) {
   return res.json('pong');
