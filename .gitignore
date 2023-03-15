@@ -20,9 +20,6 @@
 .env
 
 package-lock.json
-bundle.js
-bundle.js.LICENSE.txt
-bundle.js.map
 tailwind.css
 
 npm-debug.log*
