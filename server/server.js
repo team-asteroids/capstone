@@ -5,6 +5,7 @@ const volleyball = require('volleyball');
 // const dotenv = require('dotenv').config();
 // const config = require('config');
 const PORT = process.env.PORT_NUMBER || 8080;
+// const db = require('./db');
 
 // Static middleware
 app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -39,5 +40,17 @@ async function init() {
     console.log(`Server listening at http://localhost:${PORT}`);
   });
 }
+
+// const init = async () => {
+//   try {
+//     db.sync().then(
+//       app.listen(PORT, () => {
+//         console.log(`App running on port ${PORT}!`);
+//       })
+//     );
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 init();

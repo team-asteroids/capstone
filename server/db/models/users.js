@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const db = require('../db');
+const db = require('../database');
 
 const User = db.define('user', {
   firstName: {
@@ -170,7 +170,6 @@ const User = db.define('user', {
     defaultValue: 'user',
     validate: {
       notEmpty: true,
-      notNull: true,
     },
   },
   imageSrc: {
@@ -192,7 +191,7 @@ const User = db.define('user', {
     },
   },
   totalPets: {
-    totalPets: Sequelize.INTEGER,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       min: 0,
