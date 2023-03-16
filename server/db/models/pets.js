@@ -20,6 +20,7 @@ const Pet = db.define('pet', {
       notEmpty: true,
       notNull: true,
       isIn: [
+        'Mixed',
         'French Bulldogs',
         'Labrador Retrievers',
         'Golden Retrievers',
@@ -228,6 +229,8 @@ const Pet = db.define('pet', {
     validate: {
       notEmpty: true,
       notNull: true,
+      min: 0,
+      max: 30,
     },
   },
   size: {

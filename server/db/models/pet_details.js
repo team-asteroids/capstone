@@ -29,6 +29,16 @@ const Pet_Detail = db.define('pet_detail', {
       notNull: true,
     },
   },
+  cratetrained: {
+    type: Sequelize.ENUM({
+      values: ['yes', 'no', 'n/a'],
+    }),
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      notNull: true,
+    },
+  },
   spayedOrNeutered: {
     type: Sequelize.BOOLEAN,
     allowNull: false,
@@ -103,7 +113,17 @@ const Pet_Detail = db.define('pet_detail', {
   },
   walkSchedule: {
     type: Sequelize.ENUM({
-      values: [],
+      values: ['1', '2', '3', '4+'],
+    }),
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      notNull: true,
+    },
+  },
+  walkDuration: {
+    type: Sequelize.ENUM({
+      values: ['15', '30', '60'],
     }),
     allowNull: false,
     validate: {
