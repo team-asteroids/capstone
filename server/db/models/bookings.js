@@ -57,6 +57,8 @@ const Booking = db.define('booking', {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
     validate: {
+      min: 0,
+      max: 10000,
       notEmpty: true,
       notNull: true,
     },
