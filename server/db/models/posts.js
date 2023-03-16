@@ -3,7 +3,7 @@ const db = require('../database');
 
 const Post = db.define('post', {
   content: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -14,7 +14,7 @@ const Post = db.define('post', {
 
 const Post_Comment = db.define('post_comment', {
   content: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,

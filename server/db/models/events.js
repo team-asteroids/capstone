@@ -8,18 +8,25 @@ const Event = db.define('event', {
     validate: {
       notEmpty: true,
       notNull: true,
+      min: 5,
+      max: 5,
     },
   },
-  date: {
-    type: Sequelize.DATEONLY,
+  event_start: {
+    type: Sequelize.DATE,
     allowNull: false,
     validate: {
       notEmpty: true,
       notNull: true,
     },
   },
-  event_time: {
-    type: Sequelize.TIME,
+  event_end: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      notNull: true,
+    },
   },
   topic: {
     type: Sequelize.STRING,
