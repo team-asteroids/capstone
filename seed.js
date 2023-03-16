@@ -1,7 +1,7 @@
 // import mock data and models to seed db
 const {
   db,
-  // User,
+  User,
   // Sitter,
   // Sitter_Review,
   // Sitter_Rating,
@@ -19,11 +19,18 @@ const {
   // Post_Comment,
   // Access,
 } = require('./server/db/index');
+const user = require('./mock-data/userSeed');
 
 const init = async () => {
   try {
-    db.sync({ force: true });
+    await db.sync({ force: true });
     console.log('syncing the db');
+
+    console.log('seeding users...');
+    const seedUsers = await User.bulkCreate(user, {
+      validate: true,
+    });
+    console.log('User seeding successful!');
   } catch (err) {
     console.log(err);
     db.close();
