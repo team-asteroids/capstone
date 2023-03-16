@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const db = require('../db');
+const db = require('../database');
 
 const Map = db.define('map', {
   lat: {
@@ -20,8 +20,6 @@ const Map = db.define('map', {
   },
   title: {
     type: Sequelize.STRING,
-    allowNull: false,
-    type: Sequelize.FLOAT,
     allowNull: false,
     validate: {
       notEmpty: true,
