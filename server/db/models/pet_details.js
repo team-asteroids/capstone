@@ -120,7 +120,7 @@ const Pet_Detail = db.define('pet_detail', {
   },
   medications: {
     type: Sequelize.ENUM({
-      values: ['pill', 'injection', 'topical'],
+      values: ['pill', 'topical', 'injection'],
     }),
     allowNull: false,
     validate: {
