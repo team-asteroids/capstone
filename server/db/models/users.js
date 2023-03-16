@@ -42,6 +42,8 @@ const User = db.define('user', {
     unique: true,
     allowNull: false,
     validate: {
+      min: 10,
+      max: 10,
       notEmpty: true,
       notNull: true,
     },
