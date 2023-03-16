@@ -14,8 +14,12 @@ const Pet = db.define('pet', {
     },
   },
   breed: {
-    type: Sequelize.ENUM({
-      values: [
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      notNull: true,
+      isIn: [
         'French Bulldogs',
         'Labrador Retrievers',
         'Golden Retrievers',
@@ -216,11 +220,6 @@ const Pet = db.define('pet', {
         'Norwegian Lundehunds',
         'English Foxhounds',
       ],
-    }),
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-      notNull: true,
     },
   },
   age: {

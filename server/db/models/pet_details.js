@@ -54,7 +54,7 @@ const Pet_Detail = db.define('pet_detail', {
       notNull: true,
     },
   },
-  friendlyWithChildren: {
+  friendlyWithCats: {
     type: Sequelize.ENUM({
       values: ['yes', 'no', 'unsure', 'depends'],
     }),
@@ -64,7 +64,7 @@ const Pet_Detail = db.define('pet_detail', {
       notNull: true,
     },
   },
-  friendlyWithCats: {
+  friendlyWithChildren: {
     type: Sequelize.ENUM({
       values: ['yes', 'no', 'unsure', 'depends'],
     }),
@@ -137,7 +137,7 @@ const Pet_Detail = db.define('pet_detail', {
   },
   canBeLeftAlone: {
     type: Sequelize.ENUM({
-      values: ['<1 hour', '1-4 hours', '4-8 hours', 'custom'],
+      values: ['<1 hour', '1-4 hours', 'custom'],
     }),
     allowNull: false,
     validate: {
