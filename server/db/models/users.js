@@ -38,12 +38,11 @@ const User = db.define('user', {
     },
   },
   phone: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     unique: true,
     allowNull: false,
     validate: {
-      min: 10,
-      max: 10,
+      len: [10],
       notEmpty: true,
       notNull: true,
     },
@@ -144,8 +143,7 @@ const User = db.define('user', {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      min: 5,
-      max: 5,
+      len: [5],
       notEmpty: true,
       notNull: true,
     },
@@ -176,6 +174,7 @@ const User = db.define('user', {
   },
   imageSrc: {
     type: Sequelize.STRING,
+    defaultValue: 'http://dummyimage.com/129x100.png/dddddd/000000',
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -183,11 +182,9 @@ const User = db.define('user', {
     },
   },
   password: {
-    type: Sequelize.STRING(64),
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      is: /^[0-9a-f]{64}$/i,
-      min: 10,
       notEmpty: true,
       notNull: true,
     },
@@ -210,6 +207,22 @@ const User = db.define('user', {
       notNull: true,
     },
   },
+});
+
+User.beforeValidate('imageSrc', (user) => {
+  if (user.imageSrc === null)
+    user.imageSrc = 'http://dummyimage.com/245x100.png/ff4444/ffffff';
+});
+
+User.beforeValidate((user) => {
+  const MIN_PASSWORD_LENGTH = 8;
+
+  const pw = user.password;
+  if (pw.length < MIN_PASSWORD_LENGTH) {
+    const err = new Error();
+    err.message = `Minimum password requirement not met (${MIN_PASSWORD_LENGTH} characters)`;
+    throw err;
+  }
 });
 
 module.exports = User;
