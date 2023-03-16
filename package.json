@@ -6,6 +6,7 @@
     "start": "concurrently \"nodemon server/server.js\" \"react-scripts start\" ",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "seed": "node seed.js",
     "eject": "react-scripts eject",
     "style": "npx tailwindcss -i ./src/index.css -o ./public/tailwind.css --watch"
   },
