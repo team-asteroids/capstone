@@ -18,7 +18,7 @@ const {
   Map,
   Post,
   Post_Comment,
-  // Access,
+  Access,
 } = require('./server/db/index');
 const user = require('./mock-data/userSeed');
 const { events } = require('./mock-data/eventSeed');
@@ -31,13 +31,12 @@ const pets = require('./mock-data/petSeed');
 const pet_details = require('./mock-data/pet_detailsSeed');
 const payments = require('./mock-data/paymentSeed');
 const { bookings } = require('./mock-data/bookingSeed');
-// const { favGroups, favSitters } = require('./mock-data/favSeeds');
 const groups = require('./mock-data/groupSeed');
-// const groupMembers = require('./mock-data/groupMemSeed');
 const groupPosts = require('./mock-data/groupPostSeed');
 const messages = require('./mock-data/messageSeed');
 const { posts, postComments } = require('./mock-data/postSeed');
 const maps = require('./mock-data/mapSeed');
+const accessList = require('./mock-data/accessSeed');
 
 const init = async () => {
   try {
@@ -143,6 +142,13 @@ const init = async () => {
       validate: true,
     });
     console.log('Map seeding successful!');
+
+    console.log('seeding access...');
+    const seedAccess = await Access.bulkCreate(accessList, {
+      validate: true,
+    });
+    console.log('Access seeding successful!');
+    db.close();
   } catch (err) {
     console.log(err);
     db.close();
