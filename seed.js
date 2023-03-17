@@ -149,20 +149,24 @@ const init = async () => {
     });
     console.log('Access seeding successful!');
 
-    console.log('Sample association...');
-    const groupOne = seedGroups[0];
-    const userTen = seedUsers[9];
-    const newGroupMember = groupOne.addUser(6);
-    console.log('newGroupMember-->', newGroupMember);
+    // console.log('Sample association...');
+    // const groupOne = seedGroups[0];
+    // const userTen = seedUsers[9];
+    // const newGroupMember = await groupOne.addUser(6);
+    // console.log('newGroupMember-->', newGroupMember);
 
-    console.log('Trying mass associations...');
-    const massGroupMembers = seedGroups.map((group) => {
-      group.addUser(Math.floor(Math.random() * 50) + 1);
-    });
-    const secondMassGroupMembers = seedGroups.map((group) => {
-      group.addUser(Math.floor(Math.random() * 50) + 1);
-    });
-    console.log('Mass associations worked?');
+    console.log('seeding group members associations...');
+    const massGroupMembers = await Promise.all(
+      seedGroups.map((group) =>
+        group.addUser(Math.floor(Math.random() * 50) + 1)
+      )
+    );
+    const secondMassGroupMembers = await Promise.all(
+      seedGroups.map((group) =>
+        group.addUser(Math.floor(Math.random() * 50) + 1)
+      )
+    );
+    console.log('Group members seeding worked');
 
     db.close();
   } catch (err) {
