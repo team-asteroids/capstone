@@ -214,15 +214,15 @@ User.beforeValidate('imageSrc', (user) => {
     user.imageSrc = 'http://dummyimage.com/245x100.png/ff4444/ffffff';
 });
 
-User.beforeValidate((user) => {
-  const MIN_PASSWORD_LENGTH = 8;
+// User.beforeValidate((user) => {
+//   const MIN_PASSWORD_LENGTH = 8;
 
-  const pw = user.password;
-  if (pw.length < MIN_PASSWORD_LENGTH) {
-    const err = new Error();
-    err.message = `Minimum password requirement not met (${MIN_PASSWORD_LENGTH} characters)`;
-    throw err;
-  }
-});
+//   const pw = user.password;
+//   if (pw.length < MIN_PASSWORD_LENGTH) {
+//     const err = new Error();
+//     err.message = `Minimum password requirement not met (${MIN_PASSWORD_LENGTH} characters)`;
+//     throw err;
+//   }
+// });
 
 module.exports = User;
