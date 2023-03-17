@@ -999,7 +999,7 @@ const bookings = [
     userId: 105,
     paymentId: 31,
   },
-];
+].filter((booking) => booking.userId < 50);
 // bookings.length = 200
 
 const bookingPets = [
