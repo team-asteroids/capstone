@@ -26,10 +26,8 @@ const sitterRatingList = require('./mock-data/sitterRatingSeed');
 const sitterReviewList = require('./mock-data/sitterReviewSeed');
 const sitterClientList = require('./mock-data/sitterClient');
 const sitterPrefsList = require('./mock-data/sitterPrefs');
-
 const pets = require('./mock-data/petSeed');
 const pet_details = require('./mock-data/pet_detailsSeed');
-
 
 const init = async () => {
   try {
@@ -81,7 +79,6 @@ const init = async () => {
       validate: true,
     });
     console.log('Pet_details seeding successful!');
-
   } catch (err) {
     console.log(err);
     db.close();
