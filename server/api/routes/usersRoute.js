@@ -59,4 +59,31 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
+// THROUGH TABLE GET ROUTE EXAMPLE
+// sitterId > finding all of their clients through the sitter_clients table
+// get an array of client objects
+// we map over the array to pull out the userids
+// gives us an array of userids
+// map over that userid array in a promise all to query the User db per userid
+// send back an object with clients and users
+// router.get('/:id', async (req, res, next) => {
+//   try {
+//     const clients = await Sitter_Client.findAll({
+//       where: {
+//         sitterId: +req.params.id,
+//       },
+//     });
+
+//     const userIds = clients.map((client) => client.userId);
+
+//     const users = await Promise.all(
+//       userIds.map((userId) => User.findByPk(userId))
+//     );
+//     res.status(200).json({ clients, users });
+//   } catch (err) {
+//     console.log('Backend issue fetching single user');
+//     next(err);
+//   }
+// });
+
 module.exports = router;
