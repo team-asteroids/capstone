@@ -18,59 +18,23 @@ const {
   Post,
   Post_Comment,
   // Access,
+  // Payment,
 } = require('./server/db/index');
 const user = require('./mock-data/userSeed');
 const { events } = require('./mock-data/eventSeed');
-
 const sitterList = require('./mock-data/sitterSeed');
 const sitterRatingList = require('./mock-data/sitterRatingSeed');
 const sitterReviewList = require('./mock-data/sitterReviewSeed');
 const sitterClientList = require('./mock-data/sitterClient');
 const sitterPrefsList = require('./mock-data/sitterPrefs');
-
 const pets = require('./mock-data/petSeed');
 const pet_details = require('./mock-data/pet_detailsSeed');
-
-
 // const { favGroups, favSitters } = require('./mock-data/favSeeds');
 const groups = require('./mock-data/groupSeed');
 // const groupMembers = require('./mock-data/groupMemSeed');
 const groupPosts = require('./mock-data/groupPostSeed');
 const messages = require('./mock-data/messageSeed');
 const { posts, postComments } = require('./mock-data/postSeed');
-
-/*
-    console.log('seeding groups...');
-    const seedGroups = await Group.bulkCreate(group, {
-      validate: true,
-    });
-    console.log('Group seeding successful!');
-
-    console.log('seeding groupPosts...');
-    const seedGroupPosts = await Group_Post.bulkCreate(groupPost, {
-      validate: true,
-    });
-    console.log('Group_Post seeding successful!');
-
-    console.log('seeding messages...');
-    const seedMessages = await Message.bulkCreate(message, {
-      validate: true,
-    });
-    console.log('Message seeding successful!');
-
-    console.log('seeding posts...');
-    const seedPosts = await Post.bulkCreate(post, {
-      validate: true,
-    });
-    console.log('Post seeding successful!');
-
-     console.log('seeding postComments...');
-    const seedPostComments = await Post_Comment.bulkCreate(postComment, {
-      validate: true,
-    });
-    console.log('Post_Comment seeding successful!');
-    
-*/
 
 const init = async () => {
   try {
@@ -129,6 +93,35 @@ const init = async () => {
     });
     console.log('Pet_details seeding successful!');
 
+    console.log('seeding groups...');
+    const seedGroups = await Group.bulkCreate(groups, {
+      validate: true,
+    });
+    console.log('Group seeding successful!');
+
+    console.log('seeding messages...');
+    const seedMessages = await Message.bulkCreate(messages, {
+      validate: true,
+    });
+    console.log('Message seeding successful!');
+
+    console.log('seeding posts...');
+    const seedPosts = await Post.bulkCreate(posts, {
+      validate: true,
+    });
+    console.log('Post seeding successful!');
+
+    console.log('seeding groupPosts...');
+    const seedGroupPosts = await Group_Post.bulkCreate(groupPosts, {
+      validate: true,
+    });
+    console.log('Group_Post seeding successful!');
+
+    console.log('seeding postComments...');
+    const seedPostComments = await Post_Comment.bulkCreate(postComments, {
+      validate: true,
+    });
+    console.log('Post_Comment seeding successful!');
   } catch (err) {
     console.log(err);
     db.close();
