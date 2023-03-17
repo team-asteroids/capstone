@@ -104,12 +104,6 @@ const init = async () => {
       validate: true,
     });
     console.log('Booking seeding successful!');
-
-    console.log('seeding posts...');
-    const seedPosts = await Post.bulkCreate(posts, {
-      validate: true,
-    });
-    console.log('Posts seeding successful!');
   } catch (err) {
     console.log(err);
     db.close();
