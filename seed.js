@@ -14,7 +14,7 @@ const {
   Group,
   Group_Post,
   Message,
-  // Map,
+  Map,
   Post,
   Post_Comment,
   // Access,
@@ -35,6 +35,7 @@ const groups = require('./mock-data/groupSeed');
 const groupPosts = require('./mock-data/groupPostSeed');
 const messages = require('./mock-data/messageSeed');
 const { posts, postComments } = require('./mock-data/postSeed');
+const maps = require('./mock-data/mapSeed');
 
 const init = async () => {
   try {
@@ -122,6 +123,12 @@ const init = async () => {
       validate: true,
     });
     console.log('Post_Comment seeding successful!');
+
+    console.log('seeding maps...');
+    const seedMaps = await Map.bulkCreate(maps, {
+      validate: true,
+    });
+    console.log('Map seeding successful!');
   } catch (err) {
     console.log(err);
     db.close();
