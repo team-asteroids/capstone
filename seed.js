@@ -9,13 +9,14 @@ const {
   Sitter_Client,
   Pet,
   Pet_Detail,
-  // Booking,
+  Booking,
   Event,
+  Payment,
   // Group,
   // Group_Post,
   // Message,
   // Map,
-  // Post,
+  Post,
   // Post_Comment,
   // Access,
 } = require('./server/db/index');
@@ -31,6 +32,9 @@ const sitterPrefsList = require('./mock-data/sitterPrefs');
 const pets = require('./mock-data/petSeed');
 const pet_details = require('./mock-data/pet_detailsSeed');
 
+const payments = require('./mock-data/paymentSeed');
+const { bookings } = require('./mock-data/bookingSeed');
+const { posts } = require('./mock-data/postSeed');
 
 const init = async () => {
   try {
@@ -89,6 +93,23 @@ const init = async () => {
     });
     console.log('Pet_details seeding successful!');
 
+    console.log('seeding payments...');
+    const seedPayments = await Payment.bulkCreate(payments, {
+      validate: true,
+    });
+    console.log('Payment seeding successful!');
+
+    console.log('seeding bookings...');
+    const seedBookings = await Booking.bulkCreate(bookings, {
+      validate: true,
+    });
+    console.log('Booking seeding successful!');
+
+    console.log('seeding posts...');
+    const seedPosts = await Post.bulkCreate(posts, {
+      validate: true,
+    });
+    console.log('Posts seeding successful!');
   } catch (err) {
     console.log(err);
     db.close();
