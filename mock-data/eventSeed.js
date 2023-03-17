@@ -1,6 +1,6 @@
 const events = [
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2023-02-01 09:39:41',
     event_end: '2022-08-28 06:17:51',
     topic: 'concert',
@@ -27,7 +27,7 @@ const events = [
     creatorId: 48,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-09-02 08:56:07',
     event_end: '2022-03-19 10:46:08',
     topic: 'playdate',
@@ -36,7 +36,7 @@ const events = [
     creatorId: 9,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-06-06 03:58:08',
     event_end: '2023-01-22 15:36:03',
     topic: 'birthday',
@@ -45,7 +45,7 @@ const events = [
     creatorId: 49,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-11-21 13:38:36',
     event_end: '2023-03-10 21:13:36',
     topic: 'playdate',
@@ -54,7 +54,7 @@ const events = [
     creatorId: 29,
   },
   {
-    zip_code: '63700-000',
+    zip_code: '6370',
     event_start: '2022-07-11 11:54:57',
     event_end: '2022-09-27 03:39:19',
     topic: 'playdate',
@@ -63,7 +63,7 @@ const events = [
     creatorId: 23,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-09-26 22:41:11',
     event_end: '2022-05-31 10:59:27',
     topic: 'concert',
@@ -89,7 +89,7 @@ const events = [
     creatorId: 24,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-04-01 03:54:44',
     event_end: '2023-02-26 20:42:56',
     topic: 'playdate',
@@ -98,7 +98,7 @@ const events = [
     creatorId: 19,
   },
   {
-    zip_code: '37950-000',
+    zip_code: '3795',
     event_start: '2022-07-29 14:36:37',
     event_end: '2022-07-03 16:58:52',
     topic: 'concert',
@@ -107,7 +107,7 @@ const events = [
     creatorId: 33,
   },
   {
-    zip_code: '92170',
+    zip_code: '9217',
     event_start: '2022-10-01 20:35:13',
     event_end: '2022-03-25 18:25:17',
     topic: 'playdate',
@@ -116,7 +116,7 @@ const events = [
     creatorId: 5,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-04-23 19:15:03',
     event_end: '2022-12-10 17:46:46',
     topic: 'birthday',
@@ -134,7 +134,7 @@ const events = [
     creatorId: 37,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-07-30 07:35:39',
     event_end: '2022-12-21 17:40:27',
     topic: 'concert',
@@ -143,7 +143,7 @@ const events = [
     creatorId: 43,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-03-25 04:16:55',
     event_end: '2023-01-06 12:59:19',
     topic: 'birthday',
@@ -152,7 +152,7 @@ const events = [
     creatorId: 9,
   },
   {
-    zip_code: '69150-000',
+    zip_code: '6915',
     event_start: '2022-08-07 15:53:57',
     event_end: '2023-01-21 20:12:41',
     topic: 'birthday',
@@ -161,7 +161,7 @@ const events = [
     creatorId: 39,
   },
   {
-    zip_code: '46896',
+    zip_code: '4686',
     event_start: '2022-05-20 02:01:41',
     event_end: '2022-04-29 14:24:00',
     topic: 'playdate',
@@ -170,7 +170,7 @@ const events = [
     creatorId: 2,
   },
   {
-    zip_code: '115 91',
+    zip_code: '1191',
     event_start: '2022-09-25 10:57:25',
     event_end: '2022-12-08 16:35:54',
     topic: 'concert',
@@ -179,7 +179,7 @@ const events = [
     creatorId: 35,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-11-15 09:45:51',
     event_end: '2022-06-04 18:42:02',
     topic: 'playdate',
@@ -188,7 +188,7 @@ const events = [
     creatorId: 10,
   },
   {
-    zip_code: 'A91',
+    zip_code: '0911',
     event_start: '2022-12-31 18:48:30',
     event_end: '2022-09-18 18:45:08',
     topic: 'playdate',
@@ -197,7 +197,7 @@ const events = [
     creatorId: 10,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-07-27 18:01:54',
     event_end: '2022-09-21 23:45:51',
     topic: 'birthday',
@@ -206,7 +206,7 @@ const events = [
     creatorId: 30,
   },
   {
-    zip_code: '66140',
+    zip_code: '6610',
     event_start: '2023-02-15 03:56:54',
     event_end: '2022-11-21 00:58:30',
     topic: 'birthday',
@@ -215,7 +215,7 @@ const events = [
     creatorId: 28,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-09-25 23:30:13',
     event_end: '2022-12-12 01:45:53',
     topic: 'birthday',
@@ -224,7 +224,7 @@ const events = [
     creatorId: 40,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2023-03-11 07:33:47',
     event_end: '2022-04-03 12:15:39',
     topic: 'playdate',
@@ -233,7 +233,7 @@ const events = [
     creatorId: 29,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-08-26 03:48:53',
     event_end: '2023-03-10 12:04:39',
     topic: 'playdate',
@@ -242,7 +242,7 @@ const events = [
     creatorId: 50,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2023-02-05 22:25:16',
     event_end: '2022-10-12 12:55:26',
     topic: 'birthday',
@@ -251,7 +251,7 @@ const events = [
     creatorId: 40,
   },
   {
-    zip_code: '06254 CEDEX',
+    zip_code: '0625',
     event_start: '2023-03-03 01:17:33',
     event_end: '2022-06-30 08:44:56',
     topic: 'birthday',
@@ -260,7 +260,7 @@ const events = [
     creatorId: 25,
   },
   {
-    zip_code: '5210-046',
+    zip_code: '5210',
     event_start: '2023-02-28 02:48:00',
     event_end: '2022-11-08 21:33:34',
     topic: 'birthday',
@@ -269,7 +269,7 @@ const events = [
     creatorId: 46,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-10-26 21:21:46',
     event_end: '2022-11-28 13:13:12',
     topic: 'playdate',
@@ -278,7 +278,7 @@ const events = [
     creatorId: 23,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-07-04 12:49:05',
     event_end: '2022-10-16 02:28:26',
     topic: 'birthday',
@@ -287,7 +287,7 @@ const events = [
     creatorId: 24,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-08-02 11:10:03',
     event_end: '2022-12-23 12:20:44',
     topic: 'concert',
@@ -296,7 +296,7 @@ const events = [
     creatorId: 10,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-11-23 21:48:38',
     event_end: '2022-03-23 21:29:09',
     topic: 'concert',
@@ -305,7 +305,7 @@ const events = [
     creatorId: 41,
   },
   {
-    zip_code: '85130',
+    zip_code: '8513',
     event_start: '2022-12-24 10:51:50',
     event_end: '2022-09-27 20:48:08',
     topic: 'concert',
@@ -314,7 +314,7 @@ const events = [
     creatorId: 20,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-08-11 03:28:16',
     event_end: '2022-11-20 03:06:12',
     topic: 'playdate',
@@ -323,7 +323,7 @@ const events = [
     creatorId: 16,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-10-06 10:17:27',
     event_end: '2022-08-31 21:40:19',
     topic: 'concert',
@@ -332,7 +332,7 @@ const events = [
     creatorId: 15,
   },
   {
-    zip_code: '617000',
+    zip_code: '6170',
     event_start: '2022-06-12 01:07:28',
     event_end: '2022-05-21 22:12:27',
     topic: 'playdate',
@@ -341,7 +341,7 @@ const events = [
     creatorId: 20,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-10-13 08:48:57',
     event_end: '2022-08-28 23:33:14',
     topic: 'concert',
@@ -350,7 +350,7 @@ const events = [
     creatorId: 34,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2023-03-09 09:32:34',
     event_end: '2022-04-10 20:44:00',
     topic: 'birthday',
@@ -359,7 +359,7 @@ const events = [
     creatorId: 14,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2023-01-12 21:49:19',
     event_end: '2022-09-26 18:53:00',
     topic: 'concert',
@@ -368,7 +368,7 @@ const events = [
     creatorId: 36,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2023-03-05 10:20:24',
     event_end: '2022-08-16 08:52:31',
     topic: 'playdate',
@@ -377,7 +377,7 @@ const events = [
     creatorId: 8,
   },
   {
-    zip_code: '49900-000',
+    zip_code: '4990',
     event_start: '2022-05-17 05:58:35',
     event_end: '2022-08-31 12:31:23',
     topic: 'concert',
@@ -386,7 +386,7 @@ const events = [
     creatorId: 12,
   },
   {
-    zip_code: '35164 CEDEX',
+    zip_code: '3516',
     event_start: '2023-01-06 03:48:34',
     event_end: '2022-12-12 23:42:27',
     topic: 'playdate',
@@ -395,7 +395,7 @@ const events = [
     creatorId: 21,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-08-24 18:19:21',
     event_end: '2022-09-01 09:03:35',
     topic: 'birthday',
@@ -404,7 +404,7 @@ const events = [
     creatorId: 7,
   },
   {
-    zip_code: '63-720',
+    zip_code: '6720',
     event_start: '2022-05-25 05:53:53',
     event_end: '2022-07-03 20:44:34',
     topic: 'birthday',
@@ -413,7 +413,7 @@ const events = [
     creatorId: 45,
   },
   {
-    zip_code: '35903 CEDEX 9',
+    zip_code: '3590',
     event_start: '2022-10-24 18:36:12',
     event_end: '2022-05-13 09:46:12',
     topic: 'birthday',
@@ -422,7 +422,7 @@ const events = [
     creatorId: 20,
   },
   {
-    zip_code: '981 80',
+    zip_code: '98180',
     event_start: '2022-03-27 17:37:06',
     event_end: '2022-10-24 05:23:59',
     topic: 'birthday',
@@ -440,7 +440,7 @@ const events = [
     creatorId: 28,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-11-23 22:08:34',
     event_end: '2023-02-28 22:06:13',
     topic: 'concert',
@@ -449,7 +449,7 @@ const events = [
     creatorId: 22,
   },
   {
-    zip_code: 'V6Z',
+    zip_code: '2231',
     event_start: '2022-07-27 23:35:26',
     event_end: '2022-08-08 02:30:02',
     topic: 'playdate',
@@ -476,7 +476,7 @@ const events = [
     creatorId: 43,
   },
   {
-    zip_code: '52245',
+    zip_code: '5224',
     event_start: '2022-11-28 09:07:59',
     event_end: '2022-08-10 15:43:56',
     topic: 'playdate',
@@ -485,7 +485,7 @@ const events = [
     creatorId: 49,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-09-19 02:12:54',
     event_end: '2022-09-03 15:40:02',
     topic: 'playdate',
@@ -494,7 +494,7 @@ const events = [
     creatorId: 3,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-07-12 10:04:54',
     event_end: '2022-08-01 12:22:01',
     topic: 'concert',
@@ -503,7 +503,7 @@ const events = [
     creatorId: 27,
   },
   {
-    zip_code: '2350-259',
+    zip_code: '2350',
     event_start: '2022-10-12 21:42:41',
     event_end: '2022-03-26 07:45:30',
     topic: 'birthday',
@@ -511,7 +511,7 @@ const events = [
     creatorId: 50,
   },
   {
-    zip_code: '181 31',
+    zip_code: '1831',
     event_start: '2022-04-09 20:22:47',
     event_end: '2022-04-17 17:01:24',
     topic: 'concert',
@@ -520,7 +520,7 @@ const events = [
     creatorId: 50,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-08-12 06:48:18',
     event_end: '2022-04-05 11:43:13',
     topic: 'birthday',
@@ -529,7 +529,7 @@ const events = [
     creatorId: 45,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-06-14 06:32:07',
     event_end: '2022-11-06 08:42:12',
     topic: 'concert',
@@ -538,7 +538,7 @@ const events = [
     creatorId: 31,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2023-01-24 10:08:36',
     event_end: '2022-10-25 14:10:59',
     topic: 'playdate',
@@ -547,7 +547,7 @@ const events = [
     creatorId: 23,
   },
   {
-    zip_code: '27509 CEDEX',
+    zip_code: '2750',
     event_start: '2022-09-09 10:15:39',
     event_end: '2022-08-26 01:27:29',
     topic: 'playdate',
@@ -555,7 +555,7 @@ const events = [
     creatorId: 5,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-03-23 12:55:04',
     event_end: '2022-08-05 09:23:01',
     topic: 'concert',
@@ -564,7 +564,7 @@ const events = [
     creatorId: 39,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-06-03 02:39:17',
     event_end: '2022-06-18 13:28:18',
     topic: 'playdate',
@@ -573,7 +573,7 @@ const events = [
     creatorId: 23,
   },
   {
-    zip_code: '54414',
+    zip_code: '5441',
     event_start: '2022-08-20 21:11:27',
     event_end: '2022-12-10 02:08:34',
     topic: 'birthday',
@@ -582,7 +582,7 @@ const events = [
     creatorId: 40,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-06-22 11:31:54',
     event_end: '2022-05-16 01:00:00',
     topic: 'playdate',
@@ -591,7 +591,7 @@ const events = [
     creatorId: 49,
   },
   {
-    zip_code: '48850',
+    zip_code: '4885',
     event_start: '2022-03-16 11:23:38',
     event_end: '2022-07-22 14:03:21',
     topic: 'concert',
@@ -600,7 +600,7 @@ const events = [
     creatorId: 7,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-12-01 00:38:44',
     event_end: '2022-09-21 17:34:35',
     topic: 'concert',
@@ -609,7 +609,7 @@ const events = [
     creatorId: 39,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-11-24 17:06:18',
     event_end: '2023-01-07 08:34:37',
     topic: 'birthday',
@@ -618,7 +618,7 @@ const events = [
     creatorId: 9,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2023-02-19 13:40:52',
     event_end: '2022-08-17 23:14:52',
     topic: 'concert',
@@ -627,7 +627,7 @@ const events = [
     creatorId: 12,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2023-01-13 08:29:26',
     event_end: '2023-01-08 07:36:05',
     topic: 'playdate',
@@ -636,7 +636,7 @@ const events = [
     creatorId: 36,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-05-31 00:19:29',
     event_end: '2023-02-09 04:34:43',
     topic: 'birthday',
@@ -645,7 +645,7 @@ const events = [
     creatorId: 26,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-08-09 01:01:51',
     event_end: '2022-10-23 16:10:48',
     topic: 'birthday',
@@ -654,7 +654,7 @@ const events = [
     creatorId: 28,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-07-11 09:12:08',
     event_end: '2022-11-19 23:12:46',
     topic: 'concert',
@@ -663,7 +663,7 @@ const events = [
     creatorId: 42,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-05-10 22:27:50',
     event_end: '2023-01-30 19:04:41',
     topic: 'playdate',
@@ -681,7 +681,7 @@ const events = [
     creatorId: 40,
   },
   {
-    zip_code: '51149',
+    zip_code: '5114',
     event_start: '2022-06-11 09:12:20',
     event_end: '2022-11-18 01:48:44',
     topic: 'concert',
@@ -690,7 +690,7 @@ const events = [
     creatorId: 3,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-11-11 10:43:19',
     event_end: '2022-12-05 02:57:41',
     topic: 'concert',
@@ -699,7 +699,7 @@ const events = [
     creatorId: 50,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2023-03-05 10:47:50',
     event_end: '2023-01-24 15:00:22',
     topic: 'concert',
@@ -717,7 +717,7 @@ const events = [
     creatorId: 13,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-11-01 23:01:28',
     event_end: '2022-09-24 16:00:56',
     topic: 'concert',
@@ -726,7 +726,7 @@ const events = [
     creatorId: 8,
   },
   {
-    zip_code: '39140',
+    zip_code: '3914',
     event_start: '2023-03-02 01:12:15',
     event_end: '2022-04-01 21:58:52',
     topic: 'concert',
@@ -735,7 +735,7 @@ const events = [
     creatorId: 44,
   },
   {
-    zip_code: '77895-000',
+    zip_code: '7789',
     event_start: '2022-03-26 15:04:38',
     event_end: '2023-03-14 14:14:16',
     topic: 'playdate',
@@ -744,7 +744,7 @@ const events = [
     creatorId: 32,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-12-30 07:21:28',
     event_end: '2022-09-05 00:01:28',
     topic: 'concert',
@@ -753,7 +753,7 @@ const events = [
     creatorId: 41,
   },
   {
-    zip_code: '48161',
+    zip_code: '4811',
     event_start: '2023-01-16 14:26:52',
     event_end: '2022-05-29 10:22:35',
     topic: 'playdate',
@@ -762,7 +762,7 @@ const events = [
     creatorId: 43,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-05-06 12:42:58',
     event_end: '2023-02-01 08:09:18',
     topic: 'birthday',
@@ -771,7 +771,7 @@ const events = [
     creatorId: 34,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-12-05 18:08:24',
     event_end: '2022-05-16 03:25:42',
     topic: 'playdate',
@@ -780,7 +780,7 @@ const events = [
     creatorId: 40,
   },
   {
-    zip_code: '303842',
+    zip_code: '3038',
     event_start: '2022-11-11 14:36:22',
     event_end: '2022-12-29 17:07:57',
     topic: 'playdate',
@@ -789,7 +789,7 @@ const events = [
     creatorId: 21,
   },
   {
-    zip_code: '47001',
+    zip_code: '4700',
     event_start: '2022-04-13 17:53:09',
     event_end: '2022-07-24 07:22:33',
     topic: 'birthday',
@@ -807,7 +807,7 @@ const events = [
     creatorId: 8,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-09-13 21:49:54',
     event_end: '2022-08-13 00:07:21',
     topic: 'playdate',
@@ -816,7 +816,7 @@ const events = [
     creatorId: 42,
   },
   {
-    zip_code: '44160',
+    zip_code: '4416',
     event_start: '2023-02-06 09:37:10',
     event_end: '2022-07-15 20:10:22',
     topic: 'concert',
@@ -825,7 +825,7 @@ const events = [
     creatorId: 31,
   },
   {
-    zip_code: '79900-000',
+    zip_code: '7990',
     event_start: '2023-02-18 23:15:35',
     event_end: '2022-07-12 09:43:52',
     topic: 'playdate',
@@ -834,7 +834,7 @@ const events = [
     creatorId: 49,
   },
   {
-    zip_code: '374 33',
+    zip_code: '3743',
     event_start: '2022-10-31 10:04:46',
     event_end: '2022-07-08 15:48:10',
     topic: 'concert',
@@ -852,7 +852,7 @@ const events = [
     creatorId: 42,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-05-29 10:39:42',
     event_end: '2022-07-16 03:07:26',
     topic: 'concert',
@@ -860,7 +860,7 @@ const events = [
     creatorId: 36,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-12-18 10:06:51',
     event_end: '2023-01-01 07:50:14',
     topic: 'concert',
@@ -869,7 +869,7 @@ const events = [
     creatorId: 11,
   },
   {
-    zip_code: null,
+    zip_code: '9404',
     event_start: '2022-09-15 06:52:48',
     event_end: '2022-04-04 19:43:17',
     topic: 'concert',
@@ -878,7 +878,7 @@ const events = [
     creatorId: 40,
   },
   {
-    zip_code: '03011',
+    zip_code: '0301',
     event_start: '2022-12-12 22:46:05',
     event_end: '2022-09-29 02:05:08',
     topic: 'concert',

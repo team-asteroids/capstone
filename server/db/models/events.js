@@ -8,8 +8,7 @@ const Event = db.define('event', {
     validate: {
       notEmpty: true,
       notNull: true,
-      min: 5,
-      max: 5,
+      len: [4],
     },
   },
   event_start: {
