@@ -3,7 +3,7 @@ const db = require('../database');
 
 const Sitter_Client = db.define('sitter_client', {
   status: {
-    type: Sequelize.ENUM('active', 'inactive'),
+    type: Sequelize.BOOLEAN,
     allowNull: false,
     validate: {
       notEmpty: true,
