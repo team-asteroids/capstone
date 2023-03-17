@@ -4,7 +4,7 @@ const {
   User,
   Sitter,
   // Sitter_Review,
-  // Sitter_Rating,
+  Sitter_Rating,
   // Sitter_Pref,
   // Sitter_Client,
   // Pet,
@@ -21,6 +21,7 @@ const {
 } = require('./server/db/index');
 const user = require('./mock-data/userSeed');
 const sitterList = require('./mock-data/sitterSeed');
+const sitterRatingList = require('./mock-data/sitterRatingSeed');
 
 const init = async () => {
   try {
@@ -38,6 +39,12 @@ const init = async () => {
       validate: true,
     });
     console.log('Sitter seeding successful!');
+
+    console.log('seeding sitter ratings...');
+    const seedSitterReviews = await Sitter_Rating.bulkCreate(sitterRatingList, {
+      validate: true,
+    });
+    console.log('Sitter ratings seeding successful!');
   } catch (err) {
     console.log(err);
     db.close();
