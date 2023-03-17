@@ -35,6 +35,7 @@ const groups = require('./mock-data/groupSeed');
 const groupPosts = require('./mock-data/groupPostSeed');
 const messages = require('./mock-data/messageSeed');
 const { posts, postComments } = require('./mock-data/postSeed');
+const maps = require('./mock-data/mapSeed');
 
 const init = async () => {
   try {
