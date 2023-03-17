@@ -15,6 +15,7 @@ const Map = require('./models/maps');
 const { Post, Post_Comment } = require('./models/posts');
 const Access = require('./models/access');
 const Payment = require('./models/payments');
+const { FavSitter, FavGroup } = require('./models/favs');
 
 User.hasMany(Pet);
 Pet.belongsTo(User);
@@ -51,8 +52,8 @@ Group.belongsToMany(User, { through: 'group_members' });
 User.belongsToMany(Group, { through: 'group_members' });
 
 // -- fav_groups
-Group.belongsToMany(User, { through: 'fav_groups' });
-User.belongsToMany(Group, { through: 'fav_groups' });
+Group.belongsToMany(User, { through: FavGroup });
+User.belongsToMany(Group, { through: FavGroup });
 
 // -- group_post_likes
 Group_Post.belongsToMany(User, { through: 'group_post_likes' });
@@ -122,6 +123,9 @@ Sitter.belongsTo(User);
 Sitter.belongsToMany(User, { through: Sitter_Client });
 User.belongsToMany(Sitter, { through: Sitter_Client });
 
+Sitter.belongsToMany(User, { through: FavSitter });
+User.belongsToMany(Sitter, { through: FavSitter });
+
 Sitter.hasMany(Sitter_Rating);
 Sitter_Rating.belongsTo(Sitter);
 
@@ -143,8 +147,8 @@ User.hasMany(Map);
 User.hasMany(Payment);
 Payment.belongsTo(User);
 
-User.belongsToMany(Sitter, { through: 'fav_sitters' });
-Sitter.belongsToMany(User, { through: 'fav_sitters' });
+// User.belongsToMany(Sitter, { through: 'fav_sitters' });
+// Sitter.belongsToMany(User, { through: 'fav_sitters' });
 
 module.exports = {
   db,
@@ -166,4 +170,6 @@ module.exports = {
   Post_Comment,
   Access,
   Payment,
+  FavSitter,
+  FavGroup,
 };
