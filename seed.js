@@ -14,7 +14,7 @@ const {
   Group,
   Group_Post,
   Message,
-  // Map,
+  Map,
   Post,
   Post_Comment,
   // Access,
@@ -122,6 +122,12 @@ const init = async () => {
       validate: true,
     });
     console.log('Post_Comment seeding successful!');
+
+    console.log('seeding maps...');
+    const seedMaps = await Map.bulkCreate(maps, {
+      validate: true,
+    });
+    console.log('Map seeding successful!');
   } catch (err) {
     console.log(err);
     db.close();
