@@ -3,7 +3,7 @@ const users = [
     firstName: 'Cyrus',
     lastName: 'Sattin',
     email: 'csattin0@shutterfly.com',
-    phone: 5717454971,
+    phone: '5717454971',
     address1: '4667 Namekagon Street',
     address2: '7256',
     city: 'Reston',

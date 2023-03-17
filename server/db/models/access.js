@@ -18,11 +18,10 @@ const Access = db.define('access', {
     },
   },
   emergencyContactPhone: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     allowNull: false,
     validate: {
-      min: 10,
-      max: 10,
+      len: [10],
       notEmpty: true,
       notNull: true,
     },
