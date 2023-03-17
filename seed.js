@@ -10,7 +10,7 @@ const {
   Pet,
   Pet_Detail,
   // Booking,
-  // Event,
+  Event,
   // Group,
   // Group_Post,
   // Message,
@@ -20,6 +20,7 @@ const {
   // Access,
 } = require('./server/db/index');
 const user = require('./mock-data/userSeed');
+const { events } = require('./mock-data/eventSeed');
 
 const sitterList = require('./mock-data/sitterSeed');
 const sitterRatingList = require('./mock-data/sitterRatingSeed');
@@ -41,6 +42,12 @@ const init = async () => {
       validate: true,
     });
     console.log('User seeding successful!');
+
+    console.log('seeding events...');
+    const seedEvents = await Event.bulkCreate(events, {
+      validate: true,
+    });
+    console.log('Event seeding successful!');
 
     console.log('seeding sitters...');
     const seedSitters = await Sitter.bulkCreate(sitterList, {
