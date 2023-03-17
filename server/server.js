@@ -5,7 +5,6 @@ const volleyball = require('volleyball');
 // const dotenv = require('dotenv').config();
 // const config = require('config');
 const PORT = process.env.PORT_NUMBER || 8080;
-// const db = require('./db');
 
 // Static middleware
 app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -21,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Start of API routes
-app.use('/api', require('./API'));
+app.use('/api', require('./api'));
 
 // Serves HTML file
 app.use('*', (req, res, next) => {
@@ -41,16 +40,6 @@ async function init() {
   });
 }
 
-// const init = async () => {
-//   try {
-//     db.sync().then(
-//       app.listen(PORT, () => {
-//         console.log(`App running on port ${PORT}!`);
-//       })
-//     );
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
 init();
+
+module.exports = app;
