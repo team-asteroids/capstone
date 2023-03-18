@@ -28,6 +28,8 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+// Get pet details of a user's pets
+
 // Add single user
 router.post('/', async (req, res, next) => {
   try {
