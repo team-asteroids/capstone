@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const singlePost = await Post.findByPk(req.params.id, {
-      include: { model: Post_Comment },
+      include: [{ model: Post_Comment }],
     });
     res.status(200).json(singlePost);
   } catch (e) {
@@ -95,11 +95,13 @@ router.delete('/:id', async (req, res, next) => {
 
 // _____________________________________________________________
 
-// get all post comments on a post --could include User?
+// get all comments on a post
 router.get('/:id/comments', async (req, res, next) => {
   try {
     const allPostComments = await Post_Comment.findAll({
       where: { postId: req.params.id },
+      //include User info:
+      include: { model: User },
     });
     res.status(200).json(allPostComments);
   } catch (e) {
