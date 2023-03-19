@@ -9,7 +9,7 @@ router.use('/pets', require('./routes/petsRoute'));
 // router.use('/events', require('./routes/events'));
 // router.use('/posts', require('./routes/posts'));
 // router.use('/groups', require('./routes/groups'));
-// router.use('/auth', require('./routes/auth'));
+router.use('/auth', require('./routes/auth'));
 // router.use('/map', require('./routes/map'));
 
 // 404 default error handler
