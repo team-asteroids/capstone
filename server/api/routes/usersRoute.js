@@ -73,6 +73,7 @@ router.delete('/:id', async (req, res, next) => {
         exclude: ['password'],
       },
     });
+    if (!deletedUser) return res.status(404).send('No product to delete!');
     await deletedUser.destroy();
     res.json(deletedUser);
   } catch (err) {
