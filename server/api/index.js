@@ -7,7 +7,7 @@ router.use('/pets', require('./routes/petsRoute'));
 // // reviews and ratings under sitters
 // router.use('/bookings', require('./routes/booking'));
 // router.use('/events', require('./routes/events'));
-// router.use('/posts', require('./routes/posts'));
+router.use('/posts', require('./routes/postsRoute'));
 // router.use('/groups', require('./routes/groups'));
 // router.use('/auth', require('./routes/auth'));
 // router.use('/map', require('./routes/map'));
