@@ -1,5 +1,11 @@
 const router = require('express').Router();
-const { Post, Post_Comment } = require('../../db');
+const {
+  Post,
+  Post_Comment,
+  User,
+  Post_Like,
+  Post_Comment_Like,
+} = require('../../db');
 
 // get all posts
 router.get('/', async (req, res, next) => {
@@ -89,7 +95,7 @@ router.delete('/:id', async (req, res, next) => {
 
 // _____________________________________________________________
 
-// get all post comments on a post
+// get all post comments on a post --could include User?
 router.get('/:id/comments', async (req, res, next) => {
   try {
     const allPostComments = await Post_Comment.findAll({
@@ -154,18 +160,114 @@ router.delete('/:id/comments/:commentId', async (req, res, next) => {
 
 // _____________________________________________________________
 
-// get all likes on a post
+// get all likes &/or users who liked  -- per post
+router.get('/:id/likes', async (req, res, next) => {
+  try {
+    const likes = await Post_Like.findAll({
+      where: { postId: req.params.id },
+    });
+
+    const userIds = likes.map((like) => like.userId);
+
+    const users = await Promise.all(
+      userIds.map((userId) => User.findByPk(userId))
+    );
+    res.status(200).json({ likes, users });
+  } catch (e) {
+    console.log('Backend issue fetching all post likes');
+    next(e);
+  }
+});
 
 //  like a post
+router.post('/:id/likes', async (req, res, next) => {
+  try {
+    const [newPostLike, wasCreated] = await Post_Like.findOrCreate({
+      where: {
+        postId: req.params.id,
+        userId: req.body.userId,
+      },
+    });
+    if (!wasCreated)
+      return res.status(409).send('This user already liked this post!');
+    res.status(201).json(newPostLike);
+  } catch (e) {
+    console.log('Backend issue adding post_like');
+    next(e);
+  }
+});
 
 //  remove like from post
+router.delete('/:id/likes', async (req, res, next) => {
+  try {
+    const deletedPostLike = await Post_Like.findOne({
+      where: { userId: req.body.userId, postId: req.body.postId },
+    });
+    if (!deletedPostLike)
+      return res.status(404).send('That post_like does not exist!');
+    await deletedPostLike.destroy();
+    res.json(deletedPostLike);
+  } catch (e) {
+    console.log('Backend issue deleting post_like');
+    next(e);
+  }
+});
 
 // _____________________________________________________________
 
-// get all likes on a post-comment
+// get all likes & users who liked  -- per post_comment
+// can we do /:commentId/likes rather than the whole thing?
+router.get('/:id/comments/:commentId/likes', async (req, res, next) => {
+  try {
+    const likes = await Post_Comment_Like.findAll({
+      where: { postCommentId: req.params.commentId },
+    });
+
+    const userIds = likes.map((like) => like.userId);
+
+    const users = await Promise.all(
+      userIds.map((userId) => User.findByPk(userId))
+    );
+    res.status(200).json({ likes, users });
+  } catch (e) {
+    console.log('Backend issue fetching all post-comment likes');
+    next(e);
+  }
+});
 
 // like a post-comment
+router.post('/:id/comments/:commentId/likes', async (req, res, next) => {
+  try {
+    const [newPostCommentLike, wasCreated] =
+      await Post_Comment_Like.findOrCreate({
+        where: {
+          postCommentId: req.params.commentId,
+          userId: req.body.userId,
+        },
+      });
+    if (!wasCreated)
+      return res.status(409).send('This user already liked this post comment!');
+    res.status(201).json(newPostCommentLike);
+  } catch (e) {
+    console.log('Backend issue adding post_comment_like');
+    next(e);
+  }
+});
 
 // remove like from post-comment
+router.delete('/:id/comments/:commentId/likes', async (req, res, next) => {
+  try {
+    const deletedPostCommentLike = await Post_Comment_Like.findOne({
+      where: { userId: req.body.userId, postCommentId: req.body.postCommentId },
+    });
+    if (!deletedPostCommentLike)
+      return res.status(404).send('That post_comment_like does not exist!');
+    await deletedPostCommentLike.destroy();
+    res.json(deletedPostCommentLike);
+  } catch (e) {
+    console.log('Backend issue deleting post_comment_like');
+    next(e);
+  }
+});
 
 module.exports = router;

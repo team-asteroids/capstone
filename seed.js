@@ -21,6 +21,8 @@ const {
   Post_Comment,
   Access,
   FavGroup,
+  Post_Like,
+  Post_Comment_Like,
 } = require('./server/db/index');
 const user = require('./mock-data/userSeed');
 const { events } = require('./mock-data/eventSeed');
@@ -36,7 +38,12 @@ const { bookings } = require('./mock-data/bookingSeed');
 const groups = require('./mock-data/groupSeed');
 const groupPosts = require('./mock-data/groupPostSeed');
 const messages = require('./mock-data/messageSeed');
-const { posts, postComments } = require('./mock-data/postSeed');
+const {
+  posts,
+  postComments,
+  postLikes,
+  postCommentLikes,
+} = require('./mock-data/postSeed');
 const maps = require('./mock-data/mapSeed');
 const accessList = require('./mock-data/accessSeed');
 const { favSitters, favGroups } = require('./mock-data/favSeeds');
@@ -177,29 +184,38 @@ const init = async () => {
     );
     console.log('Group members seeding worked');
 
-    // post_comment_likes
-    console.log('seeding postCommentLikes associations...');
-    const massPostCommentLikes = await Promise.all(
-      seedPostComments
-        .filter((postComment) => {
-          return postComment.id % 2 !== 0;
-        })
-        .map((postComment) =>
-          postComment.addUser(Math.floor(Math.random() * 40) + 1)
-        )
-    );
-    console.log('postCommentLikes seeding worked');
-
     // post_likes
     console.log('seeding postLikes associations...');
-    const massPostComments = await Promise.all(
-      seedPosts
-        .filter((post) => {
-          return post.id % 2 !== 0;
-        })
-        .map((post) => post.addUser(Math.floor(Math.random() * 40) + 1))
-    );
+    const seedPostLikes = await Post_Like.bulkCreate(postLikes, {
+      validate: true,
+    });
+    // // const massPostComments = await Promise.all(
+    // //   seedPosts
+    // //     .filter((post) => {
+    // //       return post.id % 2 !== 0;
+    // //     })
+    // //     .map((post) => post.addUsers(Math.floor(Math.random() * 40) + 1))
+    // // );
     console.log('postLikes seeding worked');
+
+    // // post_comment_likes
+    console.log('seeding postCommentLikes associations...');
+    const seedPostCommentLikes = await Post_Comment_Like.bulkCreate(
+      postCommentLikes,
+      {
+        validate: true,
+      }
+    );
+    // // const massPostCommentLikes = await Promise.all(
+    // //   seedPostComments
+    // //     .filter((postComment) => {
+    // //       return postComment.id % 2 !== 0;
+    // //     })
+    // //     .map((postComment) =>
+    // //       postComment.addUser(Math.floor(Math.random() * 40) + 1)
+    // //     )
+    // // );
+    console.log('postCommentLikes seeding worked');
 
     // group_post_likes
     console.log('seeding group_post_likes associations...');
