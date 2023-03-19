@@ -53,7 +53,9 @@ router.post('/', async (req, res, next) => {
 // Edit single user
 router.put('/:id', requireToken, async (req, res, next) => {
   // if user is trying th change someone else's info and they are NOT an admin, fail w/403
-  if (req.user.id !== +req.params.id && req.user.role !== 'admin') {
+  const id = +req.params.id;
+
+  if (req.user.id !== id && req.user.role !== 'admin') {
     return res
       .status(403)
       .send(
@@ -70,13 +72,13 @@ router.put('/:id', requireToken, async (req, res, next) => {
         .send('inadequate access rights / cannot update role');
     }
 
-    const user = await User.findByPk(req.params.id);
+    const user = await User.findByPk(id);
 
     if (!user) return res.status(404).send('No user exists!');
     await user.update(req.body);
 
     return res.status(200).send(
-      await User.findByPk(req.params.id, {
+      await User.findByPk(id, {
         attributes: {
           exclude: ['password'],
         },
@@ -89,14 +91,22 @@ router.put('/:id', requireToken, async (req, res, next) => {
 });
 
 // Delete single user
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', requireToken, async (req, res, next) => {
+  const id = +req.params.id;
+  if (req.user.id !== id && req.user.role !== 'admin') {
+    return res
+      .status(403)
+      .send(
+        'inadequate access rights / requested user does not match logged in user / cannot delete user'
+      );
+  }
   try {
-    const deletedUser = await User.findByPk(req.params.id, {
+    const deletedUser = await User.findByPk(id, {
       attributes: {
         exclude: ['password'],
       },
     });
-    if (!deletedUser) return res.status(404).send('No product to delete!');
+    if (!deletedUser) return res.status(404).send('No user exists!');
     await deletedUser.destroy();
     res.json(deletedUser);
   } catch (err) {
