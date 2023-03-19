@@ -10,11 +10,13 @@ router.get('/', async (req, res, next) => {
   try {
     const allUsers = await User.findAll({
       include: Pet,
+      attributes: {
+        exclude: ['password'],
+      },
     });
-    console.log('allUsers:', allUsers);
     res.status(200).json(allUsers);
   } catch (err) {
-    console.log('Backend issue fetching all users');
+    console.error('BACKEND ISSUE FETCHING ALL USERS');
     next(err);
   }
 });
@@ -24,10 +26,14 @@ router.get('/:id', async (req, res, next) => {
   try {
     const singleUser = await User.findByPk(+req.params.id, {
       include: Pet,
+      attributes: {
+        exclude: ['password'],
+      },
     });
+    if (!singleUser) return res.status(404).send('user does not exist');
     res.status(200).json(singleUser);
   } catch (err) {
-    console.log('Backend issue fetching single user');
+    console.error('BACKEND ISSUE FETCHING SINGLE USER');
     next(err);
   }
 });
@@ -108,8 +114,9 @@ router.delete('/:id', requireToken, async (req, res, next) => {
     });
     if (!deletedUser) return res.status(404).send('No user exists!');
     await deletedUser.destroy();
-    res.json(deletedUser);
+    res.sendStatus(204); // 204 no content (successful delete but not sending anything back)
   } catch (err) {
+    console.error('BACKEND ISSUE DELETING USER');
     next(err);
   }
 });
