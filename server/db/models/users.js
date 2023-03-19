@@ -248,7 +248,6 @@ User.authenticate = async ({ email, password }) => {
     const user = await User.findOne({
       where: { email },
     });
-
     if (user && (await bcrypt.compare(password, user.password))) {
       return jwt.sign(
         {
@@ -279,7 +278,6 @@ User.verifyByToken = async (token) => {
         exclude: ['password'],
       },
     });
-
     if (user) {
       return user;
     } else {
