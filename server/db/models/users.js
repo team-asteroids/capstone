@@ -237,10 +237,40 @@ User.beforeCreate(async (user) => {
 //   }
 // });
 
+// find a user in the db by the unique email
+// compares password passed in by user to encrypted password stored in db
+// if user exists and passwords match, generates token
+// we care about passing back the role because we need it for later auth steps
+// if user doesn't exist or password doesn't match, return a 401 (unauthorized) error
+
+User.authenticate = async ({ email, password }) => {
+  try {
+    const user = await User.findOne({
+      where: { email },
+    });
+
+    if (user && (await bcrypt.compare(password, user.password))) {
+      return jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+          role: user.role,
+        },
+        SECRET
+      );
+    }
+    const error = new Error('bad credentials');
+    error.status = 401;
+    throw error;
+  } catch (err) {
+    console.log('authentication error:', err);
+  }
+};
+
 // takes token from first part of login (auth)
 // verifies token corresponds to a real user
 // if yes, sends back the user body (excluding password)
-// if no, throws an error
+// if no, throws a 401 (unauthorized) error
 User.verifyByToken = async (token) => {
   try {
     const { id } = jwt.verify(token, SECRET);
@@ -261,7 +291,5 @@ User.verifyByToken = async (token) => {
     console.log('verification error:', err);
   }
 };
-
-User.authenticate = async ({ email, password }) => {};
 
 module.exports = User;
