@@ -36,7 +36,7 @@ const isSitter = async (req, res, next) => {
   }
 };
 
-// isAdmin checks a user's role is "admin"
+// checks a user's role is "admin"
 // if not, returns a 403 forbidden error
 // calls next
 const isAdmin = async (req, res, next) => {
