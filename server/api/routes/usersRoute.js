@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User, Pet } = require('../../db');
 
+// Get all users
 router.get('/', async (req, res, next) => {
   try {
     const allUsers = await User.findAll({
@@ -14,6 +15,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// Get single user
 router.get('/:id', async (req, res, next) => {
   try {
     const singleUser = await User.findByPk(+req.params.id, {
@@ -26,6 +28,9 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+// Get pet details of a user's pets
+
+// Add single user
 router.post('/', async (req, res, next) => {
   try {
     const [newUser, wasCreated] = await User.findOrCreate({
@@ -41,6 +46,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+// Edit single user
 // auth middleware that says can only update if req.params.id === id that comes from the auth middleware (which takes a token)
 router.put('/:id', async (req, res, next) => {
   try {
@@ -56,6 +62,21 @@ router.put('/:id', async (req, res, next) => {
   } catch (e) {
     console.error('BACKEND ISSUE UPDATING USER');
     next(e);
+  }
+});
+
+// Delete single user
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const deletedUser = await User.findByPk(req.params.id, {
+      attributes: {
+        exclude: ['password'],
+      },
+    });
+    await deletedUser.destroy();
+    res.json(deletedUser);
+  } catch (err) {
+    next(err);
   }
 });
 
