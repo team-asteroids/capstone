@@ -222,20 +222,20 @@ User.beforeValidate('imageSrc', (user) => {
 
 // encrypts user password
 User.beforeCreate(async (user) => {
-  user.password = await bcrypt(user.password, SALT_ROUNDS);
+  user.password = await bcrypt.hash(user.password, SALT_ROUNDS);
 });
 
 // throws error if password is < 8 chars
-// User.beforeValidate((user) => {
-//   const MIN_PASSWORD_LENGTH = 8;
+User.beforeValidate((user) => {
+  const MIN_PASSWORD_LENGTH = 8;
 
-//   const pw = user.password;
-//   if (pw.length < MIN_PASSWORD_LENGTH) {
-//     const err = new Error();
-//     err.message = `Minimum password requirement not met (${MIN_PASSWORD_LENGTH} characters)`;
-//     throw err;
-//   }
-// });
+  const pw = user.password;
+  if (pw.length < MIN_PASSWORD_LENGTH) {
+    const err = new Error();
+    err.message = `Minimum password requirement not met (${MIN_PASSWORD_LENGTH} characters)`;
+    throw err;
+  }
+});
 
 // find a user in the db by the unique email
 // compares password passed in by user to encrypted password stored in db
