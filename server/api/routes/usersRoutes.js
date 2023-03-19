@@ -1,5 +1,9 @@
 const router = require('express').Router();
 const { User, Pet } = require('../../db');
+const { requireToken } = require('../authMiddleware');
+
+// router.use('/reviews', require('./routes/reviewRoutes'));
+// router.use('/ratings', require('./routes/ratingsRoutes'));
 
 // Get all users
 router.get('/', async (req, res, next) => {
@@ -47,18 +51,37 @@ router.post('/', async (req, res, next) => {
 });
 
 // Edit single user
-// auth middleware that says can only update if req.params.id === id that comes from the auth middleware (which takes a token)
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', requireToken, async (req, res, next) => {
+  // if user is trying th change someone else's info and they are NOT an admin, fail w/403
+  if (req.user.id !== +req.params.id && req.user.role !== 'admin') {
+    return res
+      .status(403)
+      .send(
+        'inadequate access rights / requested user does not match logged in user'
+      );
+  }
+
   try {
-    const user = await User.findByPk(req.params.id, {
-      attributes: {
-        exclude: ['password'],
-      },
-    });
-    console.log(user);
+    // if user is trying to update user's "role" to admin but they are NOT an admin, fail w/403
+    const { role } = req.body;
+    if (role === 'admin' && req.user.role !== 'admin') {
+      return res
+        .status(403)
+        .send('inadequate access rights / cannot update role');
+    }
+
+    const user = await User.findByPk(req.params.id);
+
     if (!user) return res.status(404).send('No user exists!');
-    const updatedUser = await user.update(req.body);
-    res.json(updatedUser);
+    await user.update(req.body);
+
+    return res.status(200).send(
+      await User.findByPk(req.params.id, {
+        attributes: {
+          exclude: ['password'],
+        },
+      })
+    );
   } catch (e) {
     console.error('BACKEND ISSUE UPDATING USER');
     next(e);
