@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 // routes to specific pages
-router.use('/users', require('./routes/usersRoute'));
+router.use('/users', require('./routes/usersRoutes'));
 router.use('/pets', require('./routes/petsRoute'));
 // router.use('/sitters', require('./routes/sitters'));
 // // reviews and ratings under sitters
@@ -9,7 +9,7 @@ router.use('/pets', require('./routes/petsRoute'));
 // router.use('/events', require('./routes/events'));
 // router.use('/posts', require('./routes/posts'));
 // router.use('/groups', require('./routes/groups'));
-router.use('/auth', require('./routes/auth'));
+router.use('/auth', require('./routes/authRoutes'));
 // router.use('/map', require('./routes/map'));
 
 // 404 default error handler
