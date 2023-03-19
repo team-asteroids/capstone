@@ -3,8 +3,8 @@ const { User } = require('../../db');
 const { requireToken } = require('../authMiddleware');
 
 // /api/auth
-// this path is used to confirm a user is logged in and who they say they are
-// before allowing them to continue with process
+// gets a user obj if token is correct (logged in/ who they say they are)
+// must confirm the above before allowing someone to continue with process
 // e.g. get to user settings > must attempt token login by calling requireToken middleware before sending back the user obj
 router.get('/', requireToken, (req, res, next) => {
   try {
@@ -37,3 +37,5 @@ router.post('/login', async (req, res, next) => {
     next(err);
   }
 });
+
+module.exports = router;
