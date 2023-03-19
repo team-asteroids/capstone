@@ -31,7 +31,7 @@ const isSitter = async (req, res, next) => {
     }
     next();
   } catch (err) {
-    console.log('error in isAdmin auth middleware', err);
+    console.log('error in isSitter auth middleware', err);
     next(err);
   }
 };
