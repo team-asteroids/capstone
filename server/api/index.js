@@ -3,9 +3,9 @@ const router = require('express').Router();
 // routes to specific pages
 router.use('/users', require('./routes/usersRoutes'));
 router.use('/pets', require('./routes/petsRoute'));
-router.use('/sitters', require('./routes/sitters'));
+router.use('/sitters', require('./routes/sittersRoute'));
 // // reviews and ratings under sitters
-// router.use('/bookings', require('./routes/booking'));
+router.use('/bookings', require('./routes/bookingsRoutes'));
 // router.use('/events', require('./routes/events'));
 // router.use('/posts', require('./routes/posts'));
 // router.use('/groups', require('./routes/groups'));
