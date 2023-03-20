@@ -12,7 +12,12 @@ const Event = require('./models/events');
 const { Group, Group_Post } = require('./models/groups');
 const Message = require('./models/messages');
 const Map = require('./models/maps');
-const { Post, Post_Comment } = require('./models/posts');
+const {
+  Post,
+  Post_Comment,
+  Post_Like,
+  Post_Comment_Like,
+} = require('./models/posts');
 const Access = require('./models/access');
 const Payment = require('./models/payments');
 const { FavSitter, FavGroup } = require('./models/favs');
@@ -80,12 +85,12 @@ Post_Comment.belongsTo(User);
 User.hasMany(Post_Comment);
 
 // -- post_likes
-User.belongsToMany(Post, { through: 'post_likes' });
-Post.belongsToMany(User, { through: 'post_likes' });
+User.belongsToMany(Post, { through: Post_Like });
+Post.belongsToMany(User, { through: Post_Like });
 
 // -- post_comment_likes
-User.belongsToMany(Post_Comment, { through: 'post_comment_likes' });
-Post_Comment.belongsToMany(User, { through: 'post_comment_likes' });
+User.belongsToMany(Post_Comment, { through: Post_Comment_Like });
+Post_Comment.belongsToMany(User, { through: Post_Comment_Like });
 
 // -- put senderId on Message table
 Message.belongsTo(User);
@@ -172,4 +177,6 @@ module.exports = {
   Payment,
   FavSitter,
   FavGroup,
+  Post_Comment_Like,
+  Post_Like,
 };
