@@ -1,6 +1,6 @@
 // can come from USER or SITTER routes (or just straight admin)
 const router = require('express').Router({ mergeParams: true });
-const { Booking, User, Pet, Sitter, Payment } = require('../../db');
+const { Booking, User, Sitter, Payment } = require('../../db');
 const { requireToken } = require('../authMiddleware');
 
 // issues: not hitting some error paths
