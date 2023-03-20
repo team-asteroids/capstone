@@ -3,7 +3,7 @@ const router = require('express').Router();
 // routes to specific pages
 router.use('/users', require('./routes/usersRoutes'));
 router.use('/pets', require('./routes/petsRoute'));
-router.use('/sitters', require('./routes/sitters'));
+router.use('/sitters', require('./routes/sittersRoute'));
 // // reviews and ratings under sitters
 // router.use('/bookings', require('./routes/booking'));
 // router.use('/events', require('./routes/events'));
@@ -11,6 +11,7 @@ router.use('/sitters', require('./routes/sitters'));
 // router.use('/groups', require('./routes/groups'));
 router.use('/auth', require('./routes/authRoutes'));
 // router.use('/map', require('./routes/map'));
+router.use('/reviews', require('./routes/reviewsRoutes'));
 
 // 404 default error handler
 router.use((req, res, next) => {
