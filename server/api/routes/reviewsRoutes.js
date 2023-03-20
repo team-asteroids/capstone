@@ -162,6 +162,24 @@ router.put('/:reviewId', requireToken, async (req, res, next) => {
 // /users/:id/reviews/:reviewId
 router.delete('/:reviewId', requireToken, async (req, res, next) => {
   try {
+    const id = +req.params.id;
+    const reviewId = +req.params.reviewId;
+    const review = await Sitter_Review.findByPk(reviewId);
+
+    if (!review) return res.status(404).send('review does not exist!');
+    else if (
+      (req.user.id === id && review.userId === id) ||
+      req.user.role === 'admin'
+    ) {
+      await review.destroy();
+      res.status(204).send('successfully deleted review!');
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
   } catch (err) {
     console.log('BACKEND ISSUE DELETING REVIEW');
     next(err);
