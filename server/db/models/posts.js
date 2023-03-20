@@ -23,9 +23,14 @@ const Post_Comment = db.define('post_comment', {
   },
 });
 
+const Post_Like = db.define('post_likes');
+const Post_Comment_Like = db.define('post_comment_likes');
+
 module.exports = {
   Post,
   Post_Comment,
+  Post_Like,
+  Post_Comment_Like,
 };
 
 /* 
