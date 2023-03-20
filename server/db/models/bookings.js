@@ -1,19 +1,10 @@
 const Sequelize = require('sequelize');
 const db = require('../database');
 
-// Sitter.hasMany(Booking);
-// Booking.belongsTo(Sitter);
-// User.hasMany(Booking);
-// Booking.belongsTo(User);
-// Payment.hasMany(Booking);
-// Booking.belongsTo(Payment);
-// Pet.belongsToMany(Booking);
-// Booking.belongsToMany(Pet);
-
 const Booking = db.define('booking', {
   status: {
     type: Sequelize.ENUM({
-      values: ['pending', 'approved', 'cancelled', 'complete'],
+      values: ['pending', 'approved', 'cancelled', 'complete', 'withdrawn'],
       allowNull: false,
       validate: {
         notEmpty: true,
