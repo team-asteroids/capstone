@@ -59,6 +59,7 @@ const init = async () => {
     console.log('seeding users...');
     const seedUsers = await User.bulkCreate(user, {
       validate: true,
+      individualHooks: true,
     });
     console.log('User seeding successful!');
 
