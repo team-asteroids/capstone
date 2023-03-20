@@ -9,7 +9,12 @@ const Pet = require('./models/pets');
 const Pet_Detail = require('./models/pet_details');
 const Booking = require('./models/bookings');
 const Event = require('./models/events');
-const { Group, Group_Post } = require('./models/groups');
+const {
+  Group,
+  Group_Post,
+  Group_Member,
+  Group_Post_Like,
+} = require('./models/groups');
 const Message = require('./models/messages');
 const Map = require('./models/maps');
 const {
@@ -53,16 +58,16 @@ Group_Post.belongsTo(Group);
 Group.hasMany(Group_Post);
 
 // -- group_members
-Group.belongsToMany(User, { through: 'group_members' });
-User.belongsToMany(Group, { through: 'group_members' });
+Group.belongsToMany(User, { through: Group_Member });
+User.belongsToMany(Group, { through: Group_Member });
 
 // -- fav_groups
 Group.belongsToMany(User, { through: FavGroup });
 User.belongsToMany(Group, { through: FavGroup });
 
 // -- group_post_likes
-Group_Post.belongsToMany(User, { through: 'group_post_likes' });
-User.belongsToMany(Group_Post, { through: 'group_post_likes' });
+Group_Post.belongsToMany(User, { through: Group_Post_Like });
+User.belongsToMany(Group_Post, { through: Group_Post_Like });
 
 // --event_rsvp
 Event.belongsToMany(User, { through: 'event_rsvps' });
@@ -169,6 +174,8 @@ module.exports = {
   Event,
   Group,
   Group_Post,
+  Group_Member,
+  Group_Post_Like,
   Message,
   Map,
   Post,

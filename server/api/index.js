@@ -8,7 +8,7 @@ router.use('/pets', require('./routes/petsRoute'));
 // router.use('/bookings', require('./routes/booking'));
 // router.use('/events', require('./routes/events'));
 router.use('/posts', require('./routes/postsRoute'));
-// router.use('/groups', require('./routes/groups'));
+router.use('/groups', require('./routes/groupsRoute'));
 // router.use('/auth', require('./routes/auth'));
 // router.use('/map', require('./routes/map'));
 
