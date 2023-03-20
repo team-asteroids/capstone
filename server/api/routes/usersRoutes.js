@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User, Pet } = require('../../db');
 
-router.use('/users/:id/reviews', require('./reviewsRoutes'));
+router.use('/:id/reviews', require('./reviewsRoutes'));
 
 // Get all users
 router.get('/', async (req, res, next) => {
