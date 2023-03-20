@@ -15,6 +15,8 @@ const {
   Payment,
   Group,
   Group_Post,
+  Group_Member,
+  Group_Post_Like,
   Message,
   Map,
   Post,
@@ -36,7 +38,8 @@ const pet_details = require('./mock-data/pet_detailsSeed');
 const payments = require('./mock-data/paymentSeed');
 const { bookings } = require('./mock-data/bookingSeed');
 const groups = require('./mock-data/groupSeed');
-const groupPosts = require('./mock-data/groupPostSeed');
+const groupMembers = require('./mock-data/groupMemSeed');
+const { groupPosts, groupPostLikes } = require('./mock-data/groupPostSeed');
 const messages = require('./mock-data/messageSeed');
 const {
   posts,
@@ -124,6 +127,12 @@ const init = async () => {
     });
     console.log('Group seeding successful!');
 
+    console.log('seeding group_members...');
+    const seedGroupMembers = await Group_Member.bulkCreate(groupMembers, {
+      validate: true,
+    });
+    console.log('Group seeding successful!');
+
     console.log('seeding messages...');
     const seedMessages = await Message.bulkCreate(messages, {
       validate: true,
@@ -140,6 +149,15 @@ const init = async () => {
     const seedGroupPosts = await Group_Post.bulkCreate(groupPosts, {
       validate: true,
     });
+    console.log('Group_Post seeding successful!');
+
+    console.log('seeding groupPostLikes...');
+    const seedGroupPostLikes = await Group_Post_Like.bulkCreate(
+      groupPostLikes,
+      {
+        validate: true,
+      }
+    );
     console.log('Group_Post seeding successful!');
 
     console.log('seeding postComments...');
@@ -172,12 +190,12 @@ const init = async () => {
     });
     console.log('fav_groups seeding successful!');
 
-    console.log('seeding group members associations...');
-    const massGroupMembers = await Promise.all(
-      seedGroups.map((group) =>
-        group.addUser(Math.floor(Math.random() * 50) + 1)
-      )
-    );
+    // console.log('seeding group members associations...');
+    // const massGroupMembers = await Promise.all(
+    //   seedGroups.map((group) =>
+    //     group.addUser(Math.floor(Math.random() * 50) + 1)
+    //   )
+    // );
     const secondMassGroupMembers = await Promise.all(
       seedGroups.map((group) =>
         group.addUser(Math.floor(Math.random() * 50) + 1)
@@ -219,17 +237,17 @@ const init = async () => {
     console.log('postCommentLikes seeding worked');
 
     // group_post_likes
-    console.log('seeding group_post_likes associations...');
-    const massGroupPostLikes = await Promise.all(
-      seedGroupPosts
-        .filter((groupPost) => {
-          return groupPost.id % 2 !== 0;
-        })
-        .map((groupPost) =>
-          groupPost.addUser(Math.floor(Math.random() * 40) + 10)
-        )
-    );
-    console.log('group_post_likes seeding worked');
+    // console.log('seeding group_post_likes associations...');
+    // const massGroupPostLikes = await Promise.all(
+    //   seedGroupPosts
+    //     .filter((groupPost) => {
+    //       return groupPost.id % 2 !== 0;
+    //     })
+    //     .map((groupPost) =>
+    //       groupPost.addUser(Math.floor(Math.random() * 40) + 10)
+    //     )
+    // );
+    // console.log('group_post_likes seeding worked');
 
     console.log('seeding newBookingPets...');
     const newBookingPets = await seedBookings[0]
