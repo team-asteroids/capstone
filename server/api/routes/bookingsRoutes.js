@@ -5,7 +5,6 @@ const { requireToken } = require('../authMiddleware');
 
 // GET - fetch all bookings (user-specific & admin only)
 // /user/:id/bookings/
-// /sitter/:id/bookings/
 // /bookings/
 router.get('/', requireToken, async (req, res, next) => {
   try {
@@ -41,7 +40,6 @@ router.get('/', requireToken, async (req, res, next) => {
 
 // GET - fetch a specific booking
 // /user/:id/bookings/:id
-// /sitter/:id/bookings/:id
 // /bookings/:id
 router.get('/:bookingId', requireToken, async (req, res, next) => {
   try {
@@ -71,8 +69,20 @@ router.get('/:bookingId', requireToken, async (req, res, next) => {
 });
 
 // POST - add a new booking
-router.post('/', async (req, res, next) => {
+router.post('/', requireToken, async (req, res, next) => {
   try {
+    const id = +req.params.id;
+    if (req.user.id === id || req.user.role === 'admin') {
+      const newBooking = await Booking.create(req.body);
+      if (!newBooking) return res.status(404).send('error creating bookings!');
+      res.status(200).send(newBooking);
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
   } catch (err) {
     console.log('BACKED ISSUE ADDING A NEW BOOKING');
     next(err);
@@ -80,8 +90,25 @@ router.post('/', async (req, res, next) => {
 });
 
 // PUT - update a booking
-router.put('/:id', async (req, res, next) => {
+router.put('/:bookingId', async (req, res, next) => {
   try {
+    const id = +req.params.id;
+    const bookingId = +req.params.bookingId;
+    const booking = await Booking.findByPk(bookingId);
+    if (!booking) return res.status(204).status('booking does not exist!');
+    if (
+      (req.user.id === id && booking.userId === id) ||
+      req.user.role === 'admin'
+    ) {
+      const updatedBooking = await Booking.update(req.body);
+      res.status(200).send(updatedBooking);
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
   } catch (err) {
     console.log('BACKED ISSUE UPDATING A BOOKING');
     next(err);
