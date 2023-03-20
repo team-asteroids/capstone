@@ -90,7 +90,7 @@ router.post('/', requireToken, async (req, res, next) => {
 });
 
 // PUT - update a booking
-router.put('/:bookingId', async (req, res, next) => {
+router.put('/:bookingId', requireToken, async (req, res, next) => {
   try {
     const id = +req.params.id;
     const bookingId = +req.params.bookingId;
@@ -117,7 +117,7 @@ router.put('/:bookingId', async (req, res, next) => {
 });
 
 // DELETE - delete a booking
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:bookingId', requireToken, async (req, res, next) => {
   try {
     const id = +req.params.id;
     const bookingId = +req.params.bookingId;
