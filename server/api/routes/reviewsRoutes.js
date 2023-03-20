@@ -32,7 +32,7 @@ router.get('/', requireToken, async (req, res, next) => {
         ],
       });
       if (!allUserReviews) {
-        return res.status(404).send('no user bookings!');
+        return res.status(404).send('no user reviews!');
       } else res.status(200).send(allUserReviews);
     } else {
       res
@@ -74,7 +74,7 @@ router.get('/:reviewId', requireToken, async (req, res, next) => {
         ],
       });
       if (!userReview) {
-        return res.status(404).send('no user bookings!');
+        return res.status(404).send('no user review!');
       } else res.status(200).send(userReview);
     } else {
       res
