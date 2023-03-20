@@ -3,6 +3,8 @@ const router = require('express').Router({ mergeParams: true });
 const { Booking, User, Pet, Sitter, Payment } = require('../../db');
 const { requireToken } = require('../authMiddleware');
 
+// issues: 1. sending back passwords; 2. not hitting some error paths
+
 // GET - fetch all bookings (user-specific & admin only)
 // /user/:id/bookings/
 // /bookings/
@@ -123,7 +125,7 @@ router.delete('/:bookingId', requireToken, async (req, res, next) => {
     const bookingId = +req.params.bookingId;
     const booking = await Booking.findByPk(bookingId);
 
-    if (!booking) return res.status(204).send('booking does not exist!');
+    if (!booking) return res.status(404).send('booking does not exist!');
     else if (
       (req.user.id === id && booking.userId === id) ||
       req.user.role === 'admin'
