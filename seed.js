@@ -17,7 +17,7 @@ const {
   Group_Post,
   Group_Member,
   Group_Post_Like,
-  Message,
+  Chat_Message,
   Map,
   Post,
   Post_Comment,
@@ -25,6 +25,7 @@ const {
   FavGroup,
   Post_Like,
   Post_Comment_Like,
+  Chat,
 } = require('./server/db/index');
 const user = require('./mock-data/userSeed');
 const { events } = require('./mock-data/eventSeed');
@@ -50,6 +51,7 @@ const {
 const maps = require('./mock-data/mapSeed');
 const accessList = require('./mock-data/accessSeed');
 const { favSitters, favGroups } = require('./mock-data/favSeeds');
+const chatList = require('./mock-data/chatSeed');
 
 const init = async () => {
   try {
@@ -99,6 +101,12 @@ const init = async () => {
     });
     console.log('Sitter prefs seeding successful!');
 
+    // console.log('seeding chats...');
+    // const seedChats = await Chat.bulkCreate(chatList, {
+    //   validate: true,
+    // });
+    // console.log('Chat seeding successful!');
+
     console.log('seeding pets...');
     const seedPets = await Pet.bulkCreate(pets, {
       validate: true,
@@ -134,7 +142,7 @@ const init = async () => {
     console.log('Group seeding successful!');
 
     console.log('seeding messages...');
-    const seedMessages = await Message.bulkCreate(messages, {
+    const seedMessages = await Chat_Message.bulkCreate(messages, {
       validate: true,
     });
     console.log('Message seeding successful!');

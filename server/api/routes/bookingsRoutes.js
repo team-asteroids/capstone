@@ -1,7 +1,7 @@
 // can come from USER or SITTER routes (or just straight admin)
 const router = require('express').Router({ mergeParams: true });
 const { Booking, User, Sitter, Payment } = require('../../db');
-const { requireToken } = require('../authMiddleware');
+const { requireToken, isAdmin } = require('../authMiddleware');
 
 // issues: not hitting some error paths
 
@@ -135,27 +135,17 @@ router.put('/:bookingId', requireToken, async (req, res, next) => {
 });
 
 // DELETE - delete a booking
-// /user/:id/bookings/:bookingId
+// ADMIN ONLY
 // /bookings/:bookingId
-router.delete('/:bookingId', requireToken, async (req, res, next) => {
+router.delete('/:bookingId', requireToken, isAdmin, async (req, res, next) => {
   try {
-    const id = +req.params.id;
     const bookingId = +req.params.bookingId;
     const booking = await Booking.findByPk(bookingId);
 
     if (!booking) return res.status(404).send('booking does not exist!');
-    else if (
-      (req.user.id === id && booking.userId === id) ||
-      req.user.role === 'admin'
-    ) {
+    else {
       await booking.destroy();
-      res.status(204).send('successfully deleted booking!');
-    } else {
-      res
-        .status(403)
-        .send(
-          'Inadequate access rights / Requested user does not match logged-in user'
-        );
+      res.status(204).send('admin successfully deleted booking!');
     }
   } catch (err) {
     console.log('BACKED ISSUE DELETING A BOOKING');
