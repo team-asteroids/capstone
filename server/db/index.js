@@ -9,10 +9,20 @@ const Pet = require('./models/pets');
 const Pet_Detail = require('./models/pet_details');
 const Booking = require('./models/bookings');
 const Event = require('./models/events');
-const { Group, Group_Post } = require('./models/groups');
+const {
+  Group,
+  Group_Post,
+  Group_Member,
+  Group_Post_Like,
+} = require('./models/groups');
 const Message = require('./models/messages');
 const Map = require('./models/maps');
-const { Post, Post_Comment } = require('./models/posts');
+const {
+  Post,
+  Post_Comment,
+  Post_Like,
+  Post_Comment_Like,
+} = require('./models/posts');
 const Access = require('./models/access');
 const Payment = require('./models/payments');
 const { FavSitter, FavGroup } = require('./models/favs');
@@ -48,16 +58,16 @@ Group_Post.belongsTo(Group);
 Group.hasMany(Group_Post);
 
 // -- group_members
-Group.belongsToMany(User, { through: 'group_members' });
-User.belongsToMany(Group, { through: 'group_members' });
+Group.belongsToMany(User, { through: Group_Member });
+User.belongsToMany(Group, { through: Group_Member });
 
 // -- fav_groups
 Group.belongsToMany(User, { through: FavGroup });
 User.belongsToMany(Group, { through: FavGroup });
 
 // -- group_post_likes
-Group_Post.belongsToMany(User, { through: 'group_post_likes' });
-User.belongsToMany(Group_Post, { through: 'group_post_likes' });
+Group_Post.belongsToMany(User, { through: Group_Post_Like });
+User.belongsToMany(Group_Post, { through: Group_Post_Like });
 
 // --event_rsvp
 Event.belongsToMany(User, { through: 'event_rsvps' });
@@ -80,12 +90,12 @@ Post_Comment.belongsTo(User);
 User.hasMany(Post_Comment);
 
 // -- post_likes
-User.belongsToMany(Post, { through: 'post_likes' });
-Post.belongsToMany(User, { through: 'post_likes' });
+User.belongsToMany(Post, { through: Post_Like });
+Post.belongsToMany(User, { through: Post_Like });
 
 // -- post_comment_likes
-User.belongsToMany(Post_Comment, { through: 'post_comment_likes' });
-Post_Comment.belongsToMany(User, { through: 'post_comment_likes' });
+User.belongsToMany(Post_Comment, { through: Post_Comment_Like });
+Post_Comment.belongsToMany(User, { through: Post_Comment_Like });
 
 // -- put senderId on Message table
 Message.belongsTo(User);
@@ -164,6 +174,8 @@ module.exports = {
   Event,
   Group,
   Group_Post,
+  Group_Member,
+  Group_Post_Like,
   Message,
   Map,
   Post,
@@ -172,4 +184,6 @@ module.exports = {
   Payment,
   FavSitter,
   FavGroup,
+  Post_Comment_Like,
+  Post_Like,
 };
