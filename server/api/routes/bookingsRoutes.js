@@ -55,7 +55,7 @@ router.get('/:bookingId', requireToken, async (req, res, next) => {
       (req.user.id === id && booking.userId === id) ||
       req.user.role === 'admin'
     ) {
-      if (!booking) return res.status(404).send('booking does not exist!');
+      if (!booking) return res.status(204).send('booking does not exist!');
       res.status(200).send(booking);
     } else {
       res
