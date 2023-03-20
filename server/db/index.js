@@ -15,7 +15,7 @@ const {
   Group_Member,
   Group_Post_Like,
 } = require('./models/groups');
-const Message = require('./models/messages');
+const Chat_Message = require('./models/messages');
 const Map = require('./models/maps');
 const {
   Post,
@@ -26,6 +26,7 @@ const {
 const Access = require('./models/access');
 const Payment = require('./models/payments');
 const { FavSitter, FavGroup } = require('./models/favs');
+const Chat = require('./models/chats');
 
 User.hasMany(Pet);
 Pet.belongsTo(User);
@@ -44,6 +45,24 @@ Booking.belongsTo(Payment);
 
 Pet.belongsToMany(Booking, { through: 'booking_pets' });
 Booking.belongsToMany(Pet, { through: 'booking_pets' });
+
+// User.belongsToMany(User, { through: Chat });
+// Chat.belongsTo(User);
+
+User.belongsToMany(User, {
+  as: 'user1',
+  foreignKey: 'user1',
+  through: Chat,
+});
+
+User.belongsToMany(User, {
+  as: 'user2',
+  foreignKey: 'user2',
+  through: Chat,
+});
+
+Chat.hasMany(Chat_Message);
+Chat_Message.belongsTo(Chat, { foreignKey: 'chatId' });
 
 // -- put userId on Group table
 Group.belongsTo(User, { foreignKey: 'creatorId' });
@@ -98,16 +117,16 @@ User.belongsToMany(Post_Comment, { through: Post_Comment_Like });
 Post_Comment.belongsToMany(User, { through: Post_Comment_Like });
 
 // -- put senderId on Message table
-Message.belongsTo(User);
-User.hasMany(Message);
+Chat_Message.belongsTo(User);
+User.hasMany(Chat_Message);
 
 // -- put recepientId on Message table
-Message.belongsTo(User);
-User.hasMany(Message, { foreignKey: 'recipientId' });
+Chat_Message.belongsTo(User);
+User.hasMany(Chat_Message, { foreignKey: 'recipientId' });
 
 // -- message_likes
-User.belongsToMany(Message, { through: 'message_likes' });
-Message.belongsToMany(User, { through: 'message_likes' });
+User.belongsToMany(Chat_Message, { through: 'message_likes' });
+Chat_Message.belongsToMany(User, { through: 'message_likes' });
 
 Sitter.hasOne(Sitter_Pref);
 Sitter_Pref.belongsTo(Sitter);
@@ -176,7 +195,7 @@ module.exports = {
   Group_Post,
   Group_Member,
   Group_Post_Like,
-  Message,
+  Chat_Message,
   Map,
   Post,
   Post_Comment,
@@ -186,4 +205,5 @@ module.exports = {
   FavGroup,
   Post_Comment_Like,
   Post_Like,
+  Chat,
 };
