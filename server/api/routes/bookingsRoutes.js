@@ -3,7 +3,7 @@ const router = require('express').Router({ mergeParams: true });
 const { Booking, User, Pet, Sitter, Payment } = require('../../db');
 const { requireToken } = require('../authMiddleware');
 
-// issues: 1. sending back passwords; 2. not hitting some error paths
+// issues: not hitting some error paths
 
 // GET - fetch all bookings (user-specific & admin only)
 // /user/:id/bookings/
@@ -13,7 +13,11 @@ router.get('/', requireToken, async (req, res, next) => {
     const id = +req.params.id;
     if (req.user.role === 'admin') {
       const allBookings = await Booking.findAll({
-        include: [User, Sitter, Payment],
+        include: [
+          { model: User, attributes: { exclude: ['password'] } },
+          Sitter,
+          Payment,
+        ],
       });
       if (!allBookings) return res.status(404).send('no bookings!');
       res.status(200).send(allBookings);
@@ -22,7 +26,11 @@ router.get('/', requireToken, async (req, res, next) => {
         where: {
           userId: id,
         },
-        include: [User, Sitter, Payment],
+        include: [
+          { model: User, attributes: { exclude: ['password'] } },
+          Sitter,
+          Payment,
+        ],
       });
       if (!allUserBookings) {
         return res.status(404).send('no user bookings!');
@@ -41,14 +49,18 @@ router.get('/', requireToken, async (req, res, next) => {
 });
 
 // GET - fetch a specific booking
-// /user/:id/bookings/:id
-// /bookings/:id
+// /user/:id/bookings/:bookingId
+// /bookings/:bookingId
 router.get('/:bookingId', requireToken, async (req, res, next) => {
   try {
     const id = +req.params.id;
     const bookingId = +req.params.bookingId;
     const booking = await Booking.findByPk(bookingId, {
-      include: [User, Sitter, Payment],
+      include: [
+        { model: User, attributes: { exclude: ['password'] } },
+        Sitter,
+        Payment,
+      ],
     });
 
     if (
@@ -71,6 +83,8 @@ router.get('/:bookingId', requireToken, async (req, res, next) => {
 });
 
 // POST - add a new booking
+// /user/:id/bookings/
+// /bookings/
 router.post('/', requireToken, async (req, res, next) => {
   try {
     const id = +req.params.id;
@@ -92,6 +106,8 @@ router.post('/', requireToken, async (req, res, next) => {
 });
 
 // PUT - update a booking
+// /user/:id/bookings/:bookingId
+// /bookings/:bookingId
 router.put('/:bookingId', requireToken, async (req, res, next) => {
   try {
     const id = +req.params.id;
@@ -119,6 +135,8 @@ router.put('/:bookingId', requireToken, async (req, res, next) => {
 });
 
 // DELETE - delete a booking
+// /user/:id/bookings/:bookingId
+// /bookings/:bookingId
 router.delete('/:bookingId', requireToken, async (req, res, next) => {
   try {
     const id = +req.params.id;
