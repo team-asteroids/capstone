@@ -7,7 +7,10 @@ const {
   Sitter_Pref,
   Sitter_Review,
 } = require('../../db');
+const { requireToken, isSitter } = require('../authMiddleware');
 const sequelize = require('sequelize');
+
+router.use('/:id/reviews', require('./reviewsRoutes'));
 
 // get all sitters with their user info
 router.get('/', async (req, res, next) => {
@@ -30,30 +33,15 @@ router.get('/', async (req, res, next) => {
         })
       )
     );
-    // Fetch sitter ratings data with their average ratings by sitterId, rounded to 2 decimal places
-    const sitterRatings = await Sitter_Rating.findAll({
-      attributes: [
-        'sitterId',
-        [sequelize.literal('ROUND(AVG(rating), 2)'), 'averageRating'],
-      ],
-      group: ['sitterId'],
-    });
-    // Create a map of sitterId to averageRating
-    const ratingMap = {};
-    sitterRatings.forEach((rating) => {
-      ratingMap[rating.sitterId] = rating.dataValues.averageRating;
-    });
     // Combine all data into one array
     const combinedData = [];
     allSitters.forEach((sitter) => {
       const userData = userDataOfSitters.find(
         (user) => user.id === sitter.userId
       );
-      const sitterRating = ratingMap[sitter.id] || 0;
       combinedData.push({
         ...userData.dataValues,
         ...sitter.dataValues,
-        sitterRating,
       });
     });
 
@@ -69,12 +57,7 @@ router.get('/:id', async (req, res, next) => {
   try {
     // Fetch sitter
     const sitter = await Sitter.findByPk(+req.params.id);
-    // Fetch all clients of sitter
-    const clients = await Sitter_Client.findAll({
-      where: {
-        sitterId: +req.params.id,
-      },
-    });
+
     // Fetch all sitter preferences of sitter
     const sitterPrefs = await Sitter_Pref.findAll({
       where: {
@@ -85,26 +68,14 @@ router.get('/:id', async (req, res, next) => {
     const userIdOfSitter = sitter.userId;
     const user = await User.findByPk(userIdOfSitter);
 
-    // Get all userIds of clients and fetch user data
-    const userIds = clients.map((client) => client.userId);
-    const users = await Promise.all(
-      userIds.map((userId) =>
-        User.findByPk(userId, {
-          attributes: {
-            exclude: ['password'],
-          },
-        })
-      )
-    );
     // Combine sitter and user data
     const sitterAndUser = {
       ...user.dataValues,
       ...sitter.dataValues,
       sitterPrefs,
     };
-    const clientsOfSitter = users.map((user) => user.dataValues);
     // Send back sitter and clients
-    res.status(200).json({ sitterAndUser, clientsOfSitter });
+    res.status(200).json(sitterAndUser);
   } catch (err) {
     console.log('Backend issue fetching single user');
     next(err);
@@ -122,8 +93,19 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-// update sitter
-router.put('/:id', async (req, res, next) => {
+// Edit sitter
+router.put('/:id', requireToken, async (req, res, next) => {
+  // if user is trying to change someone else's info and they are NOT an admin, fail w/403
+  const id = +req.params.id;
+
+  if (req.user.id !== id && req.user.role !== 'admin') {
+    return res
+      .status(403)
+      .send(
+        'inadequate access rights / requested user does not match logged in user'
+      );
+  }
+
   try {
     const sitter = await Sitter.findByPk(req.params.id, {
       attributes: {
@@ -140,7 +122,21 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // delete sitter and all associated data
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', requireToken, async (req, res, next) => {
+  const id = +req.params.id; // id = sitterId
+  const sitter = await Sitter.findByPk(id);
+  if (!sitter) {
+    return res.status(404).send('no sitter exists');
+  }
+
+  if (sitter.userId !== req.user.id && req.user.role !== 'admin') {
+    return res
+      .status(403)
+      .send(
+        'inadequate access rights / requested user does not match logged in user / cannot delete user'
+      );
+  }
+
   try {
     // Fetch sitter
     const sitter = await Sitter.findByPk(req.params.id);
@@ -150,19 +146,19 @@ router.delete('/:id', async (req, res, next) => {
         sitterId: +req.params.id,
       },
     });
-    // Fetch all sitter preferences of sitter
+    // Fetch all sitter clients
     const sitterClients = await Sitter_Client.findOne({
       where: {
         sitterId: +req.params.id,
       },
     });
-    // Get all userId of sitter and fetch user data
+    // Fetch all sitter ratings
     const sitterRatings = await Sitter_Rating.findOne({
       where: {
         sitterId: +req.params.id,
       },
     });
-    // Get all userIds of clients and fetch user data
+    // Fetch all sitter reviews
     const sitterReviews = await Sitter_Review.findOne({
       where: {
         sitterId: +req.params.id,
@@ -183,3 +179,49 @@ router.delete('/:id', async (req, res, next) => {
 });
 
 module.exports = router;
+
+/*
+    // Fetch sitter ratings data with their average ratings by sitterId, rounded to 2 decimal places
+    const sitterRatings = await Sitter_Rating.findAll({
+      attributes: [
+        'sitterId',
+        [sequelize.literal('ROUND(AVG(rating), 2)'), 'averageRating'],
+      ],
+      group: ['sitterId'],
+    });
+
+        // Create a map of sitterId to averageRating
+    const ratingMap = {};
+    sitterRatings.forEach((rating) => {
+      ratingMap[rating.sitterId] = rating.dataValues.averageRating;
+    });
+
+    // after (user) => user.id === sitter.userId);
+      const sitterRating = ratingMap[sitter.id] || 0;
+
+    // push ..., sitterRating)
+      sitterRating,
+
+
+    // fetch single sitter
+        // Fetch all clients of sitter
+    const clients = await Sitter_Client.findAll({
+      where: {
+        sitterId: +req.params.id,
+      },
+    });
+
+       // Get all userIds of clients and fetch user data
+    const userIds = clients.map((client) => client.userId);
+    const users = await Promise.all(
+      userIds.map((userId) =>
+        User.findByPk(userId, {
+          attributes: {
+            exclude: ['password'],
+          },
+        })
+      )
+    );
+
+      const clientsOfSitter = users.map((user) => user.dataValues);
+*/

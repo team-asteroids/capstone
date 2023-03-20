@@ -10,7 +10,7 @@ router.use('/groups', require('./routes/groupsRoute'));
 router.use('/bookings', require('./routes/bookingsRoutes'));
 router.use('/auth', require('./routes/authRoutes'));
 // router.use('/map', require('./routes/mapRoutes'));
-// router.use('/reviews', require('./routes/reviewsRoutes'));
+router.use('/reviews', require('./routes/reviewsRoutes'));
 // router.use('/ratings', require('./routes/ratingsRoutes'));
 // router.use('/messages', require('./routes/messagesRoutes'));
 
