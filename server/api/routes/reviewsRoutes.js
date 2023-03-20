@@ -1,5 +1,5 @@
 const router = require('express').Router({ mergeParams: true });
-const { Sitter_Review, User, Sitter } = require('../../db');
+const { Sitter_Review, User, Sitter, Sitter_Client } = require('../../db');
 const { requireToken } = require('../authMiddleware');
 
 // ROUTES TO BE USED WITHIN A USER ACCOUNT COMPONENT OR ADMIN
@@ -94,6 +94,34 @@ router.get('/:reviewId', requireToken, async (req, res, next) => {
 // /users/:id/reviews/
 router.post('/', requireToken, async (req, res, next) => {
   try {
+    const id = +req.params.id;
+    const { sitterId, context } = req.body;
+
+    // make sure user is a sitterClient
+    const isSitterClient = await Sitter_Client.findOne({
+      where: { userId: id, sitterId },
+    });
+
+    // if not client, cannot leave review
+    if (!isSitterClient && req.user.role !== 'admin') {
+      return res.status(403).send('not client of sitter / cannot leave review');
+      // if user is a sitter client && user is who they say they are or an admin, continue
+    } else if (req.user.id === id || req.user.role === 'admin') {
+      const newSitterReview = await Sitter_Review.create({
+        userId: id,
+        sitterId,
+        context,
+      });
+      if (!newSitterReview) {
+        return res.status(404).send('error creating sitter review!');
+      } else return res.status(200).send(newSitterReview);
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
   } catch (err) {
     console.log('BACKEND ISSUE ADDING NEW REVIEW');
     next(err);
