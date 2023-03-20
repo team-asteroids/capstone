@@ -5,6 +5,7 @@ const { requireToken } = require('../authMiddleware');
 // router.use('/reviews', require('./routes/reviewRoutes'));
 // router.use('/ratings', require('./routes/ratingsRoutes'));
 
+router.use('/:id/posts', require('./postsRoute'));
 router.use('/:id/bookings', require('./bookingsRoutes'));
 
 // Get all users
