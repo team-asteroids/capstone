@@ -1,26 +1,80 @@
 // can come from USER or SITTER routes (or just straight admin)
 const router = require('express').Router({ mergeParams: true });
-const { User, Pet, Sitter, Payment } = require('../../db');
+const { Booking, User, Pet, Sitter, Payment } = require('../../db');
+const { requireToken } = require('../authMiddleware');
 
 // GET - fetch all bookings (user-specific & admin only)
 // /user/:id/bookings/
 // /sitter/:id/bookings/
 // /bookings/
-router.get('/', async (req, res, next) => {});
+router.get('/', requireToken, async (req, res, next) => {
+  try {
+    const id = +req.params.id;
+    if (req.user.role === 'admin') {
+      const allBookings = await Booking.findAll({
+        include: [User, Sitter, Payment],
+      });
+      if (!allBookings) return res.status(404).send('no bookings!');
+      res.status(200).send(allBookings);
+    } else if (req.user.id === id) {
+      const allUserBookings = await Booking.findAll({
+        where: {
+          id,
+        },
+        include: [User, Sitter, Payment],
+      });
+      if (!allUserBookings) return res.status(404).send('no user bookings!');
+      res.status(200).send(allUserBookings);
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
+  } catch (err) {
+    console.log('BACKED ISSUE FETCHING BOOKINGS');
+    next(err);
+  }
+});
 
 // GET - fetch a specific booking
 // /user/:id/bookings/:id
 // /sitter/:id/bookings/:id
 // /bookings/:id
-router.get('/:id', async (req, res, next) => {});
+router.get('/:id', async (req, res, next) => {
+  try {
+  } catch (err) {
+    console.log('BACKED ISSUE FETCHING SINGLE BOOKING');
+    next(err);
+  }
+});
 
 // POST - add a new booking
-router.post('/', async (req, res, next) => {});
+router.post('/', async (req, res, next) => {
+  try {
+  } catch (err) {
+    console.log('BACKED ISSUE ADDING A NEW BOOKING');
+    next(err);
+  }
+});
 
 // PUT - update a booking
-router.put('/:id', async (req, res, next) => {});
+router.put('/:id', async (req, res, next) => {
+  try {
+  } catch (err) {
+    console.log('BACKED ISSUE UPDATING A BOOKING');
+    next(err);
+  }
+});
 
 // DELETE - delete a booking
-router.delete('/:id', async (req, res, next) => {});
+router.delete('/:id', async (req, res, next) => {
+  try {
+  } catch (err) {
+    console.log('BACKED ISSUE DELETING A BOOKING');
+    next(err);
+  }
+});
 
 module.exports = router;
