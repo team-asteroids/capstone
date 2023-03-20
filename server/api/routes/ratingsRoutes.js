@@ -61,7 +61,7 @@ router.get('/:ratingId', requireToken, async (req, res, next) => {
           Sitter,
         ],
       });
-      if (!rating) return res.status(404).send('no review!');
+      if (!rating) return res.status(404).send('no rating!');
       res.status(200).send(rating);
     } else if (req.user.id === id) {
       const userRating = await Sitter_Rating.findByPk(ratingId, {
@@ -102,9 +102,9 @@ router.post('/', requireToken, async (req, res, next) => {
       where: { userId: id, sitterId },
     });
 
-    // if not client, cannot leave review
+    // if not client, cannot leave rating
     if (!isSitterClient && req.user.role !== 'admin') {
-      return res.status(403).send('not client of sitter / cannot leave review');
+      return res.status(403).send('not client of sitter / cannot leave rating');
       // if user is a sitter client && user is who they say they are or an admin, continue
     } else if (req.user.id === id || req.user.role === 'admin') {
       const newSitterRating = await Sitter_Rating.create({
@@ -157,7 +157,7 @@ router.put('/:ratingId', requireToken, async (req, res, next) => {
   }
 });
 
-// DELETE - delete existing review
+// DELETE - delete existing rating
 // /ratings/:ratingId (ADMIN)
 // /users/:id/ratings/:ratingId
 router.delete('/:ratingId', requireToken, async (req, res, next) => {
@@ -166,13 +166,13 @@ router.delete('/:ratingId', requireToken, async (req, res, next) => {
     const ratingId = +req.params.ratingId;
     const rating = await Sitter_Rating.findByPk(ratingId);
 
-    if (!rating) return res.status(404).send('review does not exist!');
+    if (!rating) return res.status(404).send('rating does not exist!');
     else if (
       (req.user.id === id && rating.userId === id) ||
       req.user.role === 'admin'
     ) {
       await rating.destroy();
-      res.status(204).send('successfully deleted review!');
+      res.status(204).send('successfully deleted rating!');
     } else {
       res
         .status(403)
@@ -181,7 +181,7 @@ router.delete('/:ratingId', requireToken, async (req, res, next) => {
         );
     }
   } catch (err) {
-    console.log('BACKEND ISSUE DELETING REVIEW');
+    console.log('BACKEND ISSUE DELETING RATING');
     next(err);
   }
 });
