@@ -26,6 +26,7 @@ const {
 const Access = require('./models/access');
 const Payment = require('./models/payments');
 const { FavSitter, FavGroup } = require('./models/favs');
+const Chat = require('./models/chats');
 
 User.hasMany(Pet);
 Pet.belongsTo(User);
@@ -44,6 +45,24 @@ Booking.belongsTo(Payment);
 
 Pet.belongsToMany(Booking, { through: 'booking_pets' });
 Booking.belongsToMany(Pet, { through: 'booking_pets' });
+
+// User.belongsToMany(User, { through: Chat });
+// Chat.belongsTo(User);
+
+User.belongsToMany(User, {
+  as: 'user1',
+  foreignKey: 'user1',
+  through: Chat,
+});
+
+User.belongsToMany(User, {
+  as: 'user2',
+  foreignKey: 'user2',
+  through: Chat,
+});
+
+Chat.hasMany(Message);
+Message.belongsTo(Chat, { foreignKey: 'chatId' });
 
 // -- put userId on Group table
 Group.belongsTo(User, { foreignKey: 'creatorId' });
@@ -186,4 +205,5 @@ module.exports = {
   FavGroup,
   Post_Comment_Like,
   Post_Like,
+  Chat,
 };
