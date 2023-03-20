@@ -47,9 +47,14 @@ const Group_Post = db.define('group_post', {
   },
 });
 
+const Group_Member = db.define('group_members');
+const Group_Post_Like = db.define('group_post_likes');
+
 module.exports = {
   Group,
   Group_Post,
+  Group_Member,
+  Group_Post_Like,
 };
 
 /* 
