@@ -4,11 +4,10 @@ const router = require('express').Router();
 router.use('/users', require('./routes/usersRoutes'));
 router.use('/pets', require('./routes/petsRoute'));
 router.use('/sitters', require('./routes/sittersRoute'));
-// router.use('/bookings', require('./routes/booking'));
 router.use('/events', require('./routes/eventsRoutes'));
 router.use('/posts', require('./routes/postsRoute'));
 router.use('/groups', require('./routes/groupsRoute'));
-
+router.use('/bookings', require('./routes/booking'));
 router.use('/auth', require('./routes/authRoutes'));
 // router.use('/map', require('./routes/mapRoutes'));
 // router.use('/reviews', require('./routes/reviewsRoutes'));
