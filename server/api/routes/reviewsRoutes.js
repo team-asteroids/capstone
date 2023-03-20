@@ -133,6 +133,24 @@ router.post('/', requireToken, async (req, res, next) => {
 // /users/:id/reviews/:reviewId
 router.put('/:reviewId', requireToken, async (req, res, next) => {
   try {
+    const id = +req.params.id;
+    const reviewId = +req.params.reviewId;
+    const review = await Sitter_Review.findByPk(reviewId);
+
+    if (!review) return res.status(404).send('review does not exist!');
+    else if (
+      (req.user.id === id && review.userId === id) ||
+      req.user.role === 'admin'
+    ) {
+      const updatedReview = await review.update(req.body);
+      res.status(200).send(updatedReview);
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
   } catch (err) {
     console.log('BACKEND ISSUE UPDATING EXISTING REVIEW');
     next(err);
