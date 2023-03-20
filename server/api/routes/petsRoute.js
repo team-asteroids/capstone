@@ -112,8 +112,8 @@ router.delete('/:id', async (req, res, next) => {
         petId: req.params.id,
       },
     });
-    await deletedPetBasics.destroy();
     await deletedPetDetails.destroy();
+    await deletedPetBasics.destroy();
     res.json({ deletedPetBasics, deletedPetDetails });
   } catch (err) {
     next(err);

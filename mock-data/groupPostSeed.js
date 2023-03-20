@@ -91,4 +91,32 @@ const groupPosts = [
   { content: 'Cross-group coherent architecture', userId: 32, groupId: 11 },
 ];
 
-module.exports = groupPosts;
+const groupPostLikes = [
+  { groupPostId: 37, userId: 38 },
+  { groupPostId: 42, userId: 37 },
+  { groupPostId: 19, userId: 32 },
+  { groupPostId: 34, userId: 11 },
+  { groupPostId: 49, userId: 49 },
+  { groupPostId: 11, userId: 46 },
+  { groupPostId: 30, userId: 1 },
+  { groupPostId: 4, userId: 47 },
+  { groupPostId: 27, userId: 36 },
+  { groupPostId: 40, userId: 35 },
+  { groupPostId: 3, userId: 7 },
+  { groupPostId: 15, userId: 24 },
+  { groupPostId: 16, userId: 14 },
+  { groupPostId: 36, userId: 2 },
+  { groupPostId: 50, userId: 14 },
+  { groupPostId: 19, userId: 10 },
+  { groupPostId: 50, userId: 5 },
+  { groupPostId: 24, userId: 15 },
+  { groupPostId: 20, userId: 20 },
+  { groupPostId: 11, userId: 33 },
+  { groupPostId: 36, userId: 10 },
+  { groupPostId: 15, userId: 50 },
+  { groupPostId: 19, userId: 19 },
+  { groupPostId: 34, userId: 20 },
+  { groupPostId: 27, userId: 33 },
+];
+
+module.exports = { groupPosts, groupPostLikes };
