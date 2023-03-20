@@ -1,5 +1,5 @@
 const router = require('express').Router({ mergeParams: true });
-const { Review, User } = require('../../db');
+const { Sitter_Review, User, Sitter } = require('../../db');
 const { requireToken } = require('../authMiddleware');
 
 // GET all reviews
@@ -7,6 +7,36 @@ const { requireToken } = require('../authMiddleware');
 // /users/:id/reviews/
 router.get('/', requireToken, async (req, res, next) => {
   try {
+    const id = +req.params.id;
+    if (req.user.role === 'admin') {
+      const allReviews = await Sitter_Review.findAll({
+        include: [
+          { model: User, attributes: { exclude: ['password'] } },
+          Sitter,
+        ],
+      });
+      if (!allReviews) return res.status(404).send('no reviews!');
+      res.status(200).send(allReviews);
+    } else if (req.user.id === id) {
+      const allUserReviews = await Sitter_Review.findAll({
+        where: {
+          userId: id,
+        },
+        include: [
+          { model: User, attributes: { exclude: ['password'] } },
+          Sitter,
+        ],
+      });
+      if (!allUserReviews) {
+        return res.status(404).send('no user bookings!');
+      } else res.status(200).send(allUserReviews);
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
   } catch (err) {
     console.log('BACKEND ISSUE FETCHING ALL REVIEWS');
     next(err);
