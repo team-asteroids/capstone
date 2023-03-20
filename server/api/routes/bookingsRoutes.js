@@ -19,7 +19,7 @@ router.get('/', requireToken, async (req, res, next) => {
     } else if (req.user.id === id) {
       const allUserBookings = await Booking.findAll({
         where: {
-          id,
+          userId: id,
         },
         include: [User, Sitter, Payment],
       });
@@ -42,8 +42,27 @@ router.get('/', requireToken, async (req, res, next) => {
 // /user/:id/bookings/:id
 // /sitter/:id/bookings/:id
 // /bookings/:id
-router.get('/:id', async (req, res, next) => {
+router.get('/:bookingId', requireToken, async (req, res, next) => {
   try {
+    const id = +req.params.id;
+    const bookingId = +req.params.bookingId;
+    const booking = await Booking.findByPk(bookingId, {
+      include: [User, Sitter, Payment],
+    });
+
+    if (
+      (req.user.id === id && booking.userId === id) ||
+      req.user.role === 'admin'
+    ) {
+      if (!booking) return res.status(404).send('booking does not exist!');
+      res.status(200).send(booking);
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
   } catch (err) {
     console.log('BACKED ISSUE FETCHING SINGLE BOOKING');
     next(err);
