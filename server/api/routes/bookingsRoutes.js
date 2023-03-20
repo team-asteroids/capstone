@@ -13,7 +13,7 @@ router.get('/', requireToken, async (req, res, next) => {
       const allBookings = await Booking.findAll({
         include: [User, Sitter, Payment],
       });
-      if (!allBookings) return res.status(204).send('no bookings!');
+      if (!allBookings) return res.status(404).send('no bookings!');
       res.status(200).send(allBookings);
     } else if (req.user.id === id) {
       const allUserBookings = await Booking.findAll({
@@ -23,7 +23,7 @@ router.get('/', requireToken, async (req, res, next) => {
         include: [User, Sitter, Payment],
       });
       if (!allUserBookings) {
-        return res.status(204).send('no user bookings!');
+        return res.status(404).send('no user bookings!');
       } else res.status(200).send(allUserBookings);
     } else {
       res
@@ -53,7 +53,7 @@ router.get('/:bookingId', requireToken, async (req, res, next) => {
       (req.user.id === id && booking.userId === id) ||
       req.user.role === 'admin'
     ) {
-      if (!booking) return res.status(204).send('booking does not exist!');
+      if (!booking) return res.status(404).send('booking does not exist!');
       res.status(200).send(booking);
     } else {
       res
@@ -95,12 +95,13 @@ router.put('/:bookingId', async (req, res, next) => {
     const id = +req.params.id;
     const bookingId = +req.params.bookingId;
     const booking = await Booking.findByPk(bookingId);
-    if (!booking) return res.status(204).status('booking does not exist!');
-    if (
+
+    if (!booking) return res.status(404).send('booking does not exist!');
+    else if (
       (req.user.id === id && booking.userId === id) ||
       req.user.role === 'admin'
     ) {
-      const updatedBooking = await Booking.update(req.body);
+      const updatedBooking = await booking.update(req.body);
       res.status(200).send(updatedBooking);
     } else {
       res
@@ -118,6 +119,24 @@ router.put('/:bookingId', async (req, res, next) => {
 // DELETE - delete a booking
 router.delete('/:id', async (req, res, next) => {
   try {
+    const id = +req.params.id;
+    const bookingId = +req.params.bookingId;
+    const booking = await Booking.findByPk(bookingId);
+
+    if (!booking) return res.status(204).send('booking does not exist!');
+    else if (
+      (req.user.id === id && booking.userId === id) ||
+      req.user.role === 'admin'
+    ) {
+      await booking.destroy();
+      res.status(204).send('successfully deleted booking!');
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
   } catch (err) {
     console.log('BACKED ISSUE DELETING A BOOKING');
     next(err);
