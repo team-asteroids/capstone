@@ -147,13 +147,6 @@ router.delete('/:bookingId', requireToken, isAdmin, async (req, res, next) => {
       await booking.destroy();
       res.status(204).send('admin successfully deleted booking!');
     }
-    // } else {
-    //   res
-    //     .status(403)
-    //     .send(
-    //       'Inadequate access rights / Requested user does not match logged-in user'
-    //     );
-    // }
   } catch (err) {
     console.log('BACKED ISSUE DELETING A BOOKING');
     next(err);
