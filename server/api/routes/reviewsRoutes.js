@@ -2,9 +2,13 @@ const router = require('express').Router({ mergeParams: true });
 const { Sitter_Review, User, Sitter } = require('../../db');
 const { requireToken } = require('../authMiddleware');
 
+// WITHIN A USER ACCOUNT
+// routes only for logged in users who want to see all their reviews, a specific review they wrote, write new review, edit review, delete review
+
 // GET all reviews
 // /reviews/
 // /users/:id/reviews/
+
 router.get('/', requireToken, async (req, res, next) => {
   try {
     const id = +req.params.id;
