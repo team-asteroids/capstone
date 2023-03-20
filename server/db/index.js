@@ -15,7 +15,7 @@ const {
   Group_Member,
   Group_Post_Like,
 } = require('./models/groups');
-const Message = require('./models/messages');
+const Chat_Message = require('./models/messages');
 const Map = require('./models/maps');
 const {
   Post,
@@ -61,8 +61,8 @@ User.belongsToMany(User, {
   through: Chat,
 });
 
-Chat.hasMany(Message);
-Message.belongsTo(Chat, { foreignKey: 'chatId' });
+Chat.hasMany(Chat_Message);
+Chat_Message.belongsTo(Chat, { foreignKey: 'chatId' });
 
 // -- put userId on Group table
 Group.belongsTo(User, { foreignKey: 'creatorId' });
@@ -117,16 +117,16 @@ User.belongsToMany(Post_Comment, { through: Post_Comment_Like });
 Post_Comment.belongsToMany(User, { through: Post_Comment_Like });
 
 // -- put senderId on Message table
-Message.belongsTo(User);
-User.hasMany(Message);
+Chat_Message.belongsTo(User);
+User.hasMany(Chat_Message);
 
 // -- put recepientId on Message table
-Message.belongsTo(User);
-User.hasMany(Message, { foreignKey: 'recipientId' });
+Chat_Message.belongsTo(User);
+User.hasMany(Chat_Message, { foreignKey: 'recipientId' });
 
 // -- message_likes
-User.belongsToMany(Message, { through: 'message_likes' });
-Message.belongsToMany(User, { through: 'message_likes' });
+User.belongsToMany(Chat_Message, { through: 'message_likes' });
+Chat_Message.belongsToMany(User, { through: 'message_likes' });
 
 Sitter.hasOne(Sitter_Pref);
 Sitter_Pref.belongsTo(Sitter);
@@ -195,7 +195,7 @@ module.exports = {
   Group_Post,
   Group_Member,
   Group_Post_Like,
-  Message,
+  Chat_Message,
   Map,
   Post,
   Post_Comment,

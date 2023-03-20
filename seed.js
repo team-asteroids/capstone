@@ -17,7 +17,7 @@ const {
   Group_Post,
   Group_Member,
   Group_Post_Like,
-  Message,
+  Chat_Message,
   Map,
   Post,
   Post_Comment,
@@ -142,7 +142,7 @@ const init = async () => {
     console.log('Group seeding successful!');
 
     console.log('seeding messages...');
-    const seedMessages = await Message.bulkCreate(messages, {
+    const seedMessages = await Chat_Message.bulkCreate(messages, {
       validate: true,
     });
     console.log('Message seeding successful!');
