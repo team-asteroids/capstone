@@ -14,7 +14,7 @@ router.get('/', requireToken, async (req, res, next) => {
       const allBookings = await Booking.findAll({
         include: [User, Sitter, Payment],
       });
-      if (!allBookings) return res.status(404).send('no bookings!');
+      if (!allBookings) return res.status(204).send('no bookings!');
       res.status(200).send(allBookings);
     } else if (req.user.id === id) {
       const allUserBookings = await Booking.findAll({
@@ -23,8 +23,9 @@ router.get('/', requireToken, async (req, res, next) => {
         },
         include: [User, Sitter, Payment],
       });
-      if (!allUserBookings) return res.status(404).send('no user bookings!');
-      res.status(200).send(allUserBookings);
+      if (!allUserBookings) {
+        return res.status(204).send('no user bookings!');
+      } else res.status(200).send(allUserBookings);
     } else {
       res
         .status(403)
