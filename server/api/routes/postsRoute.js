@@ -107,19 +107,19 @@ router.put('/:postId', requireToken, async (req, res, next) => {
 
 // delete a single post (& comments)
 // token user id must match the post creatorId OR you are admin
-router.delete('/:id', requireToken, async (req, res, next) => {
+router.delete('/:postId', requireToken, async (req, res, next) => {
   try {
-    const deletedPost = await Post.findByPk(req.params.id);
+    const deletedPost = await Post.findByPk(req.params.postId);
     if (!deletedPost) return res.status(404).send('No post exists!');
     if (req.user.id === deletedPost.creatorId || req.user.role === 'admin') {
       const deletedPostComments = await Post_Comment.findAll({
         where: {
-          postId: req.params.id,
+          postId: req.params.postId,
         },
       });
       await Post_Comment.destroy({
         where: {
-          postId: req.params.id,
+          postId: req.params.postId,
         },
       });
       await deletedPost.destroy();
@@ -139,21 +139,21 @@ router.delete('/:id', requireToken, async (req, res, next) => {
 
 // _____________________________________________________________
 
-// get all comments on a post -- deleted for now bc pos no use case??
-
-// router.get('/:id/comments', async (req, res, next) => {
-//   try {
-//     const allPostComments = await Post_Comment.findAll({
-//       where: { postId: req.params.id },
-//       //include User info:
-//       include: { model: User },
-//     });
-//     res.status(200).json(allPostComments);
-//   } catch (e) {
-//     console.log('Backend issue fetching all comments');
-//     next(e);
-//   }
-// });
+// get all comments on a post -- delete for now bc pos no use case??
+// must be logged in
+router.get('/:postId/comments', requireToken, async (req, res, next) => {
+  try {
+    const allPostComments = await Post_Comment.findAll({
+      where: { postId: req.params.postId },
+      //include User info:
+      include: { model: User },
+    });
+    res.status(200).json(allPostComments);
+  } catch (e) {
+    console.log('Backend issue fetching all comments');
+    next(e);
+  }
+});
 
 // add post comment
 // must be logged in -- userId of comment automatically set to token user id
@@ -176,42 +176,46 @@ router.post('/:postId/comments', requireToken, async (req, res, next) => {
 
 // edit post comment
 // token user id must match the post creatorId
-router.put('/:id/comments/:commentId', requireToken, async (req, res, next) => {
-  try {
-    const postComment = await Post_Comment.findOne({
-      where: {
-        id: req.params.commentId,
-        postId: req.params.id,
-      },
-    });
-    if (!postComment) {
-      return res.status(404).send('That post_comment does not exist!');
+router.put(
+  '/:postId/comments/:commentId',
+  requireToken,
+  async (req, res, next) => {
+    try {
+      const postComment = await Post_Comment.findOne({
+        where: {
+          id: req.params.commentId,
+          postId: req.params.postId,
+        },
+      });
+      if (!postComment) {
+        return res.status(404).send('That post_comment does not exist!');
+      }
+      if (req.user.id === postComment.userId) {
+        const updatedPost = await postComment.update(req.body);
+        res.json(updatedPost);
+      } else {
+        res
+          .status(403)
+          .send(
+            'Inadequate access rights / Requested user does not match logged-in user'
+          );
+      }
+    } catch (e) {
+      console.error('Backend issue editing a post_comment');
+      next(e);
     }
-    if (req.user.id === postComment.userId) {
-      const updatedPost = await postComment.update(req.body);
-      res.json(updatedPost);
-    } else {
-      res
-        .status(403)
-        .send(
-          'Inadequate access rights / Requested user does not match logged-in user'
-        );
-    }
-  } catch (e) {
-    console.error('Backend issue editing a post_comment');
-    next(e);
   }
-});
+);
 
 // delete post comment
 // token user id must match the post creatorId OR you are admin
 router.delete(
-  '/:id/comments/:commentId',
+  '/:postId/comments/:commentId',
   requireToken,
   async (req, res, next) => {
     try {
       const deletedPostComment = await Post_Comment.findOne({
-        where: { id: req.params.commentId, postId: req.params.id },
+        where: { id: req.params.commentId, postId: req.params.postId },
       });
       if (!deletedPostComment)
         return res.status(404).send('That post_comment does not exist!');
@@ -237,33 +241,32 @@ router.delete(
 
 // _____________________________________________________________
 
-// get all likes &/ users who liked single post -- deleted for now bc pos no use case??
+// get all likes &/ users who liked single post -- maybe delete bc pos no use case??
+router.get('/:postId/likes', requireToken, async (req, res, next) => {
+  try {
+    const likes = await Post_Like.findAll({
+      where: { postId: req.params.postId },
+    });
 
-// router.get('/:id/likes', async (req, res, next) => {
-//   try {
-//     const likes = await Post_Like.findAll({
-//       where: { postId: req.params.id },
-//     });
+    const userIds = likes.map((like) => like.userId);
 
-//     const userIds = likes.map((like) => like.userId);
-
-//     const users = await Promise.all(
-//       userIds.map((userId) => User.findByPk(userId))
-//     );
-//     res.status(200).json({ likes, users });
-//   } catch (e) {
-//     console.log('Backend issue fetching all post likes');
-//     next(e);
-//   }
-// });
+    const users = await Promise.all(
+      userIds.map((userId) => User.findByPk(userId))
+    );
+    res.status(200).json({ likes, users });
+  } catch (e) {
+    console.log('Backend issue fetching all post likes');
+    next(e);
+  }
+});
 
 //  like a post
 //  must be logged in -- userId of like automatically set to token user id
-router.post('/:id/likes', requireToken, async (req, res, next) => {
+router.post('/:postId/likes', requireToken, async (req, res, next) => {
   try {
     const [newPostLike, wasCreated] = await Post_Like.findOrCreate({
       where: {
-        postId: req.params.id,
+        postId: req.params.postId,
         userId: req.user.id,
       },
     });
@@ -277,7 +280,7 @@ router.post('/:id/likes', requireToken, async (req, res, next) => {
 });
 
 //  remove like from post
-//  token user id must match the post creatorId OR you are admin
+//  token user id must match the post creatorId
 router.delete('/:postId/likes', requireToken, async (req, res, next) => {
   try {
     const deletedPostLike = await Post_Like.findOne({
@@ -286,7 +289,7 @@ router.delete('/:postId/likes', requireToken, async (req, res, next) => {
     if (!deletedPostLike) {
       return res.status(404).send('That post_like does not exist!');
     }
-    if (req.user.id === deletedPostLike.userId || req.user.role === 'admin') {
+    if (req.user.id === deletedPostLike.userId) {
       await deletedPostLike.destroy();
       res.json(deletedPostLike);
     } else {
@@ -307,7 +310,7 @@ router.delete('/:postId/likes', requireToken, async (req, res, next) => {
 // get all likes & users who liked  -- per post_comment
 // must be logged in
 router.get(
-  '/:id/comments/:commentId/likes',
+  '/:postId/comments/:commentId/likes',
   requireToken,
   async (req, res, next) => {
     try {
@@ -331,7 +334,7 @@ router.get(
 // like a post-comment
 // must be logged in -- userId of like automatically set to token user id
 router.post(
-  '/:id/comments/:commentId/likes',
+  '/:postId/comments/:commentId/likes',
   requireToken,
   async (req, res, next) => {
     try {
@@ -356,7 +359,7 @@ router.post(
 
 //  remove like from post-comment
 //  token user id must match the post creatorId OR you are admin
-router.delete('/:id/comments/:commentId/likes', async (req, res, next) => {
+router.delete('/:postId/comments/:commentId/likes', async (req, res, next) => {
   try {
     const deletedPostCommentLike = await Post_Comment_Like.findOne({
       where: { postCommentId: req.body.postCommentId },

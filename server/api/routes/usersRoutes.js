@@ -3,11 +3,11 @@ const { User, Pet } = require('../../db');
 const { requireToken } = require('../authMiddleware');
 
 router.use('/:id/posts', require('./postsRoute'));
+router.use('/:id/groups', require('./groupsRoute'));
 router.use('/:id/bookings', require('./bookingsRoutes'));
 router.use('/:id/events', require('./eventsRoutes'));
 router.use('/:id/reviews', require('./reviewsRoutes'));
 router.use('/:id/ratings', require('./ratingsRoutes'));
-
 
 // Get all users
 router.get('/', async (req, res, next) => {
