@@ -4,7 +4,14 @@ const db = require('../database');
 const Booking = db.define('booking', {
   status: {
     type: Sequelize.ENUM({
-      values: ['pending', 'approved', 'cancelled', 'complete', 'withdrawn'],
+      values: [
+        'pending',
+        'withdrawn',
+        'approved',
+        'declined',
+        'cancelled',
+        'complete',
+      ],
       allowNull: false,
       validate: {
         notEmpty: true,
