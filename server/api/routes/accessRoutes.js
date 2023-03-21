@@ -38,8 +38,34 @@ router.get('/', requireToken, async (req, res, next) => {
   }
 });
 
-// POST new access details
+// POST new access details (for specific user)
 // /api/users/:id/access
-// /api/access (ADMIN ONLY)
+router.post('/', requireToken, async (req, res, next) => {
+  try {
+    const id = +req.params.id;
+    if (!id) {
+      return res.status(400).send('must set access data on a specific user');
+    }
+    if (req.user.id === id || req.user.role === 'admin') {
+      const [newAccessData, wasCreated] = await Access.findOrCreate({
+        where: { userId: id },
+        defaults: req.body,
+      });
+      if (!wasCreated) {
+        return res.status(409).send('Access data already exists');
+      }
+      res.status(201).send(newAccessData);
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
+  } catch (err) {
+    console.log('BACKED ISSUE ADDING A NEW ACCESS DATA');
+    next(err);
+  }
+});
 
 module.exports = router;
