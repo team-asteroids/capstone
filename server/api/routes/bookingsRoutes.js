@@ -11,7 +11,7 @@ const { requireToken, isAdmin } = require('../authMiddleware');
 router.get('/', requireToken, async (req, res, next) => {
   try {
     const id = +req.params.id;
-    if (req.user.role === 'admin') {
+    if (req.user.role === 'admin' && !id) {
       const allBookings = await Booking.findAll({
         include: [
           { model: User, attributes: { exclude: ['password'] } },
@@ -21,7 +21,7 @@ router.get('/', requireToken, async (req, res, next) => {
       });
       if (!allBookings) return res.status(404).send('no bookings!');
       res.status(200).send(allBookings);
-    } else if (req.user.id === id) {
+    } else if (req.user.id === id || req.user.role === 'admin') {
       const allUserBookings = await Booking.findAll({
         where: {
           userId: id,
