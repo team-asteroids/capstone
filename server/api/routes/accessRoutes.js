@@ -68,4 +68,31 @@ router.post('/', requireToken, async (req, res, next) => {
   }
 });
 
+// PUT edit specific user's access details
+// /api/users/:id/access/:accessId
+
+router.put('/:accessId', requireToken, async (req, res, next) => {
+  const userId = +req.params.id;
+  const id = +req.params.accessId;
+  if (req.user.id !== userId && req.user.role !== 'admin') {
+    return res
+      .status(403)
+      .send(
+        'inadequate access rights / requested user does not match logged in user'
+      );
+  }
+  try {
+    const accessData = await Access.findByPk(id);
+    if (!accessData) return res.status(404).send('access data does not exist!');
+    await accessData.update(req.body);
+    return res.status(200).send(await Access.findByPk(id));
+  } catch (err) {
+    console.log('BACKED ISSUE UPDATING ACCESS DATA');
+    next(err);
+  }
+});
+
+// DELETE specific user's access details
+// /api/users/:id/access/:accessId
+
 module.exports = router;
