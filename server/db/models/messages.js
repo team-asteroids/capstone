@@ -10,6 +10,15 @@ const Chat_Message = db.define('chat_message', {
       notNull: true,
     },
   },
+  read: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+    validate: {
+      notEmpty: true,
+      notNull: true,
+    },
+  },
 });
 
 module.exports = Chat_Message;
