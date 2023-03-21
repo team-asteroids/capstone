@@ -93,6 +93,28 @@ router.put('/:accessId', requireToken, async (req, res, next) => {
 });
 
 // DELETE specific user's access details
+// ADMIN ONLY
 // /api/users/:id/access/:accessId
+// /api/access/:accessId
+router.delete('/:accessId', requireToken, isAdmin, async (req, res, next) => {
+  try {
+    if (req.user.role !== 'admin') {
+      return res.status(403).send('only admins can delete this data');
+    } else {
+      const accessId = +req.params.accessId;
+      const accessData = await Access.findByPk(accessId);
+
+      if (!accessData)
+        return res.status(404).send('access data does not exist!');
+      else {
+        await accessData.destroy();
+        res.status(204).send('admin successfully deleted booking!');
+      }
+    }
+  } catch (err) {
+    console.log('BACKED ISSUE DELETING USER ACCESS DATA');
+    next(err);
+  }
+});
 
 module.exports = router;
