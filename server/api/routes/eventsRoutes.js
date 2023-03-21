@@ -1,9 +1,8 @@
 const router = require('express').Router();
-const { Event, User } = require('../../db');
-const { requireToken, isAdmin } = require('../authMiddleware');
+const { Event, User, Event_RSVP } = require('../../db');
+const { requireToken } = require('../authMiddleware');
 
-// AS A GUEST:
-// GET /api/events
+// this sends back a list of all events
 router.get('/', async (req, res, next) => {
   try {
     const allEvents = await Event.findAll({});
@@ -14,9 +13,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// AS A LOGGED IN USER
-// GET /api/user/:id/events
-// events I created include Users who have RSVP'd to event
+// this sends back a list of events a logged in user created
 router.get('/my-events', requireToken, async (req, res, next) => {
   try {
     const createdEvents = await Event.findAll({
@@ -37,27 +34,59 @@ router.get('/my-events', requireToken, async (req, res, next) => {
   }
 });
 
-//GET /api/events/attending
+// this sends back all events a logged in user has RSVP'd to
 router.get('/attending', requireToken, async (req, res, next) => {
   try {
-    const allEvents = await User.findByPk(req.user.id, {
-      include: [
-        {
-          model: Event,
-          include: {
-            model: User,
-          },
-        },
-      ],
+    const myEvents = await Event_RSVP.findAll({
+      where: {
+        userId: req.user.id,
+      },
     });
-
-    res.status(200).json(allEvents);
+    res.json(myEvents);
   } catch (error) {
     console.log("backend issue fetching user's rsvp'd events");
     next(error);
   }
 });
 
+// this allows a logged in user to rsvp to an event
+router.post('/attending', requireToken, async (req, res, next) => {
+  try {
+    const [newEventRsvp, wasCreated] = await Event_RSVP.findOrCreate({
+      where: {
+        userId: req.user.id,
+        eventId: req.body.eventId,
+      },
+    });
+    if (!wasCreated) return res.status(409).send('RSVP already exists');
+    res.status(201).json(newEventRsvp);
+  } catch (error) {
+    console.log('backend issue adding rsvp to event');
+    next(error);
+  }
+});
+
+// this allows a logged in user to remove an rsvp
+router.delete('/attending/:id', requireToken, async (req, res, next) => {
+  try {
+    const event = await Event_RSVP.findOne({
+      where: {
+        eventId: req.params.id,
+      },
+    });
+    if (!event) return res.status(404).send('That event-rsvp does not exist');
+
+    if (req.user.id === event.userId) {
+      const toDelete = await event.destroy();
+      res.json(toDelete);
+    }
+  } catch (error) {
+    console.log('backend issue updating users rsvp');
+    next(error);
+  }
+});
+
+// this sends back event details including users' rsvps
 router.get('/:id', requireToken, async (req, res, next) => {
   try {
     const singleEvent = await Event.findByPk(req.params.id, {
@@ -74,7 +103,7 @@ router.get('/:id', requireToken, async (req, res, next) => {
   }
 });
 
-// Post an event
+// this allows logged in user to create a post
 router.post('/', requireToken, async (req, res, next) => {
   try {
     const newEvent = await Event.create(req.body);
@@ -85,7 +114,7 @@ router.post('/', requireToken, async (req, res, next) => {
   }
 });
 
-// Update an event I created
+// this allows a event creator to edit said event
 router.put('/:id', requireToken, async (req, res, next) => {
   try {
     const event = await Event.findByPk(req.params.id);
@@ -102,7 +131,7 @@ router.put('/:id', requireToken, async (req, res, next) => {
   }
 });
 
-// Delete any event as admin
+// this allows either event creator or admin to delete said event
 router.delete('/:id', requireToken, async (req, res, next) => {
   try {
     const deletedEvent = await Event.findByPk(req.params.id);
