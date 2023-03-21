@@ -73,7 +73,7 @@ Group_Post.belongsTo(User);
 User.hasMany(Group_Post);
 
 // -- put groupId on Group_Post table
-Group_Post.belongsTo(Group);
+Group_Post.belongsTo(Group, { onDelete: 'cascade', hooks: true });
 Group.hasMany(Group_Post);
 
 // -- group_members
@@ -85,7 +85,11 @@ Group.belongsToMany(User, { through: FavGroup });
 User.belongsToMany(Group, { through: FavGroup });
 
 // -- group_post_likes
-Group_Post.belongsToMany(User, { through: Group_Post_Like });
+Group_Post.belongsToMany(
+  User,
+  { through: Group_Post_Like },
+  { onDelete: 'cascade', hooks: true }
+);
 User.belongsToMany(Group_Post, { through: Group_Post_Like });
 
 // --event_rsvp
