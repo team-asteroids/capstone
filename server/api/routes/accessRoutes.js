@@ -136,7 +136,7 @@ router.delete('/:accessId', requireToken, isAdmin, async (req, res, next) => {
         return res.status(404).send('access data does not exist!');
       else {
         await accessData.destroy();
-        res.status(204).send('admin successfully deleted booking!');
+        res.status(204).send('admin successfully deleted access data!');
       }
     }
   } catch (err) {
