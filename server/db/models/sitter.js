@@ -27,14 +27,6 @@ const Sitter = db.define('sitter', {
       notEmpty: true,
     },
   },
-  canFoster: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    validate: {
-      notNull: true,
-      notEmpty: true,
-    },
-  },
 });
 
 module.exports = Sitter;

@@ -27,7 +27,7 @@ const {
   Post_Comment_Like,
   Chat,
 } = require('./server/db/index');
-const user = require('./mock-data/userSeed');
+const users = require('./mock-data/userSeed');
 const { events } = require('./mock-data/eventSeed');
 const sitterList = require('./mock-data/sitterSeed');
 const sitterRatingList = require('./mock-data/sitterRatingSeed');
@@ -60,8 +60,8 @@ const init = async () => {
     console.log('syncing the db');
 
     console.log('seeding users...');
-    const seedUsers = await User.bulkCreate(user, {
-      validate: true,
+    const seedUsers = await User.bulkCreate(users, {
+      // validate: true,
       individualHooks: true,
     });
     console.log('User seeding successful!');
@@ -319,5 +319,21 @@ const init = async () => {
     db.close();
   }
 };
+
+// const getMagicMethods = (model) => {
+//   const magicMethodsArr = [];
+//   const associations = model.associations;
+//   //console.log(associations)
+//   for (let key in associations) {
+//     if (associations.hasOwnProperty(key)) {
+//       const accessors = associations[key].accessors;
+//       const magicMethods = Object.values(accessors);
+//       const curAssociationObj = { association: key, magicMethods };
+//       magicMethodsArr.push(curAssociationObj);
+//     }
+//   }
+//   return magicMethodsArr;
+// };
+// console.log(getMagicMethods(Access));
 
 init();
