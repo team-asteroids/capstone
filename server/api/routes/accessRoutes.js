@@ -17,13 +17,13 @@ router.get('/', requireToken, async (req, res, next) => {
         .send(
           'inadequate access rights / requested user does not match logged in user'
         );
-    } else if (req.user.role === 'admin') {
+    } else if (req.user.role === 'admin' && !id) {
       const allAccessData = await Access.findAll({
         include: [{ model: User, attributes: { exclude: ['password'] } }],
       });
       if (!allAccessData) return res.status(404).send('no access data!');
       res.status(200).send(allAccessData);
-    } else if (req.user.id === id) {
+    } else if (req.user.id === id || req.user.role === 'admin') {
       const userAccessData = await Access.findOne({
         where: {
           userId: id,
@@ -31,6 +31,34 @@ router.get('/', requireToken, async (req, res, next) => {
       });
       if (!userAccessData) return res.status(404).send('no user access data');
       res.status(200).send(userAccessData);
+    }
+  } catch (err) {
+    console.error('BACKEND ISSUE FETCHING ACCESS DATA');
+    next(err);
+  }
+});
+router.get('/:accessId', requireToken, async (req, res, next) => {
+  try {
+    const id = +req.params.id;
+    const accessId = +req.params.accessId;
+    const accessData = await Access.findByPk(accessId, {
+      where: {
+        userId: id,
+      },
+    });
+
+    if (
+      (req.user.id === id && accessData.userId === id) ||
+      req.user.role === 'admin'
+    ) {
+      if (!accessData) return res.status(404).send('booking does not exist!');
+      res.status(200).send(accessData);
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
     }
   } catch (err) {
     console.error('BACKEND ISSUE FETCHING ACCESS DATA');
