@@ -139,13 +139,17 @@ router.put('/:bookingId', requireToken, async (req, res, next) => {
 // /bookings/:bookingId
 router.delete('/:bookingId', requireToken, isAdmin, async (req, res, next) => {
   try {
-    const bookingId = +req.params.bookingId;
-    const booking = await Booking.findByPk(bookingId);
+    if (req.user.role !== 'admin') {
+      return res.status(404).send('only admins can delete bookings');
+    } else {
+      const bookingId = +req.params.bookingId;
+      const booking = await Booking.findByPk(bookingId);
 
-    if (!booking) return res.status(404).send('booking does not exist!');
-    else {
-      await booking.destroy();
-      res.status(204).send('admin successfully deleted booking!');
+      if (!booking) return res.status(404).send('booking does not exist!');
+      else {
+        await booking.destroy();
+        res.status(204).send('admin successfully deleted booking!');
+      }
     }
   } catch (err) {
     console.log('BACKED ISSUE DELETING A BOOKING');
