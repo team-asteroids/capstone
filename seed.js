@@ -101,11 +101,11 @@ const init = async () => {
     });
     console.log('Sitter prefs seeding successful!');
 
-    // console.log('seeding chats...');
-    // const seedChats = await Chat.bulkCreate(chatList, {
-    //   validate: true,
-    // });
-    // console.log('Chat seeding successful!');
+    console.log('seeding chats...');
+    const seedChats = await Chat.bulkCreate(chatList, {
+      validate: true,
+    });
+    console.log('Chat seeding successful!');
 
     console.log('seeding pets...');
     const seedPets = await Pet.bulkCreate(pets, {
