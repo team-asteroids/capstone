@@ -253,6 +253,670 @@ const chatMessages = [
     recipientId: 10,
     read: false,
   },
+  {
+    content:
+      'Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.',
+    chatId: 1,
+    userId: 4,
+    recipientId: 6,
+    read: false,
+  },
+  {
+    content: 'Integer a nibh. In quis justo.',
+    chatId: 12,
+    userId: 4,
+    recipientId: 9,
+    read: true,
+  },
+  {
+    content: 'Nulla justo. Aliquam quis turpis eget elit sodales scelerisque.',
+    chatId: 12,
+    userId: 4,
+    recipientId: 9,
+    read: true,
+  },
+  {
+    content:
+      'Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula.',
+    chatId: 12,
+    userId: 9,
+    recipientId: 4,
+    read: true,
+  },
+  {
+    content:
+      'Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.',
+    chatId: 12,
+    userId: 4,
+    recipientId: 9,
+    read: true,
+  },
+  {
+    content: 'Phasellus in felis. Donec semper sapien a libero.',
+    chatId: 17,
+    userId: 4,
+    recipientId: 1,
+    read: true,
+  },
+  {
+    content:
+      'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante.',
+    chatId: 17,
+    userId: 4,
+    recipientId: 1,
+    read: true,
+  },
+  {
+    content: 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat.',
+    chatId: 17,
+    userId: 1,
+    recipientId: 4,
+    read: true,
+  },
+  {
+    content: 'Nullam varius.',
+    chatId: 17,
+    userId: 4,
+    recipientId: 1,
+    read: true,
+  },
+  {
+    content:
+      'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi.',
+    chatId: 17,
+    userId: 1,
+    recipientId: 4,
+    read: true,
+  },
+  {
+    content: 'Nullam varius. Nulla facilisi.',
+    chatId: 17,
+    userId: 4,
+    recipientId: 1,
+    read: true,
+  },
+  {
+    content:
+      'Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat.',
+    chatId: 17,
+    userId: 1,
+    recipientId: 4,
+    read: true,
+  },
+  {
+    content: 'Phasellus in felis.',
+    chatId: 17,
+    userId: 4,
+    recipientId: 1,
+    read: false,
+  },
+  {
+    content: 'Integer tincidunt ante vel ipsum.',
+    chatId: 18,
+    userId: 4,
+    recipientId: 7,
+    read: true,
+  },
+  {
+    content:
+      'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus.',
+    chatId: 18,
+    userId: 4,
+    recipientId: 7,
+    read: false,
+  },
+  {
+    content: 'Maecenas tincidunt lacus at velit.',
+    chatId: 14,
+    userId: 5,
+    recipientId: 16,
+    read: true,
+  },
+  {
+    content:
+      'Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.',
+    chatId: 14,
+    userId: 16,
+    recipientId: 5,
+    read: true,
+  },
+  {
+    content: 'In congue.',
+    chatId: 19,
+    userId: 5,
+    recipientId: 7,
+    read: true,
+  },
+  {
+    content: 'Curabitur at ipsum ac tellus semper interdum.',
+    chatId: 19,
+    userId: 7,
+    recipientId: 5,
+    read: true,
+  },
+  {
+    content:
+      'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl.',
+    chatId: 19,
+    userId: 5,
+    recipientId: 7,
+    read: true,
+  },
+  {
+    content: 'Aliquam non mauris. Morbi non lectus.',
+    chatId: 19,
+    userId: 5,
+    recipientId: 7,
+    read: true,
+  },
+  {
+    content:
+      'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci.',
+    chatId: 19,
+    userId: 7,
+    recipientId: 5,
+    read: true,
+  },
+  {
+    content: 'Morbi a ipsum. Integer a nibh.',
+    chatId: 2,
+    userId: 6,
+    recipientId: 8,
+    read: true,
+  },
+  {
+    content:
+      'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci.',
+    chatId: 2,
+    userId: 6,
+    recipientId: 8,
+    read: true,
+  },
+  {
+    content:
+      'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.',
+    chatId: 2,
+    userId: 8,
+    recipientId: 6,
+    read: true,
+  },
+  {
+    content: 'Morbi a ipsum.',
+    chatId: 2,
+    userId: 6,
+    recipientId: 8,
+    read: false,
+  },
+  {
+    content: 'Fusce consequat. Nulla nisl.',
+    chatId: 2,
+    userId: 6,
+    recipientId: 8,
+    read: false,
+  },
+  {
+    content:
+      'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis.',
+    chatId: 13,
+    userId: 6,
+    recipientId: 10,
+    read: true,
+  },
+  {
+    content: 'In quis justo. Maecenas rhoncus aliquam lacus.',
+    chatId: 13,
+    userId: 10,
+    recipientId: 6,
+    read: true,
+  },
+  {
+    content: 'Integer non velit.',
+    chatId: 13,
+    userId: 6,
+    recipientId: 10,
+    read: true,
+  },
+  {
+    content: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
+    chatId: 13,
+    userId: 6,
+    recipientId: 10,
+    read: true,
+  },
+  {
+    content:
+      'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc.',
+    chatId: 13,
+    userId: 6,
+    recipientId: 10,
+    read: false,
+  },
+  {
+    content:
+      'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum.',
+    chatId: 3,
+    userId: 7,
+    recipientId: 3,
+    read: true,
+  },
+  {
+    content: 'Pellentesque ultrices mattis odio. Donec vitae nisi.',
+    chatId: 3,
+    userId: 7,
+    recipientId: 3,
+    read: true,
+  },
+  {
+    content: 'Fusce consequat.',
+    chatId: 3,
+    userId: 7,
+    recipientId: 3,
+    read: true,
+  },
+  {
+    content: 'Vestibulum rutrum rutrum neque.',
+    chatId: 3,
+    userId: 3,
+    recipientId: 7,
+    read: true,
+  },
+  {
+    content: 'Integer ac leo.',
+    chatId: 4,
+    userId: 7,
+    recipientId: 11,
+    read: true,
+  },
+  {
+    content: 'Donec vitae nisi.',
+    chatId: 4,
+    userId: 11,
+    recipientId: 7,
+    read: true,
+  },
+  {
+    content: 'Morbi vel lectus in quam fringilla rhoncus.',
+    chatId: 6,
+    userId: 7,
+    recipientId: 9,
+    read: true,
+  },
+  {
+    content:
+      'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.',
+    chatId: 6,
+    userId: 9,
+    recipientId: 7,
+    read: true,
+  },
+  {
+    content: 'Aenean sit amet justo. Morbi ut odio.',
+    chatId: 6,
+    userId: 7,
+    recipientId: 9,
+    read: true,
+  },
+  {
+    content:
+      'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio.',
+    chatId: 6,
+    userId: 7,
+    recipientId: 9,
+    read: true,
+  },
+  {
+    content:
+      'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus.',
+    chatId: 6,
+    userId: 9,
+    recipientId: 7,
+    read: true,
+  },
+  {
+    content: 'Praesent blandit. Nam nulla.',
+    chatId: 6,
+    userId: 9,
+    recipientId: 7,
+    read: true,
+  },
+  {
+    content: 'Praesent blandit. Nam nulla.',
+    chatId: 6,
+    userId: 9,
+    recipientId: 7,
+    read: true,
+  },
+  {
+    content:
+      'Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.',
+    chatId: 6,
+    userId: 7,
+    recipientId: 9,
+    read: true,
+  },
+  {
+    content:
+      'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum.',
+    chatId: 6,
+    userId: 7,
+    recipientId: 9,
+    read: true,
+  },
+  {
+    content: 'Curabitur convallis.',
+    chatId: 6,
+    userId: 9,
+    recipientId: 7,
+    read: false,
+  },
+  {
+    content: 'Donec quis orci eget orci vehicula condimentum.',
+    chatId: 8,
+    userId: 8,
+    recipientId: 12,
+    read: true,
+  },
+  {
+    content:
+      'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
+    chatId: 8,
+    userId: 12,
+    recipientId: 8,
+    read: true,
+  },
+  {
+    content: 'Etiam vel augue. Vestibulum rutrum rutrum neque.',
+    chatId: 8,
+    userId: 8,
+    recipientId: 12,
+    read: true,
+  },
+  {
+    content:
+      'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue.',
+    chatId: 7,
+    userId: 9,
+    recipientId: 11,
+    read: true,
+  },
+  {
+    content:
+      'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam.',
+    chatId: 7,
+    userId: 9,
+    recipientId: 11,
+    read: true,
+  },
+  {
+    content:
+      'In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.',
+    chatId: 7,
+    userId: 11,
+    recipientId: 9,
+    read: false,
+  },
+  {
+    content:
+      'Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.',
+    chatId: 7,
+    userId: 11,
+    recipientId: 9,
+    read: false,
+  },
+  {
+    content: 'Praesent blandit. Nam nulla.',
+    chatId: 11,
+    userId: 9,
+    recipientId: 6,
+    read: true,
+  },
+  {
+    content: 'Proin interdum mauris non ligula pellentesque ultrices.',
+    chatId: 11,
+    userId: 6,
+    recipientId: 9,
+    read: true,
+  },
+  {
+    content:
+      'Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti.',
+    chatId: 11,
+    userId: 6,
+    recipientId: 9,
+    read: true,
+  },
+  {
+    content:
+      'Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.',
+    chatId: 11,
+    userId: 9,
+    recipientId: 6,
+    read: true,
+  },
+  {
+    content: 'Etiam vel augue. Vestibulum rutrum rutrum neque.',
+    chatId: 15,
+    userId: 10,
+    recipientId: 8,
+    read: true,
+  },
+  {
+    content:
+      'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet.',
+    chatId: 15,
+    userId: 8,
+    recipientId: 10,
+    read: true,
+  },
+  {
+    content:
+      'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis.',
+    chatId: 15,
+    userId: 10,
+    recipientId: 8,
+    read: false,
+  },
+  {
+    content:
+      'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus.',
+    chatId: 20,
+    userId: 10,
+    recipientId: 12,
+    read: true,
+  },
+  {
+    content:
+      'Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.',
+    chatId: 20,
+    userId: 10,
+    recipientId: 12,
+    read: true,
+  },
+  {
+    content:
+      'In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.',
+    chatId: 20,
+    userId: 10,
+    recipientId: 12,
+    read: true,
+  },
+  {
+    content:
+      'Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.',
+    chatId: 21,
+    userId: 11,
+    recipientId: 6,
+    read: true,
+  },
+  {
+    content:
+      'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.',
+    chatId: 21,
+    userId: 6,
+    recipientId: 11,
+    read: false,
+  },
+  {
+    content: 'Vestibulum rutrum rutrum neque.',
+    chatId: 21,
+    userId: 6,
+    recipientId: 11,
+    read: false,
+  },
+  {
+    content: 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat.',
+    chatId: 10,
+    userId: 14,
+    recipientId: 13,
+    read: true,
+  },
+  {
+    content:
+      'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim.',
+    chatId: 10,
+    userId: 13,
+    recipientId: 14,
+    read: true,
+  },
+  {
+    content:
+      'In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt.',
+    chatId: 10,
+    userId: 13,
+    recipientId: 14,
+    read: true,
+  },
+  {
+    content:
+      'Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.',
+    chatId: 10,
+    userId: 14,
+    recipientId: 13,
+    read: true,
+  },
+  {
+    content: 'Integer a nibh. In quis justo.',
+    chatId: 10,
+    userId: 13,
+    recipientId: 14,
+    read: true,
+  },
+  {
+    content: 'Vivamus tortor. Duis mattis egestas metus.',
+    chatId: 10,
+    userId: 14,
+    recipientId: 13,
+    read: true,
+  },
+  {
+    content:
+      'Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante.',
+    chatId: 10,
+    userId: 14,
+    recipientId: 13,
+    read: true,
+  },
+  {
+    content: 'In blandit ultrices enim.',
+    chatId: 10,
+    userId: 13,
+    recipientId: 14,
+    read: true,
+  },
+  {
+    content: 'Nulla tellus.',
+    chatId: 10,
+    userId: 14,
+    recipientId: 13,
+    read: true,
+  },
+  {
+    content:
+      'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
+    chatId: 25,
+    userId: 23,
+    recipientId: 4,
+    read: true,
+  },
+  {
+    content: 'Donec posuere metus vitae ipsum. Aliquam non mauris.',
+    chatId: 25,
+    userId: 23,
+    recipientId: 4,
+    read: true,
+  },
+  {
+    content: 'Suspendisse potenti. Nullam porttitor lacus at turpis.',
+    chatId: 25,
+    userId: 4,
+    recipientId: 23,
+    read: true,
+  },
+  {
+    content:
+      'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.',
+    chatId: 25,
+    userId: 23,
+    recipientId: 4,
+    read: true,
+  },
+  {
+    content: 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat.',
+    chatId: 25,
+    userId: 4,
+    recipientId: 23,
+    read: true,
+  },
+  {
+    content: 'Mauris lacinia sapien quis libero.',
+    chatId: 25,
+    userId: 4,
+    recipientId: 23,
+    read: true,
+  },
+  {
+    content: 'Morbi a ipsum.',
+    chatId: 25,
+    userId: 23,
+    recipientId: 4,
+    read: true,
+  },
+  {
+    content: 'Cras in purus eu magna vulputate luctus.',
+    chatId: 25,
+    userId: 4,
+    recipientId: 23,
+    read: true,
+  },
+  {
+    content:
+      'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio.',
+    chatId: 25,
+    userId: 23,
+    recipientId: 4,
+    read: true,
+  },
+  {
+    content: 'Morbi a ipsum.',
+    chatId: 25,
+    userId: 23,
+    recipientId: 4,
+    read: true,
+  },
+  {
+    content: 'Cras non velit nec nisi vulputate nonummy.',
+    chatId: 25,
+    userId: 4,
+    recipientId: 23,
+    read: false,
+  },
+  {
+    content: 'Nullam varius.',
+    chatId: 25,
+    userId: 4,
+    recipientId: 23,
+    read: false,
+  },
 ];
 
 module.exports = chatMessages;
