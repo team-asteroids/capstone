@@ -27,7 +27,7 @@ const {
   Post_Comment_Like,
   Chat,
 } = require('./server/db/index');
-const user = require('./mock-data/userSeed');
+const users = require('./mock-data/userSeed');
 const { events } = require('./mock-data/eventSeed');
 const sitterList = require('./mock-data/sitterSeed');
 const sitterRatingList = require('./mock-data/sitterRatingSeed');
@@ -60,8 +60,8 @@ const init = async () => {
     console.log('syncing the db');
 
     console.log('seeding users...');
-    const seedUsers = await User.bulkCreate(user, {
-      validate: true,
+    const seedUsers = await User.bulkCreate(users, {
+      // validate: true,
       individualHooks: true,
     });
     console.log('User seeding successful!');
