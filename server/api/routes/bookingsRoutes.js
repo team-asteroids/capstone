@@ -140,7 +140,7 @@ router.put('/:bookingId', requireToken, async (req, res, next) => {
 router.delete('/:bookingId', requireToken, isAdmin, async (req, res, next) => {
   try {
     if (req.user.role !== 'admin') {
-      return res.status(404).send('only admins can delete bookings');
+      return res.status(403).send('only admins can delete bookings');
     } else {
       const bookingId = +req.params.bookingId;
       const booking = await Booking.findByPk(bookingId);
