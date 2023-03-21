@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../database');
 
-const Message = db.define('message', {
+const Chat_Message = db.define('chat_message', {
   content: {
     type: Sequelize.TEXT,
     allowNull: false,
@@ -10,9 +10,18 @@ const Message = db.define('message', {
       notNull: true,
     },
   },
+  read: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+    validate: {
+      notEmpty: true,
+      notNull: true,
+    },
+  },
 });
 
-module.exports = Message;
+module.exports = Chat_Message;
 
 /* 
 -- not sure how to get recepient Id and Sender Id on messages table ??
