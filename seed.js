@@ -320,4 +320,20 @@ const init = async () => {
   }
 };
 
+// const getMagicMethods = (model) => {
+//   const magicMethodsArr = [];
+//   const associations = model.associations;
+//   //console.log(associations)
+//   for (let key in associations) {
+//     if (associations.hasOwnProperty(key)) {
+//       const accessors = associations[key].accessors;
+//       const magicMethods = Object.values(accessors);
+//       const curAssociationObj = { association: key, magicMethods };
+//       magicMethodsArr.push(curAssociationObj);
+//     }
+//   }
+//   return magicMethodsArr;
+// };
+// console.log(getMagicMethods(Access));
+
 init();
