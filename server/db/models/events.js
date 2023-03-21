@@ -45,7 +45,9 @@ const Event = db.define('event', {
   },
 });
 
-module.exports = Event;
+const Event_RSVP = db.define('event_rsvps');
+
+module.exports = { Event, Event_RSVP };
 
 /* 
 

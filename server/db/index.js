@@ -8,7 +8,7 @@ const Sitter_Client = require('./models/sitter_client');
 const Pet = require('./models/pets');
 const Pet_Detail = require('./models/pet_details');
 const Booking = require('./models/bookings');
-const Event = require('./models/events');
+const { Event, Event_RSVP } = require('./models/events');
 const {
   Group,
   Group_Post,
@@ -89,8 +89,8 @@ Group_Post.belongsToMany(User, { through: Group_Post_Like });
 User.belongsToMany(Group_Post, { through: Group_Post_Like });
 
 // --event_rsvp
-Event.belongsToMany(User, { through: 'event_rsvps' });
-User.belongsToMany(Event, { through: 'event_rsvps' });
+Event.belongsToMany(User, { through: Event_RSVP });
+User.belongsToMany(Event, { through: Event_RSVP });
 
 // -- put creator id on table
 Event.belongsTo(User, { foreignKey: 'creatorId' });
@@ -191,6 +191,7 @@ module.exports = {
   Pet_Detail,
   Booking,
   Event,
+  Event_RSVP,
   Group,
   Group_Post,
   Group_Member,
