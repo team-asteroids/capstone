@@ -51,6 +51,31 @@ router.get('/:groupId', requireToken, async (req, res, next) => {
   }
 });
 
+// add a single group
+// creatorId is automatically set to token user id
+router.post('/', requireToken, async (req, res, next) => {
+  try {
+    const [newGroup, wasCreated] = await Group.findOrCreate({
+      where: {
+        name: req.body.name,
+        creatorId: req.user.id,
+      },
+      defaults: {
+        name: req.body.name,
+        topic: req.body.topic,
+        description: req.body.description,
+        imageSrc: req.body.imageSrc,
+        creatorId: req.user.id,
+      },
+    });
+    if (!wasCreated) return res.status(409).send('Group already exists');
+    res.status(201).json(newGroup);
+  } catch (e) {
+    console.log('Backend issue adding single group');
+    next(e);
+  }
+});
+
 // edit single group
 // token user id must match the group creatorId
 router.put('/:groupId', requireToken, async (req, res, next) => {
@@ -198,6 +223,30 @@ router.get('/:groupId/posts/:postId', requireToken, async (req, res, next) => {
     res.status(200).json(singleGroupPostAndLikes);
   } catch (e) {
     console.log('Backend issue fetching all posts');
+    next(e);
+  }
+});
+
+// add a single group post
+// creatorId is automatically set to token user id
+router.post('/:groupId/posts', requireToken, async (req, res, next) => {
+  try {
+    const [newGroupPost, wasCreated] = await Group_Post.findOrCreate({
+      where: {
+        content: req.body.content,
+        userId: req.user.id,
+        groupId: req.params.groupId,
+      },
+      defaults: {
+        ccontent: req.body.content,
+        userId: req.user.id,
+        groupId: req.params.groupId,
+      },
+    });
+    if (!wasCreated) return res.status(409).send('Group Post already exists');
+    res.status(201).json(newGroupPost);
+  } catch (e) {
+    console.log('Backend issue adding single group_post');
     next(e);
   }
 });
