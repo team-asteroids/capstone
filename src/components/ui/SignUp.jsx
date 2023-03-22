@@ -11,17 +11,17 @@ function SignUp() {
               <div className="flex flex-wrap mx-3 mb-6">
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <label>First Name</label>
-                  <input className="appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue" />
+                  <input className="appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3" />
                 </div>
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <label>Last Name</label>
-                  <input className="appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue" />
+                  <input className="appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3" />
                 </div>
               </div>
               <div className="flex flex-wrap px-3 mx-3 mb-6">
                 <div className="w-full flex flex-col">
                   <label>Email</label>
-                  <input className="appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue" />
+                  <input className="appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3" />
                 </div>
               </div>
               <div>
