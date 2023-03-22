@@ -7,7 +7,6 @@ export const logIn = createAsyncThunk(
     try {
       let { data } = await axios.post('/api/auth/login', credentials);
       localStorage.setItem('token', data.token);
-      console.log('login data:', data);
       return data;
     } catch (err) {
       return rejectWithValue(err);
