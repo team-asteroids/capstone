@@ -21,7 +21,7 @@ module.exports = {
         'bold-pink': '#ff006e',
         'bold-purple': '#8338ec',
         'bold-blue': '#3a86ff',
-        // neutral: '#e9cecd',
+        neutral: '#e9cecd',
         'white-smoke': '#F2F4F3',
       },
     },
