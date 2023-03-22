@@ -1,5 +1,8 @@
 import '../index.css';
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { attemptTokenLogin, selectAuth } from '../slices/authSlice';
 import {
   Homepage,
   Navbar,
@@ -11,9 +14,17 @@ import {
 } from './index';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(attemptTokenLogin());
+  }, []);
+
+  const { userAuth } = useSelector(selectAuth);
+
   return (
     <div className="font-rubikmono">
-      <Navbar />
+      <Navbar userAuth={userAuth} />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/*" element={<NotFound />} />
