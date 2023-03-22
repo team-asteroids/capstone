@@ -13,6 +13,7 @@ router.use('/reviews', require('./routes/reviewsRoutes'));
 router.use('/ratings', require('./routes/ratingsRoutes'));
 // router.use('/map', require('./routes/mapRoutes'));
 router.use('/chat', require('./routes/chatRoutes'));
+router.use('/access', require('./routes/accessRoutes'));
 
 // 404 default error handler
 router.use((req, res, next) => {
