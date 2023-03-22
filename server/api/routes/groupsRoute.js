@@ -238,7 +238,7 @@ router.post('/:groupId/posts', requireToken, async (req, res, next) => {
         groupId: req.params.groupId,
       },
       defaults: {
-        ccontent: req.body.content,
+        content: req.body.content,
         userId: req.user.id,
         groupId: req.params.groupId,
       },

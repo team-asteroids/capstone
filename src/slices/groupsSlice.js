@@ -20,7 +20,7 @@ export const editSingleGroup = createAsyncThunk(
   }
 );
 export const deleteSingleGroup = createAsyncThunk(
-  '/editSingleGroup',
+  '/deleteSingleGroup',
   async (groupId) => {
     const { data } = await axios.delete(`/api/groups/${groupId}`);
     return data;
@@ -81,9 +81,6 @@ export const groupSlice = createSlice({
         state.status = 'fulfilled';
         state.error = '';
         state.singleGroup = payload;
-        state.groups = state.groups.filter(
-          (product) => product.id !== payload.id
-        );
       })
       .addCase(deleteSingleGroup.pending, (state, { payload }) => {
         state.status = 'loading';
