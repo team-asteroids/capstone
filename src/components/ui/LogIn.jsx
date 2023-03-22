@@ -86,7 +86,7 @@ function LogIn() {
               <div className="w-full">
                 <p
                   className={
-                    status === 'failed' || logInAttempt
+                    status === 'failed' || logInFail
                       ? 'text-red-500 font-rubik text-center font-bold text-sm'
                       : 'collapse font-rubik text-xs'
                   }
