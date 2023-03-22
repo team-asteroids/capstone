@@ -11,14 +11,13 @@ const AllEvents = () => {
     dispatch(fetchAllEvents());
   }, [dispatch]);
 
-  console.log(events);
-
   return (
-    <>
-      <div>
+    <div className="bg-gradient-to-r from-bold-blue via-bold-purple to-bold-pink ...">
+      <div className="container mx-auto">
         {events.events.map((event) => (
           <EventList
             key={event.id}
+            eventId={event.id}
             creatorId={event.creatorId}
             topic={event.topic}
             description={event.description}
@@ -27,7 +26,7 @@ const AllEvents = () => {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
