@@ -1,10 +1,11 @@
 import '../index.css';
 import { Routes, Route } from 'react-router-dom';
-import Homepage from './Homepage';
+import { Homepage, Navbar } from './index';
 
 function App() {
   return (
     <div className="font-rubik">
+      <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
       </Routes>
