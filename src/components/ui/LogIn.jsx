@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  selectAuth,
-  logIn,
-  attemptTokenLogin,
-  resetAuthStatus,
-} from '../../slices/authSlice';
+import { selectAuth, logIn, attemptTokenLogin } from '../../slices/authSlice';
 
 function LogIn() {
   const dispatch = useDispatch();
@@ -70,10 +65,6 @@ function LogIn() {
     else if (logInAttempt) {
       setLogInFail(true);
     }
-
-    return () => {
-      dispatch(resetAuthStatus());
-    };
   }, [userAuth]);
 
   return (
