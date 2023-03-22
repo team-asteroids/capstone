@@ -72,6 +72,7 @@ router.post('/', requireToken, async (req, res, next) => {
   try {
     const [newPost, wasCreated] = await Post.findOrCreate({
       where: { content: req.body.content, creatorId: req.user.id },
+      defaults: { content: req.body.content, creatorId: req.user.id },
     });
     if (!wasCreated) return res.status(409).send('Post already exists');
     res.status(201).json(newPost);
