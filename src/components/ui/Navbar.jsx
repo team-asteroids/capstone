@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Navbar() {
+function Navbar(props) {
+  const { userAuth } = props;
+
   return (
     <nav className="flex justify-between font-rubikmono h-20 items-center tracking-tighter text-bold-blue bg-white-smoke px-5">
       <div>
@@ -13,9 +15,15 @@ function Navbar() {
         <Link to={`/social`}>
           <li>Social</li>
         </Link>
-        <Link to={'/login'}>
-          <li>Login</li>
-        </Link>
+        {userAuth && userAuth.firstName ? (
+          <Link to={'/account'}>
+            <li>Hi, {userAuth.firstName}</li>
+          </Link>
+        ) : (
+          <Link to={'/login'}>
+            <li>Login</li>
+          </Link>
+        )}
       </ul>
     </nav>
   );
