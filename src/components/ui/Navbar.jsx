@@ -5,7 +5,7 @@ function Navbar(props) {
   const { userAuth } = props;
 
   return (
-    <nav className="flex justify-between font-rubikmono h-20 items-center tracking-tighter text-bold-blue bg-white-smoke px-5">
+    <nav className="flex justify-between font-rubikmono h-20 items-center tracking-tighter text-bold-blue px-5">
       <div>
         <Link to={'/'}>
           <h1 className="text-bold-blue text-5xl">Howlr</h1>
