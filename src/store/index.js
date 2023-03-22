@@ -6,7 +6,7 @@ import groupDetailsSliceReducer from '../slices/groupDetailsSlice';
 const store = configureStore({
   reducer: {
     events: eventsReducer,
-    allGroups: groupSliceReducer,
+    groups: groupSliceReducer,
     groupDetails: groupDetailsSliceReducer,
   },
 });

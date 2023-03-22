@@ -17,12 +17,24 @@ const integrateLikes = async (post) => {
   return { post, likes };
 };
 
+// helper function
+const integrateMembers = async (group) => {
+  const members = await Group_Member.findAll({
+    where: { groupId: group.id },
+  });
+  return { group, members };
+};
+
 // get all groups
 // public access
 router.get('/', async (req, res, next) => {
   try {
     const allGroups = await Group.findAll();
-    res.status(200).json(allGroups);
+
+    const groupsAndMembers = await Promise.all(
+      allGroups.map((group) => integrateMembers(group))
+    );
+    res.status(200).json(groupsAndMembers);
   } catch (e) {
     console.log('Backend issue fetching all groups');
     next(e);

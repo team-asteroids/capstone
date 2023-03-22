@@ -1,7 +1,16 @@
 import '../index.css';
 import { Routes, Route } from 'react-router-dom';
-import { Homepage, Navbar, NotFound, SignUp, LogIn, AllEvents, Map } from './index';
-
+import {
+  Homepage,
+  Navbar,
+  NotFound,
+  SignUp,
+  LogIn,
+  AllEvents,
+  Map,
+  BrowseGroups,
+  SingleGroup,
+} from './index';
 
 function App() {
   return (
@@ -14,6 +23,8 @@ function App() {
         <Route path="/events" element={<AllEvents />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
+        <Route path="/groups" element={<BrowseGroups />} />
+        <Route path="/groups/:groupId" element={<SingleGroup />} />
       </Routes>
     </div>
   );
