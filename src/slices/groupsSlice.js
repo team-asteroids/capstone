@@ -37,7 +37,7 @@ export const addSingleGroup = createAsyncThunk(
 export const groupSlice = createSlice({
   name: 'groups',
   initialState: {
-    groups: [],
+    allGroups: [],
     singleGroup: {},
     error: '',
     status: '',
@@ -48,7 +48,7 @@ export const groupSlice = createSlice({
       .addCase(fetchAllGroups.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
-        state.groups = payload;
+        state.allGroups = payload;
       })
       .addCase(fetchAllGroups.pending, (state, { payload }) => {
         state.status = 'loading';
@@ -113,4 +113,5 @@ export const groupSlice = createSlice({
   },
 });
 
+export const selectGroups = (state) => state.groups;
 export default groupSlice.reducer;

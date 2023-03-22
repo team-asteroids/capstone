@@ -11,6 +11,8 @@ import {
   LogIn,
   AllEvents,
   Map,
+  BrowseGroups,
+  SingleGroup,
   UserAccount,
 } from './index';
 
@@ -33,6 +35,8 @@ function App() {
         <Route path="/events" element={<AllEvents />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
+        <Route path="/groups" element={<BrowseGroups />} />
+        <Route path="/groups/:groupId" element={<SingleGroup />} />
         <Route path="/account" element={<UserAccount />} />
       </Routes>
     </div>
