@@ -1,9 +1,13 @@
 import '../index.css';
+import { Routes, Route } from 'react-router-dom';
+import Homepage from './Homepage';
 
 function App() {
   return (
-    <div className="bg-cover bg-center bg-[url('img/treats-bg.jpg')] h-screen">
-      <p className="underline text-3xl">Hello World!</p>
+    <div className="font-rubik">
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+      </Routes>
     </div>
   );
 }
