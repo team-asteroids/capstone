@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../database');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const dotenv = require('dotenv').config();
+// const dotenv = require('dotenv').config();
 
 const SECRET = process.env.JWT;
 const SALT_ROUNDS = 10;
@@ -52,7 +52,7 @@ const User = db.define('user', {
   },
   imageSrc: {
     type: Sequelize.STRING,
-    defaultValue: 'http://dummyimage.com/129x100.png/dddddd/000000',
+    defaultValue: 'default-dog.jpg',
     allowNull: false,
     validate: {
       notEmpty: true,
