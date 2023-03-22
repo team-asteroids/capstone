@@ -103,7 +103,7 @@ router.get('/:id', requireToken, async (req, res, next) => {
   }
 });
 
-// this allows logged in user to create a post
+// this allows logged in user to create a event
 router.post('/', requireToken, async (req, res, next) => {
   try {
     const newEvent = await Event.create(req.body);
