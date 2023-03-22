@@ -7,7 +7,26 @@ export const logIn = createAsyncThunk(
     try {
       let { data } = await axios.post('/api/auth/login', credentials);
       localStorage.setItem('token', data.token);
+      console.log('login data:', data);
       return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const attemptTokenLogin = createAsyncThunk(
+  'attemptTokenLogin',
+  async (x, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return {};
+      const { data } = await axios.get(`/api/auth`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      return { data, token };
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -20,7 +39,7 @@ const authSlice = createSlice({
     token: '',
     userAuth: {},
     error: '',
-    status: '', // pending, fulfilled, failed
+    status: '',
   },
   reducers: {
     resetAuthStatus: (state) => {
@@ -28,27 +47,41 @@ const authSlice = createSlice({
       state.error = '';
     },
     logOut: (state) => {
-      state.auth = {};
+      state.userAuth = {};
       state.token = '';
       state.status = '';
       localStorage.clear();
     },
-    extraReducers: (builder) => {
-      builder
-        .addCase(logIn.fulfilled, (state, { payload }) => {
-          state.token = payload.token;
-          state.status = 'success';
-          state.error = '';
-        })
-        .addCase(logIn.pending, (state, { payload }) => {
-          state.status = 'loading';
-          state.error = '';
-        })
-        .addCase(logIn.rejected, (state, { payload }) => {
-          state.status = 'failed';
-          state.error = payload.message;
-        });
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(logIn.fulfilled, (state, { payload }) => {
+        state.token = payload.token;
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(logIn.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(logIn.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(attemptTokenLogin.fulfilled, (state, { payload }) => {
+        state.userAuth = payload.data;
+        state.status = 'success';
+        state.error = '';
+        state.token = payload.token;
+      })
+      .addCase(attemptTokenLogin.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(attemptTokenLogin.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      });
   },
 });
 
