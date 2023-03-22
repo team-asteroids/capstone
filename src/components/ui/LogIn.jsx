@@ -58,7 +58,7 @@ function LogIn() {
           password,
         })
       );
-      console.log(res);
+
       if (res.type === 'login/fulfilled') {
         await dispatch(attemptTokenLogin());
       }
