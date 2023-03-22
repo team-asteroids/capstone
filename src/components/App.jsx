@@ -1,6 +1,6 @@
 import '../index.css';
 import { Routes, Route } from 'react-router-dom';
-import { Homepage, Navbar, NotFound } from './index';
+import { Homepage, Navbar, NotFound, Map } from './index';
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/*" element={<NotFound />} />
+        <Route path="/map" element={<Map />} />
       </Routes>
     </div>
   );
