@@ -2,7 +2,7 @@ import React from 'react';
 
 function SignUp() {
   return (
-    <div className="bg-bold-orange h-[calc(100vh_-_5rem)]">
+    <div className="bg-[url('img/signup-blue.jpg')] bg-no-repeat bg-cover bg-left h-[calc(100vh_-_5rem)]">
       <div className="flex flex-row">
         <div className="w-1/2">
           <h2 className="text-center text-3xl font-bold">Welcome, New Pup!</h2>
@@ -27,7 +27,7 @@ function SignUp() {
             </form>
           </section>
         </div>
-        <div className="w-1/2 bg-[url('img/signup-bg.jpg')] h-[calc(100vh_-_5rem)] bg-contain bg-center bg-no-repeat"></div>
+        <div className="w-1/2 h-[calc(100vh_-_5rem)] bg-contain bg-center bg-no-repeat"></div>
       </div>
     </div>
   );
