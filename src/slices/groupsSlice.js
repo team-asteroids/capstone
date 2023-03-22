@@ -14,8 +14,8 @@ export const fetchSingleGroup = createAsyncThunk(
 );
 export const editSingleGroup = createAsyncThunk(
   '/editSingleGroup',
-  async (groupId) => {
-    const { data } = await axios.put(`/api/groups/${groupId}`);
+  async ({ groupId, editedInfo }) => {
+    const { data } = await axios.put(`/api/groups/${groupId}`, editedInfo);
     return data;
   }
 );
@@ -23,6 +23,13 @@ export const deleteSingleGroup = createAsyncThunk(
   '/deleteSingleGroup',
   async (groupId) => {
     const { data } = await axios.delete(`/api/groups/${groupId}`);
+    return data;
+  }
+);
+export const addSingleGroup = createAsyncThunk(
+  '/addSingleGroup',
+  async (groupInfo) => {
+    const { data } = await axios.post('/api/groups', groupInfo);
     return data;
   }
 );
@@ -80,7 +87,7 @@ export const groupSlice = createSlice({
       .addCase(deleteSingleGroup.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
-        state.singleGroup = payload;
+        // what should we do with payload?
       })
       .addCase(deleteSingleGroup.pending, (state, { payload }) => {
         state.status = 'loading';
@@ -89,6 +96,21 @@ export const groupSlice = createSlice({
       .addCase(deleteSingleGroup.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
+      })
+      .addCase(addSingleGroup.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.singleGroup = payload;
+      })
+      .addCase(addSingleGroup.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(addSingleGroup.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
       });
   },
 });
+
+export default groupSlice.reducer;
