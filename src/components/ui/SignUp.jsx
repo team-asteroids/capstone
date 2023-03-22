@@ -62,7 +62,7 @@ function SignUp() {
               </div>
             </form>
           </section>
-          <div className="text-xs mt-5">
+          <div className="text-xs mt-5 text-center">
             <p>
               <Link to={'/login'}>Already have an account? Log in!</Link>
             </p>

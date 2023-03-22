@@ -52,7 +52,7 @@ const User = db.define('user', {
   },
   imageSrc: {
     type: Sequelize.STRING,
-    defaultValue: 'http://dummyimage.com/129x100.png/dddddd/000000',
+    defaultValue: 'default-dog.jpg',
     allowNull: false,
     validate: {
       notEmpty: true,
