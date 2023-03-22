@@ -200,3 +200,5 @@ export const groupDetailsSlice = createSlice({
       });
   },
 });
+
+export default groupDetailsSlice.reducer;
