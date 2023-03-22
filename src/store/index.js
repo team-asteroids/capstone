@@ -8,7 +8,6 @@ const store = configureStore({
     events: eventsReducer,
     allGroups: groupSliceReducer,
     groupDetails: groupDetailsSliceReducer,
-
   },
 });
 

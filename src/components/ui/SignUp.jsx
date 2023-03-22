@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function SignUp() {
   return (
     <div className="bg-[url('img/signup-blue.jpg')] bg-no-repeat bg-cover bg-right h-[calc(100vh_-_5rem)]">
-      <div className="flex flex-row">
+      <div className="max-w-1/3 flex flex-row m-auto">
         <div className="w-1/2 mx-10 m-auto">
-          <h2 className="text-center text-3xl font-bold">Welcome, New Pup!</h2>
+          <h2 className="text-center text-3xl">Welcome, New Pup!</h2>
           <section className="flex gap-10 justify-center mt-16">
             <form>
               <div className="flex flex-wrap mx-3 mb-6">
@@ -61,8 +62,13 @@ function SignUp() {
               </div>
             </form>
           </section>
+          <div className="text-xs mt-5">
+            <p>
+              <Link to={'/login'}>Already have an account? Log in!</Link>
+            </p>
+          </div>
         </div>
-        <div className="w-1/2 h-[calc(100vh_-_5rem)] bg-contain bg-center bg-no-repeat"></div>
+        <div className="w-1/2 h-[calc(100vh_-_5rem)]"></div>
       </div>
     </div>
   );
