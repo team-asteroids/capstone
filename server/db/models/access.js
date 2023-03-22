@@ -5,19 +5,17 @@ const Access = db.define('access', {
   phone: {
     type: Sequelize.BIGINT,
     unique: true,
-    allowNull: false,
+    allowNull: true,
     validate: {
       len: [10],
       notEmpty: true,
-      notNull: true,
     },
   },
   address1: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       notEmpty: true,
-      notNull: true,
     },
   },
   address2: {
@@ -29,15 +27,14 @@ const Access = db.define('access', {
   },
   city: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       notEmpty: true,
-      notNull: true,
     },
   },
   state: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       isIn: [
         [
@@ -101,7 +98,6 @@ const Access = db.define('access', {
         ],
       ],
       notEmpty: true,
-      notNull: true,
     },
   },
   zip: {
@@ -139,19 +135,17 @@ const Access = db.define('access', {
   },
   emergencyContactName: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       notEmpty: true,
-      notNull: true,
     },
   },
   emergencyContactPhone: {
     type: Sequelize.BIGINT,
-    allowNull: false,
+    allowNull: true,
     validate: {
       len: [10],
       notEmpty: true,
-      notNull: true,
     },
   },
   wifi: {
@@ -163,10 +157,9 @@ const Access = db.define('access', {
   },
   additionalNotes: {
     type: Sequelize.TEXT,
-    allowNull: false,
+    allowNull: true,
     validate: {
       notEmpty: true,
-      notNull: true,
     },
   },
 });

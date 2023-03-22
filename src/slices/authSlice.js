@@ -1,8 +1,3 @@
-// LOGGED IN USER INFO
-// axios calls to auth routes
-// saving tokens and user object
-// this state to save anything to the user object
-// user === logged in person doing actions
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -19,18 +14,42 @@ export const logIn = createAsyncThunk(
   }
 );
 
+export const attemptTokenLogin = createAsyncThunk(
+  'attemptTokenLogin',
+  async (x, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return {};
+      const { data } = await axios.get(`/api/auth`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      return { data, token };
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
     token: '',
     userAuth: {},
     error: '',
-    status: '', // pending, fulfilled, failed
+    status: '',
   },
   reducers: {
     resetAuthStatus: (state) => {
       state.status = '';
       state.error = '';
+    },
+    logOut: (state) => {
+      state.userAuth = {};
+      state.token = '';
+      state.status = '';
+      localStorage.clear();
     },
   },
   extraReducers: (builder) => {
@@ -47,6 +66,26 @@ const authSlice = createSlice({
       .addCase(logIn.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
+      })
+      .addCase(attemptTokenLogin.fulfilled, (state, { payload }) => {
+        state.userAuth = payload.data;
+        state.status = 'success';
+        state.error = '';
+        state.token = payload.token;
+      })
+      .addCase(attemptTokenLogin.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(attemptTokenLogin.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
       });
   },
 });
+
+export const { resetAuthStatus, logOut } = authSlice.actions;
+
+export const selectAuth = (state) => state.auth;
+
+export default authSlice.reducer;
