@@ -5,15 +5,16 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        rubik: ['Rubik Mono One', 'sans-serif'],
-        roboto: ['Roboto', 'sans-serif'],
+        rubikmono: ['Rubik Mono One', 'sans-serif'],
+        rubik: ['Rubik', 'sans-serif'],
       },
       fontWeight: {
-        thin: 100,
         light: 300,
         regular: 400,
         medium: 500,
+        semibold: 600,
         bold: 700,
+        extrabold: 800,
         black: 900,
       },
       colors: {
