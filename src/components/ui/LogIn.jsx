@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function LogIn() {
   return (
     <div className="bg-[url('img/dog-head.jpg')] bg-bottom bg-no-repeat bg-cover h-[calc(100vh_-_5rem)]">
-      <div className="w-full max-w-sm m-auto pt-16">
+      <div className="w-full flex flex-col max-w-sm m-auto pt-16">
         <h2 className="text-center text-3xl">Log in!</h2>
         <section className="flex gap-10 justify-center mt-16">
           <form>
@@ -32,7 +32,7 @@ function LogIn() {
           </form>
         </section>
         <div className="text-xs mt-5">
-          <p>
+          <p className="text-center">
             <Link to={'/signup'}>Don't have an account? Sign Up!</Link>
           </p>
         </div>
