@@ -1,10 +1,14 @@
-import eventsReducer from '../slices/eventsSlice';
 const { configureStore } = require('@reduxjs/toolkit');
-// import slices
+import eventsReducer from '../slices/eventsSlice';
+import groupSliceReducer from '../slices/groupsSlice';
+import groupDetailsSliceReducer from '../slices/groupDetailsSlice';
 
 const store = configureStore({
   reducer: {
     events: eventsReducer,
+    allGroups: groupSliceReducer,
+    groupDetails: groupDetailsSliceReducer,
+
   },
 });
 

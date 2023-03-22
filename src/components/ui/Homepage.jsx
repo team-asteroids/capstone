@@ -3,7 +3,7 @@ import React from 'react';
 function Homepage() {
   return (
     <div className="bg-cover bg-no-repeat bg-[url('img/treats-bg.jpg')] h-[calc(100vh_-_5rem)]">
-      <div className="absolute flex-col text-[3.5rem] top-96 left-48 tracking-wide">
+      <div className="flex absolute flex-col text-[3.5rem] top-96 left-48 tracking-wide">
         <p className="leading-none pb-2">Welcome to the</p>
         <p className="leading-none">Howlr Pack!</p>
       </div>
