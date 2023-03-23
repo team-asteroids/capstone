@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { logOut, selectAuth } from '../../slices/authSlice';
 import defaultImg from '../../img/default-dog.jpg';
 
@@ -32,11 +32,21 @@ function UserAccount() {
               alt="alt"
             ></img>
             <div className="font-rubikmono">{userAuth.fullName}</div>
-            <div>Overview</div>
-            <div>Profile</div>
-            <div>Pets</div>
-            <div>Bookings</div>
-            <div>Security</div>
+            <div>
+              <Link to="/account">Overview</Link>
+            </div>
+            <div>
+              <Link to="/account/editprofile">Edit Profile</Link>
+            </div>
+            <div>
+              <Link to="/account/pets">Pets</Link>
+            </div>
+            <div>
+              <Link to="/account/bookings">Bookings</Link>
+            </div>
+            <div>
+              <Link to="/account/access">Access</Link>
+            </div>
             <div className="align-baseline">
               <button
                 className="font-rubikmono text-left"
