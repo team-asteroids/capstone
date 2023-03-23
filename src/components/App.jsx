@@ -16,7 +16,7 @@ import {
   SingleGroup,
   UserAccount,
   UserProfile,
-  UserBookings,
+  Footer,
 } from './index';
 
 function App() {
@@ -44,6 +44,7 @@ function App() {
         <Route path="/account/*" element={<UserAccount />} />
         <Route path="/profile" element={<UserProfile />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
