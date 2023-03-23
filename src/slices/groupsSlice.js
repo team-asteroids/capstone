@@ -8,7 +8,13 @@ export const fetchAllGroups = createAsyncThunk('/allGroups', async () => {
 export const fetchSingleGroup = createAsyncThunk(
   '/singleGroup',
   async (groupId) => {
-    const { data } = await axios.get(`/api/groups/${groupId}`);
+    const token = localStorage.getItem('token');
+    const { data } = await axios.get(`/api/groups/${groupId}`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    console.log('data--> ', data);
     return data;
   }
 );
@@ -62,6 +68,7 @@ export const groupSlice = createSlice({
         state.status = 'fulfilled';
         state.error = '';
         state.singleGroup = payload;
+        console.log('state--> ', state.singleGroup);
       })
       .addCase(fetchSingleGroup.pending, (state, { payload }) => {
         state.status = 'loading';
@@ -69,7 +76,7 @@ export const groupSlice = createSlice({
       })
       .addCase(fetchSingleGroup.rejected, (state, { payload }) => {
         state.status = 'failed';
-        state.error = payload.message;
+        state.error = payload;
       })
       .addCase(editSingleGroup.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';

@@ -214,6 +214,7 @@ router.get('/:groupId/posts', requireToken, async (req, res, next) => {
   try {
     const singleGroupPosts = await Group_Post.findAll({
       where: { groupId: req.params.groupId },
+      include: { model: User },
     });
     const groupPostsAndLikes = await Promise.all(
       singleGroupPosts.map((post) => integrateLikes(post))
