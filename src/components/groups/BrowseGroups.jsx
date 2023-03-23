@@ -16,7 +16,7 @@ const BrowseGroups = () => {
   return (
     <>
       <div className="p-6 bg-[#fca5a5]">
-        <h3 className=" text-bold-purple text-lg ">Groups</h3>
+        <h3 className=" text-bold-purple text-lg font-rubikmono ">Groups</h3>
         <div className="p-6 grid grid-cols-3 gap-8 font-mono">
           {groups.map((group) => (
             <div key={group.group.id} id="cardItem" className="col-xs-2">

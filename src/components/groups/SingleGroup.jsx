@@ -37,23 +37,24 @@ const SingleGroup = () => {
       ) : (
         <div>
           <div className="bg-white-smoke border rounded-lg shadow-lg font-mono">
-            <div className="p-4 flex flex-row">
-              <div className="basis-1/2">
+            <div className="p-4 flex flex-row justify-between">
+              <div className="basis-1/2 ">
                 <img
                   src={require('../../img/groups/party-pups.jpg')}
                   alt="Group"
+                  className="border rounded-lg"
                 />
               </div>
-              <div className="basis-1/2">
-                <p>{`${singleGroup.name}`}</p>
-                <p>Topic: {`${singleGroup.topic}`}</p>
-                <p>{`${members.length}`} members</p>
+              <div className="basis-1/2 p-6 flex flex-col border rounded-lg text-lg justify-evenly">
+                <div>{`${singleGroup.name}`}</div>
+                <div>Topic: {`${singleGroup.topic}`}</div>
+                <div>{`${members.length}`} members</div>
               </div>
             </div>
           </div>
           <div className="bg-white-smoke border rounded-lg shadow-lg">
             <div className="p-4">
-              <h3>Posts</h3>
+              <h3 className="font-rubikmono text-bold-purple">Posts</h3>
               <div>
                 {posts.map((post) => (
                   <div key={post.post.id}>

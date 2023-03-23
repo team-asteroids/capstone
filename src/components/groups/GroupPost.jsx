@@ -15,7 +15,7 @@ const GroupPost = (props) => {
   console.log('likes--> ', likes);
 
   return (
-    <div className="bg-white-smoke border rounded-lg shadow-lg font-mono">
+    <div className="bg-white-smoke border rounded-lg shadow-lg font-rubik">
       <div className="p-2">
         <p>Content: {post.content}</p>
         <p>Posted by: {user.fullName}</p>
