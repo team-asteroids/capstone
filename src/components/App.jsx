@@ -24,7 +24,7 @@ function App() {
   const { userAuth } = useSelector(selectAuth);
 
   return (
-    <div className="font-rubikmono">
+    <div className="font-rubik">
       <Navbar userAuth={userAuth} />
       <Routes>
         <Route path="/" element={<Homepage />} />

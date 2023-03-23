@@ -113,7 +113,7 @@ function SignUp() {
   }, [accessData]);
 
   return (
-    <div className="bg-[url('img/signup-blue.jpg')] bg-no-repeat bg-cover bg-right h-[calc(100vh_-_5rem)]">
+    <div className="bg-[url('img/signup-blue.jpg')] bg-no-repeat bg-cover bg-right h-[calc(100vh_-_5rem)] font-rubikmono">
       <div className="max-w-1/3 flex flex-row m-auto">
         <div className="w-1/2 mx-10 m-auto">
           <h2 className="text-center text-3xl">Welcome, New Pup!</h2>

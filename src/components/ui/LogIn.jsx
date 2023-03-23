@@ -68,9 +68,9 @@ function LogIn() {
   }, [userAuth]);
 
   return (
-    <div className="bg-[url('img/dog-head.jpg')] bg-bottom bg-no-repeat bg-cover h-[calc(100vh_-_5rem)]">
+    <div className="bg-[url('img/dog-head.jpg')] bg-bottom bg-no-repeat bg-cover h-[calc(100vh_-_5rem)] font-rubikmono">
       <div className="w-full flex flex-col max-w-sm m-auto pt-16">
-        <h2 className="text-center text-3xl">Log in!</h2>
+        <h2 className="text-center text-3xl">Sit, Stay!</h2>
         <section className="flex gap-10 justify-center pt-5">
           <form onSubmit={attemptLogIn} className="w-full">
             <div className="flex flex-col gap-5">
@@ -138,7 +138,7 @@ function LogIn() {
             </div>
             <div>
               <button
-                className="ease-in duration-500 hover:bg-primary-button-hover w-full bg-primary-deep-green text-white py-2 rounded-xl mx-auto block text-xl hover:transition-all mt-10"
+                className="ease-in duration-500 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-8 mb-5"
                 type="submit"
               >
                 Log in
