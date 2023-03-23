@@ -13,7 +13,7 @@ function UserAccount() {
   // populate user state
 
   const sidebarFontClass =
-    'font-regular hover:font-bold hover:text-bold-purple';
+    'font-regular duration-200 hover:tracking-wide hover:font-bold hover:text-bold-purple';
 
   const attemptLogOut = async () => {
     await dispatch(logOut());
@@ -35,20 +35,30 @@ function UserAccount() {
               alt="alt"
             ></img>
             <div className="font-rubikmono">{userAuth.fullName}</div>
-            <div className={sidebarFontClass}>
-              <Link to="/account">Overview</Link>
+            <div>
+              <Link to="/account" className={sidebarFontClass}>
+                Overview
+              </Link>
             </div>
-            <div className={sidebarFontClass}>
-              <Link to="/account/editprofile">Edit Profile</Link>
+            <div>
+              <Link to="/account/editprofile" className={sidebarFontClass}>
+                Edit Profile
+              </Link>
             </div>
-            <div className={sidebarFontClass}>
-              <Link to="/account/pets">Pets</Link>
+            <div>
+              <Link to="/account/pets" className={sidebarFontClass}>
+                Pets
+              </Link>
             </div>
-            <div className={sidebarFontClass}>
-              <Link to="/account/bookings">Bookings</Link>
+            <div>
+              <Link to="/account/bookings" className={sidebarFontClass}>
+                Bookings
+              </Link>
             </div>
-            <div className={sidebarFontClass}>
-              <Link to="/account/access">Access</Link>
+            <div>
+              <Link to="/account/access" className={sidebarFontClass}>
+                Access
+              </Link>
             </div>
             <div className="align-baseline">
               <button
