@@ -15,6 +15,7 @@ import {
   BrowseGroups,
   SingleGroup,
   UserAccount,
+  UserProfile,
 } from './index';
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/groups" element={<BrowseGroups />} />
         <Route path="/groups/:groupId/*" element={<SingleGroup />} />
         <Route path="/account" element={<UserAccount />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </div>
   );

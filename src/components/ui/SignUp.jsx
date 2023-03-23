@@ -26,7 +26,7 @@ function SignUp() {
   });
 
   // state for validations to confirm sign up success
-  const [isInvalid, setIsInvalid] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(true);
   const [isInvalidFirstName, setIsInvalidFirstName] = useState(false);
   const [isInvalidLastName, setIsInvalidLastName] = useState(false);
   const [isInvalidEmail, setIsInvalidEmail] = useState(false);
@@ -55,32 +55,46 @@ function SignUp() {
   const checkFormValidation = () => {
     if (formData.firstName === '') {
       setIsInvalidFirstName(true);
-      setIsInvalid(true);
+      // setIsInvalid(true);
     }
+
     if (formData.lastName === '') {
       setIsInvalidLastName(true);
-      setIsInvalid(true);
+      // setIsInvalid(true);
     }
 
     if (formData.email === '') {
       setIsInvalidEmail(true);
-      setIsInvalid(true);
+      // setIsInvalid(true);
     }
 
     if (!validateEmail(formData.email)) {
       setIsInvalidEmail(true);
-      setIsInvalid(true);
+      // setIsInvalid(true);
     }
 
     if (formData.password === '' || formData.password.length < 8) {
       setIsInvalidPassword(true);
-      setIsInvalid(true);
+      // setIsInvalid(true);
+    }
+    if (formData.zip === '') {
+      setIsInvalidZip(true);
+      // setIsInvalid(true);
     }
 
     if (!validateZip(formData.zip)) {
       setIsInvalidZip(true);
-      setIsInvalid(true);
+      // setIsInvalid(true);
     }
+
+    if (
+      !isInvalidFirstName &&
+      !isInvalidLastName &&
+      !isInvalidEmail &&
+      !isInvalidPassword &&
+      !isInvalidZip
+    )
+      setIsInvalid(false);
   };
 
   const attemptSignUp = async (evt) => {
@@ -88,7 +102,7 @@ function SignUp() {
     await checkFormValidation();
 
     // if all the form elements are valid (aka false)
-    if (!isInvalid) {
+    if (!isInvalid && validateZip(formData.zip)) {
       const res = await dispatch(signUp(formData));
       if (res.type === 'signup/rejected') setSignUpFail(true);
     }
@@ -139,7 +153,7 @@ function SignUp() {
                     value={formData.firstName}
                     onChange={(evt) => {
                       setIsInvalidFirstName(false);
-                      setIsInvalid(false);
+                      // setIsInvalid(false);
                       setFormData({ ...formData, firstName: evt.target.value });
                     }}
                   />
@@ -164,7 +178,7 @@ function SignUp() {
                     value={formData.lastName}
                     onChange={(evt) => {
                       setIsInvalidLastName(false);
-                      setIsInvalid(false);
+                      // setIsInvalid(false);
                       setFormData({ ...formData, lastName: evt.target.value });
                     }}
                   />
@@ -191,7 +205,7 @@ function SignUp() {
                     value={formData.email}
                     onChange={(evt) => {
                       setIsInvalidEmail(false);
-                      setIsInvalid(false);
+                      // setIsInvalid(false);
                       setFormData({ ...formData, email: evt.target.value });
                     }}
                   />
@@ -218,7 +232,7 @@ function SignUp() {
                     value={formData.password}
                     onChange={(evt) => {
                       setIsInvalidPassword(false);
-                      setIsInvalid(false);
+                      // setIsInvalid(false);
                       setFormData({ ...formData, password: evt.target.value });
                     }}
                   />
@@ -245,7 +259,7 @@ function SignUp() {
                     value={formData.zip}
                     onChange={(evt) => {
                       setIsInvalidZip(false);
-                      setIsInvalid(false);
+                      // setIsInvalid(false);
                       setFormData({ ...formData, zip: evt.target.value });
                     }}
                   />
