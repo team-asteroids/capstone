@@ -25,6 +25,7 @@ module.exports = {
         'bold-blue': '#3a86ff',
         neutral: '#e9cecd',
         'white-smoke': '#F2F4F3',
+        'pale-blue': '#76BED0',
       },
     },
   },

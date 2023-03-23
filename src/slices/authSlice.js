@@ -32,11 +32,46 @@ export const attemptTokenLogin = createAsyncThunk(
   }
 );
 
+export const signUp = createAsyncThunk(
+  'signup',
+  async (userData, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/api/users', userData);
+      localStorage.setItem('token', data.token);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const createAccessData = createAsyncThunk(
+  'access',
+  async ({ id, zip, token }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(
+        `api/users/${id}/access`,
+        { zip: zip },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      console.log(data);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
     token: '',
     userAuth: {},
+    accessData: {},
     error: '',
     status: '',
   },
@@ -49,6 +84,7 @@ const authSlice = createSlice({
       state.userAuth = {};
       state.token = '';
       state.status = '';
+      state.accessData = {};
       localStorage.clear();
     },
   },
@@ -78,6 +114,32 @@ const authSlice = createSlice({
         state.error = '';
       })
       .addCase(attemptTokenLogin.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(signUp.fulfilled, (state, { payload }) => {
+        state.status = 'success';
+        state.token = payload.token;
+        state.error = '';
+      })
+      .addCase(signUp.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(signUp.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(createAccessData.fulfilled, (state, { payload }) => {
+        state.status = 'success';
+        state.accessData = payload;
+        state.error = '';
+      })
+      .addCase(createAccessData.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(createAccessData.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });

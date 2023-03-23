@@ -87,7 +87,7 @@ router.delete('/attending/:id', requireToken, async (req, res, next) => {
 });
 
 // this sends back event details including users' rsvps
-router.get('/:id', requireToken, async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const singleEvent = await Event.findByPk(req.params.id, {
       include: User,

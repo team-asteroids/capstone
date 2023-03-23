@@ -11,6 +11,7 @@ import {
   LogIn,
   AllEvents,
   Map,
+  EventDetails,
   BrowseGroups,
   SingleGroup,
   UserAccount,
@@ -26,13 +27,14 @@ function App() {
   const { userAuth } = useSelector(selectAuth);
 
   return (
-    <div className="font-rubikmono">
+    <div className="font-rubik">
       <Navbar userAuth={userAuth} />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/map" element={<Map />} />
         <Route path="/events" element={<AllEvents />} />
+        <Route path="/events/:id" element={<EventDetails />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/groups" element={<BrowseGroups />} />

@@ -71,13 +71,14 @@ router.get('/:accessId', requireToken, async (req, res, next) => {
 router.post('/', requireToken, async (req, res, next) => {
   try {
     const id = +req.params.id;
+    const { zip } = req.body;
     if (!id) {
       return res.status(400).send('must set access data on a specific user');
     }
     if (req.user.id === id || req.user.role === 'admin') {
       const [newAccessData, wasCreated] = await Access.findOrCreate({
         where: { userId: id },
-        defaults: req.body,
+        defaults: { zip },
       });
       if (!wasCreated) {
         return res.status(409).send('Access data already exists');
