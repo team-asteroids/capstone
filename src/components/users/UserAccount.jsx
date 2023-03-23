@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link, Routes, Route } from 'react-router-dom';
+import { useNavigate, Link, Routes, Route, useParams } from 'react-router-dom';
 import { logOut, selectAuth } from '../../slices/authSlice';
 import defaultImg from '../../img/default-dog.jpg';
 import { UserBookings } from '../index';
@@ -8,14 +8,17 @@ import { UserBookings } from '../index';
 function UserAccount() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useParams();
+
   const [selectedSidebar, setSelectedSidebar] = useState('');
 
   const { userAuth } = useSelector(selectAuth);
 
   useEffect(() => {
-    setSelectedSidebar('overview');
-  }, []);
-  // populate user state
+    if (!location) {
+      setSelectedSidebar('overview');
+    } else setSelectedSidebar(location['*']);
+  }, [location]);
 
   const sidebarFontClass =
     'font-regular duration-200 hover:tracking-wide hover:font-bold hover:text-bold-purple';
