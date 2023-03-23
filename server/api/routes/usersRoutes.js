@@ -48,11 +48,26 @@ router.get('/:id', async (req, res, next) => {
 // Add single user
 router.post('/', async (req, res, next) => {
   try {
-    const { firstName, lastName, email, password, canFoster, totalPets } =
-      req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      userName,
+      password,
+      canFoster,
+      totalPets,
+    } = req.body;
     const [newUser, wasCreated] = await User.findOrCreate({
       where: { email: req.body.email },
-      defaults: { firstName, lastName, email, password, canFoster, totalPets },
+      defaults: {
+        firstName,
+        lastName,
+        email,
+        userName,
+        password,
+        canFoster,
+        totalPets,
+      },
       attributes: { exclude: ['password'] },
     });
     if (!wasCreated) return res.status(409).send('User already exists');
