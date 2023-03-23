@@ -45,11 +45,33 @@ export const signUp = createAsyncThunk(
   }
 );
 
+export const createAccessData = createAsyncThunk(
+  'access',
+  async ({ id, zip, token }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(
+        `api/users/${id}/access`,
+        { zip: zip },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      console.log(data);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
     token: '',
     userAuth: {},
+    accessData: {},
     error: '',
     status: '',
   },
@@ -62,6 +84,7 @@ const authSlice = createSlice({
       state.userAuth = {};
       state.token = '';
       state.status = '';
+      state.accessData = {};
       localStorage.clear();
     },
   },
@@ -104,6 +127,19 @@ const authSlice = createSlice({
         state.error = '';
       })
       .addCase(signUp.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(createAccessData.fulfilled, (state, { payload }) => {
+        state.status = 'success';
+        state.accessData = payload;
+        state.error = '';
+      })
+      .addCase(createAccessData.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(createAccessData.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
