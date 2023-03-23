@@ -56,5 +56,6 @@ export const eventsSlice = createSlice({
 });
 
 export const selectEvents = (state) => state.events;
+export const selectSingleEvent = (state) => state.singleEvent;
 
 export default eventsSlice.reducer;

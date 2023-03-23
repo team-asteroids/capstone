@@ -1,7 +1,7 @@
 import React from 'react';
 
-const singleGroup = () => {
+const SingleGroup = () => {
   return <div>singleGroup</div>;
 };
 
-export default singleGroup;
+export default SingleGroup;

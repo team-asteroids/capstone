@@ -7,7 +7,7 @@ import authSlice from '../slices/authSlice';
 const store = configureStore({
   reducer: {
     events: eventsReducer,
-    allGroups: groupSliceReducer,
+    groups: groupSliceReducer,
     groupDetails: groupDetailsSliceReducer,
     auth: authSlice,
   },

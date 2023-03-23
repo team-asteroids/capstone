@@ -75,7 +75,7 @@ export const unlikeGroupPost = createAsyncThunk(
 );
 
 export const groupDetailsSlice = createSlice({
-  name: 'singleGroupDetails',
+  name: 'groupDetails',
   initialState: {
     group: {},
     members: [],
