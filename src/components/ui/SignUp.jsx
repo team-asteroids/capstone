@@ -25,8 +25,6 @@ function SignUp() {
   const [isInvalidEmail, setIsInvalidEmail] = useState(false);
   const [isInvalidPassword, setIsInvalidPassword] = useState(false);
   const [isInvalidZip, setIsInvalidZip] = useState(false);
-
-  const [signUpAttempt, setSignUpAttempt] = useState(false);
   const [signUpFail, setSignUpFail] = useState(false);
 
   const token = window.localStorage.getItem('token');
@@ -81,13 +79,17 @@ function SignUp() {
   const attemptSignUp = async (evt) => {
     evt.preventDefault();
     await checkFormValidation();
-    setSignUpAttempt(true);
 
     // if all the form elements are valid (aka false)
     if (!isInvalid) {
-      console.log('success', formData);
-    } else console.log('fail', formData);
-    // if (!isInvalid) dispatch(signUp(formData));
+      const res = await dispatch(signUp(formData));
+      if (res.type === 'signup/rejected') setSignUpFail(true);
+    }
+
+    if (token) {
+      console.log('token:', token);
+      dispatch(attemptTokenLogin());
+    }
   };
 
   useEffect(() => {
@@ -103,7 +105,16 @@ function SignUp() {
       <div className="max-w-1/3 flex flex-row m-auto">
         <div className="w-1/2 mx-10 m-auto">
           <h2 className="text-center text-3xl">Welcome, New Pup!</h2>
-          <section className="flex justify-center mt-16">
+          <p
+            className={
+              signUpFail && isInvalid
+                ? 'text-red-500 font-rubik text-center font-bold text-sm mt-6'
+                : 'collapse font-rubik text-xs'
+            }
+          >
+            Sign Up Failed!
+          </p>
+          <section className="flex justify-center mt-8">
             <form onSubmit={attemptSignUp}>
               <div className="flex flex-wrap mx-3">
                 <div className="w-full md:w-1/2 px-3 md:mb-0">
