@@ -296,7 +296,7 @@ function SignUp() {
               </div>
               <div className="flex flex-wrap px-3 mx-3 mb-6">
                 <button
-                  className="ease-in duration-500 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
+                  className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
                   type="submit"
                 >
                   Sign Up
@@ -305,7 +305,7 @@ function SignUp() {
             </form>
           </section>
           <div className="text-xs mt-5 text-center">
-            <p>
+            <p className="hover:text-white">
               <Link to={'/login'}>Already have an account? Log in!</Link>
             </p>
           </div>
