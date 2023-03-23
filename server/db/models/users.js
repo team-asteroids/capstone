@@ -43,6 +43,15 @@ const User = db.define('user', {
       notNull: true,
     },
   },
+  userName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+    validate: {
+      notEmpty: true,
+      notNull: true,
+    },
+  },
   role: {
     type: Sequelize.ENUM({ values: ['user', 'sitter', 'admin'] }),
     defaultValue: 'user',
@@ -53,11 +62,7 @@ const User = db.define('user', {
   imageSrc: {
     type: Sequelize.STRING,
     defaultValue: 'default-dog.jpg',
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-      notNull: true,
-    },
+    allowNull: true,
   },
   password: {
     type: Sequelize.STRING,
