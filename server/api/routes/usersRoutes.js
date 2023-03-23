@@ -48,13 +48,17 @@ router.get('/:id', async (req, res, next) => {
 // Add single user
 router.post('/', async (req, res, next) => {
   try {
+    const { firstName, lastName, email, password, canFoster, totalPets } =
+      req.body;
     const [newUser, wasCreated] = await User.findOrCreate({
       where: { email: req.body.email },
-      defaults: req.body,
+      defaults: { firstName, lastName, email, password, canFoster, totalPets },
       attributes: { exclude: ['password'] },
     });
     if (!wasCreated) return res.status(409).send('User already exists');
-    res.status(201).json(newUser);
+    res
+      .status(201)
+      .send({ token: await User.authenticate({ email, password }) });
   } catch (err) {
     console.error('BACKEND ISSUE ADDING NEW USER');
     next(err);
