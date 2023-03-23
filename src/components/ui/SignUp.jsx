@@ -26,14 +26,10 @@ function SignUp() {
   const [isInvalidPassword, setIsInvalidPassword] = useState(false);
   const [isInvalidZip, setIsInvalidZip] = useState(false);
 
-  const token = window.localStorage.getItem('token');
+  const [signUpAttempt, setSignUpAttempt] = useState(false);
+  const [signUpFail, setSignUpFail] = useState(false);
 
-  useEffect(() => {
-    if (token) {
-      dispatch(attemptTokenLogin());
-      navigate('/account');
-    }
-  }, [token, isInvalid]);
+  const token = window.localStorage.getItem('token');
 
   const validClass =
     'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
@@ -82,48 +78,82 @@ function SignUp() {
     }
   };
 
-  const attemptSignUp = (evt) => {
+  const attemptSignUp = async (evt) => {
     evt.preventDefault();
-    checkFormValidation();
-    if (!isInvalid) console.log('success', formData);
-    else console.log('fail', formData);
+    await checkFormValidation();
+    setSignUpAttempt(true);
+
+    // if all the form elements are valid (aka false)
+    if (!isInvalid) {
+      console.log('success', formData);
+    } else console.log('fail', formData);
     // if (!isInvalid) dispatch(signUp(formData));
   };
+
+  useEffect(() => {
+    if (token) {
+      dispatch(attemptTokenLogin());
+      navigate('/account');
+    }
+    console.log('mount', isInvalid);
+  }, [token]);
 
   return (
     <div className="bg-[url('img/signup-blue.jpg')] bg-no-repeat bg-cover bg-right h-[calc(100vh_-_5rem)]">
       <div className="max-w-1/3 flex flex-row m-auto">
         <div className="w-1/2 mx-10 m-auto">
           <h2 className="text-center text-3xl">Welcome, New Pup!</h2>
-          <section className="flex gap-10 justify-center mt-16">
+          <section className="flex justify-center mt-16">
             <form onSubmit={attemptSignUp}>
-              <div className="flex flex-wrap mx-3 mb-6">
-                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className="flex flex-wrap mx-3">
+                <div className="w-full md:w-1/2 px-3 md:mb-0">
                   <label>First Name</label>
                   <input
-                    className={validClass}
+                    className={isInvalidFirstName ? invalidClass : validClass}
                     id="firstName"
                     name="firstName"
                     type="text"
                     value={formData.firstName}
                     onChange={(evt) => {
+                      setIsInvalidFirstName(false);
+                      setIsInvalid(false);
                       setFormData({ ...formData, firstName: evt.target.value });
                     }}
                   />
+                  <p
+                    className={
+                      isInvalidFirstName
+                        ? 'text-xs mt-2 text-red-500'
+                        : 'collapse -mt-2'
+                    }
+                  >
+                    Invalid!
+                  </p>
                 </div>
 
-                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="w-full md:w-1/2 px-3 md:mb-0">
                   <label>Last Name</label>
                   <input
-                    className={validClass}
+                    className={isInvalidLastName ? invalidClass : validClass}
                     id="lastName"
                     name="lastName"
                     type="text"
                     value={formData.lastName}
                     onChange={(evt) => {
+                      setIsInvalidLastName(false);
+                      setIsInvalid(false);
                       setFormData({ ...formData, lastName: evt.target.value });
                     }}
                   />
+                  <p
+                    className={
+                      isInvalidLastName
+                        ? 'text-xs mt-2 text-red-500'
+                        : 'collapse -mt-2'
+                    }
+                  >
+                    Invalid!
+                  </p>
                 </div>
               </div>
 
@@ -131,50 +161,83 @@ function SignUp() {
                 <div className="w-full flex flex-col">
                   <label>Email</label>
                   <input
-                    className={validClass}
+                    className={isInvalidEmail ? invalidClass : validClass}
                     id="email"
                     name="email"
                     type="text"
                     value={formData.email}
                     onChange={(evt) => {
+                      setIsInvalidEmail(false);
+                      setIsInvalid(false);
                       setFormData({ ...formData, email: evt.target.value });
                     }}
                   />
+                  <p
+                    className={
+                      isInvalidEmail
+                        ? 'text-xs mt-2 text-red-500'
+                        : 'collapse -mt-2'
+                    }
+                  >
+                    Invalid!
+                  </p>
                 </div>
               </div>
               <div className="flex flex-wrap px-3 mx-3 mb-6">
                 <div className="w-full flex flex-col">
                   <label>Password</label>
                   <input
-                    className={validClass}
+                    className={isInvalidPassword ? invalidClass : validClass}
                     id="password"
                     name="password"
                     type="password"
                     placeholder="************"
                     value={formData.password}
                     onChange={(evt) => {
+                      setIsInvalidPassword(false);
+                      setIsInvalid(false);
                       setFormData({ ...formData, password: evt.target.value });
                     }}
                   />
+                  <p
+                    className={
+                      isInvalidPassword
+                        ? 'text-xs mt-2 text-red-500'
+                        : 'collapse -mt-2'
+                    }
+                  >
+                    Invalid!
+                  </p>
                 </div>
               </div>
 
               <div className="flex flex-wrap mx-3 mb-6">
-                <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <div className="w-full md:w-1/3 px-3 md:mb-0">
                   <label>Zip Code</label>
                   <input
-                    className={validClass}
+                    className={isInvalidZip ? invalidClass : validClass}
                     type="text"
                     id="zip"
                     name="zip"
                     value={formData.zip}
                     onChange={(evt) => {
+                      setIsInvalidZip(false);
+                      setIsInvalid(false);
                       setFormData({ ...formData, zip: evt.target.value });
                     }}
                   />
+                  <p
+                    className={
+                      isInvalidZip
+                        ? 'text-xs mt-2 text-red-500'
+                        : 'collapse -mt-2'
+                    }
+                  >
+                    Invalid!
+                  </p>
                 </div>
 
-                <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <div className="w-full md:w-1/3 px-3  md:mb-0">
                   <label>Pets</label>
                   <input
                     className={validClass}
@@ -189,7 +252,7 @@ function SignUp() {
                   />
                 </div>
 
-                <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <div className="w-full md:w-1/3 px-3 md:mb-0">
                   <label>Foster</label>
                   <select
                     className={validClass}
@@ -210,7 +273,7 @@ function SignUp() {
               </div>
               <div>
                 <button
-                  className="ease-in duration-200  hover:text-bold-pink w-full text-white py-2 rounded-xl mx-auto block text-xl hover:transition-all mt-10"
+                  className="ease-in duration-200  hover:text-bold-pink w-full text-white rounded-xl mx-auto block text-xl hover:transition-all"
                   type="submit"
                 >
                   Sign Up
