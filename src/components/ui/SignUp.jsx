@@ -19,6 +19,7 @@ function SignUp() {
     firstName: '',
     lastName: '',
     email: '',
+    userName: '',
     password: '',
     zip: '',
     totalPets: 0,
@@ -30,6 +31,7 @@ function SignUp() {
   const [isInvalidFirstName, setIsInvalidFirstName] = useState(false);
   const [isInvalidLastName, setIsInvalidLastName] = useState(false);
   const [isInvalidEmail, setIsInvalidEmail] = useState(false);
+  const [isInvalidUserName, setIsInvalidUserName] = useState(false);
   const [isInvalidPassword, setIsInvalidPassword] = useState(false);
   const [isInvalidZip, setIsInvalidZip] = useState(false);
   const [signUpFail, setSignUpFail] = useState(false);
@@ -68,6 +70,11 @@ function SignUp() {
       // setIsInvalid(true);
     }
 
+    if (formData.userName === '') {
+      setIsInvalidUserName(true);
+      // setIsInvalid(true);
+    }
+
     if (!validateEmail(formData.email)) {
       setIsInvalidEmail(true);
       // setIsInvalid(true);
@@ -91,6 +98,7 @@ function SignUp() {
       !isInvalidFirstName &&
       !isInvalidLastName &&
       !isInvalidEmail &&
+      !isInvalidUserName &&
       !isInvalidPassword &&
       !isInvalidZip
     )
@@ -142,7 +150,7 @@ function SignUp() {
           </p>
           <section className="flex justify-center mt-8">
             <form onSubmit={attemptSignUp}>
-              <div className="flex flex-wrap mx-3">
+              <div className="flex flex-wrap mx-3 mb-3">
                 <div className="w-full md:w-1/2 px-3 md:mb-0">
                   <label>First Name</label>
                   <input
@@ -194,7 +202,7 @@ function SignUp() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap px-3 mx-3 mb-6">
+              <div className="flex flex-wrap px-3 mx-3 mb-3">
                 <div className="w-full flex flex-col">
                   <label>Email</label>
                   <input
@@ -220,8 +228,34 @@ function SignUp() {
                   </p>
                 </div>
               </div>
-              <div className="flex flex-wrap px-3 mx-3 mb-6">
-                <div className="w-full flex flex-col">
+
+              <div className="flex flex-wrap mx-3 mb-3">
+                <div className="w-full md:w-1/2 px-3 md:mb-0">
+                  <label>Username</label>
+                  <input
+                    className={isInvalidUserName ? invalidClass : validClass}
+                    id="userName"
+                    name="userName"
+                    type="text"
+                    value={formData.userName}
+                    onChange={(evt) => {
+                      setIsInvalidUserName(false);
+                      // setIsInvalid(false);
+                      setFormData({ ...formData, userName: evt.target.value });
+                    }}
+                  />
+                  <p
+                    className={
+                      isInvalidUserName
+                        ? 'text-xs mt-2 text-red-500'
+                        : 'collapse -mt-2'
+                    }
+                  >
+                    Invalid!
+                  </p>
+                </div>
+
+                <div className="w-full md:w-1/2 px-3 md:mb-0">
                   <label>Password</label>
                   <input
                     className={isInvalidPassword ? invalidClass : validClass}
@@ -248,7 +282,7 @@ function SignUp() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap mx-3 mb-6">
+              <div className="flex flex-wrap mx-3 mb-3">
                 <div className="w-full md:w-1/3 px-3 md:mb-0">
                   <label>Zip Code</label>
                   <input
