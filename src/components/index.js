@@ -13,3 +13,4 @@ export { default as BrowseGroups } from './groups/BrowseGroups.jsx';
 export { default as SingleGroup } from './groups/SingleGroup.jsx';
 export { default as PostsView } from './groups/PostsView.jsx';
 export { default as MemberView } from './groups/MemberView.jsx';
+export { default as Footer } from './ui/Footer.jsx';

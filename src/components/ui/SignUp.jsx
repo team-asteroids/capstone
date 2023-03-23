@@ -150,7 +150,7 @@ function SignUp() {
           </p>
           <section className="flex justify-center mt-8">
             <form onSubmit={attemptSignUp}>
-              <div className="flex flex-wrap mx-3 mb-6">
+              <div className="flex flex-wrap mx-3 mb-3">
                 <div className="w-full md:w-1/2 px-3 md:mb-0">
                   <label>First Name</label>
                   <input
@@ -202,7 +202,7 @@ function SignUp() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap px-3 mx-3 mb-6">
+              <div className="flex flex-wrap px-3 mx-3 mb-3">
                 <div className="w-full flex flex-col">
                   <label>Email</label>
                   <input
@@ -229,7 +229,7 @@ function SignUp() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap mx-3 mb-6">
+              <div className="flex flex-wrap mx-3 mb-3">
                 <div className="w-full md:w-1/2 px-3 md:mb-0">
                   <label>Username</label>
                   <input
@@ -282,7 +282,7 @@ function SignUp() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap mx-3 mb-6">
+              <div className="flex flex-wrap mx-3 mb-3">
                 <div className="w-full md:w-1/3 px-3 md:mb-0">
                   <label>Zip Code</label>
                   <input

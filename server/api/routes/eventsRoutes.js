@@ -52,12 +52,18 @@ router.get('/attending', requireToken, async (req, res, next) => {
 // this allows a logged in user to rsvp to an event
 router.post('/attending', requireToken, async (req, res, next) => {
   try {
+    console.log(req.body);
     const [newEventRsvp, wasCreated] = await Event_RSVP.findOrCreate({
       where: {
         userId: req.user.id,
         eventId: req.body.eventId,
       },
+      defaults: {
+        userId: req.user.id,
+        eventId: req.body.eventId,
+      },
     });
+    console.log('newEventRSVP', newEventRsvp);
     if (!wasCreated) return res.status(409).send('RSVP already exists');
     res.status(201).json(newEventRsvp);
   } catch (error) {
