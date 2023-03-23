@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { selectAuth, signUp, attemptTokenLogin } from '../../slices/authSlice';
+import {
+  signUp,
+  attemptTokenLogin,
+  createAccessData,
+  selectAuth,
+} from '../../slices/authSlice';
 
 function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { accessData, userAuth } = useSelector(selectAuth);
 
   // local state from form (user-entered data)
   const [formData, setFormData] = useState({
@@ -27,7 +34,7 @@ function SignUp() {
   const [isInvalidZip, setIsInvalidZip] = useState(false);
   const [signUpFail, setSignUpFail] = useState(false);
 
-  const token = window.localStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
   const validClass =
     'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
@@ -36,7 +43,7 @@ function SignUp() {
     'appearance-none block border border-red-500 w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
   const validateEmail = (email) => {
-    let res = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let res = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     return res.test(email);
   };
 
@@ -85,20 +92,25 @@ function SignUp() {
       const res = await dispatch(signUp(formData));
       if (res.type === 'signup/rejected') setSignUpFail(true);
     }
-
-    if (token) {
-      console.log('token:', token);
-      dispatch(attemptTokenLogin());
-    }
   };
 
   useEffect(() => {
-    if (token) {
-      dispatch(attemptTokenLogin());
+    if (token) dispatch(attemptTokenLogin());
+  }, [token]);
+
+  useEffect(() => {
+    const zip = formData.zip;
+    if (userAuth && userAuth.id) {
+      const id = userAuth.id;
+      dispatch(createAccessData({ id, zip, token }));
+    }
+  }, [userAuth]);
+
+  useEffect(() => {
+    if (accessData.zip) {
       navigate('/account');
     }
-    console.log('mount', isInvalid);
-  }, [token]);
+  }, [accessData]);
 
   return (
     <div className="bg-[url('img/signup-blue.jpg')] bg-no-repeat bg-cover bg-right h-[calc(100vh_-_5rem)]">
