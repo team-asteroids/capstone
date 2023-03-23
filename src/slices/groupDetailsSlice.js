@@ -4,7 +4,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const fetchGroupMembers = createAsyncThunk(
   '/groupMembers',
   async (groupId) => {
-    const { data } = await axios.get(`/api/groups/${groupId}/members`);
+    const token = localStorage.getItem('token');
+    const { data } = await axios.get(`/api/groups/${groupId}/members`, {
+      headers: {
+        authorization: token,
+      },
+    });
     return data;
   }
 );
