@@ -11,3 +11,4 @@ export { default as UserAccount } from './users/UserAccount.jsx';
 export { default as UserProfile } from './users/UserProfile.jsx';
 export { default as BrowseGroups } from './groups/BrowseGroups.jsx';
 export { default as SingleGroup } from './groups/SingleGroup.jsx';
+export { default as UserAccount } from './users/UserAccount.jsx';

@@ -17,6 +17,18 @@ export const deleteGroupMember = createAsyncThunk(
     return data;
   }
 );
+export const fetchGroupPosts = createAsyncThunk(
+  '/groupPosts',
+  async (groupId) => {
+    const token = localStorage.getItem('token');
+    const { data } = await axios.get(`/api/groups/${groupId}/posts`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  }
+);
 
 // Zoomed in view of a single group post
 export const fetchGroupPost = createAsyncThunk(
@@ -79,6 +91,7 @@ export const groupDetailsSlice = createSlice({
   initialState: {
     group: {},
     members: [],
+    posts: [],
     post: {},
     likedStatus: '',
     error: '',
@@ -113,19 +126,32 @@ export const groupDetailsSlice = createSlice({
         state.status = 'failed';
         state.error = payload.message;
       })
-      .addCase(fetchGroupPost.fulfilled, (state, { payload }) => {
+      .addCase(fetchGroupPosts.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
-        state.post = payload;
+        state.posts = payload;
       })
-      .addCase(fetchGroupPost.pending, (state, { payload }) => {
+      .addCase(fetchGroupPosts.pending, (state, { payload }) => {
         state.status = 'loading';
         state.error = '';
       })
-      .addCase(fetchGroupPost.rejected, (state, { payload }) => {
+      .addCase(fetchGroupPosts.rejected, (state, { payload }) => {
         state.status = 'failed';
-        state.error = payload.message;
+        state.error = payload;
       })
+      // .addCase(fetchGroupPost.fulfilled, (state, { payload }) => {
+      //   state.status = 'fulfilled';
+      //   state.error = '';
+      //   state.post = payload;
+      // })
+      // .addCase(fetchGroupPost.pending, (state, { payload }) => {
+      //   state.status = 'loading';
+      //   state.error = '';
+      // })
+      // .addCase(fetchGroupPost.rejected, (state, { payload }) => {
+      //   state.status = 'failed';
+      //   state.error = payload.message;
+      // })
       .addCase(addGroupPost.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
