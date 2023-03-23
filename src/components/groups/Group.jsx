@@ -16,7 +16,7 @@ const Group = (props) => {
         <p>{`${mem}`} members</p>
         <div className="flex justify-between">
           <div>
-            <Link to={`/groups/${group.id}`}>
+            <Link to={`/groups/${group.id}`} state={{ groupId: group.id }}>
               <button className="p-1 rounded-lg bg-[#cbd5e1]">
                 View Group
               </button>
