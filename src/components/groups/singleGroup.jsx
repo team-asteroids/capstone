@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingleGroup } from '../../slices/groupsSlice';
 import { fetchGroupPosts } from '../../slices/groupDetailsSlice';
+import GroupPost from './GroupPost';
 
 const SingleGroup = () => {
-  //   const location = useLocation();
-  //   const groupId = location.state.groupId;
   const dispatch = useDispatch();
   const { groupId } = useParams();
+
   const group = useSelector((state) => state.groups.singleGroup);
   const singleGroup = group.singleGroup;
   const members = group.members;
-  console.log('group ID--> ', groupId);
+
+  const posts = useSelector((state) => state.groupDetails.posts);
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(fetchSingleGroup(groupId));
+      await dispatch(fetchGroupPosts(groupId));
       setLoading(false);
     };
     fetchData();
-    // dispatch(fetchGroupPosts(groupId));
   }, [dispatch, groupId]);
 
-  console.log('group--> ', group);
+  console.log('posts--> ', posts);
 
   return (
     <>
@@ -33,7 +34,7 @@ const SingleGroup = () => {
         <div>Loading</div>
       ) : (
         <div>
-          <div className="bg-white-smoke border rounded-lg shadow-lg">
+          <div className="bg-white-smoke border rounded-lg shadow-lg font-mono">
             <div className="p-4">
               <img src={singleGroup.imageSrc} alt="Group" />
               <p>{`${singleGroup.name}`}</p>
@@ -45,8 +46,19 @@ const SingleGroup = () => {
           <div className="bg-white-smoke border rounded-lg shadow-lg">
             <div className="p-4">
               <h3>Posts</h3>
+              <div>
+                {posts.map((post) => (
+                  <div key={post.post.id}>
+                    <GroupPost
+                      key={post.post.id}
+                      post={post.post}
+                      likes={post.likes}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>{' '}
+          </div>
         </div>
       )}
     </>
