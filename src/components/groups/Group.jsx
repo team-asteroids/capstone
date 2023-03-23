@@ -9,21 +9,29 @@ const Group = (props) => {
 
   return (
     <div className="bg-white-smoke border rounded-lg shadow-lg">
-      <div className="p-2">
-        <img src={require('../../img/groups/party-pups.jpg')} alt="Group" />
-        <p>{`${group.name}`}</p>
-        <p>Topic: {`${group.topic}`}</p>
-        <p>{`${mem}`} members</p>
-        <div className="flex justify-between">
-          <div>
-            <Link to={`/groups/${group.id}`} state={{ groupId: group.id }}>
+      <div>
+        <img
+          className="rounded-t-lg"
+          src={require('../../img/groups/party-pups.jpg')}
+          alt="Group"
+        />
+        <div className="p-2">
+          <p>{`${group.name}`}</p>
+          <p>Topic: {`${group.topic}`}</p>
+          <p>{`${mem}`} members</p>
+          <div className="flex justify-between">
+            <div>
+              <Link to={`/groups/${group.id}`} state={{ groupId: group.id }}>
+                <button className="p-1 rounded-lg bg-[#cbd5e1]">
+                  View Group
+                </button>
+              </Link>
+            </div>
+            <div>
               <button className="p-1 rounded-lg bg-[#cbd5e1]">
-                View Group
+                Join Group
               </button>
-            </Link>
-          </div>
-          <div>
-            <button className="p-1 rounded-lg bg-[#cbd5e1]">Join Group</button>
+            </div>
           </div>
         </div>
       </div>

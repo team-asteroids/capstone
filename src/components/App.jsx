@@ -15,6 +15,8 @@ import {
   BrowseGroups,
   SingleGroup,
   UserAccount,
+  PostsView,
+  MemberView,
 } from './index';
 
 function App() {
@@ -38,8 +40,10 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/groups" element={<BrowseGroups />} />
-        <Route path="/groups/:groupId" element={<SingleGroup />} />
+        <Route path="/groups/:groupId/*" element={<SingleGroup />} />
         <Route path="/account" element={<UserAccount />} />
+        {/* <Route path="/groups/:groupId/posts" element={<PostsView />} />
+        <Route path="/groups/:groupId/members" element={<MemberView />} /> */}
       </Routes>
     </div>
   );
