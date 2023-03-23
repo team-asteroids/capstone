@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingleGroup } from '../../slices/groupsSlice';
 import { fetchGroupPosts } from '../../slices/groupDetailsSlice';
@@ -31,16 +31,21 @@ const SingleGroup = () => {
   return (
     <>
       {loading ? (
-        <div>Loading</div>
+        <div className="bg-white-smoke border rounded-lg shadow-lg text-lg">
+          Loading
+        </div>
       ) : (
         <div>
           <div className="bg-white-smoke border rounded-lg shadow-lg font-mono">
-            <div className="p-4">
-              <img src={singleGroup.imageSrc} alt="Group" />
-              <p>{`${singleGroup.name}`}</p>
-              <p>Topic: {`${singleGroup.topic}`}</p>
-              <p>{`${members.length}`} members</p>
-              <div className="flex justify-between"></div>
+            <div className="p-4 flex flex-row">
+              <div className="basis-1/2">
+                <img src={singleGroup.imageSrc} alt="Group" />
+              </div>
+              <div className="basis-1/2">
+                <p>{`${singleGroup.name}`}</p>
+                <p>Topic: {`${singleGroup.topic}`}</p>
+                <p>{`${members.length}`} members</p>
+              </div>
             </div>
           </div>
           <div className="bg-white-smoke border rounded-lg shadow-lg">
@@ -58,6 +63,13 @@ const SingleGroup = () => {
                 ))}
               </div>
             </div>
+          </div>
+          <div className="p-4">
+            <Link to="/groups">
+              <button className="p-1 rounded-lg bg-[#cbd5e1] font-mono">
+                Back to Browse Groups
+              </button>
+            </Link>
           </div>
         </div>
       )}
