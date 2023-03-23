@@ -26,7 +26,7 @@ function SignUp() {
   });
 
   // state for validations to confirm sign up success
-  const [isInvalid, setIsInvalid] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(true);
   const [isInvalidFirstName, setIsInvalidFirstName] = useState(false);
   const [isInvalidLastName, setIsInvalidLastName] = useState(false);
   const [isInvalidEmail, setIsInvalidEmail] = useState(false);
