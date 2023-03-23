@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Routes, Route } from 'react-router-dom';
 import { logOut, selectAuth } from '../../slices/authSlice';
 import defaultImg from '../../img/default-dog.jpg';
+import { UserBookings } from '../index';
 
 function UserAccount() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [selectedSidebar, setSelectedSidebar] = useState('');
 
   const { userAuth } = useSelector(selectAuth);
 
+  useEffect(() => {
+    setSelectedSidebar('overview');
+  }, []);
   // populate user state
 
   const sidebarFontClass =
     'font-regular duration-200 hover:tracking-wide hover:font-bold hover:text-bold-purple';
+
+  const selectedSidebarFontClass = 'tracking-wide font-bold text-bold-purple';
 
   const attemptLogOut = async () => {
     await dispatch(logOut());
@@ -64,34 +71,87 @@ function UserAccount() {
               )}
             </div>
             <div>
-              <Link to="/account" className={sidebarFontClass}>
+              <Link
+                to="/account"
+                value="overview"
+                className={
+                  selectedSidebar === 'overview'
+                    ? selectedSidebarFontClass
+                    : sidebarFontClass
+                }
+                onClick={() => {
+                  setSelectedSidebar('overview');
+                }}
+              >
                 Overview
               </Link>
             </div>
             <div>
-              <Link to="/account/editprofile" className={sidebarFontClass}>
+              <Link
+                to="/account/editprofile"
+                className={
+                  selectedSidebar === 'editprofile'
+                    ? selectedSidebarFontClass
+                    : sidebarFontClass
+                }
+                onClick={() => {
+                  setSelectedSidebar('editprofile');
+                }}
+              >
                 Edit Profile
               </Link>
             </div>
             <div>
-              <Link to="/account/pets" className={sidebarFontClass}>
+              <Link
+                to="/account/pets"
+                className={
+                  selectedSidebar === 'pets'
+                    ? selectedSidebarFontClass
+                    : sidebarFontClass
+                }
+                onClick={() => {
+                  setSelectedSidebar('pets');
+                }}
+              >
                 Pets
               </Link>
             </div>
             <div>
-              <Link to="/account/bookings" className={sidebarFontClass}>
+              <Link
+                to="/account/bookings"
+                className={
+                  selectedSidebar === 'bookings'
+                    ? selectedSidebarFontClass
+                    : sidebarFontClass
+                }
+                onClick={() => {
+                  setSelectedSidebar('bookings');
+                }}
+              >
                 Bookings
               </Link>
             </div>
             <div>
-              <Link to="/account/access" className={sidebarFontClass}>
+              <Link
+                to="/account/access"
+                className={
+                  selectedSidebar === 'access'
+                    ? selectedSidebarFontClass
+                    : sidebarFontClass
+                }
+                onClick={() => {
+                  setSelectedSidebar('access');
+                }}
+              >
                 Access
               </Link>
             </div>
             <div className="align-baseline">
               <button
                 className="font-rubikmono text-left"
-                onClick={attemptLogOut}
+                onClick={() => {
+                  attemptLogOut();
+                }}
               >
                 Log Out
               </button>
@@ -100,6 +160,9 @@ function UserAccount() {
         </div>
         <div className="w-2/3 font-rubikmono">
           <h2>MAIN SECTION</h2>
+          <Routes>
+            <Route path="/bookings" element={<UserBookings />}></Route>
+          </Routes>
         </div>
       </div>
     </div>
