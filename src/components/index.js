@@ -7,3 +7,4 @@ export { default as AllEvents } from './events/AllEvents.jsx';
 export { default as SignUp } from './ui/SignUp.jsx';
 export { default as LogIn } from './ui/LogIn.jsx';
 export { default as UserAccount } from './users/UserAccount.jsx';
+export { default as UserProfile } from './users/UserProfile.jsx';

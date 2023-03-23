@@ -12,6 +12,7 @@ import {
   AllEvents,
   Map,
   UserAccount,
+  UserProfile,
 } from './index';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/account" element={<UserAccount />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </div>
   );
