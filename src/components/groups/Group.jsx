@@ -10,7 +10,7 @@ const Group = (props) => {
   return (
     <div className="bg-white-smoke border rounded-lg shadow-lg">
       <div className="p-2">
-        <img src={group.imageSrc} alt="Group" />
+        <img src={require('../../img/groups/party-pups.jpg')} alt="Group" />
         <p>{`${group.name}`}</p>
         <p>Topic: {`${group.topic}`}</p>
         <p>{`${mem}`} members</p>
