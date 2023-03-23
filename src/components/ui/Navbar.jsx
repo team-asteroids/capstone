@@ -19,9 +19,14 @@ function Navbar(props) {
           <li>Sitters</li>
         </Link>
         {userAuth && userAuth.firstName ? (
-          <Link to={'/account'}>
-            <li>Hi, {userAuth.firstName}</li>
-          </Link>
+          <>
+            <Link to={'/chat'}>
+              <li>Chat</li>
+            </Link>
+            <Link to={'/account'}>
+              <li>Hi, {userAuth.firstName}</li>
+            </Link>
+          </>
         ) : (
           <Link to={'/login'}>
             <li>Login</li>
