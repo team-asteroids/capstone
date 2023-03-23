@@ -43,7 +43,7 @@ const SingleGroup = () => {
                 <img
                   src={require('../../img/groups/party-pups.jpg')}
                   alt="Group"
-                  className="border rounded-lg"
+                  className="border rounded-lg max-w-sm"
                 />
               </div>
               <div className="basis-1/2 p-6 flex flex-col border rounded-lg text-lg justify-evenly">
