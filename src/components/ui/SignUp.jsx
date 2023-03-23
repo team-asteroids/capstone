@@ -19,7 +19,7 @@ function SignUp() {
     firstName: '',
     lastName: '',
     email: '',
-    username: '',
+    userName: '',
     password: '',
     zip: '',
     totalPets: 0,
@@ -31,7 +31,7 @@ function SignUp() {
   const [isInvalidFirstName, setIsInvalidFirstName] = useState(false);
   const [isInvalidLastName, setIsInvalidLastName] = useState(false);
   const [isInvalidEmail, setIsInvalidEmail] = useState(false);
-  const [isInvalidUsername, setIsInvalidUsername] = useState(false);
+  const [isInvalidUserName, setIsInvalidUserName] = useState(false);
   const [isInvalidPassword, setIsInvalidPassword] = useState(false);
   const [isInvalidZip, setIsInvalidZip] = useState(false);
   const [signUpFail, setSignUpFail] = useState(false);
@@ -70,8 +70,8 @@ function SignUp() {
       // setIsInvalid(true);
     }
 
-    if (formData.username === '') {
-      setIsInvalidUsername(true);
+    if (formData.userName === '') {
+      setIsInvalidUserName(true);
       // setIsInvalid(true);
     }
 
@@ -98,7 +98,7 @@ function SignUp() {
       !isInvalidFirstName &&
       !isInvalidLastName &&
       !isInvalidEmail &&
-      !isInvalidUsername &&
+      !isInvalidUserName &&
       !isInvalidPassword &&
       !isInvalidZip
     )
@@ -233,20 +233,20 @@ function SignUp() {
                 <div className="w-full md:w-1/2 px-3 md:mb-0">
                   <label>Username</label>
                   <input
-                    className={isInvalidUsername ? invalidClass : validClass}
-                    id="username"
-                    name="username"
+                    className={isInvalidUserName ? invalidClass : validClass}
+                    id="userName"
+                    name="userName"
                     type="text"
-                    value={formData.username}
+                    value={formData.userName}
                     onChange={(evt) => {
-                      setIsInvalidUsername(false);
+                      setIsInvalidUserName(false);
                       // setIsInvalid(false);
-                      setFormData({ ...formData, username: evt.target.value });
+                      setFormData({ ...formData, userName: evt.target.value });
                     }}
                   />
                   <p
                     className={
-                      isInvalidUsername
+                      isInvalidUserName
                         ? 'text-xs mt-2 text-red-500'
                         : 'collapse -mt-2'
                     }
