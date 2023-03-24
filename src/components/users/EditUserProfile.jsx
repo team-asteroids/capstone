@@ -88,16 +88,14 @@ function EditUserProfile() {
 
   return (
     <div className="font-rubikmono">
-      <div className=" flex flex-row m-auto">
+      <div className="flex flex-row">
         {edited ? (
-          <div className=" m-auto">
-            <h2 className="text-center text-3xl">
-              Success! Profile edits saved!
-            </h2>
+          <div className="">
+            <h2 className="text-center">Success! Profile edits saved!</h2>
           </div>
         ) : (
-          <div className=" m-auto">
-            <h2 className="text-center text-3xl">Edit My Profile</h2>
+          <div className="">
+            <h2>Edit Profile</h2>
             <p
               className={
                 editFail && isInvalid
@@ -107,10 +105,10 @@ function EditUserProfile() {
             >
               Oops! Could not update your profile!
             </p>
-            <section className="flex justify-center mt-8">
+            <section className="flex mt-4">
               <form onSubmit={handleEdit}>
-                <div className="flex flex-wrap mx-3 mb-3">
-                  <div className="w-full md:w-1/2 px-3 md:mb-0">
+                <div className="flex flex-wrap mb-2">
+                  <div className="w-full md:w-1/2 pr-5 md:mb-0">
                     <label>First Name</label>
                     <input
                       className={isInvalidFirstName ? invalidClass : validClass}
@@ -138,7 +136,7 @@ function EditUserProfile() {
                     </p>
                   </div>
 
-                  <div className="w-full md:w-1/2 px-3 md:mb-0">
+                  <div className="w-full md:w-1/2 md:mb-0">
                     <label>Last Name</label>
                     <input
                       className={isInvalidLastName ? invalidClass : validClass}
@@ -167,7 +165,7 @@ function EditUserProfile() {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap px-3 mx-3 mb-3">
+                <div className="flex flex-wrap mb-3">
                   <div className="w-full flex flex-col">
                     <label>Email</label>
                     <input
@@ -194,8 +192,8 @@ function EditUserProfile() {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap mx-3 mb-3">
-                  <div className="w-full px-3 md:mb-0">
+                <div className="flex flex-wrap mb-3">
+                  <div className="w-full  md:mb-0">
                     <label>Username</label>
                     <input
                       className={isInvalidUserName ? invalidClass : validClass}
@@ -224,8 +222,8 @@ function EditUserProfile() {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap mx-3 mb-3">
-                  <div className="w-full md:w-1/3 px-3  md:mb-0">
+                <div className="flex flex-wrap mb-3">
+                  <div className="w-full md:w-1/2 pr-5 md:mb-0">
                     <label>Pets</label>
                     <input
                       className={validClass}
@@ -243,7 +241,7 @@ function EditUserProfile() {
                     />
                   </div>
 
-                  <div className="w-full md:w-1/3 px-3 md:mb-0">
+                  <div className="w-full md:w-1/2  md:mb-0">
                     <label>Foster</label>
                     <select
                       className={validClass}
@@ -257,17 +255,14 @@ function EditUserProfile() {
                         });
                       }}
                     >
-                      {/* <option value="" selected disabled hidden>
-                        Can update later
-                      </option> */}
                       <option value={true}>Yes</option>
                       <option value={false}>No</option>
                     </select>
                   </div>
                 </div>
-                <div className="flex flex-wrap px-3 mx-3 mb-6">
+                <div className="flex flex-wrap mt-8">
                   <button
-                    className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
+                    className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-lg hover:transition-all mt-3"
                     type="submit"
                   >
                     Submit edits
@@ -278,7 +273,6 @@ function EditUserProfile() {
             <div className="text-xs mt-3 text-center"></div>
           </div>
         )}
-        <div className="w-1/2 h-[calc(100vh_-_5rem)]"></div>
       </div>
     </div>
   );
