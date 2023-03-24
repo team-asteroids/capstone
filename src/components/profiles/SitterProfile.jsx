@@ -28,9 +28,14 @@ const SitterProfile = () => {
       setReviews(sitterReviews);
       dispatch(fetchSingleSitterRatings(id));
       setRatings(sitterRatings);
-      setAvgRating(total / sitterRatings.length);
+      setAvgRating((total / sitterRatings.length).toFixed(1));
     }
-  }, [singleSitter]);
+  }, [singleSitter, ratings]);
+
+  // useEffect(() => {
+  //   if (ratings.length > 0)
+  //     setAvgRating((total / sitterRatings.length).toFixed(1));
+  // }, [ratings]);
 
   return (
     <div className="font-rubik flex flex-col gap-5">
@@ -53,7 +58,8 @@ const SitterProfile = () => {
               <h3 className="font-rubikmono text-sm pb-3">Ratings</h3>
               <div>
                 <p>
-                  {avgRating} ({ratings.length} ratings)
+                  {avgRating !== NaN && avgRating > 0 ? avgRating : 'loading'} (
+                  {ratings.length} ratings)
                 </p>
               </div>
             </div>
