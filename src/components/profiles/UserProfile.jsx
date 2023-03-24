@@ -28,7 +28,8 @@ function UserProfile() {
 
   const toggleSitter = () => {
     setSitterToggle(!sitterToggle);
-    if (!sitterToggle) navigate(`/profile/${id}/sitter`);
+    if (!sitterToggle)
+      navigate(`/profile/${id}/sitter/${singleUser.sitter.id}`);
     else if (sitterToggle) {
       navigate(`/profile/${id}`);
     }
