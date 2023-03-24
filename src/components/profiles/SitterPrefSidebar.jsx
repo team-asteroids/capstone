@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { fetchSingleSitter, selectSitters } from '../../slices/sittersSlice';
 import { selectUser } from '../../slices/usersSlice';
 
 function SitterPrefSidebar() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [sitterPrefs, setSitterPrefs] = useState({});
 
   const { singleUser } = useSelector(selectUser);
