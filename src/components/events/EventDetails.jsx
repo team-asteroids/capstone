@@ -52,7 +52,7 @@ const EventDetails = () => {
             <div className="pl-5 pt-3  container mx-auto relative">
               <img
                 className="w-100 "
-                src={require('/Users/forhad/fullstack/capstone/src/img/73978.jpg')}
+                src={require('../../img/73978.jpg')}
                 alt="puppy event"
               />
               <div className="p-1">Topic: {event.topic}</div>
@@ -100,7 +100,7 @@ const EventDetails = () => {
             <div className="pl-3 pt-3  container mx-auto relative">
               <img
                 className="w-100 rounded-3xl"
-                src={require('/Users/forhad/fullstack/capstone/src/img/group-puppies-celebrating-new-year.jpg')}
+                src={require('../../img/group-puppies-celebrating-new-year.jpg')}
                 alt="puppy event"
               />
               <div className="p-1">

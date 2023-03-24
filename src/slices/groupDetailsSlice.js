@@ -13,11 +13,33 @@ export const fetchGroupMembers = createAsyncThunk(
     return data;
   }
 );
+
+export const addGroupMember = createAsyncThunk(
+  '/addGroupMember',
+  async (groupId) => {
+    const token = localStorage.getItem('token');
+    console.log('thunk token --> ', token);
+    const { data } = await axios.post(`/api/groups/${groupId}/members`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    console.log('data --> ', data);
+    return data;
+  }
+);
+
 export const deleteGroupMember = createAsyncThunk(
   '/deleteGroupMember',
   async ({ groupId, memberId }) => {
+    const token = localStorage.getItem('token');
     const { data } = await axios.delete(
-      `/api/groups/${groupId}/members/${memberId}`
+      `/api/groups/${groupId}/members/${memberId}`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
     );
     return data;
   }
@@ -96,6 +118,7 @@ export const groupDetailsSlice = createSlice({
   initialState: {
     group: {},
     members: [],
+    member: {},
     posts: [],
     post: {},
     likedStatus: '',
@@ -117,6 +140,19 @@ export const groupDetailsSlice = createSlice({
       .addCase(fetchGroupMembers.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
+      })
+      .addCase(addGroupMember.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.member = payload;
+      })
+      .addCase(addGroupMember.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(addGroupMember.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
       })
       .addCase(deleteGroupMember.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';

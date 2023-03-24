@@ -3,14 +3,24 @@ import { Routes, Route } from 'react-router-dom';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingleGroup } from '../../slices/groupsSlice';
-import { fetchGroupPosts } from '../../slices/groupDetailsSlice';
+import {
+  fetchGroupPosts,
+  addGroupMember,
+  deleteGroupMember,
+} from '../../slices/groupDetailsSlice';
 import GroupNav from './GroupNav';
 import PostsView from './PostsView';
 import MemberView from './MemberView';
+import { selectAuth } from '../../slices/authSlice';
 
 const SingleGroup = () => {
   const dispatch = useDispatch();
   const { groupId } = useParams();
+
+  const { userAuth } = useSelector(selectAuth);
+  const memberId = userAuth.id;
+
+  console.log('userAuth in single group -->', userAuth);
 
   const group = useSelector((state) => state.groups.singleGroup);
   const singleGroup = group.singleGroup;
@@ -29,6 +39,13 @@ const SingleGroup = () => {
     fetchData();
   }, [dispatch, groupId]);
 
+  const joinGroup = async () => {
+    await dispatch(addGroupMember(groupId));
+  };
+
+  const leaveGroup = async () => {
+    await dispatch(deleteGroupMember({ groupId, memberId }));
+  };
   return (
     <>
       {loading ? (
@@ -50,6 +67,22 @@ const SingleGroup = () => {
                 <div>{`${singleGroup.name}`}</div>
                 <div>Topic: {`${singleGroup.topic}`}</div>
                 <div>{`${members.length}`} members</div>
+                <div>
+                  <button
+                    onClick={joinGroup}
+                    className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+                  >
+                    Join group
+                  </button>
+                </div>
+                <div>
+                  <button
+                    onClick={leaveGroup}
+                    className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+                  >
+                    Leave group
+                  </button>
+                </div>
               </div>
             </div>
             <div>
