@@ -1,26 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
-import { logOut, selectAuth } from '../../slices/authSlice';
-import defaultImg from '../../img/default-dog.jpg';
+import { attemptTokenLogin, selectAuth } from '../../slices/authSlice';
+import {
+  fetchAllBookings,
+  resetBookingStatus,
+  selectBookings,
+} from '../../slices/bookingsSlice';
 
 function UserBookings() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { userAuth, token } = useSelector(selectAuth);
+  const [userBookings, setUserBookings] = useState([]);
+  const { status, allBookings } = useSelector(selectBookings);
 
-  const { userAuth } = useSelector(selectAuth);
+  useEffect(() => {
+    dispatch(attemptTokenLogin());
+  }, [dispatch]);
 
-  // populate user state
+  useEffect(() => {
+    if (userAuth.id) {
+      const id = userAuth.id;
+      dispatch(fetchAllBookings({ id, token }));
+    }
 
-  const attemptLogOut = async () => {
-    await dispatch(logOut());
-    navigate('/');
-  };
+    setUserBookings(allBookings);
 
-  if (!userAuth.firstName)
+    return () => {
+      dispatch(resetBookingStatus());
+    };
+  }, [userAuth]);
+
+  console.log(allBookings.length);
+
+  if (!userAuth && !userAuth.firstName)
     return <div className="font-rubikmono">Fetching good things...</div>;
 
-  return <div>TEST</div>;
+  return (
+    <div>
+      <h2 className="font-rubikmono">Manage Bookings</h2>
+      {userBookings.length > 0 ? <p>Bookings</p> : <p>No Bookings!</p>}
+    </div>
+  );
 }
 
 export default UserBookings;
