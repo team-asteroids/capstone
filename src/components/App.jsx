@@ -16,6 +16,7 @@ import {
   SingleGroup,
   UserAccount,
   Footer,
+  UserProfile,
   DiscoverSitters,
 } from './index';
 

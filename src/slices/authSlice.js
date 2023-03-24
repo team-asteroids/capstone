@@ -50,7 +50,7 @@ export const createAccessData = createAsyncThunk(
   async ({ id, zip, token }, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        `api/users/${id}/access`,
+        `/api/users/${id}/access`,
         { zip: zip },
         {
           headers: {

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Pet, Access } = require('../../db');
+const { User, Pet, Access, Sitter } = require('../../db');
 const { requireToken } = require('../authMiddleware');
 
 router.use('/:id/posts', require('./postsRoute'));
@@ -30,7 +30,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const singleUser = await User.findByPk(+req.params.id, {
-      include: [{ model: Access, attributes: ['zip'] }, Pet],
+      include: [{ model: Access, attributes: ['zip'] }, Pet, Sitter],
       attributes: {
         exclude: ['password'],
       },

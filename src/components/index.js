@@ -27,4 +27,5 @@ export { default as EditSitterPetPrefs } from './users/EditSitterPetPrefs.jsx';
 export { default as SitterOverview } from './users/SitterOverview.jsx';
 export { default as SitterBookings } from './users/SitterBookings.jsx';
 export { default as EditUserAccess } from './users/EditUserAccess.jsx';
-
+export { default as UserSocialView } from './profiles/UserSocialView.jsx';
+export { default as SitterPrefSidebar } from './profiles/SitterPrefSidebar';

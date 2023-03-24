@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SitterCard from './SitterCard.jsx';
-import defaultImage from '/Users/paulschofield-personal/Documents/projects/fullstack_academy/capstone/src/img/default-dog.jpg';
+import defaultImg from '../../img/default-dog.jpg';
 import { fetchAllSitters, selectSitters } from '../../slices/sittersSlice';
 
 const DiscoverSitters = () => {
@@ -18,7 +18,7 @@ const DiscoverSitters = () => {
         {sitters.sitters.map((sitter) => (
           <SitterCard
             key={sitter.id}
-            img={defaultImage}
+            img={defaultImg}
             firstName={sitter.firstName}
             rate={sitter.rate}
             rating={sitter.sitterRating}

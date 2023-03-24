@@ -225,6 +225,7 @@ router.get('/:id/reviews', async (req, res, next) => {
       where: {
         sitterId: req.params.id,
       },
+      include: User,
     });
 
     if (!sitterReviews) {
