@@ -61,7 +61,7 @@ function LogIn() {
   };
 
   useEffect(() => {
-    if (userAuth && userAuth.firstName) navigate('/');
+    if (userAuth && userAuth.firstName) navigate('/account');
     else if (logInAttempt) {
       setLogInFail(true);
     }
