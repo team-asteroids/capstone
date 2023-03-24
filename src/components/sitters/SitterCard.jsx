@@ -2,25 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import defaultImg from '../../img/sitter-profile.jpg';
 
-const SitterCard = ({
-  id,
-  firstName,
-  lastName,
-  rate,
-  rating,
-  reviews,
-  bio,
-  zip,
-}) => {
+const SitterCard = ({ id, firstName, rate, rating, reviews, bio }) => {
   return (
     <div className="pt-8">
       <div className="overflow-hidden bg-white shadow sm:rounded-lg mb-8">
         <div className="px-4 py-5 sm:px-6 flex flex-col sm:flex-row">
           <img
             className="h-48 w-48 rounded-full drop-shadow-md"
-            src={defaultImg}
-            alt="alt"
-          ></img>
+            src={require('../../img/sitter-profile.jpg')}
+          />
           <div className="flex flex-col gap-5 ml-5">
             <h3 className="text-base font-semibold leading-6 text-gray-900">
               {firstName}
