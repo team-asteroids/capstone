@@ -9,13 +9,12 @@ import { SitterPrefSidebar, SitterProfile, UserSocialView } from '../index';
 function UserProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useParams();
 
   const [sitterToggle, setSitterToggle] = useState(false);
 
   const { singleUser } = useSelector(selectUser);
 
-  const { id } = location;
+  const { id } = useParams();
 
   useEffect(() => {
     if (id) {
@@ -79,13 +78,14 @@ function UserProfile() {
           </div>
           <div>
             <div>
-              <p>Neighborhood: {singleUser.access.zip}</p>
+              <p className="font-rubikmono">Neighborhood</p>
+              <p>{singleUser.access.zip}</p>
             </div>
           </div>
           {sitterToggle ? <SitterPrefSidebar /> : <div>TEST</div>}
           <div className="w-1/4">
             <button className="bg-bold-orange text-sm px-5 py-2  text-white rounded-xl">
-              Chat
+              Message
             </button>
           </div>
         </div>
