@@ -30,15 +30,15 @@ function UserBookings() {
     };
   }, [userAuth]);
 
-  console.log(allBookings.length);
-
   if (!userAuth && !userAuth.firstName)
     return <div className="font-rubikmono">Fetching good things...</div>;
+
+  // map through bookings and add a filter for (pending, approved, completed, declined/cancelled/withdrawn)
 
   return (
     <div>
       <h2 className="font-rubikmono">Manage Bookings</h2>
-      {userBookings.length > 0 ? <p>Bookings</p> : <p>No Bookings!</p>}
+      {status === 'success' && userBookings.length > 0 ? <p>Bookings</p> : null}
     </div>
   );
 }
