@@ -17,7 +17,6 @@ function UserAccount() {
   const [sitterToggle, setSitterToggle] = useState(false);
 
   useEffect(() => {
-    console.log(location);
     if (location['*'] === 'sitter') navigate('/account');
   }, []);
 
@@ -94,8 +93,7 @@ function UserAccount() {
             </div>
           </div>
         </div>
-        <div className="w-2/3 font-rubikmono">
-          <h2>MAIN SECTION</h2>
+        <div className="w-2/3 font-rubikmono overflow-auto flex flex-col gap-5">
           <Routes>
             <Route path="/bookings" element={<UserBookings />}></Route>
           </Routes>
