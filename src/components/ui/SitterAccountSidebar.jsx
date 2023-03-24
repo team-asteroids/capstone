@@ -8,7 +8,6 @@ function SitterAccountSidebar() {
   const location = useParams();
 
   const [selectedSidebar, setSelectedSidebar] = useState('sitter');
-  console.log(selectedSidebar);
 
   // const { userAuth } = useSelector(selectAuth);
 
