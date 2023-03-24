@@ -20,7 +20,7 @@ const SingleGroup = () => {
   const { userAuth } = useSelector(selectAuth);
   const memberId = userAuth.id;
 
-  console.log('userAuth in single group -->', userAuth);
+  // console.log('userAuth in single group -->', userAuth);
 
   const group = useSelector((state) => state.groups.singleGroup);
   const singleGroup = group.singleGroup;
@@ -39,11 +39,13 @@ const SingleGroup = () => {
     fetchData();
   }, [dispatch, groupId]);
 
-  const joinGroup = async () => {
-    await dispatch(addGroupMember(groupId));
+  const joinGroup = async (e) => {
+    e.preventDefault();
+    await dispatch(addGroupMember({ groupId, memberId }));
   };
 
-  const leaveGroup = async () => {
+  const leaveGroup = async (e) => {
+    e.preventDefault();
     await dispatch(deleteGroupMember({ groupId, memberId }));
   };
   return (

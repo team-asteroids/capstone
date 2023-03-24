@@ -14,7 +14,7 @@ export const fetchSingleGroup = createAsyncThunk(
         authorization: token,
       },
     });
-    console.log('data--> ', data);
+    // console.log('data--> ', data);
     return data;
   }
 );

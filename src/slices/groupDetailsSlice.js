@@ -16,14 +16,17 @@ export const fetchGroupMembers = createAsyncThunk(
 
 export const addGroupMember = createAsyncThunk(
   '/addGroupMember',
-  async (groupId) => {
+  async ({ groupId, memberId }) => {
     const token = localStorage.getItem('token');
     console.log('thunk token --> ', token);
-    const { data } = await axios.post(`/api/groups/${groupId}/members`, {
-      headers: {
-        authorization: token,
-      },
-    });
+    const { data } = await axios.post(
+      `/api/groups/${groupId}/members/${memberId}`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     console.log('data --> ', data);
     return data;
   }
@@ -67,10 +70,16 @@ export const fetchGroupPost = createAsyncThunk(
 );
 export const addGroupPost = createAsyncThunk(
   '/addGroupPost',
-  async ({ groupId, postContent }) => {
+  async ({ groupId, content }) => {
+    const token = localStorage.getItem('token');
     const { data } = await axios.post(
       `/api/groups/${groupId}/posts`,
-      postContent
+      { content },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
     );
     return data;
   }
@@ -139,7 +148,7 @@ export const groupDetailsSlice = createSlice({
       })
       .addCase(fetchGroupMembers.rejected, (state, { payload }) => {
         state.status = 'failed';
-        state.error = payload.message;
+        state.error = payload;
       })
       .addCase(addGroupMember.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
@@ -165,7 +174,7 @@ export const groupDetailsSlice = createSlice({
       })
       .addCase(deleteGroupMember.rejected, (state, { payload }) => {
         state.status = 'failed';
-        state.error = payload.message;
+        state.error = payload;
       })
       .addCase(fetchGroupPosts.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
@@ -204,7 +213,7 @@ export const groupDetailsSlice = createSlice({
       })
       .addCase(addGroupPost.rejected, (state, { payload }) => {
         state.status = 'failed';
-        state.error = payload.message;
+        state.error = payload;
       })
       .addCase(editGroupPost.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
@@ -217,7 +226,7 @@ export const groupDetailsSlice = createSlice({
       })
       .addCase(editGroupPost.rejected, (state, { payload }) => {
         state.status = 'failed';
-        state.error = payload.message;
+        state.error = payload;
       })
       .addCase(deleteGroupPost.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
@@ -231,7 +240,7 @@ export const groupDetailsSlice = createSlice({
       })
       .addCase(deleteGroupPost.rejected, (state, { payload }) => {
         state.status = 'failed';
-        state.error = payload.message;
+        state.error = payload;
       })
       .addCase(likeGroupPost.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
@@ -246,7 +255,7 @@ export const groupDetailsSlice = createSlice({
       .addCase(likeGroupPost.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.likedStatus = true; // or dont change at all?
-        state.error = payload.message;
+        state.error = payload;
         // check on this
       })
       .addCase(unlikeGroupPost.fulfilled, (state, { payload }) => {
@@ -262,7 +271,7 @@ export const groupDetailsSlice = createSlice({
       .addCase(unlikeGroupPost.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.likedStatus = true; // or dont change at all?
-        state.error = payload.message;
+        state.error = payload;
         // check on this
       });
   },

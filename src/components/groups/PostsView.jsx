@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchGroupPosts } from '../../slices/groupDetailsSlice';
 import GroupPost from './GroupPost';
+import AddGroupPost from './AddGroupPost';
 
 const PostsView = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,9 @@ const PostsView = () => {
                 ))}
               </div>
             </div>
+          </div>
+          <div>
+            <AddGroupPost groupId={groupId} />
           </div>
           <div className="p-4">
             <Link to="/groups">
