@@ -16,6 +16,16 @@ export const fetchSingleEvent = createAsyncThunk(
   }
 );
 
+export const getMyRsvpsAsync = createAsyncThunk('/getRSVPs', async () => {
+  const token = window.localStorage.getItem('token');
+  const { data } = await axios.get('/api/events/attending', {
+    headers: {
+      authorization: token,
+    },
+  });
+  return data;
+});
+
 export const addRsvpAsync = createAsyncThunk('/addRSVP', async (eventId) => {
   const token = window.localStorage.getItem('token');
   const { data } = await axios.post(
@@ -27,6 +37,16 @@ export const addRsvpAsync = createAsyncThunk('/addRSVP', async (eventId) => {
       },
     }
   );
+  return data;
+});
+
+export const removeRsvpAsync = createAsyncThunk('/removeRSVP', async (id) => {
+  const token = window.localStorage.getItem('token');
+  const { data } = await axios.delete(`/api/events/attending/${id}`, {
+    headers: {
+      authorization: token,
+    },
+  });
   console.log('inside thunk', data);
   return data;
 });
@@ -36,6 +56,7 @@ export const eventsSlice = createSlice({
   initialState: {
     events: [],
     singleEvent: {},
+    myRSVPs: [],
     error: '',
     status: '',
   },
@@ -80,11 +101,38 @@ export const eventsSlice = createSlice({
       .addCase(addRsvpAsync.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
+      })
+      .addCase(getMyRsvpsAsync.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.myRSVPs = payload;
+      })
+      .addCase(getMyRsvpsAsync.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(getMyRsvpsAsync.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(removeRsvpAsync.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        return;
+      })
+      .addCase(removeRsvpAsync.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(removeRsvpAsync.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
       });
   },
 });
 
 export const selectEvents = (state) => state.events;
 export const selectSingleEvent = (state) => state.events.singleEvent;
+export const selectMyRsvps = (state) => state.events.myRSVPs;
 
 export default eventsSlice.reducer;

@@ -78,8 +78,10 @@ router.delete('/attending/:id', requireToken, async (req, res, next) => {
     const event = await Event_RSVP.findOne({
       where: {
         eventId: req.params.id,
+        userId: req.user.id,
       },
     });
+    console.log('event', event);
     if (!event) return res.status(404).send('That event-rsvp does not exist');
 
     if (req.user.id === event.userId) {
