@@ -6,7 +6,7 @@ import defaultImg from '../../img/default-dog.jpg';
 import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
 import { SitterPrefSidebar, SitterProfile, UserSocialView } from '../index';
 
-function UserProfile() {
+const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -78,9 +78,13 @@ function UserProfile() {
           </div>
           <div>
             <div>
-              <p className="font-rubikmono">Neighborhood</p>
+              <p className="font-rubikmono mb-2">Neighborhood</p>
               <p>{singleUser.access.zip}</p>
             </div>
+          </div>
+          <div>
+            <p className="font-rubikmono mb-2">Can Foster</p>
+            <p>{singleUser.canFoster ? 'yes!' : 'not right now'}</p>
           </div>
           {sitterToggle ? <SitterPrefSidebar /> : <div>TEST</div>}
           <div className="w-1/4">
@@ -98,6 +102,6 @@ function UserProfile() {
       </div>
     </div>
   );
-}
+};
 
 export default UserProfile;
