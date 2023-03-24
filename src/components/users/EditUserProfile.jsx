@@ -107,7 +107,7 @@ function EditUserProfile() {
             </p>
             <section className="flex mt-8">
               <form onSubmit={handleEdit}>
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap mb-2">
                   <div className="w-full md:w-1/2 pr-5 md:mb-0">
                     <label>First Name</label>
                     <input
