@@ -48,7 +48,10 @@ const UserProfile = () => {
                 src={defaultImg}
                 alt="alt"
               ></img>
-              <div className="font-rubikmono">{singleUser.fullName}</div>
+              <div className="font-rubikmono">
+                <p className="pb-1">{singleUser.fullName}</p>
+                <p className="text-sm">@{singleUser.userName}</p>
+              </div>
               {singleUser.role === 'sitter' ? (
                 <div>
                   <label className="relative inline-flex items-center cursor-pointer">
