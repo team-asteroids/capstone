@@ -20,3 +20,4 @@ export { default as SitterAccountSidebar } from './ui/SitterAccountSidebar.jsx';
 export { default as EditSitterProfile } from './users/EditSitterProfile.jsx';
 export { default as EditUserProfile } from './users/EditUserProfile.jsx';
 export { default as EditUserPets } from './users/EditUserPets.jsx';
+export { default as EditSitterPetPrefs } from './users/EditSitterPetPrefs.jsx';

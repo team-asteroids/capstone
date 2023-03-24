@@ -11,6 +11,7 @@ import {
   EditUserProfile,
   EditUserPets,
   UserOverview,
+  EditSitterPetPrefs,
 } from '../index';
 
 function UserAccount() {
@@ -107,6 +108,10 @@ function UserAccount() {
             <Route
               path="/sitter/editprofile"
               element={<EditSitterProfile />}
+            ></Route>
+            <Route
+              path="/sitter/updatepetsprefs"
+              element={<EditSitterPetPrefs />}
             ></Route>
           </Routes>
         </div>

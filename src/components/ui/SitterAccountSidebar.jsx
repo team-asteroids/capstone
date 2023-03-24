@@ -58,14 +58,14 @@ function SitterAccountSidebar() {
       </div>
       <div>
         <Link
-          to="/account/sitter/updatePetsPrefs"
+          to="/account/sitter/updatepetsprefs"
           className={
-            selectedSidebar === 'sitter/updatePetsPrefs'
+            selectedSidebar === 'sitter/updatepetsprefs'
               ? selectedSidebarFontClass
               : sidebarFontClass
           }
           onClick={() => {
-            setSelectedSidebar('sitter/updatePetsPrefs');
+            setSelectedSidebar('sitter/updatepetsprefs');
           }}
         >
           Update Pet Prefs
