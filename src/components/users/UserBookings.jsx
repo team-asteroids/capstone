@@ -10,8 +10,38 @@ import {
 function UserBookings() {
   const dispatch = useDispatch();
   const { userAuth, token } = useSelector(selectAuth);
-  const [userBookings, setUserBookings] = useState([]);
+  const [bookingFilter, setBookingFilter] = useState('');
+
   const { status, allBookings } = useSelector(selectBookings);
+
+  let bookingArr = allBookings;
+
+  if (bookingFilter === 'approved') {
+    const approvedBookings = allBookings.filter(
+      (booking) => booking.status === 'approved'
+    );
+    bookingArr = approvedBookings;
+  }
+
+  if (bookingFilter === 'pending') {
+    const approvedBookings = allBookings.filter(
+      (booking) => booking.status === 'pending'
+    );
+    bookingArr = approvedBookings;
+  }
+  if (bookingFilter === 'completed') {
+    const approvedBookings = allBookings.filter(
+      (booking) => booking.status === 'completed'
+    );
+    bookingArr = approvedBookings;
+  }
+
+  if (bookingFilter === 'cancelled') {
+    const approvedBookings = allBookings.filter((booking) =>
+      ['cancelled', 'withdrawn', 'declined'].includes(booking.status)
+    );
+    bookingArr = approvedBookings;
+  }
 
   useEffect(() => {
     dispatch(attemptTokenLogin());
@@ -23,7 +53,7 @@ function UserBookings() {
       dispatch(fetchAllBookings({ id, token }));
     }
 
-    setUserBookings(allBookings);
+    // setUserBookings(allBookings);
 
     return () => {
       dispatch(resetBookingStatus());
@@ -42,12 +72,13 @@ function UserBookings() {
         <div>
           <select
             id="filter"
-            class="bg-white-smoke border border-white-smoke text-gray-900 text-sm rounded-lg focus:ring-pale-blue focus:border-pale-blue block p-1.5 px-3 drop-shadow-sm"
+            className="bg-white-smoke border border-white-smoke text-gray-900 text-sm rounded-lg focus:ring-pale-blue focus:border-pale-blue block p-1.5 px-3 drop-shadow-sm"
+            onChange={(evt) => {
+              setBookingFilter(evt.target.value);
+            }}
+            defaultValue={bookingFilter}
           >
-            <option selected disabled>
-              filter
-            </option>
-            <option value="all">all</option>
+            <option value="">all</option>
             <option value="approved">approved</option>
             <option value="pending">pending</option>
             <option value="completed">completed</option>
@@ -55,17 +86,15 @@ function UserBookings() {
           </select>
         </div>
       </div>
-      <div className="h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
-        <div id="bookings" className="flex flex-col gap-5" h-48 w-full>
-          <div className="flex flex-col gap-5">
-            {status === 'success' && userBookings.length > 0
-              ? userBookings.map((booking) => {
+      <div className="h-[calc(100vh_-_20rem)] overflow-auto flex flex-col">
+        <div id="bookings" className="flex gap-5 flex-col w-full">
+          <div className="">
+            {status === 'success' && bookingArr.length > 0
+              ? bookingArr.map((booking) => {
                   return (
                     <div
                       className="bg-white-smoke flex flex-row justify-between drop-shadow-sm p-5 rounded-xl"
                       key={booking.id}
-                      h-48
-                      w-full
                     >
                       <div>
                         <div>
@@ -103,11 +132,7 @@ function UserBookings() {
               : null}
           </div>
 
-          <div
-            className="bg-white-smoke drop-shadow-sm p-5 rounded-xl"
-            h-48
-            w-full
-          >
+          <div className="bg-white-smoke drop-shadow-sm p-5 rounded-xl">
             <div>
               <h2>status test</h2>
               <p>startDate - endDate</p>
@@ -124,11 +149,7 @@ function UserBookings() {
             </div>
           </div>
 
-          <div
-            className="bg-white-smoke drop-shadow-sm p-5 rounded-xl"
-            h-48
-            w-full
-          >
+          <div className="bg-white-smoke drop-shadow-sm p-5 rounded-xl">
             <div>
               <h2>status</h2>
               <p>startDate - endDate</p>
@@ -145,11 +166,7 @@ function UserBookings() {
             </div>
           </div>
 
-          <div
-            className="bg-white-smoke drop-shadow-sm p-5 rounded-xl"
-            h-48
-            w-full
-          >
+          <div className="bg-white-smoke drop-shadow-sm p-5 rounded-xl">
             <div>
               <h2>status</h2>
               <p>startDate - endDate</p>
@@ -165,11 +182,7 @@ function UserBookings() {
               <p>Pets Placeholder</p>
             </div>
           </div>
-          <div
-            className="bg-white-smoke drop-shadow-sm p-5 rounded-xl"
-            h-48
-            w-full
-          >
+          <div className="bg-white-smoke drop-shadow-sm p-5 rounded-xl">
             <div>
               <h2>status</h2>
               <p>startDate - endDate</p>
@@ -185,11 +198,7 @@ function UserBookings() {
               <p>Pets Placeholder</p>
             </div>
           </div>
-          <div
-            className="bg-white-smoke drop-shadow-sm p-5 rounded-xl"
-            h-48
-            w-full
-          >
+          <div className="bg-white-smoke drop-shadow-sm p-5 rounded-xl">
             <div>
               <h2>status</h2>
               <p>startDate - endDate</p>
@@ -205,11 +214,7 @@ function UserBookings() {
               <p>Pets Placeholder</p>
             </div>
           </div>
-          <div
-            className="bg-white-smoke drop-shadow-sm p-5 rounded-xl"
-            h-48
-            w-full
-          >
+          <div className="bg-white-smoke drop-shadow-sm p-5 rounded-xl">
             <div>
               <h2>status</h2>
               <p>startDate - endDate</p>
