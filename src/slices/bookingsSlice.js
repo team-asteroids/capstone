@@ -23,6 +23,8 @@ const bookingsSlice = createSlice({
   initialState: {
     allBookings: [],
     singleBooking: {},
+    allSitters: [],
+    singleSitter: {},
     status: '',
     error: '',
   },
