@@ -5,7 +5,7 @@ export const fetchAllSitters = createAsyncThunk(
   'allSitters',
   async (x, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get('/api/users');
+      const { data } = await axios.get('/api/sitters');
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -25,28 +25,22 @@ export const fetchSingleSitter = createAsyncThunk(
   }
 );
 
-const sitterSlice = createSlice({
-  name: 'sitter',
+export const sittersSlice = createSlice({
+  name: 'sitters',
   initialState: {
-    allSitters: [],
+    sitters: [],
     singleSitter: {},
-    // allSitterClients: [],
-    // singleSitterClient: {},
-    status: '',
+    // add clients, preferences, etc
     error: '',
+    status: '',
   },
-  reducers: {
-    resetSitterStatus: (state) => {
-      state.status = '';
-      state.error = '';
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllSitters.fulfilled, (state, { payload }) => {
-        state.allSitters = payload || [];
-        state.status = 'success';
+        state.status = 'fulfilled';
         state.error = '';
+        state.sitters = payload;
       })
       .addCase(fetchAllSitters.pending, (state, { payload }) => {
         state.status = 'loading';
@@ -58,7 +52,7 @@ const sitterSlice = createSlice({
       })
       .addCase(fetchSingleSitter.fulfilled, (state, { payload }) => {
         state.singleSitter = payload || {};
-        state.status = 'success';
+        state.status = 'fulfilled';
         state.error = '';
       })
       .addCase(fetchSingleSitter.pending, (state, { payload }) => {
@@ -72,8 +66,9 @@ const sitterSlice = createSlice({
   },
 });
 
-export const { resetSitterStatus } = sitterSlice.actions;
+export const { resetSitterStatus } = sittersSlice.actions;
 
-export const selectSitter = (state) => state.users;
+export const selectSitters = (state) => state.sitters;
+export const selectSingleSitter = (state) => state.sitters.singleSitter;
 
-export default sitterSlice.reducer;
+export default sittersSlice.reducer;

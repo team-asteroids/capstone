@@ -33,15 +33,45 @@ router.get('/', async (req, res, next) => {
         })
       )
     );
+
+    // Fetch sitter ratings data with their average ratings by sitterId, rounded to 2 decimal places
+    const sitterRatings = await Sitter_Rating.findAll({
+      attributes: [
+        'sitterId',
+        [sequelize.literal('ROUND(AVG(rating), 2)'), 'averageRating'],
+      ],
+      group: ['sitterId'],
+    });
+
+    const ratingMap = {};
+    sitterRatings.forEach((rating) => {
+      ratingMap[rating.sitterId] = rating.dataValues.averageRating;
+    });
+
+    // count sitter reviews
+    const sitterReviewCount = await Sitter_Review.findAll({
+      attributes: ['sitterId', [sequelize.fn('COUNT', 'sitterId'), 'count']],
+      group: ['sitterId'],
+    });
+
+    const reviewCountMap = {};
+    sitterReviewCount.forEach((review) => {
+      reviewCountMap[review.sitterId] = review.dataValues.count;
+    });
+
     // Combine all data into one array
     const combinedData = [];
     allSitters.forEach((sitter) => {
       const userData = userDataOfSitters.find(
         (user) => user.id === sitter.userId
       );
+      const sitterRating = ratingMap[sitter.id] || 0;
+      const sitterReviewCount = reviewCountMap[sitter.id] || 0;
       combinedData.push({
         ...userData.dataValues,
         ...sitter.dataValues,
+        sitterRating,
+        sitterReviewCount,
       });
     });
 

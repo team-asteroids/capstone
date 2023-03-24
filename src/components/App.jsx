@@ -17,6 +17,7 @@ import {
   UserAccount,
   Footer,
   UserProfile,
+  DiscoverSitters,
 } from './index';
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/groups/:groupId/*" element={<SingleGroup />} />
         <Route path="/account/*" element={<UserAccount />} />
         <Route path="/profile/:id/*" element={<UserProfile />} />
+        <Route path="/sitters" element={<DiscoverSitters />} />
       </Routes>
       <Footer />
     </div>
