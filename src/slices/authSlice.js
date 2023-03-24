@@ -50,7 +50,7 @@ export const createAccessData = createAsyncThunk(
   async ({ id, zip, token }, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        `api/users/${id}/access`,
+        `/api/users/${id}/access`,
         { zip: zip },
         {
           headers: {
@@ -58,13 +58,24 @@ export const createAccessData = createAsyncThunk(
           },
         }
       );
-      console.log(data);
+      console.log('createAccessData --> ', data);
       return data;
     } catch (err) {
       return rejectWithValue(err);
     }
   }
 );
+
+export const getAccessData = createAsyncThunk('getAccessData', async (id) => {
+  const token = window.localStorage.getItem('token');
+  const { data } = await axios.get(`/api/users/${id}/access/${id}`, {
+    headers: {
+      authorization: token,
+    },
+  });
+  console.log('getAccessData --> ', data);
+  return data;
+});
 
 const authSlice = createSlice({
   name: 'auth',
@@ -140,6 +151,19 @@ const authSlice = createSlice({
         state.error = '';
       })
       .addCase(createAccessData.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(getAccessData.fulfilled, (state, { payload }) => {
+        state.status = 'success';
+        state.accessData = payload;
+        state.error = '';
+      })
+      .addCase(getAccessData.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(getAccessData.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });

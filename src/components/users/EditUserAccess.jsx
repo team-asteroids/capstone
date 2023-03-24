@@ -1,15 +1,369 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { signUp, getAccessData, selectAuth } from '../../slices/authSlice';
 
 function EditUserAccess() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { accessData, userAuth } = useSelector(selectAuth);
+
+  const [edited, setEdited] = useState(false);
+
+  // local state from form (user-entered data)
+  const [formData, setFormData] = useState({
+    firstName: userAuth.firstName,
+    lastName: userAuth.lastName,
+    email: '',
+    userName: userAuth.userName,
+    password: '',
+    zip: '',
+    totalPets: userAuth.totalPets,
+    canFoster: true,
+  });
+
+  // state for validations to confirm sign up success
+  const [isInvalid, setIsInvalid] = useState(true);
+  const [isInvalidFirstName, setIsInvalidFirstName] = useState(false);
+  const [isInvalidLastName, setIsInvalidLastName] = useState(false);
+  const [isInvalidEmail, setIsInvalidEmail] = useState(false);
+  const [isInvalidUserName, setIsInvalidUserName] = useState(false);
+  const [isInvalidPassword, setIsInvalidPassword] = useState(false);
+  const [isInvalidZip, setIsInvalidZip] = useState(false);
+  const [signUpFail, setSignUpFail] = useState(false);
+
+  const token = localStorage.getItem('token');
+
+  console.log('userAuth --> ', userAuth);
+  console.log('accessData --> ', accessData);
+
+  const validClass =
+    'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+
+  const invalidClass =
+    'appearance-none block border border-red-500 w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+
+  const validateEmail = (email) => {
+    let res = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    return res.test(email);
+  };
+
+  const validateZip = (zip) => {
+    const res = /^\d{5}?$/.test(zip);
+    return res;
+  };
+
+  const checkFormValidation = () => {
+    if (formData.firstName === '') {
+      setIsInvalidFirstName(true);
+      // setIsInvalid(true);
+    }
+
+    if (formData.lastName === '') {
+      setIsInvalidLastName(true);
+      // setIsInvalid(true);
+    }
+
+    if (formData.email === '') {
+      setIsInvalidEmail(true);
+      // setIsInvalid(true);
+    }
+
+    if (formData.userName === '') {
+      setIsInvalidUserName(true);
+      // setIsInvalid(true);
+    }
+
+    if (!validateEmail(formData.email)) {
+      setIsInvalidEmail(true);
+      // setIsInvalid(true);
+    }
+
+    if (formData.password === '' || formData.password.length < 8) {
+      setIsInvalidPassword(true);
+      // setIsInvalid(true);
+    }
+    if (formData.zip === '') {
+      setIsInvalidZip(true);
+      // setIsInvalid(true);
+    }
+
+    if (!validateZip(formData.zip)) {
+      setIsInvalidZip(true);
+      // setIsInvalid(true);
+    }
+
+    if (
+      !isInvalidFirstName &&
+      !isInvalidLastName &&
+      !isInvalidEmail &&
+      !isInvalidUserName &&
+      !isInvalidPassword &&
+      !isInvalidZip
+    )
+      setIsInvalid(false);
+  };
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    await checkFormValidation();
+
+    // if all the form elements are valid (aka false)
+    if (!isInvalid && validateZip(formData.zip)) {
+      const res = await dispatch(signUp(formData));
+      if (res.type === 'signup/rejected') setSignUpFail(true);
+    }
+    // dispatch editProfile thunk
+    setEdited(true);
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      await dispatch(getAccessData(userAuth.id));
+    };
+    getData();
+  }, []);
+
+  // useEffect(() => {
+  //   const zip = formData.zip;
+  //   if (userAuth && userAuth.id) {
+  //     const id = userAuth.id;
+  //     dispatch(createAccessData({ id, zip, token }));
+  //   }
+  // }, [userAuth]);
+
+  // useEffect(() => {
+  //   if (accessData.zip) {
+  //     navigate('/account');
+  //   }
+  // }, [accessData]);
+
   return (
-    <div className="font-rubik flex flex-col gap-5">
-      <div>
-        <h2 className="font-rubikmono">Edit Access Details</h2>
-      </div>
-      <div className="h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
-        <section>
-          <form>access details</form>
-        </section>
+    <div className="font-rubikmono">
+      <div className=" flex flex-row m-auto">
+        <div className=" m-auto">
+          <h2 className="text-center text-3xl">Edit My Access Information</h2>
+          <p
+            className={
+              signUpFail && isInvalid
+                ? 'text-red-500 font-rubik text-center font-bold text-sm mt-6'
+                : 'collapse font-rubik text-xs'
+            }
+          >
+            Oops! Could not update your access information!
+          </p>
+          <section className="flex justify-center mt-8">
+            <form onSubmit={handleEdit}>
+              <div className="flex flex-wrap mx-3 mb-3">
+                <div className="w-full md:w-1/2 px-3 md:mb-0">
+                  <label>First Name</label>
+                  <input
+                    className={isInvalidFirstName ? invalidClass : validClass}
+                    id="firstName"
+                    name="firstName"
+                    type="text"
+                    value={formData.firstName}
+                    onChange={(evt) => {
+                      setIsInvalidFirstName(false);
+                      // setIsInvalid(false);
+                      setFormData({ ...formData, firstName: evt.target.value });
+                    }}
+                  />
+                  <p
+                    className={
+                      isInvalidFirstName
+                        ? 'text-xs mt-2 text-red-500'
+                        : 'collapse -mt-2'
+                    }
+                  >
+                    Invalid!
+                  </p>
+                </div>
+
+                <div className="w-full md:w-1/2 px-3 md:mb-0">
+                  <label>Last Name</label>
+                  <input
+                    className={isInvalidLastName ? invalidClass : validClass}
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    value={formData.lastName}
+                    onChange={(evt) => {
+                      setIsInvalidLastName(false);
+                      // setIsInvalid(false);
+                      setFormData({ ...formData, lastName: evt.target.value });
+                    }}
+                  />
+                  <p
+                    className={
+                      isInvalidLastName
+                        ? 'text-xs mt-2 text-red-500'
+                        : 'collapse -mt-2'
+                    }
+                  >
+                    Invalid!
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap px-3 mx-3 mb-3">
+                <div className="w-full flex flex-col">
+                  <label>Email</label>
+                  <input
+                    className={isInvalidEmail ? invalidClass : validClass}
+                    id="email"
+                    name="email"
+                    type="text"
+                    value={formData.email}
+                    onChange={(evt) => {
+                      setIsInvalidEmail(false);
+                      // setIsInvalid(false);
+                      setFormData({ ...formData, email: evt.target.value });
+                    }}
+                  />
+                  <p
+                    className={
+                      isInvalidEmail
+                        ? 'text-xs mt-2 text-red-500'
+                        : 'collapse -mt-2'
+                    }
+                  >
+                    Invalid!
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap mx-3 mb-3">
+                <div className="w-full md:w-1/2 px-3 md:mb-0">
+                  <label>Username</label>
+                  <input
+                    className={isInvalidUserName ? invalidClass : validClass}
+                    id="userName"
+                    name="userName"
+                    type="text"
+                    value={formData.userName}
+                    onChange={(evt) => {
+                      setIsInvalidUserName(false);
+                      // setIsInvalid(false);
+                      setFormData({ ...formData, userName: evt.target.value });
+                    }}
+                  />
+                  <p
+                    className={
+                      isInvalidUserName
+                        ? 'text-xs mt-2 text-red-500'
+                        : 'collapse -mt-2'
+                    }
+                  >
+                    Invalid!
+                  </p>
+                </div>
+
+                <div className="w-full md:w-1/2 px-3 md:mb-0">
+                  <label>Password</label>
+                  <input
+                    className={isInvalidPassword ? invalidClass : validClass}
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="************"
+                    value={formData.password}
+                    onChange={(evt) => {
+                      setIsInvalidPassword(false);
+                      // setIsInvalid(false);
+                      setFormData({ ...formData, password: evt.target.value });
+                    }}
+                  />
+                  <p
+                    className={
+                      isInvalidPassword
+                        ? 'text-xs mt-2 text-red-500'
+                        : 'collapse -mt-2'
+                    }
+                  >
+                    Invalid!
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap mx-3 mb-3">
+                <div className="w-full md:w-1/3 px-3 md:mb-0">
+                  <label>Zip Code</label>
+                  <input
+                    className={isInvalidZip ? invalidClass : validClass}
+                    type="text"
+                    id="zip"
+                    name="zip"
+                    value={formData.zip}
+                    onChange={(evt) => {
+                      setIsInvalidZip(false);
+                      // setIsInvalid(false);
+                      setFormData({ ...formData, zip: evt.target.value });
+                    }}
+                  />
+                  <p
+                    className={
+                      isInvalidZip
+                        ? 'text-xs mt-2 text-red-500'
+                        : 'collapse -mt-2'
+                    }
+                  >
+                    Invalid!
+                  </p>
+                </div>
+
+                <div className="w-full md:w-1/3 px-3  md:mb-0">
+                  <label>Pets</label>
+                  <input
+                    className={validClass}
+                    type="number"
+                    min={0}
+                    id="pets"
+                    name="pets"
+                    value={formData.totalPets}
+                    onChange={(evt) => {
+                      setFormData({ ...formData, totalPets: evt.target.value });
+                    }}
+                  />
+                </div>
+
+                <div className="w-full md:w-1/3 px-3 md:mb-0">
+                  <label>Foster</label>
+                  <select
+                    className={validClass}
+                    id="foster"
+                    name="foster"
+                    value={formData.canFoster}
+                    onChange={(evt) => {
+                      setFormData({ ...formData, canFoster: evt.target.value });
+                    }}
+                  >
+                    {/* <option value="" selected disabled hidden>
+                        Can update later
+                      </option> */}
+                    <option value={true}>Yes</option>
+                    <option value={false}>No</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex flex-wrap px-3 mx-3 mb-6">
+                <button
+                  className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
+                  type="submit"
+                >
+                  Sign Up
+                </button>
+              </div>
+            </form>
+          </section>
+          <div className="text-xs mt-3 text-center">
+            <p className="hover:text-white">
+              <Link to={'/login'}>Already have an account? Log in!</Link>
+            </p>
+          </div>
+        </div>
+        <div className="w-1/2 h-[calc(100vh_-_5rem)]"></div>
       </div>
     </div>
   );
