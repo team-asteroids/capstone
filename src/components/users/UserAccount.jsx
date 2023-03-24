@@ -9,6 +9,7 @@ import {
   SitterAccountSidebar,
   EditSitterProfile,
   EditUserProfile,
+  EditUserPets,
 } from '../index';
 
 function UserAccount() {
@@ -99,6 +100,8 @@ function UserAccount() {
           <Routes>
             <Route path="/editprofile" element={<EditUserProfile />}></Route>
             <Route path="/bookings" element={<UserBookings />}></Route>
+            <Route path="/pets" element={<EditUserPets />}></Route>
+            {/* SITTER ROUTES */}
             <Route
               path="/sitter/editprofile"
               element={<EditSitterProfile />}
