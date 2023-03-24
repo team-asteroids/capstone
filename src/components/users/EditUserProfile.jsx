@@ -105,7 +105,7 @@ function EditUserProfile() {
             >
               Oops! Could not update your profile!
             </p>
-            <section className="flex mt-8">
+            <section className="flex mt-4">
               <form onSubmit={handleEdit}>
                 <div className="flex flex-wrap mb-2">
                   <div className="w-full md:w-1/2 pr-5 md:mb-0">
