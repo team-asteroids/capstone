@@ -6,7 +6,6 @@ import { fetchSingleGroup, editSingleGroup } from '../../slices/groupsSlice';
 
 const EditGroup = () => {
   const { groupId } = useParams();
-
   const { userAuth } = useSelector(selectAuth);
   const group = useSelector((state) => state.groups.singleGroup);
   const singleGroup = group.singleGroup;
@@ -21,10 +20,11 @@ const EditGroup = () => {
 
   const [edited, setEdited] = useState(false);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       await dispatch(fetchSingleGroup(groupId));
       setLoading(false);
     };
@@ -36,7 +36,6 @@ const EditGroup = () => {
     await dispatch(
       editSingleGroup({ groupId, name, topic, description, imageSrc })
     );
-    navigate(`/groups/${groupId}`);
   };
 
   return (

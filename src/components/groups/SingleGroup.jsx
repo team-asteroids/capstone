@@ -48,6 +48,7 @@ const SingleGroup = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       await dispatch(fetchSingleGroup(groupId));
       await dispatch(fetchGroupPosts(groupId));
       setLoading(false);
