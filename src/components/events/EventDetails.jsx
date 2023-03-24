@@ -7,8 +7,7 @@ import {
   selectSingleEvent,
 } from '../../slices/eventsSlice';
 import { selectAuth } from '../../slices/authSlice';
-import newYearsPupsImg from '../../img/73978.jpg';
-import partyPuppiesImg from '../../img/group-puppies-celebrating-new-year.jpg';
+import defaultImg from '../../img/group-puppies-celebrating-new-year.jpg';
 
 const EventDetails = () => {
   const dispatch = useDispatch();
@@ -52,7 +51,7 @@ const EventDetails = () => {
               Event Details
             </div>
             <div className="pl-5 pt-3  container mx-auto relative">
-              <img className="w-100 " src={newYearsPupsImg} alt="puppy event" />
+              <img className="w-100 " src={defaultImg} alt="puppy event" />
               <div className="p-1">Topic: {event.topic}</div>
               <div className="p-1">Event Creator: @howlr_{event.creatorId}</div>
               <div className="p-1 ">
@@ -98,7 +97,7 @@ const EventDetails = () => {
             <div className="pl-3 pt-3  container mx-auto relative">
               <img
                 className="w-100 rounded-3xl"
-                src={partyPuppiesImg}
+                src={defaultImg}
                 alt="puppy event"
               />
               <div className="p-1">
