@@ -63,12 +63,10 @@ function UserBookings() {
   if (!userAuth && !userAuth.firstName)
     return <div className="font-rubikmono">Fetching good things...</div>;
 
-  // map through bookings and add a filter for (pending, approved, completed, declined/cancelled/withdrawn)
-
   return (
     <div className="flex flex-col gap-5 font-rubik">
       <div id="filter" className="flex flex-row justify-between">
-        <h2 className="font-rubikmono">Manage Bookings</h2>
+        <h2 className="font-rubikmono">Manage Sitter Bookings</h2>
         <div>
           <select
             id="filter"
