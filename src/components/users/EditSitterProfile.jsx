@@ -6,8 +6,10 @@ function EditSitterProfile() {
       <div>
         <h2 className="font-rubikmono">Edit Sitter Profile</h2>
       </div>
-      <div>RATE</div>
-      <div>AVAILABILITY</div>
+      <div className="h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
+        <div>RATE</div>
+        <div>AVAILABILITY</div>
+      </div>
     </div>
   );
 }
