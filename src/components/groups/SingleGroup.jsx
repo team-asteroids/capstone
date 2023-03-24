@@ -19,7 +19,7 @@ const SingleGroup = () => {
   const { groupId } = useParams();
   console.log('groupId --> ', groupId);
 
-  const { userAuth } = useSelector(selectAuth);
+  const { userAuth, token } = useSelector(selectAuth);
   const memberId = userAuth.id;
 
   // console.log('userAuth in single group -->', userAuth);
@@ -58,7 +58,11 @@ const SingleGroup = () => {
 
   const joinGroup = async (e) => {
     e.preventDefault();
-    await dispatch(addGroupMember({ groupId, memberId }));
+    if (token) {
+      await dispatch(addGroupMember({ groupId }));
+    } else {
+      console.log('no token in component');
+    }
   };
 
   const leaveGroup = async (e) => {

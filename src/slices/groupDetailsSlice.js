@@ -16,17 +16,14 @@ export const fetchGroupMembers = createAsyncThunk(
 
 export const addGroupMember = createAsyncThunk(
   '/addGroupMember',
-  async ({ groupId, memberId }) => {
-    const token = localStorage.getItem('token');
+  async ({ groupId }) => {
+    const token = window.localStorage.getItem('token');
     console.log('thunk token --> ', token);
-    const { data } = await axios.post(
-      `/api/groups/${groupId}/members/${memberId}`,
-      {
-        headers: {
-          authorization: token,
-        },
-      }
-    );
+    const { data } = await axios.post(`/api/groups/${groupId}/members`, {
+      headers: {
+        authorization: token,
+      },
+    });
     console.log('data --> ', data);
     return data;
   }
