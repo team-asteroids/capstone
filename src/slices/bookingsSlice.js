@@ -10,7 +10,6 @@ export const fetchAllBookings = createAsyncThunk(
           authorization: token,
         },
       });
-      // console.log(data);
       return data;
     } catch (err) {
       return rejectWithValue(err);
