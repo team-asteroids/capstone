@@ -115,7 +115,7 @@ function UserAccount() {
               element={<EditSitterProfile />}
             ></Route>
             <Route
-              path="/sitter/updatepetsprefs"
+              path="/sitter/updatepetprefs"
               element={<EditSitterPetPrefs />}
             ></Route>
             <Route path="/sitter/bookings" element={<SitterBookings />}></Route>
