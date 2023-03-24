@@ -26,11 +26,15 @@ const SitterProfile = () => {
     if (id) {
       dispatch(fetchSingleSitterReviews(id));
       setReviews(sitterReviews);
+
       dispatch(fetchSingleSitterRatings(id));
       setRatings(sitterRatings);
-      setAvgRating((total / sitterRatings.length).toFixed(1));
+
+      if (sitterRatings) {
+        setAvgRating((total / sitterRatings.length).toFixed(1));
+      }
     }
-  }, [singleSitter, ratings]);
+  }, [singleSitter, id, ratings]);
 
   // useEffect(() => {
   //   if (ratings.length > 0)
