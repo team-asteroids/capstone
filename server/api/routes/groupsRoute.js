@@ -188,7 +188,7 @@ router.post('/:groupId/members', requireToken, async (req, res, next) => {
     const [newMember, wasCreated] = await Group_Member.findOrCreate({
       where: {
         userId: req.user.id,
-        groupId: req.params.groupId,
+        groupId: req.body.groupId,
       },
     });
     if (!wasCreated) return res.status(409).send('Group Member already exists');

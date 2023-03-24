@@ -37,8 +37,10 @@ router.get('/', requireToken, async (req, res, next) => {
     next(err);
   }
 });
+
 router.get('/:accessId', requireToken, async (req, res, next) => {
   try {
+    console.log('hitting route');
     const id = +req.params.id;
     const accessId = +req.params.accessId;
     const accessData = await Access.findByPk(accessId, {
