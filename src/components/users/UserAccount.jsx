@@ -10,6 +10,7 @@ import {
   EditSitterProfile,
   EditUserProfile,
   EditUserPets,
+  UserOverview,
 } from '../index';
 
 function UserAccount() {
@@ -98,6 +99,7 @@ function UserAccount() {
         </div>
         <div className="w-3/4 font-rubikmono overflow-auto flex flex-col gap-5">
           <Routes>
+            <Route path="/" element={<UserOverview />}></Route>
             <Route path="/editprofile" element={<EditUserProfile />}></Route>
             <Route path="/bookings" element={<UserBookings />}></Route>
             <Route path="/pets" element={<EditUserPets />}></Route>
