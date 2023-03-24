@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchSingleGroup, editSingleGroup } from '../../slices/groupsSlice';
+import { editSingleGroup } from '../../slices/groupsSlice';
 
 const EditGroup = () => {
   const { groupId } = useParams();
@@ -20,24 +20,14 @@ const EditGroup = () => {
 
   const [edited, setEdited] = useState(false);
 
-  // const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     // setLoading(true);
-  //     await dispatch(fetchSingleGroup(groupId));
-  //     // setLoading(false);
-  //   };
-  //   fetchData();
-  // }, [dispatch, groupId]);
-
   const editGroup = async (e) => {
     e.preventDefault();
     await dispatch(
       editSingleGroup({ groupId, name, topic, description, imageSrc })
     );
     setEdited(true);
-    // window.location.reload(false);
+    // console.log('singleGroup state in EDITGROUP-->', singleGroup);
+    navigate(`/groups/${groupId}`);
   };
 
   return (
