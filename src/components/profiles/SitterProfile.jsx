@@ -32,7 +32,7 @@ const SitterProfile = () => {
     }
   }, [singleSitter]);
 
-  // console.log(sitterRatings, sitterReviews);
+  console.log(sitterRatings, sitterReviews);
 
   return (
     <div className="font-rubik flex flex-col gap-5">
@@ -66,7 +66,7 @@ const SitterProfile = () => {
                     <div key={review.id} className="pb-3">
                       <p>{review.createdAt}</p>
                       <p>{review.context}</p>
-                      <p>{review.userId}</p>
+                      <p>{review.user.fullName}</p>
                     </div>
                   ))
                 : 'no reviews!'}
