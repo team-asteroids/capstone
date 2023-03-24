@@ -32,8 +32,6 @@ const SitterProfile = () => {
     }
   }, [singleSitter]);
 
-  console.log(sitterRatings, sitterReviews);
-
   return (
     <div className="font-rubik flex flex-col gap-5">
       <div>
