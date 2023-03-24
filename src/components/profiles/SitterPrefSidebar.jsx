@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingleSitter, selectSitters } from '../../slices/sittersSlice';
 import { selectUser } from '../../slices/usersSlice';
 
-function SitterPrefSidebar() {
+const SitterPrefSidebar = () => {
   const dispatch = useDispatch();
   const [sitterPrefs, setSitterPrefs] = useState({});
 
@@ -26,41 +26,49 @@ function SitterPrefSidebar() {
 
   return (
     <div>
-      <div className="font-rubikmono">Preferences</div>
-      <div>
-        <p>Location:</p>
-        <ul>
-          {sitterPrefs.hostAtHome ? <li>sitter home</li> : null}
-          {sitterPrefs.atOwnerHouse ? <li>owner home</li> : null}
-        </ul>
+      <div className="pb-5">
+        <h2 className="font-rubikmono pb-2">Rate</h2>
+        <p>${singleSitter.rate}</p>
       </div>
-      <div>
-        <p>Size:</p>
-        <ul>
-          {sitterPrefs.small ? <li>small</li> : null}
-          {sitterPrefs.medium ? <li>medium</li> : null}
-          {sitterPrefs.large ? <li>large</li> : null}
-          {sitterPrefs.extraLarge ? <li>extra large</li> : null}
-          {sitterPrefs.puppies ? <li>puppies</li> : null}
-        </ul>
+      <div className="font-rubikmono pb-2">
+        <h2>Preferences</h2>
       </div>
-      <div>
-        <p>Other Pets:</p>
-        <ul>
-          {sitterPrefs.cats ? <li>cats</li> : null}
-          {sitterPrefs.multiplePets ? <li>multiple pets</li> : null}
-        </ul>
-      </div>
-      <div>
-        <p>Special Needs:</p>
-        <ul>
-          {sitterPrefs.disabled ? <li>disabled</li> : null}
-          {sitterPrefs.medication ? <li>medication</li> : null}
-          {sitterPrefs.reactive ? <li>reactive</li> : null}
-        </ul>
+      <div className="flex flex-col gap-3">
+        <div>
+          <p>Location:</p>
+          <ul>
+            {sitterPrefs.hostAtHome ? <li>sitter home</li> : null}
+            {sitterPrefs.atOwnerHouse ? <li>owner home</li> : null}
+          </ul>
+        </div>
+        <div>
+          <p>Size:</p>
+          <ul>
+            {sitterPrefs.small ? <li>small</li> : null}
+            {sitterPrefs.medium ? <li>medium</li> : null}
+            {sitterPrefs.large ? <li>large</li> : null}
+            {sitterPrefs.extraLarge ? <li>extra large</li> : null}
+            {sitterPrefs.puppies ? <li>puppies</li> : null}
+          </ul>
+        </div>
+        <div>
+          <p>Other Pets:</p>
+          <ul>
+            {sitterPrefs.cats ? <li>cats</li> : null}
+            {sitterPrefs.multiplePets ? <li>multiple pets</li> : null}
+          </ul>
+        </div>
+        <div>
+          <p>Special Needs:</p>
+          <ul>
+            {sitterPrefs.disabled ? <li>disabled</li> : null}
+            {sitterPrefs.medication ? <li>medication</li> : null}
+            {sitterPrefs.reactive ? <li>reactive</li> : null}
+          </ul>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default SitterPrefSidebar;
