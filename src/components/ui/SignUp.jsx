@@ -27,7 +27,7 @@ function SignUp() {
   });
 
   // state for validations to confirm sign up success
-  const [isInvalid, setIsInvalid] = useState(true);
+  const [isInvalid, setIsInvalid] = useState(false);
   const [isInvalidFirstName, setIsInvalidFirstName] = useState(false);
   const [isInvalidLastName, setIsInvalidLastName] = useState(false);
   const [isInvalidEmail, setIsInvalidEmail] = useState(false);
@@ -57,41 +57,41 @@ function SignUp() {
   const checkFormValidation = () => {
     if (formData.firstName === '') {
       setIsInvalidFirstName(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (formData.lastName === '') {
       setIsInvalidLastName(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (formData.email === '') {
       setIsInvalidEmail(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (formData.userName === '') {
       setIsInvalidUserName(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (!validateEmail(formData.email)) {
       setIsInvalidEmail(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (formData.password === '' || formData.password.length < 8) {
       setIsInvalidPassword(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
     if (formData.zip === '') {
       setIsInvalidZip(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (!validateZip(formData.zip)) {
       setIsInvalidZip(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (
