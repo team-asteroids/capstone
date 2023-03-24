@@ -4,7 +4,7 @@ import { useNavigate, Routes, Route, useParams } from 'react-router-dom';
 // import { selectAuth } from '../../slices/authSlice';
 import defaultImg from '../../img/default-dog.jpg';
 import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
-import { SitterProfile, UserSocialView } from '../index';
+import { SitterPrefSidebar, SitterProfile, UserSocialView } from '../index';
 
 function UserProfile() {
   const dispatch = useDispatch();
@@ -78,11 +78,11 @@ function UserProfile() {
             </div>
           </div>
           <div>
-            OTHER STUFF
-            <div className="">
-              <p>{singleUser.access.zip}</p>
+            <div>
+              <p>Neighborhood: {singleUser.access.zip}</p>
             </div>
           </div>
+          {sitterToggle ? <SitterPrefSidebar /> : <div>TEST</div>}
           <div className="w-1/4">
             <button className="bg-bold-orange text-sm px-5 py-2  text-white rounded-xl">
               Chat
