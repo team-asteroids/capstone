@@ -15,7 +15,6 @@ import {
   BrowseGroups,
   SingleGroup,
   UserAccount,
-  UserProfile,
   Footer,
   DiscoverSitters,
 } from './index';
@@ -43,7 +42,7 @@ function App() {
         <Route path="/groups" element={<BrowseGroups />} />
         <Route path="/groups/:groupId/*" element={<SingleGroup />} />
         <Route path="/account/*" element={<UserAccount />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/profile/:id/*" element={<UserProfile />} />
         <Route path="/sitters" element={<DiscoverSitters />} />
       </Routes>
       <Footer />

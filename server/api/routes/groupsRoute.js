@@ -179,6 +179,26 @@ router.get('/:groupId/members', requireToken, async (req, res, next) => {
   }
 });
 
+// add group member
+// userId is automatically set to token user id
+router.post('/:groupId/members', requireToken, async (req, res, next) => {
+  try {
+    console.log('this got to the route');
+    console.log('user --> ', req.user);
+    const [newMember, wasCreated] = await Group_Member.findOrCreate({
+      where: {
+        userId: req.user.id,
+        groupId: req.params.groupId,
+      },
+    });
+    if (!wasCreated) return res.status(409).send('Group Member already exists');
+    res.status(201).json(newMember);
+  } catch (e) {
+    console.log('Backend issue adding group_member');
+    next(e);
+  }
+});
+
 // delete group member
 // token user id must match the group_member userId OR you are admin
 router.delete(

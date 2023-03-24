@@ -7,6 +7,14 @@ import {
   UserBookings,
   UserAccountSidebar,
   SitterAccountSidebar,
+  EditSitterProfile,
+  EditUserProfile,
+  EditUserPets,
+  UserOverview,
+  EditSitterPetPrefs,
+  SitterOverview,
+  SitterBookings,
+  EditUserAccess,
 } from '../index';
 
 function UserAccount() {
@@ -95,7 +103,22 @@ function UserAccount() {
         </div>
         <div className="w-3/4 font-rubikmono overflow-auto flex flex-col gap-5">
           <Routes>
+            <Route path="/" element={<UserOverview />}></Route>
+            <Route path="/editprofile" element={<EditUserProfile />}></Route>
             <Route path="/bookings" element={<UserBookings />}></Route>
+            <Route path="/pets" element={<EditUserPets />}></Route>
+            <Route path="/access" element={<EditUserAccess />}></Route>
+            {/* SITTER ROUTES */}
+            <Route path="/sitter" element={<SitterOverview />}></Route>
+            <Route
+              path="/sitter/editprofile"
+              element={<EditSitterProfile />}
+            ></Route>
+            <Route
+              path="/sitter/updatepetprefs"
+              element={<EditSitterPetPrefs />}
+            ></Route>
+            <Route path="/sitter/bookings" element={<SitterBookings />}></Route>
           </Routes>
         </div>
       </div>
