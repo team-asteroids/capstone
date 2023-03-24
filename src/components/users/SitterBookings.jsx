@@ -1,20 +1,18 @@
 import React from 'react';
 
-function UserProfile() {
+function SitterBookings() {
   return (
     <div className="font-rubik flex flex-col gap-5">
       <div>
-        <h2 className="font-rubikmono">User Profile Overview</h2>
+        <h2 className="font-rubikmono">Manage Sitter Bookings</h2>
       </div>
       <div className="h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
-        <div>User Details</div>
-        <div>Pet Profiles</div>
+        <div>Pending Bookings</div>
         <div>Upcoming Bookings</div>
-        <div>Social</div>
-        <div>Given Ratings / Reviews</div>
+        <div>Past Bookings</div>
       </div>
     </div>
   );
 }
 
-export default UserProfile;
+export default SitterBookings;

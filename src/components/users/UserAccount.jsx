@@ -12,6 +12,8 @@ import {
   EditUserPets,
   UserOverview,
   EditSitterPetPrefs,
+  SitterOverview,
+  SitterBookings,
 } from '../index';
 
 function UserAccount() {
@@ -105,6 +107,7 @@ function UserAccount() {
             <Route path="/bookings" element={<UserBookings />}></Route>
             <Route path="/pets" element={<EditUserPets />}></Route>
             {/* SITTER ROUTES */}
+            <Route path="/sitter" element={<SitterOverview />}></Route>
             <Route
               path="/sitter/editprofile"
               element={<EditSitterProfile />}
@@ -113,6 +116,7 @@ function UserAccount() {
               path="/sitter/updatepetsprefs"
               element={<EditSitterPetPrefs />}
             ></Route>
+            <Route path="/sitter/bookings" element={<SitterBookings />}></Route>
           </Routes>
         </div>
       </div>
