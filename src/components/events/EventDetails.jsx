@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import {
   addRsvpAsync,
   fetchSingleEvent,
   selectSingleEvent,
+  getMyRsvpsAsync,
+  selectMyRsvps,
+  removeRsvpAsync,
 } from '../../slices/eventsSlice';
 import { selectAuth } from '../../slices/authSlice';
+import defaultImg from '../../img/group-puppies-celebrating-new-year.jpg';
 
 const EventDetails = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const event = useSelector(selectSingleEvent);
   const auth = useSelector(selectAuth);
+  const myRsvps = useSelector(selectMyRsvps);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,6 +28,17 @@ const EventDetails = () => {
     };
     fetchData();
   }, [dispatch, id]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(getMyRsvpsAsync());
+      setLoading(false);
+    };
+    fetchData();
+  }, [dispatch, id]);
+
+  const alreadyRSVPd = myRsvps.filter((rsvp) => rsvp.eventId === event.id);
+  console.log(alreadyRSVPd);
 
   if (!auth.userAuth) {
     return (
@@ -50,11 +67,9 @@ const EventDetails = () => {
               Event Details
             </div>
             <div className="pl-5 pt-3  container mx-auto relative">
-              <img
-                className="w-100 "
-                src={require('../../img/73978.jpg')}
-                alt="puppy event"
-              />
+
+              <img className="w-100 " src={defaultImg} alt="puppy event" />
+
               <div className="p-1">Topic: {event.topic}</div>
               <div className="p-1">Event Creator: @howlr_{event.creatorId}</div>
               <div className="p-1 ">
@@ -100,11 +115,13 @@ const EventDetails = () => {
             <div className="pl-3 pt-3  container mx-auto relative">
               <img
                 className="w-100 rounded-3xl"
-                src={require('../../img/group-puppies-celebrating-new-year.jpg')}
+
+                src={defaultImg}
+
                 alt="puppy event"
               />
               <div className="p-1">
-                <strong>PUP-E-VENT:</strong> {event.topic.toUpperCase()}
+                <strong>PUP-E-VENT:</strong> {event.topic}
               </div>
               <div className="p-1">
                 <strong>PACK LEADER:</strong> @howlr_{event.creatorId}
@@ -130,13 +147,27 @@ const EventDetails = () => {
                   <p>No HOWLR's...yet</p>
                 )}
               </ul>
-
-              <button
-                className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
-                onClick={() => dispatch(addRsvpAsync(event.id))}
-              >
-                RSVP
-              </button>
+              {!alreadyRSVPd.length ? (
+                <button
+                  className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
+                  onClick={() => {
+                    dispatch(addRsvpAsync(event.id));
+                    window.location.reload(false);
+                  }}
+                >
+                  RSVP
+                </button>
+              ) : (
+                <button
+                  className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
+                  onClick={() => {
+                    dispatch(removeRsvpAsync(event.id));
+                    window.location.reload(false);
+                  }}
+                >
+                  Remove RSVP
+                </button>
+              )}
             </div>
           </div>
         )}
