@@ -4,20 +4,29 @@ import { useNavigate, Routes, Route, useParams } from 'react-router-dom';
 import { selectAuth } from '../../slices/authSlice';
 import defaultImg from '../../img/default-dog.jpg';
 import {} from '../index';
+import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
 
 function UserProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useParams();
+  const { userAuth } = useSelector(selectAuth);
+
+  const id = userAuth.id;
+
+  const { singleUser } = useSelector(selectUser);
+
+  console.log('singleUser:', singleUser);
 
   useEffect(() => {
-    if (location['*'] === 'sitter') navigate('/account');
-  }, []);
-
-  const { userAuth } = useSelector(selectAuth);
+    if (userAuth && userAuth.id) {
+      dispatch(fetchSingleUser(id));
+    }
+  }, [userAuth]);
 
   if (!userAuth.firstName)
     return <div className="font-rubikmono">Fetching good things...</div>;
+
   return (
     <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-[calc(100vh_-_5rem)]">
       <div className="flex flex-row pt-20 mb-16 gap-10 mx-20 px-20">
