@@ -12,15 +12,19 @@ import {
 function UserAccount() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const location = useParams();
+  const location = useParams();
 
-  // const [selectedSidebar, setSelectedSidebar] = useState('');
   const [sitterToggle, setSitterToggle] = useState(false);
+
+  useEffect(() => {
+    console.log(location);
+    if (location['*'] === 'sitter') navigate('/account');
+  }, []);
 
   const { userAuth } = useSelector(selectAuth);
 
   const toggleClass =
-    "w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink";
+    "checked w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink";
 
   const attemptLogOut = async () => {
     await dispatch(logOut());
@@ -30,7 +34,9 @@ function UserAccount() {
   const toggleSitter = () => {
     setSitterToggle(!sitterToggle);
     if (!sitterToggle) navigate('/account/sitter');
-    else if (sitterToggle) navigate('/account');
+    else if (sitterToggle) {
+      navigate('/account');
+    }
   };
 
   if (!userAuth.firstName)
