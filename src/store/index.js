@@ -5,6 +5,7 @@ import groupDetailsSliceReducer from '../slices/groupDetailsSlice';
 import authSlice from '../slices/authSlice';
 import bookingsSlice from '../slices/bookingsSlice';
 import usersSlice from '../slices/usersSlice';
+import sitterSlice from '../slices/sittersSlice';
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     auth: authSlice,
     bookings: bookingsSlice,
     users: usersSlice,
+    sitters: sitterSlice,
   },
 });
 
