@@ -17,3 +17,4 @@ export { default as MemberView } from './groups/MemberView.jsx';
 export { default as Footer } from './ui/Footer.jsx';
 export { default as UserAccountSidebar } from './ui/UserAccountSidebar.jsx';
 export { default as SitterAccountSidebar } from './ui/SitterAccountSidebar.jsx';
+export { default as EditSitterProfile } from './users/EditSitterProfile.jsx';

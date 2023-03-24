@@ -7,6 +7,7 @@ import {
   UserBookings,
   UserAccountSidebar,
   SitterAccountSidebar,
+  EditSitterProfile,
 } from '../index';
 
 function UserAccount() {
@@ -96,6 +97,10 @@ function UserAccount() {
         <div className="w-3/4 font-rubikmono overflow-auto flex flex-col gap-5">
           <Routes>
             <Route path="/bookings" element={<UserBookings />}></Route>
+            <Route
+              path="/sitter/editprofile"
+              element={<EditSitterProfile />}
+            ></Route>
           </Routes>
         </div>
       </div>
