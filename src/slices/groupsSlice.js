@@ -68,7 +68,7 @@ export const groupSlice = createSlice({
         state.status = 'fulfilled';
         state.error = '';
         state.singleGroup = payload;
-        console.log('state--> ', state.singleGroup);
+        // console.log('state--> ', state.singleGroup);
       })
       .addCase(fetchSingleGroup.pending, (state, { payload }) => {
         state.status = 'loading';

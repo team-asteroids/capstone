@@ -20,7 +20,7 @@ const MemberView = () => {
     fetchData();
   }, [dispatch, groupId]);
 
-  console.log('members-->', members);
+  // console.log('members-->', members);
 
   return (
     <>

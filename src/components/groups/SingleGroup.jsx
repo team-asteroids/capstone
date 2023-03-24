@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSingleGroup } from '../../slices/groupsSlice';
+import { fetchSingleGroup, deleteSingleGroup } from '../../slices/groupsSlice';
 import {
   fetchGroupPosts,
   addGroupMember,
@@ -11,11 +11,13 @@ import {
 import GroupNav from './GroupNav';
 import PostsView from './PostsView';
 import MemberView from './MemberView';
+import EditGroup from './EditGroup';
 import { selectAuth } from '../../slices/authSlice';
 
 const SingleGroup = () => {
   const dispatch = useDispatch();
   const { groupId } = useParams();
+  console.log('groupId --> ', groupId);
 
   const { userAuth } = useSelector(selectAuth);
   const memberId = userAuth.id;
@@ -25,10 +27,24 @@ const SingleGroup = () => {
   const group = useSelector((state) => state.groups.singleGroup);
   const singleGroup = group.singleGroup;
   const members = group.members;
-
+  // console.log('singleGroup --> ', singleGroup);
   const posts = useSelector((state) => state.groupDetails.posts);
 
   const [loading, setLoading] = useState(true);
+  const [isCreator, setCreator] = useState(false);
+  const [isAdmin, setAdmin] = useState(false);
+
+  useEffect(() => {
+    const setUserStatus = async () => {
+      if (userAuth.role === 'admin') {
+        setAdmin(true);
+      }
+      if (userAuth.id === singleGroup.creatorId) {
+        setCreator(true);
+      }
+    };
+    setUserStatus();
+  }, [userAuth]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,6 +64,12 @@ const SingleGroup = () => {
     e.preventDefault();
     await dispatch(deleteGroupMember({ groupId, memberId }));
   };
+
+  const deleteGroup = async (e) => {
+    e.preventDefault();
+    await dispatch(deleteSingleGroup({ groupId }));
+  };
+
   return (
     <>
       {loading ? (
@@ -85,6 +107,17 @@ const SingleGroup = () => {
                     Leave group
                   </button>
                 </div>
+                {isAdmin ||
+                  (isCreator && (
+                    <div>
+                      <button
+                        onClick={deleteGroup}
+                        className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+                      >
+                        Delete group
+                      </button>
+                    </div>
+                  ))}
               </div>
             </div>
             <div>
@@ -92,12 +125,16 @@ const SingleGroup = () => {
                 singleGroup={singleGroup}
                 members={members}
                 posts={posts}
+                userAuth={userAuth}
+                isAdmin={isAdmin}
+                isCreator={isCreator}
               />
             </div>
           </div>
           <Routes>
             <Route path="/posts" element={<PostsView />} />
             <Route path="/members" element={<MemberView />} />
+            <Route path="/edit" element={<EditGroup />} />
           </Routes>
         </div>
       )}

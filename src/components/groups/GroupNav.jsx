@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function GroupNav(props) {
-  const { singleGroup, members, posts } = props;
+  const { singleGroup, members, posts, isAdmin, isCreator, userAuth } = props;
 
   return (
     <nav className="flex justify-between font-mono h-8 items-center tracking-tighter px-5">
@@ -13,6 +13,11 @@ function GroupNav(props) {
         <Link to={`/groups/${singleGroup.id}/members`}>
           <li>Members</li>
         </Link>
+        {isCreator && (
+          <Link to={`/groups/${singleGroup.id}/edit`}>
+            <li>Edit Group</li>
+          </Link>
+        )}
       </ul>
     </nav>
   );
