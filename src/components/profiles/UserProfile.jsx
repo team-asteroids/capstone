@@ -4,6 +4,7 @@ import { useNavigate, Routes, Route, useParams } from 'react-router-dom';
 // import { selectAuth } from '../../slices/authSlice';
 import defaultImg from '../../img/default-dog.jpg';
 import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
+import { SitterProfile, UserSocialView } from '../index';
 
 function UserProfile() {
   const dispatch = useDispatch();
@@ -82,10 +83,18 @@ function UserProfile() {
               <p>{singleUser.access.zip}</p>
             </div>
           </div>
+          <div className="w-1/4">
+            <button className="bg-bold-orange text-sm px-5 py-2  text-white rounded-xl">
+              Chat
+            </button>
+          </div>
         </div>
-      </div>
-      <div className="w-3/4 font-rubikmono overflow-auto flex flex-col gap-5">
-        <Routes></Routes>
+        <div className="w-3/4 font-rubikmono overflow-auto flex flex-col gap-5">
+          <Routes>
+            <Route path="/" element={<UserSocialView />} />
+            <Route path="/sitter/*" element={<SitterProfile />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );
