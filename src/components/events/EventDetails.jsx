@@ -67,7 +67,9 @@ const EventDetails = () => {
               Event Details
             </div>
             <div className="pl-5 pt-3  container mx-auto relative">
+
               <img className="w-100 " src={defaultImg} alt="puppy event" />
+
               <div className="p-1">Topic: {event.topic}</div>
               <div className="p-1">Event Creator: @howlr_{event.creatorId}</div>
               <div className="p-1 ">
@@ -113,7 +115,9 @@ const EventDetails = () => {
             <div className="pl-3 pt-3  container mx-auto relative">
               <img
                 className="w-100 rounded-3xl"
+
                 src={defaultImg}
+
                 alt="puppy event"
               />
               <div className="p-1">

@@ -10,9 +10,9 @@ const GroupPost = (props) => {
   const formattedDate = dateData.toDateString();
   const formattedTime = dateData.toLocaleTimeString('en-US');
 
-  console.log('post--> ', post);
+  //   console.log('post--> ', post);
 
-  console.log('likes--> ', likes);
+  //   console.log('likes--> ', likes);
 
   return (
     <div className="bg-white-smoke border rounded-lg shadow-lg font-rubik">
