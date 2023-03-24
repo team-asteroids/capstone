@@ -9,15 +9,27 @@ import {
 
 const SitterProfile = () => {
   const dispatch = useDispatch();
+  const [ratings, setRatings] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [avgRating, setAvgRating] = useState(0);
 
   const { singleSitter, sitterReviews, sitterRatings } =
     useSelector(selectSitters);
 
   const id = singleSitter.id;
 
+  const total = ratings.reduce((acc, curr) => {
+    return acc + curr.rating;
+  }, 0);
+
   useEffect(() => {
-    dispatch(fetchSingleSitterReviews(id));
-    dispatch(fetchSingleSitterRatings(id));
+    if (id) {
+      dispatch(fetchSingleSitterReviews(id));
+      setReviews(sitterReviews);
+      dispatch(fetchSingleSitterRatings(id));
+      setRatings(sitterRatings);
+      setAvgRating(total / sitterRatings.length);
+    }
   }, [singleSitter]);
 
   // console.log(sitterRatings, sitterReviews);
@@ -34,11 +46,32 @@ const SitterProfile = () => {
         </div>
         <div>
           <h2 className="font-rubikmono">Availability</h2>
-          <p>{singleSitter.bio}</p>
+          <p>to be added</p>
         </div>
         <div>
-          <h2 className="font-rubikmono">Ratings & Reviews</h2>
-          <p>{singleSitter.bio}</p>
+          <h2 className="font-rubikmono pb-3">Ratings & Reviews</h2>
+          <div>
+            <div className="pb-3">
+              <h3 className="font-rubikmono text-sm pb-3">Ratings</h3>
+              <div>
+                <p>
+                  {avgRating} ({ratings.length} ratings)
+                </p>
+              </div>
+            </div>
+            <div>
+              <h3 className="font-rubikmono text-sm pb-3">Reviews</h3>
+              {reviews.length > 0
+                ? reviews.map((review) => (
+                    <div key={review.id} className="pb-3">
+                      <p>{review.createdAt}</p>
+                      <p>{review.context}</p>
+                      <p>{review.userId}</p>
+                    </div>
+                  ))
+                : 'no reviews!'}
+            </div>
+          </div>
         </div>
       </div>
     </div>
