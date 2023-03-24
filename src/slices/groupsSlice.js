@@ -20,8 +20,22 @@ export const fetchSingleGroup = createAsyncThunk(
 );
 export const editSingleGroup = createAsyncThunk(
   '/editSingleGroup',
-  async ({ groupId, editedInfo }) => {
-    const { data } = await axios.put(`/api/groups/${groupId}`, editedInfo);
+  async ({ groupId, name, topic, description, imageSrc }) => {
+    const token = localStorage.getItem('token');
+    const { data } = await axios.put(
+      `/api/groups/${groupId}`,
+      {
+        name,
+        topic,
+        description,
+        imageSrc,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     return data;
   }
 );
