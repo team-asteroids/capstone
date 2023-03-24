@@ -26,7 +26,7 @@ function UserAccountSidebar() {
     <div className="flex flex-col gap-5">
       <div>
         <Link
-          to="/accxount"
+          to="/account"
           value="overview"
           className={
             selectedSidebar === 'overview' || selectedSidebar === ''
