@@ -17,6 +17,7 @@ export { default as MemberView } from './groups/MemberView.jsx';
 export { default as Footer } from './ui/Footer.jsx';
 export { default as UserAccountSidebar } from './ui/UserAccountSidebar.jsx';
 export { default as SitterAccountSidebar } from './ui/SitterAccountSidebar.jsx';
+export { default as DiscoverSitters } from './sitters/DiscoverSitters.jsx';
 export { default as SitterProfile } from './profiles/SitterProfile.jsx';
 export { default as UserProfile } from './profiles/UserProfile.jsx';
 export { default as EditSitterProfile } from './users/EditSitterProfile.jsx';
@@ -26,3 +27,4 @@ export { default as EditSitterPetPrefs } from './users/EditSitterPetPrefs.jsx';
 export { default as SitterOverview } from './users/SitterOverview.jsx';
 export { default as SitterBookings } from './users/SitterBookings.jsx';
 export { default as EditUserAccess } from './users/EditUserAccess.jsx';
+
