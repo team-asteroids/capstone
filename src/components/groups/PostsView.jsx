@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchGroupPosts } from '../../slices/groupDetailsSlice';
+import { fetchGroupPosts } from '../../slices/groupsSlice';
 import GroupPost from './GroupPost';
 import AddGroupPost from './AddGroupPost';
 
@@ -9,7 +9,7 @@ const PostsView = () => {
   const dispatch = useDispatch();
   const { groupId } = useParams();
 
-  const posts = useSelector((state) => state.groupDetails.posts);
+  const posts = useSelector((state) => state.groups.posts);
 
   const [loading, setLoading] = useState(true);
 

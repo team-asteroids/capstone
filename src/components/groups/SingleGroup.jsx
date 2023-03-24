@@ -2,12 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSingleGroup, deleteSingleGroup } from '../../slices/groupsSlice';
 import {
-  fetchGroupPosts,
+  fetchSingleGroup,
+  deleteSingleGroup,
   addGroupMember,
   deleteGroupMember,
-} from '../../slices/groupDetailsSlice';
+} from '../../slices/groupsSlice';
+// import {
+//   fetchGroupPosts,
+//   addGroupMember,
+//   deleteGroupMember,
+// } from '../../slices/groupDetailsSlice';
 import GroupNav from './GroupNav';
 import PostsView from './PostsView';
 import MemberView from './MemberView';
@@ -27,33 +32,36 @@ const SingleGroup = () => {
   const group = useSelector((state) => state.groups.singleGroup);
   const singleGroup = group.singleGroup;
   const members = group.members;
-  // console.log('singleGroup --> ', singleGroup);
-  const posts = useSelector((state) => state.groupDetails.posts);
 
-  const [loading, setLoading] = useState(true);
-  const [isCreator, setCreator] = useState(false);
-  const [isAdmin, setAdmin] = useState(false);
+  console.log('group --> ', group);
+  console.log('singleGroup --> ', singleGroup);
 
-  useEffect(() => {
-    const setUserStatus = async () => {
-      if (userAuth.role === 'admin') {
-        setAdmin(true);
-      }
-      if (userAuth.id === singleGroup.creatorId) {
-        setCreator(true);
-      }
-    };
-    setUserStatus();
-  }, [userAuth]);
+  // const [loading, setLoading] = useState(true);
+  // const [isCreator, setCreator] = useState(false);
+  // const [isAdmin, setAdmin] = useState(false);
+
+  // useEffect(() => {
+  //   const setUserStatus = async () => {
+  //     if (userAuth.role === 'admin') {
+  //       setAdmin(true);
+  //     }
+  //     if (singleGroup) {
+  //       if (userAuth.id === singleGroup.creatorId) {
+  //         setCreator(true);
+  //       }
+  //     }
+  //   };
+  //   setUserStatus();
+  // }, [userAuth]);
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
+      // setLoading(true);
       await dispatch(fetchSingleGroup(groupId));
-      await dispatch(fetchGroupPosts(groupId));
-      setLoading(false);
+      // setLoading(false);
     };
     fetchData();
+    // window.location.reload(false);
   }, [dispatch, groupId]);
 
   const joinGroup = async (e) => {
@@ -77,11 +85,7 @@ const SingleGroup = () => {
 
   return (
     <>
-      {loading ? (
-        <div className="bg-white-smoke border rounded-lg shadow-lg text-lg">
-          Loading
-        </div>
-      ) : (
+      {singleGroup && singleGroup.name ? (
         <div>
           <div className="bg-white-smoke border rounded-lg shadow-lg font-mono">
             <div className="p-4 flex flex-row justify-between">
@@ -112,8 +116,8 @@ const SingleGroup = () => {
                     Leave group
                   </button>
                 </div>
-                {isAdmin ||
-                  (isCreator && (
+                {userAuth.role === 'admin' ||
+                  (userAuth.id === singleGroup.creatorId && (
                     <div>
                       <button
                         onClick={deleteGroup}
@@ -129,10 +133,7 @@ const SingleGroup = () => {
               <GroupNav
                 singleGroup={singleGroup}
                 members={members}
-                posts={posts}
                 userAuth={userAuth}
-                isAdmin={isAdmin}
-                isCreator={isCreator}
               />
             </div>
           </div>
@@ -141,6 +142,10 @@ const SingleGroup = () => {
             <Route path="/members" element={<MemberView />} />
             <Route path="/edit" element={<EditGroup />} />
           </Routes>
+        </div>
+      ) : (
+        <div className="bg-white-smoke border rounded-lg shadow-lg text-lg">
+          Loading
         </div>
       )}
     </>
