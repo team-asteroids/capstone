@@ -3,27 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link, Routes, Route, useParams } from 'react-router-dom';
 import { logOut, selectAuth } from '../../slices/authSlice';
 import defaultImg from '../../img/default-dog.jpg';
-import { UserBookings } from '../index';
+import {
+  UserBookings,
+  UserAccountSidebar,
+  SitterAccountSidebar,
+} from '../index';
 
 function UserAccount() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useParams();
+  // const location = useParams();
 
-  const [selectedSidebar, setSelectedSidebar] = useState('');
+  // const [selectedSidebar, setSelectedSidebar] = useState('');
+  const [sitterToggle, setSitterToggle] = useState(false);
 
   const { userAuth } = useSelector(selectAuth);
-
-  useEffect(() => {
-    if (!location) {
-      setSelectedSidebar('overview');
-    } else setSelectedSidebar(location['*']);
-  }, [location]);
-
-  const sidebarFontClass =
-    'font-regular duration-200 hover:tracking-wide hover:font-bold hover:text-bold-purple';
-
-  const selectedSidebarFontClass = 'tracking-wide font-bold text-bold-purple';
 
   const toggleClass =
     "w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink";
@@ -33,12 +27,17 @@ function UserAccount() {
     navigate('/');
   };
 
+  const toggleSitter = () => {
+    setSitterToggle(!sitterToggle);
+    if (!sitterToggle) navigate('/account/sitter');
+    else if (sitterToggle) navigate('/account');
+  };
+
   if (!userAuth.firstName)
     return <div className="font-rubikmono">Fetching good things...</div>;
 
   return (
     <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-[calc(100vh_-_5rem)]">
-      {/* <h2 className="font-rubikmono">(user account)</h2> */}
       <div className="flex flex-row pt-20 mb-16 gap-10 mx-20">
         <div className="w-1/3 flex flex-col gap-5">
           <div id="userBio" className="w-full flex flex-col gap-5">
@@ -52,7 +51,11 @@ function UserAccount() {
               {userAuth.role === 'sitter' ? (
                 <div>
                   <label className="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" value="" className="sr-only peer" />
+                    <input
+                      type="checkbox"
+                      className="sr-only peer"
+                      onClick={toggleSitter}
+                    />
                     <div className={toggleClass}></div>
                     <span className="ml-3 text-sm font-medium text-gray-900">
                       Sitter Profile
@@ -62,12 +65,7 @@ function UserAccount() {
               ) : (
                 <div>
                   <label className="relative inline-flex items-center cursor-pointer">
-                    <input
-                      type="checkbox"
-                      value=""
-                      className="sr-only peer"
-                      disabled
-                    />
+                    <input type="checkbox" className="sr-only peer" disabled />
                     <div className={toggleClass}></div>
                     <span className="ml-3 text-sm font-medium text-gray-400">
                       Sitter Profile
@@ -76,82 +74,8 @@ function UserAccount() {
                 </div>
               )}
             </div>
-            <div>
-              <Link
-                to="/account"
-                value="overview"
-                className={
-                  selectedSidebar === 'overview' || selectedSidebar === ''
-                    ? selectedSidebarFontClass
-                    : sidebarFontClass
-                }
-                onClick={() => {
-                  setSelectedSidebar('overview');
-                }}
-              >
-                Overview
-              </Link>
-            </div>
-            <div>
-              <Link
-                to="/account/editprofile"
-                className={
-                  selectedSidebar === 'editprofile'
-                    ? selectedSidebarFontClass
-                    : sidebarFontClass
-                }
-                onClick={() => {
-                  setSelectedSidebar('editprofile');
-                }}
-              >
-                Edit Profile
-              </Link>
-            </div>
-            <div>
-              <Link
-                to="/account/pets"
-                className={
-                  selectedSidebar === 'pets'
-                    ? selectedSidebarFontClass
-                    : sidebarFontClass
-                }
-                onClick={() => {
-                  setSelectedSidebar('pets');
-                }}
-              >
-                Pets
-              </Link>
-            </div>
-            <div>
-              <Link
-                to="/account/bookings"
-                className={
-                  selectedSidebar === 'bookings'
-                    ? selectedSidebarFontClass
-                    : sidebarFontClass
-                }
-                onClick={() => {
-                  setSelectedSidebar('bookings');
-                }}
-              >
-                Bookings
-              </Link>
-            </div>
-            <div>
-              <Link
-                to="/account/access"
-                className={
-                  selectedSidebar === 'access'
-                    ? selectedSidebarFontClass
-                    : sidebarFontClass
-                }
-                onClick={() => {
-                  setSelectedSidebar('access');
-                }}
-              >
-                Access
-              </Link>
-            </div>
+            {!sitterToggle ? <UserAccountSidebar /> : <SitterAccountSidebar />}
+
             <div className="align-baseline">
               <button
                 className="font-rubikmono text-left"
