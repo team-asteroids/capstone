@@ -25,6 +25,9 @@ function UserAccount() {
 
   const selectedSidebarFontClass = 'tracking-wide font-bold text-bold-purple';
 
+  const toggleClass =
+    "w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink";
+
   const attemptLogOut = async () => {
     await dispatch(logOut());
     navigate('/');
@@ -50,7 +53,7 @@ function UserAccount() {
                 <div>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" value="" className="sr-only peer" />
-                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink"></div>
+                    <div className={toggleClass}></div>
                     <span className="ml-3 text-sm font-medium text-gray-900">
                       Sitter Profile
                     </span>
@@ -65,7 +68,7 @@ function UserAccount() {
                       className="sr-only peer"
                       disabled
                     />
-                    <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink"></div>
+                    <div className={toggleClass}></div>
                     <span className="ml-3 text-sm font-medium text-gray-400">
                       Sitter Profile
                     </span>
@@ -78,7 +81,7 @@ function UserAccount() {
                 to="/account"
                 value="overview"
                 className={
-                  selectedSidebar === 'overview'
+                  selectedSidebar === 'overview' || selectedSidebar === ''
                     ? selectedSidebarFontClass
                     : sidebarFontClass
                 }
