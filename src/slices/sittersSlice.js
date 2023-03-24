@@ -25,12 +25,38 @@ export const fetchSingleSitter = createAsyncThunk(
   }
 );
 
+export const fetchSingleSitterReviews = createAsyncThunk(
+  'sitterReviews',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/sitters/${id}/reviews`);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const fetchSingleSitterRatings = createAsyncThunk(
+  'sitterRatings',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/sitters/${id}/ratings`);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const sittersSlice = createSlice({
   name: 'sitters',
   initialState: {
     sitters: [],
     singleSitter: {},
     // add clients, preferences, etc
+    sitterReviews: [],
+    sitterRatings: [],
     error: '',
     status: '',
   },
@@ -60,6 +86,32 @@ export const sittersSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchSingleSitter.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(fetchSingleSitterReviews.fulfilled, (state, { payload }) => {
+        state.sitterReviews = payload || {};
+        state.status = 'fulfilled';
+        state.error = '';
+      })
+      .addCase(fetchSingleSitterReviews.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchSingleSitterReviews.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(fetchSingleSitterRatings.fulfilled, (state, { payload }) => {
+        state.sitterRatings = payload || {};
+        state.status = 'fulfilled';
+        state.error = '';
+      })
+      .addCase(fetchSingleSitterRatings.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchSingleSitterRatings.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
