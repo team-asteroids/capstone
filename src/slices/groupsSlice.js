@@ -42,7 +42,12 @@ export const editSingleGroup = createAsyncThunk(
 export const deleteSingleGroup = createAsyncThunk(
   '/deleteSingleGroup',
   async (groupId) => {
-    const { data } = await axios.delete(`/api/groups/${groupId}`);
+    const token = localStorage.getItem('token');
+    const { data } = await axios.delete(`/api/groups/${groupId}`, {
+      headers: {
+        authorization: token,
+      },
+    });
     return data;
   }
 );
@@ -138,6 +143,7 @@ export const addGroupPost = createAsyncThunk(
     return data;
   }
 );
+
 export const editGroupPost = createAsyncThunk(
   '/editGroupPost',
   async ({ groupId, postId, editedInfo }) => {
@@ -151,26 +157,47 @@ export const editGroupPost = createAsyncThunk(
 export const deleteGroupPost = createAsyncThunk(
   '/deleteGroupPost',
   async ({ groupId, postId }) => {
+    const token = localStorage.getItem('token');
     const { data } = await axios.delete(
-      `/api/groups/${groupId}/posts/${postId}`
+      `/api/groups/${groupId}/posts/${postId}`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
     );
     return data;
   }
 );
+
 export const likeGroupPost = createAsyncThunk(
   '/likeGroupPost',
   async ({ groupId, postId }) => {
+    const token = localStorage.getItem('token');
     const { data } = await axios.post(
-      `/api/groups/${groupId}/posts/${postId}/likes`
+      `/api/groups/${groupId}/posts/${postId}/likes`,
+      { postId },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
     );
     return data;
   }
 );
+
 export const unlikeGroupPost = createAsyncThunk(
   '/unlikeGroupPost',
   async ({ groupId, postId }) => {
+    const token = localStorage.getItem('token');
     const { data } = await axios.delete(
-      `/api/groups/${groupId}/posts/${postId}/likes`
+      `/api/groups/${groupId}/posts/${postId}/likes`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
     );
     return data;
   }
@@ -314,6 +341,7 @@ export const groupSlice = createSlice({
         state.status = 'fulfilled';
         state.error = '';
         state.post = payload;
+        state.posts.push(payload);
       })
       .addCase(addGroupPost.pending, (state, { payload }) => {
         state.status = 'loading';
@@ -339,7 +367,8 @@ export const groupSlice = createSlice({
       .addCase(deleteGroupPost.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
-        state.post = payload;
+        state.post = {};
+        state.posts = state.posts.filter((post) => post.id !== payload.id);
         // what should we do with payload?
       })
       .addCase(deleteGroupPost.pending, (state, { payload }) => {
