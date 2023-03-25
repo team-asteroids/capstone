@@ -21,6 +21,7 @@ import {
 } from './index';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import Chat from './ui/Chat';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,26 +33,25 @@ const App = () => {
   const { userAuth } = useSelector(selectAuth);
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <div className="font-rubik">
-        <Navbar userAuth={userAuth} />
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/*" element={<NotFound />} />
-          <Route path="/map" element={<Map />} />
-          <Route path="/events" element={<AllEvents />} />
-          <Route path="/events/:id" element={<EventDetails />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/groups" element={<BrowseGroups />} />
-          <Route path="/groups/:groupId/*" element={<SingleGroup />} />
-          <Route path="/account/*" element={<UserAccount />} />
-          <Route path="/profile/:id/*" element={<UserProfile />} />
-          <Route path="/sitters" element={<DiscoverSitters />} />
-        </Routes>
-        <Footer />
-      </div>
-    </LocalizationProvider>
+    <div className="font-rubik">
+      <Navbar userAuth={userAuth} />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/*" element={<NotFound />} />
+        <Route path="/map" element={<Map />} />
+        <Route path="/events" element={<AllEvents />} />
+        <Route path="/events/:id" element={<EventDetails />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/groups" element={<BrowseGroups />} />
+        <Route path="/groups/:groupId/*" element={<SingleGroup />} />
+        <Route path="/account/*" element={<UserAccount />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/profile/:id/*" element={<UserProfile />} />
+        <Route path="/sitters" element={<DiscoverSitters />} />
+      </Routes>
+      <Footer />
+    </div>
   );
 };
 

@@ -7,6 +7,8 @@ import {
   createAccessData,
   selectAuth,
 } from '../../slices/authSlice';
+import axios from 'axios';
+const private_key = process.env.PRIVATE_KEY;
 
 function SignUp() {
   const dispatch = useDispatch();
@@ -112,6 +114,21 @@ function SignUp() {
     // if all the form elements are valid (aka false)
     if (!isInvalid && validateZip(formData.zip)) {
       const res = await dispatch(signUp(formData));
+      await axios.post(
+        'https://api.chatengine.io/users/',
+        {
+          username: formData.userName,
+          secret: 'secret',
+          email: formData.email,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+        },
+        {
+          headers: {
+            'PRIVATE-KEY': private_key,
+          },
+        }
+      );
       if (res.type === 'signup/rejected') setSignUpFail(true);
     }
   };

@@ -17,7 +17,7 @@ import { selectAuth } from '../../slices/authSlice';
 const SingleGroup = () => {
   const dispatch = useDispatch();
   const { groupId } = useParams();
-  console.log('groupId --> ', groupId);
+  // console.log('groupId --> ', groupId);
 
   const { userAuth, token } = useSelector(selectAuth);
   const memberId = userAuth.id;
@@ -29,7 +29,7 @@ const SingleGroup = () => {
   const singleGroup = group.singleGroup;
   const members = group.members;
 
-  console.log('superSingle -->', superSingle);
+  // console.log('superSingle -->', superSingle);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +58,7 @@ const SingleGroup = () => {
 
   const deleteGroup = async (e) => {
     e.preventDefault();
-    await dispatch(deleteSingleGroup({ groupId }));
+    await dispatch(deleteSingleGroup(groupId));
   };
 
   return (
