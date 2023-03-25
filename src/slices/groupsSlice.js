@@ -418,6 +418,7 @@ export const groupSlice = createSlice({
         state.status = 'fulfilled';
         state.error = '';
         state.likedStatus = true;
+        state.likes.push(payload);
         // what should we do with payload?
       })
       .addCase(likeGroupPost.pending, (state, { payload }) => {
@@ -434,6 +435,13 @@ export const groupSlice = createSlice({
         state.status = 'fulfilled';
         state.error = '';
         state.likedStatus = false;
+        state.likes = state.likes.filter(
+          (like) =>
+            !(
+              like.groupPostId === payload.groupPostId &&
+              like.userId === payload.userId
+            )
+        );
         // what should we do with payload?
       })
       .addCase(unlikeGroupPost.pending, (state, { payload }) => {

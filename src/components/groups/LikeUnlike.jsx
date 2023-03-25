@@ -16,20 +16,45 @@ const LikeUnlike = (props) => {
   // });
   //   console.log('likeIds--> ', likeIds);
 
-  const likeUnlikePost = async (e) => {
-    e.preventDefault();
+  const testLike = () => {
     if (!likes.length) {
-      await dispatch(likeGroupPost({ groupId, postId }));
+      return false;
     } else {
       const likeIds = likes.map((like) => {
         return like.userId;
       });
-      console.log('like userIds --> ', likeIds);
+      console.log(likeIds);
       if (likeIds.includes(userAuth.id)) {
-        await dispatch(unlikeGroupPost({ groupId, postId }));
+        return true;
       } else {
-        await dispatch(likeGroupPost({ groupId, postId }));
+        return false;
       }
+    }
+  };
+
+  // const likeUnlikePost = async (e) => {
+  //   e.preventDefault();
+  //   if (!likes.length) {
+  //     await dispatch(likeGroupPost({ groupId, postId }));
+  //   } else {
+  //     const likeIds = likes.map((like) => {
+  //       return like.userId;
+  //     });
+  //     console.log('like userIds --> ', likeIds);
+  //     if (likeIds.includes(userAuth.id)) {
+  //       await dispatch(unlikeGroupPost({ groupId, postId }));
+  //     } else {
+  //       await dispatch(likeGroupPost({ groupId, postId }));
+  //     }
+  //   }
+  // };
+
+  const likeUnlikePost = async (e) => {
+    e.preventDefault();
+    if (testLike()) {
+      await dispatch(unlikeGroupPost({ groupId, postId }));
+    } else {
+      await dispatch(likeGroupPost({ groupId, postId }));
     }
   };
 
