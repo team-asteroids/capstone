@@ -6,7 +6,7 @@ import {
   fetchSingleSitterReviews,
   selectSitters,
 } from '../../slices/sittersSlice';
-import { SitterPrefSidebar } from '../index';
+import { SitterCalendar, SitterPrefSidebar } from '../index';
 
 const SitterProfile = () => {
   const dispatch = useDispatch();
@@ -31,14 +31,14 @@ const SitterProfile = () => {
       setRatings(sitterRatings);
       setAvgRating(total / sitterRatings.length);
     }
-  }, [singleSitter]);
+  }, [singleSitter, avgRating, ratings]);
 
   return (
-    <div className="font-rubik flex flex-col gap-5">
+    <div className="font-rubik flex flex-col gap-5 min-w-min">
       <div>
         <h2 className="font-rubikmono">Sitter Profile</h2>
       </div>
-      <div className="font-rubik flex flex-row gap-10">
+      <div className="font-rubik flex flex-row gap-5">
         <div className="w-3/4 h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
           <div>
             <h2 className="font-rubikmono">About Me</h2>
@@ -47,6 +47,7 @@ const SitterProfile = () => {
           <div>
             <h2 className="font-rubikmono">Availability</h2>
             <p>to be added</p>
+            <SitterCalendar />
           </div>
           <div>
             <h2 className="font-rubikmono pb-3">Ratings & Reviews</h2>
