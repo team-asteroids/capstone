@@ -11,15 +11,22 @@ const PostsView = () => {
 
   const posts = useSelector((state) => state.groups.posts);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(fetchGroupPosts(groupId));
       setLoading(false);
     };
+    setLoading(true);
     fetchData();
   }, [dispatch, groupId]);
+
+  // useEffect(() => {
+  //   dispatch(fetchGroupPosts(groupId));
+  // }, [dispatch, groupId]);
+
+  // console.log('posts -->', posts);
 
   return (
     <>

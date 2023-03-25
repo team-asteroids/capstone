@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { deleteGroupPost } from '../../slices/groupsSlice';
+import LikeUnlike from './LikeUnlike';
 
 const GroupPost = (props) => {
   const { post, likes } = props;
@@ -20,7 +21,7 @@ const GroupPost = (props) => {
 
   // console.log('post--> ', post);
 
-  //   console.log('likes--> ', likes);
+  // console.log('likes--> ', likes);
 
   const deletePost = async (e) => {
     e.preventDefault();
@@ -31,13 +32,24 @@ const GroupPost = (props) => {
   return (
     <div className="bg-white-smoke border rounded-lg shadow-lg font-rubik">
       <div className="p-2">
-        <p>Content: {post.content}</p>
-        <p>Posted by: {user.fullName}</p>
-        <p>
-          Posted at: {formattedTime} on {formattedDate}
-        </p>
-        <p>Likes: {likes.length}</p>
-        {userAuth.id === user.id && (
+        <div>
+          <p>Content: {post.content}</p>
+          <p>Posted by: {user.fullName}</p>
+          <p>
+            Posted at: {formattedTime} on {formattedDate}
+          </p>
+          <p>Likes: {likes.length}</p>
+        </div>
+        <div>
+          <LikeUnlike
+            key={post.id}
+            groupId={groupId}
+            post={post}
+            likes={likes}
+            userAuth={userAuth}
+          />
+        </div>
+        {userAuth.id === post.userId && (
           <p>
             <button
               onClick={deletePost}

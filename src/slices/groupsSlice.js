@@ -173,8 +173,15 @@ export const deleteGroupPost = createAsyncThunk(
 export const likeGroupPost = createAsyncThunk(
   '/likeGroupPost',
   async ({ groupId, postId }) => {
+    const token = localStorage.getItem('token');
     const { data } = await axios.post(
-      `/api/groups/${groupId}/posts/${postId}/likes`
+      `/api/groups/${groupId}/posts/${postId}/likes`,
+      { postId },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
     );
     return data;
   }
@@ -183,8 +190,14 @@ export const likeGroupPost = createAsyncThunk(
 export const unlikeGroupPost = createAsyncThunk(
   '/unlikeGroupPost',
   async ({ groupId, postId }) => {
+    const token = localStorage.getItem('token');
     const { data } = await axios.delete(
-      `/api/groups/${groupId}/posts/${postId}/likes`
+      `/api/groups/${groupId}/posts/${postId}/likes`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
     );
     return data;
   }
@@ -328,6 +341,7 @@ export const groupSlice = createSlice({
         state.status = 'fulfilled';
         state.error = '';
         state.post = payload;
+        state.posts.push(payload);
       })
       .addCase(addGroupPost.pending, (state, { payload }) => {
         state.status = 'loading';
@@ -353,7 +367,8 @@ export const groupSlice = createSlice({
       .addCase(deleteGroupPost.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
-        state.post = payload;
+        state.post = {};
+        state.posts = state.posts.filter((post) => post.id !== payload.id);
         // what should we do with payload?
       })
       .addCase(deleteGroupPost.pending, (state, { payload }) => {

@@ -384,7 +384,7 @@ router.post(
       const [newGroupPostLike, wasCreated] = await Group_Post_Like.findOrCreate(
         {
           where: {
-            groupPostId: req.params.postId,
+            groupPostId: req.body.postId,
             userId: req.user.id,
           },
         }
@@ -401,28 +401,35 @@ router.post(
 
 //  remove like from group post
 //  token user id must match the post creatorId
-router.delete('/:postId/likes', requireToken, async (req, res, next) => {
-  try {
-    const deletedGroupPostLike = await Group_Post_Like.findOne({
-      where: { groupPostId: req.params.postId },
-    });
-    if (!deletedGroupPostLike) {
-      return res.status(404).send('That group_post_like does not exist!');
+router.delete(
+  '/:groupId/posts/:postId/likes',
+  requireToken,
+  async (req, res, next) => {
+    try {
+      console.log('req userid -->', req.user.id);
+
+      const deletedGroupPostLike = await Group_Post_Like.findOne({
+        where: { groupPostId: req.params.postId, userId: req.user.id },
+      });
+      console.log('deleted group post-->', deletedGroupPostLike.userId);
+      if (!deletedGroupPostLike) {
+        return res.status(404).send('That group_post_like does not exist!');
+      }
+      if (req.user.id === deletedGroupPostLike.userId) {
+        await deletedGroupPostLike.destroy();
+        res.json(deletedGroupPostLike);
+      } else {
+        res
+          .status(403)
+          .send(
+            'Inadequate access rights / Requested user does not match logged-in user'
+          );
+      }
+    } catch (e) {
+      console.log('Backend issue deleting post_like');
+      next(e);
     }
-    if (req.user.id === deletedGroupPostLike.userId) {
-      await deletedGroupPostLike.destroy();
-      res.json(deletedGroupPostLike);
-    } else {
-      res
-        .status(403)
-        .send(
-          'Inadequate access rights / Requested user does not match logged-in user'
-        );
-    }
-  } catch (e) {
-    console.log('Backend issue deleting post_like');
-    next(e);
   }
-});
+);
 
 module.exports = router;
