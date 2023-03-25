@@ -15,8 +15,9 @@ import {
   BrowseGroups,
   SingleGroup,
   UserAccount,
-  UserProfile,
   Footer,
+  UserProfile,
+  DiscoverSitters,
 } from './index';
 import Chat from './ui/Chat';
 
@@ -45,6 +46,8 @@ function App() {
         <Route path="/account/*" element={<UserAccount />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/profile/:id/*" element={<UserProfile />} />
+        <Route path="/sitters" element={<DiscoverSitters />} />
       </Routes>
       <Footer />
     </div>

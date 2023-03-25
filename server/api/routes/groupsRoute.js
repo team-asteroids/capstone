@@ -116,6 +116,7 @@ router.put('/:groupId', requireToken, async (req, res, next) => {
 // token user id must match the post creatorId OR you are admin
 router.delete('/:groupId', requireToken, async (req, res, next) => {
   try {
+    console.log('delete GROUP is being run');
     const deletedGroup = await Group.findByPk(req.params.groupId);
     if (!deletedGroup) return res.status(404).send('No group exists!');
 
@@ -175,6 +176,26 @@ router.get('/:groupId/members', requireToken, async (req, res, next) => {
     res.status(200).json(members);
   } catch (e) {
     console.log('Backend issue fetching single group');
+    next(e);
+  }
+});
+
+// add group member
+// userId is automatically set to token user id
+router.post('/:groupId/members', requireToken, async (req, res, next) => {
+  try {
+    console.log('this got to the route');
+    console.log('user --> ', req.user);
+    const [newMember, wasCreated] = await Group_Member.findOrCreate({
+      where: {
+        userId: req.user.id,
+        groupId: req.body.groupId,
+      },
+    });
+    if (!wasCreated) return res.status(409).send('Group Member already exists');
+    res.status(201).json(newMember);
+  } catch (e) {
+    console.log('Backend issue adding group_member');
     next(e);
   }
 });
@@ -295,6 +316,7 @@ router.delete(
   requireToken,
   async (req, res, next) => {
     try {
+      console.log('delete group POST is being run');
       const deletedGroupPost = await Group_Post.findByPk(req.params.postId);
       if (!deletedGroupPost) return res.status(404).send('No post exists!');
       const group = await Group.findByPk(deletedGroupPost.groupId);
@@ -362,7 +384,7 @@ router.post(
       const [newGroupPostLike, wasCreated] = await Group_Post_Like.findOrCreate(
         {
           where: {
-            groupPostId: req.params.postId,
+            groupPostId: req.body.postId,
             userId: req.user.id,
           },
         }
@@ -379,28 +401,35 @@ router.post(
 
 //  remove like from group post
 //  token user id must match the post creatorId
-router.delete('/:postId/likes', requireToken, async (req, res, next) => {
-  try {
-    const deletedGroupPostLike = await Group_Post_Like.findOne({
-      where: { groupPostId: req.params.postId },
-    });
-    if (!deletedGroupPostLike) {
-      return res.status(404).send('That group_post_like does not exist!');
+router.delete(
+  '/:groupId/posts/:postId/likes',
+  requireToken,
+  async (req, res, next) => {
+    try {
+      console.log('req userid -->', req.user.id);
+
+      const deletedGroupPostLike = await Group_Post_Like.findOne({
+        where: { groupPostId: req.params.postId, userId: req.user.id },
+      });
+      console.log('deleted group post-->', deletedGroupPostLike.userId);
+      if (!deletedGroupPostLike) {
+        return res.status(404).send('That group_post_like does not exist!');
+      }
+      if (req.user.id === deletedGroupPostLike.userId) {
+        await deletedGroupPostLike.destroy();
+        res.json(deletedGroupPostLike);
+      } else {
+        res
+          .status(403)
+          .send(
+            'Inadequate access rights / Requested user does not match logged-in user'
+          );
+      }
+    } catch (e) {
+      console.log('Backend issue deleting post_like');
+      next(e);
     }
-    if (req.user.id === deletedGroupPostLike.userId) {
-      await deletedGroupPostLike.destroy();
-      res.json(deletedGroupPostLike);
-    } else {
-      res
-        .status(403)
-        .send(
-          'Inadequate access rights / Requested user does not match logged-in user'
-        );
-    }
-  } catch (e) {
-    console.log('Backend issue deleting post_like');
-    next(e);
   }
-});
+);
 
 module.exports = router;
