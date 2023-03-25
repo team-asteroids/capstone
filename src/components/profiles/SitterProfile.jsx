@@ -34,7 +34,7 @@ const SitterProfile = () => {
   }, [singleSitter, avgRating, ratings]);
 
   return (
-    <div className="font-rubik flex flex-col gap-5 min-w-min">
+    <div className="font-rubik flex flex-col pr-5 gap-5 min-w-min">
       <div>
         <h2 className="font-rubikmono">Sitter Profile</h2>
       </div>
@@ -45,7 +45,7 @@ const SitterProfile = () => {
             <p>{singleSitter.bio}</p>
           </div>
           <div>
-            <h2 className="font-rubikmono">Availability</h2>
+            <h2 className="font-rubikmono pb-3">Availability</h2>
             <SitterCalendar />
           </div>
           <div>
