@@ -40,7 +40,7 @@ const UserProfile = () => {
   return (
     <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-[calc(100vh_-_5rem)]">
       <div className="flex flex-row pt-20 mb-16 gap-10 mx-20 px-20">
-        <div className="w-1/4 flex flex-col gap-5">
+        <div className="w-1/5 flex flex-col gap-5">
           <div id="userBio" className="w-full flex flex-col gap-5">
             <div className="flex flex-col gap-5">
               <img
@@ -86,14 +86,14 @@ const UserProfile = () => {
             <p className="font-rubikmono mb-2">Can Foster</p>
             <p>{singleUser.canFoster ? 'yes!' : 'not right now'}</p>
           </div>
-          {sitterToggle ? <SitterPrefSidebar /> : <div>TEST</div>}
+          {/* {sitterToggle ? <SitterPrefSidebar /> : <div>TEST</div>} */}
           <div className="w-1/4">
             <button className="bg-bold-orange text-sm px-5 py-2  text-white rounded-xl">
               Message
             </button>
           </div>
         </div>
-        <div className="w-3/4 font-rubikmono overflow-auto flex flex-col gap-5">
+        <div className="w-4/5 font-rubikmono overflow-auto flex flex-col gap-5">
           <Routes>
             <Route path="/" element={<UserSocialView />} />
             <Route path="/sitter/*" element={<SitterProfile />} />
