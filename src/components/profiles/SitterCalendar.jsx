@@ -4,13 +4,15 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { format, setMonth, getMonth, toDate } from 'date-fns';
 
-const SitterCalendar = () => {
+const SitterCalendar = (props) => {
+  const { rate } = props;
   const today = new Date();
   const maxDay = setMonth(today, getMonth(today) + 6);
 
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [totalDays, setTotalDays] = useState(0);
+  const [bookingTotal, setBookingTotal] = useState(0);
   const [bookingLocation, setBookingLocation] = useState('');
   const [bookingPets, setBookingPets] = useState([]);
   const [setter, setSetter] = useState(true);
@@ -32,6 +34,11 @@ const SitterCalendar = () => {
     );
   };
 
+  const countDays = () => {
+    const days = (new Date(endDate) - new Date(startDate)) / (1000 * 3600 * 24);
+    return days;
+  };
+
   const setDates = (evt) => {
     if (!startDate || setter) {
       setStartDate(evt);
@@ -44,14 +51,19 @@ const SitterCalendar = () => {
   };
 
   useEffect(() => {
-    checkForBlackoutDays();
-  }, [endDate]);
+    console.log(rate);
+    if (endDate) {
+      checkForBlackoutDays();
+      setTotalDays(countDays());
+      setBookingTotal(totalDays * rate);
+    }
+  }, [endDate, totalDays]);
 
   const validClass =
-    'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-2 font-rubik';
+    'appearance-none block w-full bg-white-200 border rounded py-3 px-6 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-2 font-rubik';
 
   const invalidClass =
-    'appearance-none block border border-red-500 w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-2 font-rubik';
+    'appearance-none block border border-red-500 w-full bg-white-200 border rounded py-3 px-6 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-2 font-rubik';
 
   const submitBookingRequest = async (evt) => {
     evt.preventDefault();
@@ -65,6 +77,7 @@ const SitterCalendar = () => {
           shouldDisableDate={checkDate}
           minDate={!setter ? startDate : ''}
           maxDate={maxDay}
+          disableHighlightToday={true}
           style={{ margin: 0 }}
           onChange={(evt) => setDates(evt)}
         />
@@ -115,26 +128,25 @@ const SitterCalendar = () => {
                   name="days"
                   type="number"
                   disabled
-                  defaultValue={totalDays}
+                  defaultValue={totalDays ? totalDays : ''}
                   className={validClass}
                 ></input>
               </div>
               <div className="w-full flex flex-col md:w-1/2">
-                <label>Location</label>
-                <select
-                  id="pets"
-                  name="pets"
-                  type="text"
-                  value={bookingLocation}
+                <label>Total</label>
+                <input
+                  id="total"
+                  name="total"
+                  type="number"
+                  defaultValue={bookingTotal ? bookingTotal : ''}
                   className={validClass}
-                >
-                  <option>Owner Home</option>
-                  <option>Sitter Home</option>
-                </select>
+                  disabled
+                />
               </div>
             </div>
-            <div className="w-full mb-4">
-              <div className="w-full flex flex-col">
+
+            <div className="w-full flex flex-row mb-5 gap-5">
+              <div className="w-full flex flex-col md:w-1/2">
                 <label>Pets</label>
                 <select
                   id="pets"
@@ -142,9 +154,26 @@ const SitterCalendar = () => {
                   type="text"
                   value={bookingPets}
                   className={validClass}
+                  onChange={(evt) => {
+                    console.log(evt.value.target);
+                  }}
                 >
-                  <option>pet 1</option>
-                  <option>pet 2</option>
+                  <option value="pet1">pet 1</option>
+                  <option value="pet2">pet 2</option>
+                </select>
+              </div>
+              <div className="w-full flex flex-col md:w-1/2">
+                <label>Location</label>
+                <select
+                  id="location"
+                  name="location"
+                  type="text"
+                  value={bookingLocation}
+                  className={validClass}
+                  onChange={(evt) => setBookingLocation(evt.target.value)}
+                >
+                  <option>Owner Home</option>
+                  <option>Sitter Home</option>
                 </select>
               </div>
             </div>

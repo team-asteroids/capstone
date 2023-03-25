@@ -12,7 +12,7 @@ function Navbar(props) {
         </Link>
       </div>
       <ul className="flex text-2xl gap-10">
-        <Link to={`/social`}>
+        <Link to={`/profile/${userAuth.id}`}>
           <li>Social</li>
         </Link>
         <Link to={`/sitters`}>
