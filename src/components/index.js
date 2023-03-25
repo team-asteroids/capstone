@@ -29,3 +29,4 @@ export { default as SitterBookings } from './users/SitterBookings.jsx';
 export { default as EditUserAccess } from './users/EditUserAccess.jsx';
 export { default as UserSocialView } from './profiles/UserSocialView.jsx';
 export { default as SitterPrefSidebar } from './profiles/SitterPrefSidebar';
+export { default as SitterCalendar } from './profiles/SitterCalendar.jsx';

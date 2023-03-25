@@ -46,7 +46,6 @@ const SitterProfile = () => {
           </div>
           <div>
             <h2 className="font-rubikmono">Availability</h2>
-            <p>to be added</p>
             <SitterCalendar />
           </div>
           <div>
