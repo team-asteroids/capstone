@@ -39,7 +39,7 @@ const LikeUnlike = (props) => {
         <button
           onClick={likeUnlikePost}
           className={`p-1 rounded-lg font-mono ${
-            testLike() ? 'bg-[#cbd5e1]' : 'bg-[#fb5607]'
+            testLike() ? 'bg-[#fb5607]' : 'bg-[#cbd5e1]'
           }`}
         >
           Like

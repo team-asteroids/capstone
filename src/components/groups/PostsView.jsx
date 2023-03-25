@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchGroupPosts } from '../../slices/groupsSlice';
+import { fetchGroupPosts, fetchGroupLikes } from '../../slices/groupsSlice';
 import GroupPost from './GroupPost';
 import AddGroupPost from './AddGroupPost';
 
@@ -10,9 +10,11 @@ const PostsView = () => {
   const { groupId } = useParams();
 
   const posts = useSelector((state) => state.groups.posts);
+  const likes = useSelector((state) => state.groups.likes);
 
   useEffect(() => {
     dispatch(fetchGroupPosts(groupId));
+    dispatch(fetchGroupLikes(groupId));
   }, [dispatch]);
 
   return (
@@ -27,7 +29,11 @@ const PostsView = () => {
             <div>
               {posts.map((post) => (
                 <div key={post.id}>
-                  <GroupPost key={post.id} post={post} />
+                  <GroupPost
+                    key={post.id}
+                    post={post}
+                    likes={likes.filter((like) => like.groupPostId === post.id)}
+                  />
                 </div>
               ))}
             </div>

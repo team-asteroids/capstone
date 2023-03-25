@@ -6,14 +6,13 @@ import { fetchGroupPostLikes, deleteGroupPost } from '../../slices/groupsSlice';
 import LikeUnlike from './LikeUnlike';
 
 const GroupPost = (props) => {
-  const { post } = props;
-  const creator = post.user;
+  const { post, likes } = props;
   const postId = post.id;
 
   const { groupId } = useParams();
   const dispatch = useDispatch();
 
-  const likes = useSelector((state) => state.groups.likes);
+  // const likes = useSelector((state) => state.groups.likes);
   const { userAuth } = useSelector(selectAuth);
 
   const date = post.createdAt;
@@ -21,13 +20,13 @@ const GroupPost = (props) => {
   const formattedDate = dateData.toDateString();
   const formattedTime = dateData.toLocaleTimeString('en-US');
 
-  useEffect(() => {
-    dispatch(fetchGroupPostLikes({ groupId, postId }));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchGroupPostLikes({ groupId, postId }));
+  // }, [dispatch]);
 
   // console.log('post--> ', post);
 
-  console.log('likes--> ', likes);
+  // console.log('likes--> ', likes);
 
   const deletePost = async (e) => {
     e.preventDefault();

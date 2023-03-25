@@ -393,6 +393,27 @@ router.delete(
 //   }
 // );
 
+// get ALL likes for a GROUP
+// must be logged in
+router.get('/:groupId/likes', requireToken, async (req, res, next) => {
+  try {
+    const likes = await Group_Post_Like.findAll();
+    const singleGroupPosts = await Group_Post.findAll({
+      where: { groupId: req.params.groupId },
+    });
+    const ids = singleGroupPosts.map((post) => {
+      return post.id;
+    });
+    const thisGroupLikes = likes.filter((like) =>
+      ids.includes(like.groupPostId)
+    );
+    res.status(200).json(thisGroupLikes);
+  } catch (e) {
+    console.log('Backend issue fetching all group_post likes');
+    next(e);
+  }
+});
+
 // get all likes ONLY who liked a group_post
 // must be logged in
 router.get(

@@ -170,6 +170,20 @@ export const deleteGroupPost = createAsyncThunk(
   }
 );
 
+export const fetchGroupLikes = createAsyncThunk(
+  '/allGroupLikes',
+  async (groupId) => {
+    const token = localStorage.getItem('token');
+    const { data } = await axios.get(`/api/groups/${groupId}/likes`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  }
+);
+
+// take this out?
 export const fetchGroupPostLikes = createAsyncThunk(
   '/allGroupPostLikes',
   async ({ groupId, postId }) => {
@@ -355,6 +369,21 @@ export const groupSlice = createSlice({
       .addCase(fetchGroupPosts.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload;
+      })
+      .addCase(fetchGroupLikes.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.likes = payload;
+        // what should we do with payload?
+      })
+      .addCase(fetchGroupLikes.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchGroupLikes.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+        // check on this
       })
       .addCase(addGroupPost.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
