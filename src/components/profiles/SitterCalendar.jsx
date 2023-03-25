@@ -53,9 +53,13 @@ const SitterCalendar = () => {
   const invalidClass =
     'appearance-none block border border-red-500 w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-2 font-rubik';
 
+  const submitBookingRequest = async (evt) => {
+    evt.preventDefault();
+  };
+
   return (
     <div className="flex flex-row flex-wrap justify-items-start">
-      <div className="m-0">
+      <div className="mr-5">
         <DateCalendar
           disablePast
           shouldDisableDate={checkDate}
@@ -67,7 +71,7 @@ const SitterCalendar = () => {
       </div>
       <div className="flex flex-col pl-5">
         <section>
-          <form>
+          <form onSubmit={submitBookingRequest} className="w-full">
             <div className="flex flex-row gap-5">
               <div className="w-full flex flex-col md:w-1/2">
                 <label>Start</label>
@@ -121,7 +125,7 @@ const SitterCalendar = () => {
                   id="pets"
                   name="pets"
                   type="text"
-                  defaultValue={totalDays}
+                  value={bookingLocation}
                   className={validClass}
                 >
                   <option>Owner Home</option>
@@ -136,7 +140,7 @@ const SitterCalendar = () => {
                   id="pets"
                   name="pets"
                   type="text"
-                  defaultValue={totalDays}
+                  value={bookingPets}
                   className={validClass}
                 >
                   <option>pet 1</option>
@@ -144,12 +148,12 @@ const SitterCalendar = () => {
                 </select>
               </div>
             </div>
-            <div className="text-center font-rubikmono">
+            <div className="text-center">
               <button
-                className="ease-in duration-300 hover:text-bold-purple hover:transition-all mt-3"
+                className="ease-in font-bold text-white duration-300 hover:text-bold-pink hover:transition-all mt-3"
                 type="submit"
               >
-                Submit Request
+                SUBMIT REQUEST
               </button>
             </div>
           </form>

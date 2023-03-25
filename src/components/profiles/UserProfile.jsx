@@ -88,12 +88,12 @@ const UserProfile = () => {
           </div>
           {/* {sitterToggle ? <SitterPrefSidebar /> : <div>TEST</div>} */}
           <div className="w-1/4">
-            <button className="bg-bold-orange text-sm px-5 py-2  text-white rounded-xl">
-              Message
+            <button className="bg-bold-purple hover:bg-pale-purple text-sm px-5 py-3 text-white rounded-lg">
+              MESSAGE
             </button>
           </div>
         </div>
-        <div className="w-4/5 font-rubikmono overflow-auto flex flex-col gap-5">
+        <div className="w-4/5 font-rubikmono overflow-auto gap-5">
           <Routes>
             <Route path="/" element={<UserSocialView />} />
             <Route path="/sitter/*" element={<SitterProfile />} />

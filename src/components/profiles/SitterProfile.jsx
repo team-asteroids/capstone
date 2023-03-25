@@ -39,8 +39,8 @@ const SitterProfile = () => {
         <h2 className="font-rubikmono">Sitter Profile</h2>
       </div>
       <div className="font-rubik flex flex-row">
-        <div className="w-4/5 h-[calc(100vh_-_20rem)] overflow-auto flex flex-col pr-10 gap-5">
-          <div>
+        <div className="min-w-4/5 h-[calc(100vh_-_20rem)] overflow-auto flex flex-col pr-10 gap-10">
+          <div className="mr-10">
             <h2 className="font-rubikmono">About Me</h2>
             <p>{singleSitter.bio}</p>
           </div>
