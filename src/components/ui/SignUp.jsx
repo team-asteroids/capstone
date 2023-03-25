@@ -8,7 +8,6 @@ import {
   selectAuth,
 } from '../../slices/authSlice';
 import axios from 'axios';
-const private_key = process.env.PRIVATE_KEY;
 
 function SignUp() {
   const dispatch = useDispatch();
@@ -125,7 +124,7 @@ function SignUp() {
         },
         {
           headers: {
-            'PRIVATE-KEY': private_key,
+            'PRIVATE-KEY': process.env.REACT_APP_CHAT_ENGINE_PRIVATE_KEY,
           },
         }
       );

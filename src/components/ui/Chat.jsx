@@ -33,7 +33,7 @@ const Chat = () => {
     <>
       {user ? (
         <ChatEngine
-          projectID="0da79297-fca2-43a7-b8c7-aade68b15a02"
+          projectID="88a2e771-cc61-4355-ae54-ab980b1f3afa"
           userName={user}
           userSecret="secret"
           renderNewChatForm={(creds) => renderChatForm(creds)}
