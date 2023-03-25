@@ -73,7 +73,7 @@ Group_Post.belongsTo(User);
 User.hasMany(Group_Post);
 
 // -- put groupId on Group_Post table
-Group_Post.belongsTo(Group, { onDelete: 'cascade', hooks: true });
+Group_Post.belongsTo(Group, { onDelete: 'cascade' });
 Group.hasMany(Group_Post);
 
 // -- group_members

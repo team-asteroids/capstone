@@ -157,8 +157,14 @@ export const editGroupPost = createAsyncThunk(
 export const deleteGroupPost = createAsyncThunk(
   '/deleteGroupPost',
   async ({ groupId, postId }) => {
+    const token = localStorage.getItem('token');
     const { data } = await axios.delete(
-      `/api/groups/${groupId}/posts/${postId}`
+      `/api/groups/${groupId}/posts/${postId}`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
     );
     return data;
   }

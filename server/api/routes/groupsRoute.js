@@ -116,6 +116,7 @@ router.put('/:groupId', requireToken, async (req, res, next) => {
 // token user id must match the post creatorId OR you are admin
 router.delete('/:groupId', requireToken, async (req, res, next) => {
   try {
+    console.log('delete GROUP is being run');
     const deletedGroup = await Group.findByPk(req.params.groupId);
     if (!deletedGroup) return res.status(404).send('No group exists!');
 
@@ -315,6 +316,7 @@ router.delete(
   requireToken,
   async (req, res, next) => {
     try {
+      console.log('delete group POST is being run');
       const deletedGroupPost = await Group_Post.findByPk(req.params.postId);
       if (!deletedGroupPost) return res.status(404).send('No post exists!');
       const group = await Group.findByPk(deletedGroupPost.groupId);
