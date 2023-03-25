@@ -10,44 +10,24 @@ const PostsView = () => {
   const { groupId } = useParams();
 
   const posts = useSelector((state) => state.groups.posts);
-  console.log(posts);
-
-  // const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     await dispatch(fetchGroupPosts(groupId));
-  //     setLoading(false);
-  //   };
-  //   setLoading(true);
-  //   fetchData();
-  // }, [dispatch, groupId]);
 
   useEffect(() => {
     dispatch(fetchGroupPosts(groupId));
   }, [dispatch]);
 
-  // console.log('posts -->', posts);
-
   return (
     <>
-      {/* {loading ? ( */}
       <div className="bg-white-smoke border rounded-lg shadow-lg text-lg">
         Loading
       </div>
-      {/* ) : ( */}
+
       <div>
         <div className="bg-white-smoke border rounded-lg shadow-lg">
           <div className="p-4">
             <div>
               {posts.map((post) => (
                 <div key={post.id}>
-                  <GroupPost
-                    key={post.id}
-                    post={post}
-                    // creator={post.user}
-                    // likes={post.likes}
-                  />
+                  <GroupPost key={post.id} post={post} />
                 </div>
               ))}
             </div>
@@ -64,7 +44,6 @@ const PostsView = () => {
           </Link>
         </div>
       </div>
-      {/* )} */}
     </>
   );
 };

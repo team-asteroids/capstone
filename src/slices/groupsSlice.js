@@ -360,6 +360,7 @@ export const groupSlice = createSlice({
         state.status = 'fulfilled';
         state.error = '';
         state.post = payload;
+        state.posts.push(payload);
         // state.posts.push(payload);
       })
       .addCase(addGroupPost.pending, (state, { payload }) => {
@@ -386,8 +387,9 @@ export const groupSlice = createSlice({
       .addCase(deleteGroupPost.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
-        state.post = {};
+        console.log('posts before change--> ', state.posts);
         state.posts = state.posts.filter((post) => post.id !== payload.id);
+        console.log('posts before change--> ', state.posts);
         // what should we do with payload?
       })
       .addCase(deleteGroupPost.pending, (state, { payload }) => {

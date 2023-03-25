@@ -338,7 +338,7 @@ router.put('/:groupId/posts/:postId', requireToken, async (req, res, next) => {
   }
 });
 
-// delete group post (& likes)
+// delete group post (& likes with cascade??)
 // token user id must match the group_post userId OR match the group creatorId
 router.delete(
   '/:groupId/posts/:postId',
@@ -353,18 +353,8 @@ router.delete(
         req.user.id === deletedGroupPost.userId ||
         req.user.id === group.creatorId
       ) {
-        const deletedGroupPostLikes = await Group_Post_Like.findAll({
-          where: {
-            groupPostId: req.params.postId,
-          },
-        });
-        await Group_Post_Like.destroy({
-          where: {
-            groupPostId: req.params.postId,
-          },
-        });
         await deletedGroupPost.destroy();
-        res.json({ deletedGroupPost, deletedGroupPostLikes });
+        res.json(deletedGroupPost);
       } else {
         res
           .status(403)

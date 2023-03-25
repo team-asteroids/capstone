@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { likeGroupPost, unlikeGroupPost } from '../../slices/groupsSlice';
 
 const LikeUnlike = (props) => {
@@ -17,7 +16,6 @@ const LikeUnlike = (props) => {
       const likeIds = likes.map((like) => {
         return like.userId;
       });
-      console.log(likeIds);
       if (likeIds.includes(userAuth.id)) {
         return true;
       } else {
