@@ -60,11 +60,11 @@ const SitterCalendar = () => {
           onChange={(evt) => setDates(evt)}
         />
       </div>
-      <div className="flex flex-col gap-10 pl-5">
+      <div className="flex flex-col pl-5">
         <section>
           <form>
-            <div className="flex flex-row gap-5 mb-3">
-              <div className="w-full flex flex-col md:w-1/2 md:mb-0">
+            <div className="flex flex-row gap-5">
+              <div className="w-full flex flex-col md:w-1/2">
                 <label>Start</label>
                 <input
                   id="start"
@@ -76,7 +76,7 @@ const SitterCalendar = () => {
                 ></input>
               </div>
 
-              <div className="w-full flex flex-col md:w-1/2 md:mb-0">
+              <div className="w-full flex flex-col md:w-1/2">
                 <label>End</label>
                 <input
                   id="end"
@@ -97,6 +97,17 @@ const SitterCalendar = () => {
             >
               <p>Oops! Dates selected include sitter blackout days</p>
               <p>Try again!</p>
+            </div>
+            <div className="w-full flex flex-col">
+              <label>Total Days</label>
+              <input
+                id="days"
+                name="days"
+                type="number"
+                disabled
+                defaultValue={endDate ? format(endDate, 'E M/d/yy') : ''}
+                className={includesBlackoutDays ? invalidClass : validClass}
+              ></input>
             </div>
           </form>
         </section>

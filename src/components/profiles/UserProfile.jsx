@@ -39,8 +39,8 @@ const UserProfile = () => {
 
   return (
     <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-[calc(100vh_-_5rem)]">
-      <div className="flex flex-row pt-20 mb-16 gap-10 mx-20 px-20">
-        <div className="min-w-1/5 flex flex-col gap-5">
+      <div className="flex flex-row justify-center pt-20 mb-16 mx-20 px-20">
+        <div className="min-w-1/5 flex flex-col gap-5 mr-20">
           <div id="userBio" className="min-w-max flex flex-col gap-5">
             <div className="flex flex-col gap-5 min-w-48">
               <img

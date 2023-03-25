@@ -34,12 +34,12 @@ const SitterProfile = () => {
   }, [singleSitter, avgRating, ratings]);
 
   return (
-    <div className="font-rubik flex flex-col pr-5 gap-5 min-w-min">
+    <div className="font-rubik flex flex-col gap-5 min-w-min">
       <div>
         <h2 className="font-rubikmono">Sitter Profile</h2>
       </div>
-      <div className="font-rubik flex flex-row gap-5">
-        <div className="w-3/4 h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
+      <div className="font-rubik flex flex-row">
+        <div className="w-4/5 h-[calc(100vh_-_20rem)] overflow-auto flex flex-col pr-10 gap-5">
           <div>
             <h2 className="font-rubikmono">About Me</h2>
             <p>{singleSitter.bio}</p>
@@ -74,7 +74,7 @@ const SitterProfile = () => {
             </div>
           </div>
         </div>
-        <div className="w-1/4">
+        <div className="w-1/5">
           <SitterPrefSidebar />
         </div>
       </div>
