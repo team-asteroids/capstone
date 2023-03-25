@@ -41,22 +41,35 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// get single group (inc. posts, post_likes, members)
+// // get single group (inc. posts, post_likes, members)
+// // must be logged in
+// router.get('/:groupId', requireToken, async (req, res, next) => {
+//   try {
+//     const singleGroup = await Group.findByPk(req.params.groupId, {
+//       include: [{ model: Group_Post }],
+//     });
+
+//     const memberships = await Group_Member.findAll({
+//       where: { groupId: req.params.groupId },
+//     });
+//     const memberIds = memberships.map((mem) => mem.userId);
+
+//     const members = await Promise.all(memberIds.map((id) => User.findByPk(id)));
+
+//     res.status(200).json({ singleGroup, members });
+//   } catch (e) {
+//     console.log('Backend issue fetching single group');
+//     next(e);
+//   }
+// });
+
+// get single group (ONLY basic group info)
 // must be logged in
 router.get('/:groupId', requireToken, async (req, res, next) => {
   try {
-    const singleGroup = await Group.findByPk(req.params.groupId, {
-      include: [{ model: Group_Post }],
-    });
+    const singleGroup = await Group.findByPk(req.params.groupId);
 
-    const memberships = await Group_Member.findAll({
-      where: { groupId: req.params.groupId },
-    });
-    const memberIds = memberships.map((mem) => mem.userId);
-
-    const members = await Promise.all(memberIds.map((id) => User.findByPk(id)));
-
-    res.status(200).json({ singleGroup, members });
+    res.status(200).json(singleGroup);
   } catch (e) {
     console.log('Backend issue fetching single group');
     next(e);
@@ -229,7 +242,25 @@ router.delete(
   }
 );
 
-// get all group posts (& likes)
+// // get all group posts (& likes)
+// // must be logged in
+// router.get('/:groupId/posts', requireToken, async (req, res, next) => {
+//   try {
+//     const singleGroupPosts = await Group_Post.findAll({
+//       where: { groupId: req.params.groupId },
+//       include: { model: User },
+//     });
+//     const groupPostsAndLikes = await Promise.all(
+//       singleGroupPosts.map((post) => integrateLikes(post))
+//     );
+//     res.status(200).json(groupPostsAndLikes);
+//   } catch (e) {
+//     console.log('Backend issue fetching all posts');
+//     next(e);
+//   }
+// });
+
+// get all group posts (ONLY post info)
 // must be logged in
 router.get('/:groupId/posts', requireToken, async (req, res, next) => {
   try {
@@ -237,10 +268,8 @@ router.get('/:groupId/posts', requireToken, async (req, res, next) => {
       where: { groupId: req.params.groupId },
       include: { model: User },
     });
-    const groupPostsAndLikes = await Promise.all(
-      singleGroupPosts.map((post) => integrateLikes(post))
-    );
-    res.status(200).json(groupPostsAndLikes);
+
+    res.status(200).json(singleGroupPosts);
   } catch (e) {
     console.log('Backend issue fetching all posts');
     next(e);
@@ -350,7 +379,31 @@ router.delete(
   }
 );
 
-// get all likes & users who liked a group_post
+// // get all likes & users who liked a group_post
+// // must be logged in
+// router.get(
+//   '/:groupId/posts/:postId/likes',
+//   requireToken,
+//   async (req, res, next) => {
+//     try {
+//       const likes = await Group_Post_Like.findAll({
+//         where: { groupPostId: req.params.postId },
+//       });
+
+//       const userIds = likes.map((like) => like.userId);
+
+//       const users = await Promise.all(
+//         userIds.map((userId) => User.findByPk(userId))
+//       );
+//       res.status(200).json({ likes, users });
+//     } catch (e) {
+//       console.log('Backend issue fetching all group_post likes');
+//       next(e);
+//     }
+//   }
+// );
+
+// get all likes ONLY who liked a group_post
 // must be logged in
 router.get(
   '/:groupId/posts/:postId/likes',
@@ -361,12 +414,7 @@ router.get(
         where: { groupPostId: req.params.postId },
       });
 
-      const userIds = likes.map((like) => like.userId);
-
-      const users = await Promise.all(
-        userIds.map((userId) => User.findByPk(userId))
-      );
-      res.status(200).json({ likes, users });
+      res.status(200).json(likes);
     } catch (e) {
       console.log('Backend issue fetching all group_post likes');
       next(e);

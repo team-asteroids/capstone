@@ -1,27 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
-import { deleteGroupPost } from '../../slices/groupsSlice';
+import { fetchGroupPostLikes, deleteGroupPost } from '../../slices/groupsSlice';
 import LikeUnlike from './LikeUnlike';
 
 const GroupPost = (props) => {
-  const { post, likes } = props;
-  const user = post.user;
+  const { post } = props;
+  const creator = post.user;
+  const postId = post.id;
 
   const { groupId } = useParams();
-
-  const { userAuth } = useSelector(selectAuth);
   const dispatch = useDispatch();
+
+  const likes = useSelector((state) => state.groups.likes);
+  const { userAuth } = useSelector(selectAuth);
 
   const date = post.createdAt;
   const dateData = new Date(date);
   const formattedDate = dateData.toDateString();
   const formattedTime = dateData.toLocaleTimeString('en-US');
 
+  useEffect(() => {
+    dispatch(fetchGroupPostLikes({ groupId, postId }));
+  }, [dispatch]);
+
   // console.log('post--> ', post);
 
-  // console.log('likes--> ', likes);
+  console.log('likes--> ', likes);
 
   const deletePost = async (e) => {
     e.preventDefault();
@@ -34,7 +40,7 @@ const GroupPost = (props) => {
       <div className="p-2">
         <div>
           <p>Content: {post.content}</p>
-          <p>Posted by: {user.fullName}</p>
+          {/* <p>Posted by: {user.fullName}</p> */}
           <p>
             Posted at: {formattedTime} on {formattedDate}
           </p>

@@ -170,6 +170,22 @@ export const deleteGroupPost = createAsyncThunk(
   }
 );
 
+export const fetchGroupPostLikes = createAsyncThunk(
+  '/allGroupPostLikes',
+  async ({ groupId, postId }) => {
+    const token = localStorage.getItem('token');
+    const { data } = await axios.get(
+      `/api/groups/${groupId}/posts/${postId}/likes`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    return data;
+  }
+);
+
 export const likeGroupPost = createAsyncThunk(
   '/likeGroupPost',
   async ({ groupId, postId }) => {
@@ -212,6 +228,7 @@ export const groupSlice = createSlice({
     member: {},
     posts: [],
     post: {},
+    likes: [],
     likedStatus: '',
     error: '',
     status: '',
@@ -302,6 +319,7 @@ export const groupSlice = createSlice({
         state.status = 'fulfilled';
         state.error = '';
         state.member = payload;
+        state.members.push(payload);
       })
       .addCase(addGroupMember.pending, (state, { payload }) => {
         state.status = 'loading';
@@ -314,6 +332,7 @@ export const groupSlice = createSlice({
       .addCase(deleteGroupMember.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
+        state.members = state.members.filter((mem) => mem.id !== payload.id);
         // what should we do with payload?
       })
       .addCase(deleteGroupMember.pending, (state, { payload }) => {
@@ -341,7 +360,7 @@ export const groupSlice = createSlice({
         state.status = 'fulfilled';
         state.error = '';
         state.post = payload;
-        state.posts.push(payload);
+        // state.posts.push(payload);
       })
       .addCase(addGroupPost.pending, (state, { payload }) => {
         state.status = 'loading';
@@ -378,6 +397,22 @@ export const groupSlice = createSlice({
       .addCase(deleteGroupPost.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload;
+      })
+
+      .addCase(fetchGroupPostLikes.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.likes = payload;
+        // what should we do with payload?
+      })
+      .addCase(fetchGroupPostLikes.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchGroupPostLikes.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+        // check on this
       })
       .addCase(likeGroupPost.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';

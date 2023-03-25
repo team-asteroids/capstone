@@ -11,24 +11,30 @@ const LikeUnlike = (props) => {
   const dispatch = useDispatch();
 
   //   // console.log('post--> ', post);
-  const likeIds = likes.map((like) => {
-    return like.userId;
-  });
+  // const likeIds = likes.map((like) => {
+  //   return like.userId;
+  // });
   //   console.log('likeIds--> ', likeIds);
 
   const likeUnlikePost = async (e) => {
     e.preventDefault();
-
-    if (likeIds.includes(userAuth.id)) {
-      await dispatch(unlikeGroupPost({ groupId, postId }));
-    } else {
+    if (!likes.length) {
       await dispatch(likeGroupPost({ groupId, postId }));
+    } else {
+      const likeIds = likes.map((like) => {
+        return like.userId;
+      });
+      console.log('like userIds --> ', likeIds);
+      if (likeIds.includes(userAuth.id)) {
+        await dispatch(unlikeGroupPost({ groupId, postId }));
+      } else {
+        await dispatch(likeGroupPost({ groupId, postId }));
+      }
     }
   };
 
   return (
     <>
-      <div>Like</div>
       <p>
         <button
           onClick={likeUnlikePost}
