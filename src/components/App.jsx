@@ -18,6 +18,7 @@ import {
   UserProfile,
   Footer,
 } from './index';
+import Chat from './ui/Chat';
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
         <Route path="/groups/:groupId/*" element={<SingleGroup />} />
         <Route path="/account/*" element={<UserAccount />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
       <Footer />
     </div>
