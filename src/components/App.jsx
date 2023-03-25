@@ -21,7 +21,8 @@ import {
 } from './index';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import Chat from './ui/Chat';
+// import Chat from './ui/Chat';
+// import { useSpring, animated } from 'react-spring';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const App = () => {
           <Route path="/groups" element={<BrowseGroups />} />
           <Route path="/groups/:groupId/*" element={<SingleGroup />} />
           <Route path="/account/*" element={<UserAccount />} />
-          <Route path="/chat" element={<Chat />} />
+          {/* <Route path="/chat" element={<Chat />} /> */}
           <Route path="/profile/:id/*" element={<UserProfile />} />
           <Route path="/sitters" element={<DiscoverSitters />} />
         </Routes>
