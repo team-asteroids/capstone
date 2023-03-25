@@ -42,7 +42,12 @@ export const editSingleGroup = createAsyncThunk(
 export const deleteSingleGroup = createAsyncThunk(
   '/deleteSingleGroup',
   async (groupId) => {
-    const { data } = await axios.delete(`/api/groups/${groupId}`);
+    const token = localStorage.getItem('token');
+    const { data } = await axios.delete(`/api/groups/${groupId}`, {
+      headers: {
+        authorization: token,
+      },
+    });
     return data;
   }
 );
@@ -138,6 +143,7 @@ export const addGroupPost = createAsyncThunk(
     return data;
   }
 );
+
 export const editGroupPost = createAsyncThunk(
   '/editGroupPost',
   async ({ groupId, postId, editedInfo }) => {
@@ -157,6 +163,7 @@ export const deleteGroupPost = createAsyncThunk(
     return data;
   }
 );
+
 export const likeGroupPost = createAsyncThunk(
   '/likeGroupPost',
   async ({ groupId, postId }) => {
@@ -166,6 +173,7 @@ export const likeGroupPost = createAsyncThunk(
     return data;
   }
 );
+
 export const unlikeGroupPost = createAsyncThunk(
   '/unlikeGroupPost',
   async ({ groupId, postId }) => {
