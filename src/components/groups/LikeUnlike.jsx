@@ -10,12 +10,6 @@ const LikeUnlike = (props) => {
 
   const dispatch = useDispatch();
 
-  //   // console.log('post--> ', post);
-  // const likeIds = likes.map((like) => {
-  //   return like.userId;
-  // });
-  //   console.log('likeIds--> ', likeIds);
-
   const testLike = () => {
     if (!likes.length) {
       return false;
@@ -32,23 +26,6 @@ const LikeUnlike = (props) => {
     }
   };
 
-  // const likeUnlikePost = async (e) => {
-  //   e.preventDefault();
-  //   if (!likes.length) {
-  //     await dispatch(likeGroupPost({ groupId, postId }));
-  //   } else {
-  //     const likeIds = likes.map((like) => {
-  //       return like.userId;
-  //     });
-  //     console.log('like userIds --> ', likeIds);
-  //     if (likeIds.includes(userAuth.id)) {
-  //       await dispatch(unlikeGroupPost({ groupId, postId }));
-  //     } else {
-  //       await dispatch(likeGroupPost({ groupId, postId }));
-  //     }
-  //   }
-  // };
-
   const likeUnlikePost = async (e) => {
     e.preventDefault();
     if (testLike()) {
@@ -63,7 +40,9 @@ const LikeUnlike = (props) => {
       <p>
         <button
           onClick={likeUnlikePost}
-          className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+          className={`p-1 rounded-lg font-mono ${
+            testLike() ? 'bg-[#cbd5e1]' : 'bg-[#fb5607]'
+          }`}
         >
           Like
         </button>
