@@ -6,10 +6,15 @@ import { format, setMonth, getMonth, toDate } from 'date-fns';
 
 const SitterCalendar = () => {
   const today = new Date();
-  const maxDay = setMonth(today, getMonth(today) + 3);
+  const maxDay = setMonth(today, getMonth(today) + 6);
+
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [totalDays, setTotalDays] = useState(0);
+  const [bookingLocation, setBookingLocation] = useState('');
+  const [bookingPets, setBookingPets] = useState([]);
   const [setter, setSetter] = useState(true);
+
   const [includesBlackoutDays, setIncludesBlackoutDays] = useState(false);
 
   const blackoutDays = ['4-4-23', '4-5-23'];
@@ -43,10 +48,10 @@ const SitterCalendar = () => {
   }, [endDate]);
 
   const validClass =
-    'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+    'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-2 font-rubik';
 
   const invalidClass =
-    'appearance-none block border border-red-500 w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+    'appearance-none block border border-red-500 w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-2 font-rubik';
 
   return (
     <div className="flex flex-row flex-wrap justify-items-start">
@@ -91,45 +96,65 @@ const SitterCalendar = () => {
             <div
               className={
                 includesBlackoutDays
-                  ? 'text-red-600 font-medium text-sm text-center'
+                  ? 'text-red-600 font-medium my-2 text-sm text-center'
                   : 'collapse'
               }
             >
               <p>Oops! Dates selected include sitter blackout days</p>
-              <p>Try again!</p>
             </div>
-            <div className="w-full flex flex-col">
-              <label>Total Days</label>
-              <input
-                id="days"
-                name="days"
-                type="number"
-                disabled
-                defaultValue={endDate ? format(endDate, 'E M/d/yy') : ''}
-                className={includesBlackoutDays ? invalidClass : validClass}
-              ></input>
+
+            <div className="w-full flex flex-row mb-5 gap-5">
+              <div className="w-full flex flex-col md:w-1/2">
+                <label>Total Days</label>
+                <input
+                  id="days"
+                  name="days"
+                  type="number"
+                  disabled
+                  defaultValue={totalDays}
+                  className={validClass}
+                ></input>
+              </div>
+              <div className="w-full flex flex-col md:w-1/2">
+                <label>Location</label>
+                <select
+                  id="pets"
+                  name="pets"
+                  type="text"
+                  defaultValue={totalDays}
+                  className={validClass}
+                >
+                  <option>Owner Home</option>
+                  <option>Sitter Home</option>
+                </select>
+              </div>
+            </div>
+            <div className="w-full mb-4">
+              <div className="w-full flex flex-col">
+                <label>Pets</label>
+                <select
+                  id="pets"
+                  name="pets"
+                  type="text"
+                  defaultValue={totalDays}
+                  className={validClass}
+                >
+                  <option>pet 1</option>
+                  <option>pet 2</option>
+                </select>
+              </div>
+            </div>
+            <div className="text-center font-rubikmono">
+              <button
+                className="ease-in duration-300 hover:text-bold-purple hover:transition-all mt-3"
+                type="submit"
+              >
+                Submit Request
+              </button>
             </div>
           </form>
         </section>
       </div>
-      {/* <DatePicker
-        disablePast
-        shouldDisableDate={checkDate}
-        maxDate={maxDay}
-        onChange={(evt) => {
-          setStartDate(evt);
-        }}
-      />
-
-      <DatePicker
-        disablePast
-        shouldDisableDate={checkDate}
-        minDate={startDate}
-        maxDate={maxDay}
-        onChange={(evt) => {
-          setEndDate(evt);
-        }}
-      /> */}
     </div>
   );
 };
