@@ -58,7 +58,7 @@ export const createAccessData = createAsyncThunk(
           },
         }
       );
-      console.log('createAccessData --> ', data);
+      // console.log('createAccessData --> ', data);
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -100,7 +100,6 @@ export const updateAccessData = createAsyncThunk(
   'updateAccessData',
   async ({ id, token, formData }, { rejectWithValue }) => {
     try {
-      console.log({ formData });
       const { data } = await axios.put(
         `/api/users/${id}/access/${id}`,
         formData,
@@ -110,7 +109,7 @@ export const updateAccessData = createAsyncThunk(
           },
         }
       );
-      console.log('data:', data);
+
       return data;
     } catch (err) {
       return rejectWithValue(err);

@@ -23,7 +23,8 @@ const BookingRequestConfirmation = () => {
   const [petIds, setPetIds] = useState([]);
 
   const [isInvalid, setIsInvalid] = useState(false);
-  const [isInvalidPetIds, setIsInvalidPetIds] = useState(true);
+  const [isInvalidPetIds, setIsInvalidPetIds] = useState(false);
+
   const [isInvalidPhone, setIsInvalidPhone] = useState(false);
   const [isInvalidAddress1, setIsInvalidAddress1] = useState(false);
   const [isInvalidCity, setIsInvalidCity] = useState(false);
@@ -111,6 +112,8 @@ const BookingRequestConfirmation = () => {
   const toggleClass =
     "checked w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-blue";
 
+  const InvalidToggleClass = '';
+
   const validClass =
     'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
@@ -155,12 +158,23 @@ const BookingRequestConfirmation = () => {
     return res;
   };
 
+  const validatePhone = (phone) => {
+    const res = /^\d{10}?$/.test(phone);
+    return res;
+  };
+
   const checkFormValidation = () => {
-    if (petIds === []) {
+    if (petIds.length < 1) {
       setIsInvalidPetIds(true);
+      console.log('invalidpetids');
     }
 
     if (formData.phone === '') {
+      setIsInvalidPhone(true);
+      // setIsInvalid(true);
+    }
+
+    if (!validatePhone(formData.phone)) {
       setIsInvalidPhone(true);
       // setIsInvalid(true);
     }
@@ -195,6 +209,10 @@ const BookingRequestConfirmation = () => {
       // setIsInvalid(true);
     }
 
+    if (!validatePhone(formData.emergencyContactPhone)) {
+      setIsInvalidEmergencyContactPhone(true);
+    }
+
     if (
       !isInvalidPetIds &&
       !isInvalidPhone &&
@@ -212,11 +230,7 @@ const BookingRequestConfirmation = () => {
     evt.preventDefault();
     await checkFormValidation();
 
-    // console.log(formData);
-
-    if (!isInvalid && petIds.length) {
-      // update access data
-      // add pet to booking
+    if (!isInvalid && petIds.length > 0) {
       const res = await dispatch(updateAccessData({ id, token, formData }));
       if (res.type === 'updateAccessData/fulfilled') {
         console.log('success');
@@ -246,7 +260,17 @@ const BookingRequestConfirmation = () => {
 
           <div className="flex flex-col gap-5">
             <div className="px-5">
-              <p className="pb-3 font-rubikmono">Add Pets:</p>
+              <div className="flex flex-row gap-5">
+                <p className="pb-3 font-rubikmono">Add Pets:</p>
+                <p
+                  className={
+                    isInvalidPetIds ? 'font-semibold text-red-600' : 'collapse'
+                  }
+                >
+                  Add pets!
+                </p>
+              </div>
+
               <div className="flex flex-row flex-wrap gap-5">
                 {allPets && allPets.length
                   ? allPets.map((pet) => (
@@ -279,12 +303,13 @@ const BookingRequestConfirmation = () => {
                     <div className="w-full flex flex-col">
                       <label className={labelClass}>Phone</label>
                       <input
-                        className={validClass}
+                        className={isInvalidPhone ? invalidClass : validClass}
                         id="phone"
                         name="phone"
                         type="text"
                         value={formData.phone}
                         onChange={(evt) => {
+                          setIsInvalidPhone(false);
                           setFormData({ ...formData, phone: evt.target.value });
                         }}
                       />
@@ -295,12 +320,15 @@ const BookingRequestConfirmation = () => {
                     <div className="w-full text-left md:w-1/2 px-3 md:mb-0">
                       <label className={labelClass}>Address Line 1</label>
                       <input
-                        className={validClass}
+                        className={
+                          isInvalidAddress1 ? invalidClass : validClass
+                        }
                         id="address1"
                         name="address1"
                         type="text"
                         value={formData.address1}
                         onChange={(evt) => {
+                          setIsInvalidAddress1(true);
                           setFormData({
                             ...formData,
                             address1: evt.target.value,
@@ -330,11 +358,12 @@ const BookingRequestConfirmation = () => {
                     <div className="w-full md:w-1/3 px-3  md:mb-0">
                       <label className={labelClass}>City</label>
                       <input
-                        className={validClass}
+                        className={isInvalidCity ? invalidClass : validClass}
                         id="city"
                         name="city"
                         value={formData.city}
                         onChange={(evt) => {
+                          setIsInvalidCity(false);
                           setFormData({ ...formData, city: evt.target.value });
                         }}
                       />
@@ -363,12 +392,13 @@ const BookingRequestConfirmation = () => {
                     <div className="w-full md:w-1/3 px-3 md:mb-0">
                       <label className={labelClass}>Zip Code</label>
                       <input
-                        className={validClass}
+                        className={isInvalidZip ? invalidClass : validClass}
                         type="text"
                         id="zip"
                         name="zip"
                         value={formData.zip}
                         onChange={(evt) => {
+                          setIsInvalidZip(false);
                           setFormData({ ...formData, zip: evt.target.value });
                         }}
                       />
@@ -381,12 +411,17 @@ const BookingRequestConfirmation = () => {
                         Emergency Contact Name
                       </label>
                       <input
-                        className={validClass}
+                        className={
+                          isInvalidEmergencyContactName
+                            ? invalidClass
+                            : validClass
+                        }
                         id="emergencyContactName"
                         name="emergencyContactName"
                         type="text"
                         value={formData.emergencyContactName}
                         onChange={(evt) => {
+                          setIsInvalidEmergencyContactName(false);
                           setFormData({
                             ...formData,
                             emergencyContactName: evt.target.value,
@@ -399,12 +434,17 @@ const BookingRequestConfirmation = () => {
                         Emergency Contact Phone
                       </label>
                       <input
-                        className={validClass}
+                        className={
+                          isInvalidEmergencyContactPhone
+                            ? setIsInvalid
+                            : validClass
+                        }
                         id="emergencyContactPhone"
                         name="emergencyContactPhone"
                         type="tel"
                         value={formData.emergencyContactPhone}
                         onChange={(evt) => {
+                          setIsInvalidEmergencyContactPhone(false);
                           setFormData({
                             ...formData,
                             emergencyContactPhone: evt.target.value,
