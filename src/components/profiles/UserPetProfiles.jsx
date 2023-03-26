@@ -18,6 +18,9 @@ const UserPetProfiles = (props) => {
     if (id) {
       dispatch(fetchAllPets(id));
     }
+    return () => {
+      dispatch(resetPetStatus());
+    };
   }, [id]);
 
   return (
