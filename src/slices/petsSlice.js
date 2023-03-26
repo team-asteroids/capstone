@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchUserPets = createAsyncThunk(
+export const fetchAllPets = createAsyncThunk(
   'userPets',
   async (id, { rejectWithValue }) => {
     try {
@@ -18,8 +18,6 @@ const petsSlice = createSlice({
   initialState: {
     allPets: [],
     singlePet: {},
-    userPets: [],
-    userSinglePet: {},
     status: '',
     error: '',
   },
@@ -31,16 +29,16 @@ const petsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserPets.fulfilled, (state, { payload }) => {
-        state.userPets = payload || [];
+      .addCase(fetchAllPets.fulfilled, (state, { payload }) => {
+        state.allPets = payload || [];
         state.status = 'success';
         state.error = '';
       })
-      .addCase(fetchUserPets.pending, (state, { payload }) => {
+      .addCase(fetchAllPets.pending, (state, { payload }) => {
         state.status = 'loading';
         state.error = '';
       })
-      .addCase(fetchUserPets.rejected, (state, { payload }) => {
+      .addCase(fetchAllPets.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
