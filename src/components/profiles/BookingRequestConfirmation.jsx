@@ -7,11 +7,12 @@ import {
   getAccessData,
   selectAuth,
 } from '../../slices/authSlice';
-import { selectBookings } from '../../slices/bookingsSlice';
+import { selectBookings, updateBooking } from '../../slices/bookingsSlice';
 import { fetchAllPets, selectPets } from '../../slices/petsSlice';
 
 const BookingRequestConfirmation = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { userAuth, token, accessData } = useSelector(selectAuth);
   const { newBooking } = useSelector(selectBookings);
@@ -31,6 +32,7 @@ const BookingRequestConfirmation = () => {
   });
 
   const id = userAuth.id;
+  const bookingId = newBooking.id;
 
   const states = [
     'Alabama',
@@ -101,9 +103,7 @@ const BookingRequestConfirmation = () => {
   const invalidClass =
     'appearance-none block border border-red-500 w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
-  // useEffect(() => {
-  //   dispatch(attemptTokenLogin());
-  // }, []);
+  const labelClass = 'text-xs font-rubikmono';
 
   useEffect(() => {
     if (id) {
@@ -113,6 +113,7 @@ const BookingRequestConfirmation = () => {
   }, [userAuth, id]);
 
   useEffect(() => {
+    dispatch(attemptTokenLogin());
     if (accessData && accessData.id) {
       setFormData({
         phone: accessData.phone,
@@ -133,6 +134,15 @@ const BookingRequestConfirmation = () => {
       const idx = petIds.indexOf(evt.target.value);
       setPetIds([...petIds.slice(0, idx), ...petIds.slice(idx + 1)]);
     } else setPetIds([...petIds, +evt.target.value]);
+  };
+
+  const cancelBooking = async () => {
+    console.log(token);
+    const status = 'withdrawn';
+    const res = await dispatch(updateBooking({ id, status, token, bookingId }));
+    if (res.type === 'updateBooking/fulfilled') {
+      navigate('/account');
+    }
   };
 
   return (
@@ -180,7 +190,7 @@ const BookingRequestConfirmation = () => {
                 <form className="text-left">
                   <div className="flex flex-wrap px-3 mx-3 mb-3">
                     <div className="w-full flex flex-col">
-                      <label>Phone</label>
+                      <label className={labelClass}>Phone</label>
                       <input
                         className={validClass}
                         id="phone"
@@ -196,7 +206,7 @@ const BookingRequestConfirmation = () => {
 
                   <div className="flex flex-wrap mx-3 mb-3">
                     <div className="w-full text-left md:w-1/2 px-3 md:mb-0">
-                      <label>Address Line 1</label>
+                      <label className={labelClass}>Address Line 1</label>
                       <input
                         className={validClass}
                         id="address1"
@@ -212,7 +222,7 @@ const BookingRequestConfirmation = () => {
                       />
                     </div>
                     <div className="w-full text-left md:w-1/2 px-3 md:mb-0">
-                      <label>Address Line 2</label>
+                      <label className={labelClass}>Address Line 2</label>
                       <input
                         className={validClass}
                         id="address2"
@@ -231,7 +241,7 @@ const BookingRequestConfirmation = () => {
 
                   <div className="flex flex-wrap mx-3 mb-3">
                     <div className="w-full md:w-1/3 px-3  md:mb-0">
-                      <label>City</label>
+                      <label className={labelClass}>City</label>
                       <input
                         className={validClass}
                         id="city"
@@ -244,7 +254,7 @@ const BookingRequestConfirmation = () => {
                     </div>
 
                     <div className="w-full md:w-1/3 px-3 md:mb-0">
-                      <label>State</label>
+                      <label className={labelClass}>State</label>
                       <select
                         className={validClass}
                         id="state"
@@ -264,7 +274,7 @@ const BookingRequestConfirmation = () => {
                     </div>
 
                     <div className="w-full md:w-1/3 px-3 md:mb-0">
-                      <label>Zip Code</label>
+                      <label className={labelClass}>Zip Code</label>
                       <input
                         className={validClass}
                         type="text"
@@ -280,7 +290,9 @@ const BookingRequestConfirmation = () => {
 
                   <div className="flex flex-wrap mx-3 mb-3">
                     <div className="w-full text-left md:w-1/2 px-3 md:mb-0">
-                      <label>Emergency Contact Name</label>
+                      <label className={labelClass}>
+                        Emergency Contact Name
+                      </label>
                       <input
                         className={validClass}
                         id="emergencyContactName"
@@ -296,7 +308,9 @@ const BookingRequestConfirmation = () => {
                       />
                     </div>
                     <div className="w-full text-left md:w-1/2 px-3 md:mb-0">
-                      <label>Emergency Contact Phone</label>
+                      <label className={labelClass}>
+                        Emergency Contact Phone
+                      </label>
                       <input
                         className={validClass}
                         id="emergencyContactPhone"
@@ -314,7 +328,7 @@ const BookingRequestConfirmation = () => {
                   </div>
                   <div className="flex flex-wrap mx-3 mb-3">
                     <div className="w-full text-left px-3 md:mb-0">
-                      <label>Additional Notes</label>
+                      <label className={labelClass}>Additional Notes</label>
                       <textarea
                         className={validClass}
                         id="additionalNotes"
@@ -342,7 +356,10 @@ const BookingRequestConfirmation = () => {
                 </form>
               </section>
               <div className="text-sm mt-3 text-center">
-                <button className="hover:text-red-600 font-semibold">
+                <button
+                  className="hover:text-red-900 text-red-600 font-semibold"
+                  onClick={cancelBooking}
+                >
                   CANCEL REQUEST
                 </button>
               </div>
