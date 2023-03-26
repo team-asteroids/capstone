@@ -27,7 +27,7 @@ const UserPetProfiles = (props) => {
   return (
     <div>
       <h2 className="font-rubikmono pb-5">PET PROFILES</h2>
-      <div className="flex flex-row gap-8">
+      <div className="flex flex-row flex-wrap gap-8">
         {allPets && allPets.length
           ? allPets.map((pet) => (
               <div className="flex flex-row gap-5">
