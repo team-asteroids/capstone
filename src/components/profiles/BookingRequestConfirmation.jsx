@@ -6,6 +6,7 @@ import {
   attemptTokenLogin,
   getAccessData,
   selectAuth,
+  updateAccessData,
 } from '../../slices/authSlice';
 import { selectBookings, updateBooking } from '../../slices/bookingsSlice';
 import { fetchAllPets, selectPets } from '../../slices/petsSlice';
@@ -17,8 +18,21 @@ const BookingRequestConfirmation = () => {
   const { userAuth, token, accessData } = useSelector(selectAuth);
   const { newBooking } = useSelector(selectBookings);
   const { allPets } = useSelector(selectPets);
+  // console.log(accessData);
 
   const [petIds, setPetIds] = useState([]);
+
+  const [isInvalid, setIsInvalid] = useState(false);
+  const [isInvalidPetIds, setIsInvalidPetIds] = useState(true);
+  const [isInvalidPhone, setIsInvalidPhone] = useState(false);
+  const [isInvalidAddress1, setIsInvalidAddress1] = useState(false);
+  const [isInvalidCity, setIsInvalidCity] = useState(false);
+  const [isInvalidZip, setIsInvalidZip] = useState(false);
+  const [isInvalidEmergencyContactName, setIsInvalidEmergencyContactName] =
+    useState(false);
+  const [isInvalidEmergencyContactPhone, setIsInvalidEmergencyContactPhone] =
+    useState(false);
+
   const [formData, setFormData] = useState({
     phone: accessData.phone,
     address1: accessData.address1,
@@ -136,6 +150,80 @@ const BookingRequestConfirmation = () => {
     } else setPetIds([...petIds, +evt.target.value]);
   };
 
+  const validateZip = (zip) => {
+    const res = /^\d{5}?$/.test(zip);
+    return res;
+  };
+
+  const checkFormValidation = () => {
+    if (petIds === []) {
+      setIsInvalidPetIds(true);
+    }
+
+    if (formData.phone === '') {
+      setIsInvalidPhone(true);
+      // setIsInvalid(true);
+    }
+
+    if (formData.address1 === '') {
+      setIsInvalidAddress1(true);
+      // setIsInvalid(true);
+    }
+
+    if (formData.city === '') {
+      setIsInvalidCity(true);
+      // setIsInvalid(true);
+    }
+
+    if (formData.zip === '') {
+      setIsInvalidZip(true);
+      // setIsInvalid(true);
+    }
+
+    if (!validateZip(formData.zip)) {
+      setIsInvalidZip(true);
+      // setIsInvalid(true);
+    }
+
+    if (formData.emergencyContactName === '') {
+      setIsInvalidEmergencyContactName(true);
+      // setIsInvalid(true);
+    }
+
+    if (formData.emergencyContactPhone === '') {
+      setIsInvalidEmergencyContactPhone(true);
+      // setIsInvalid(true);
+    }
+
+    if (
+      !isInvalidPetIds &&
+      !isInvalidPhone &&
+      !isInvalidAddress1 &&
+      !isInvalidAddress1 &&
+      !isInvalidCity &&
+      !isInvalidZip &&
+      !isInvalidEmergencyContactName &&
+      !isInvalidEmergencyContactPhone
+    )
+      setIsInvalid(false);
+  };
+
+  const confirmBooking = async (evt) => {
+    evt.preventDefault();
+    await checkFormValidation();
+
+    // console.log(formData);
+
+    if (!isInvalid && petIds.length) {
+      // update access data
+      // add pet to booking
+      const res = await dispatch(updateAccessData({ id, token, formData }));
+      if (res.type === 'updateAccessData/fulfilled') {
+        console.log('success');
+      }
+    }
+  };
+
   const cancelBooking = async () => {
     const status = 'withdrawn';
     const res = await dispatch(updateBooking({ id, status, token, bookingId }));
@@ -186,7 +274,7 @@ const BookingRequestConfirmation = () => {
                 Confirm Access Details:
               </p>
               <section className="">
-                <form className="text-left">
+                <form className="text-left" onSubmit={confirmBooking}>
                   <div className="flex flex-wrap px-3 mx-3 mb-3">
                     <div className="w-full flex flex-col">
                       <label className={labelClass}>Phone</label>
@@ -215,7 +303,7 @@ const BookingRequestConfirmation = () => {
                         onChange={(evt) => {
                           setFormData({
                             ...formData,
-                            phone: evt.target.address1,
+                            address1: evt.target.value,
                           });
                         }}
                       />
@@ -231,7 +319,7 @@ const BookingRequestConfirmation = () => {
                         onChange={(evt) => {
                           setFormData({
                             ...formData,
-                            phone: evt.target.address2,
+                            address2: evt.target.value,
                           });
                         }}
                       />

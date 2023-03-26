@@ -96,6 +96,28 @@ export const editSingleUser = createAsyncThunk(
   }
 );
 
+export const updateAccessData = createAsyncThunk(
+  'updateAccessData',
+  async ({ id, token, formData }, { rejectWithValue }) => {
+    try {
+      console.log({ formData });
+      const { data } = await axios.put(
+        `/api/users/${id}/access/${id}`,
+        formData,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      console.log('data:', data);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -196,6 +218,19 @@ const authSlice = createSlice({
         state.error = '';
       })
       .addCase(editSingleUser.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(updateAccessData.fulfilled, (state, { payload }) => {
+        state.accessData = payload || {};
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(updateAccessData.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(updateAccessData.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
