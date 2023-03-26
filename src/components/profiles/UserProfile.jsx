@@ -88,7 +88,7 @@ const UserProfile = () => {
           </div>
           {/* {sitterToggle ? <SitterPrefSidebar /> : <div>TEST</div>} */}
           <div className="w-1/4">
-            <button className="bg-bold-purple hover:bg-pale-purple text-sm px-5 py-3 text-white rounded-lg">
+            <button className="bg-bold-purple font-bold ease-in duration-300 hover:bg-pale-purple px-5 py-2.5 text-white rounded-lg">
               MESSAGE
             </button>
           </div>

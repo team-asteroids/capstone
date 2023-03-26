@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
 import { format, setMonth, getMonth, toDate } from 'date-fns';
+import { useSelector } from 'react-redux';
+import { selectAuth } from '../../slices/authSlice';
 
 const SitterCalendar = (props) => {
   const { rate } = props;
+  const { userAuth } = useSelector(selectAuth);
+
   const today = new Date();
   const maxDay = setMonth(today, getMonth(today) + 6);
 
@@ -51,7 +60,6 @@ const SitterCalendar = (props) => {
   };
 
   useEffect(() => {
-    console.log(rate);
     if (endDate) {
       checkForBlackoutDays();
       setTotalDays(countDays());
@@ -60,10 +68,16 @@ const SitterCalendar = (props) => {
   }, [endDate, totalDays]);
 
   const validClass =
-    'appearance-none block w-full bg-white-200 border rounded py-3 px-6 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-2 font-rubik';
+    'appearance-none block w-full bg-white-200 border rounded py-3 px-6 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-1 font-rubik';
 
   const invalidClass =
-    'appearance-none block border border-red-500 w-full bg-white-200 border rounded py-3 px-6 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-2 font-rubik';
+    'appearance-none block border border-red-500 w-full bg-white-200 border rounded py-3 px-6 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-1 font-rubik';
+
+  const validButtonClass =
+    'ease-in duration-300 hover:bg-pale-blue font-bold text-white bg-bold-blue px-5 py-2.5 rounded-lg hover:transition-all mt-3';
+
+  const disabledButtonClass =
+    'bg-bold-blue px-4 py-2 rounded-lg text-white disabled:opacity-25 duration-300 mt-3';
 
   const submitBookingRequest = async (evt) => {
     evt.preventDefault();
@@ -134,28 +148,31 @@ const SitterCalendar = (props) => {
               </div>
               <div className="w-full flex flex-col md:w-1/2">
                 <label>Total</label>
-                <input
-                  id="total"
-                  name="total"
-                  type="number"
-                  defaultValue={bookingTotal ? bookingTotal : ''}
-                  className={validClass}
-                  disabled
-                />
+                <div className="flex">
+                  <input
+                    id="total"
+                    name="total"
+                    type="number"
+                    defaultValue={bookingTotal ? bookingTotal : ''}
+                    className={validClass}
+                    disabled
+                  />
+                </div>
               </div>
             </div>
 
             <div className="w-full flex flex-row mb-5 gap-5">
               <div className="w-full flex flex-col md:w-1/2">
                 <label>Pets</label>
+
                 <select
                   id="pets"
                   name="pets"
                   type="text"
                   value={bookingPets}
                   className={validClass}
-                  onChange={(evt) => {
-                    console.log(evt.value.target);
+                  onChange={() => {
+                    console.log('pet');
                   }}
                 >
                   <option value="pet1">pet 1</option>
@@ -179,10 +196,14 @@ const SitterCalendar = (props) => {
             </div>
             <div className="text-center">
               <button
-                className="ease-in font-bold text-white duration-300 hover:text-bold-pink hover:transition-all mt-3"
-                type="submit"
+                className={
+                  userAuth && userAuth.id
+                    ? validButtonClass
+                    : disabledButtonClass
+                }
+                disabled={userAuth && userAuth.id ? false : true}
               >
-                SUBMIT REQUEST
+                SUBMIT
               </button>
             </div>
           </form>
