@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react';
+import { format, setMonth, getMonth } from 'date-fns';
 
 const SitterRatingsReviews = (props) => {
   const { reviews, ratings, avgRating } = props;
   useEffect(() => {}, [ratings]);
+
+  const dateFormatter = (date) => {
+    const formattedDate = new Date(date);
+    return format(formattedDate, 'MMMM d, yyyy');
+  };
 
   return (
     <div>
@@ -20,7 +26,7 @@ const SitterRatingsReviews = (props) => {
           {reviews.length > 0
             ? reviews.map((review) => (
                 <div key={review.id} className="pb-3">
-                  <p>{review.createdAt}</p>
+                  <p>{dateFormatter(review.createdAt)}</p>
                   <p>{review.context}</p>
                   <p>{review.user.fullName}</p>
                 </div>
