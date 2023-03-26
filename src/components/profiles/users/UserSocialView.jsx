@@ -1,5 +1,9 @@
 import React from 'react';
-import UserPetProfiles from './UserPetProfiles';
+import {
+  UserPetProfiles,
+  UserEventsProfile,
+  UserGroupsProfile,
+} from '../../index';
 
 const UserSocialView = (props) => {
   const { user } = props;
@@ -13,9 +17,11 @@ const UserSocialView = (props) => {
         <div>
           <UserPetProfiles user={user} />
         </div>
-        <div>Recent Activity</div>
-        <div>Upcoming Events</div>
-        <div>Group</div>
+        <div className="flex flex-col gap-5">
+          <h2 className="font-rubikmono">Recent Activity</h2>
+          <UserEventsProfile user={user} />
+          <UserGroupsProfile user={user} />
+        </div>
       </div>
     </div>
   );

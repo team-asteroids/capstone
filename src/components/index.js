@@ -32,3 +32,5 @@ export { default as SitterPrefSidebar } from './profiles/sitters/SitterPrefSideb
 export { default as SitterCalendar } from './profiles/sitters/SitterCalendar.jsx';
 export { default as SitterRatingsReviews } from './profiles/sitters/SitterRatingsReviews.jsx';
 export { default as UserPetProfiles } from './profiles/users/UserPetProfiles.jsx';
+export { default as UserGroupsProfile } from './profiles/users/UserGroupsProfile.jsx';
+export { default as UserEventsProfile } from './profiles/users/UserEventsProfile.jsx';
