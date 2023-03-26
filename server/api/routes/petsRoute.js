@@ -1,9 +1,19 @@
-const router = require('express').Router();
+const router = require('express').Router({ mergeParams: true });
 const { Pet, User, Pet_Detail } = require('../../db');
+const { requireToken } = require('../authMiddleware');
 
 // Get all pets
 router.get('/', async (req, res, next) => {
   try {
+    if (req.params.id) {
+      const userPets = await Pet.findAll({
+        where: {
+          userId: +req.params.id,
+        },
+      });
+      if (!userPets) return res.status(404).send('user has no pets!');
+      return res.status(200).send(userPets);
+    }
     const allPets = await Pet.findAll({
       include: { model: User, attributes: { exclude: ['password'] } },
     });
