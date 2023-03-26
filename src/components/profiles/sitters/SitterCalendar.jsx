@@ -3,12 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../../slices/authSlice';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { format, setMonth, getMonth } from 'date-fns';
-import { createNewBooking } from '../../../slices/bookingsSlice';
+import {
+  createNewBooking,
+  resetBookingStatus,
+  selectBookings,
+} from '../../../slices/bookingsSlice';
+import { useNavigate } from 'react-router-dom';
 
 const SitterCalendar = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { rate, sitterId } = props;
   const { userAuth, token } = useSelector(selectAuth);
+  const { newBooking, status } = useSelector(selectBookings);
   const id = userAuth.id;
 
   const today = new Date();
@@ -76,7 +84,7 @@ const SitterCalendar = (props) => {
 
   const submitBookingRequest = async (evt) => {
     evt.preventDefault();
-    // send id, token, formDetails (sitter id, userid, status, start, end, rate, location)
+
     const bookingDetails = {
       status: 'pending',
       startDate: format(startDate, 'yyyy-MM-dd'),
@@ -90,10 +98,18 @@ const SitterCalendar = (props) => {
     };
 
     if (token && userAuth.id) {
-      console.log(bookingDetails);
       dispatch(createNewBooking({ id, bookingDetails, token }));
     }
   };
+
+  useEffect(() => {
+    if (newBooking && status === 'success') {
+      navigate('/confirmation');
+    }
+    return () => {
+      dispatch(resetBookingStatus());
+    };
+  }, [status]);
 
   return (
     <div className="flex flex-row flex-wrap justify-items-start">

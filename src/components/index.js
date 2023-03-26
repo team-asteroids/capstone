@@ -35,3 +35,4 @@ export { default as UserPetProfiles } from './profiles/users/UserPetProfiles.jsx
 export { default as UserGroupsProfile } from './profiles/users/UserGroupsProfile.jsx';
 export { default as UserEventsProfile } from './profiles/users/UserEventsProfile.jsx';
 export { default as UserFriendsSidebar } from './profiles/users/UserFriendsSidebar.jsx';
+export { default as BookingRequestConfirmation } from './profiles/BookingRequestConfirmation.jsx';
