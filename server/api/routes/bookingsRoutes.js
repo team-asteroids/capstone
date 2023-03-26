@@ -1,6 +1,6 @@
 // can come from USER or SITTER routes (or just straight admin)
 const router = require('express').Router({ mergeParams: true });
-const { Booking, User, Sitter, Payment } = require('../../db');
+const { Booking, User, Sitter } = require('../../db');
 const { requireToken, isAdmin } = require('../authMiddleware');
 
 // issues: not hitting some error paths
@@ -16,7 +16,6 @@ router.get('/', requireToken, async (req, res, next) => {
         include: [
           { model: User, attributes: { exclude: ['password'] } },
           Sitter,
-          Payment,
         ],
       });
       if (!allBookings) return res.status(404).send('no bookings!');
@@ -29,7 +28,6 @@ router.get('/', requireToken, async (req, res, next) => {
         include: [
           { model: User, attributes: { exclude: ['password'] } },
           Sitter,
-          Payment,
         ],
       });
       if (!allUserBookings) {
@@ -56,11 +54,7 @@ router.get('/:bookingId', requireToken, async (req, res, next) => {
     const id = +req.params.id;
     const bookingId = +req.params.bookingId;
     const booking = await Booking.findByPk(bookingId, {
-      include: [
-        { model: User, attributes: { exclude: ['password'] } },
-        Sitter,
-        Payment,
-      ],
+      include: [{ model: User, attributes: { exclude: ['password'] } }, Sitter],
     });
 
     if (

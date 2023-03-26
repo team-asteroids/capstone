@@ -86,7 +86,6 @@ const UserProfile = () => {
             <p className="font-rubikmono mb-2">Can Foster</p>
             <p>{singleUser.canFoster ? 'yes!' : 'not right now'}</p>
           </div>
-          {/* {sitterToggle ? <SitterPrefSidebar /> : <div>TEST</div>} */}
           <div className="w-1/4">
             <button className="bg-bold-purple font-bold ease-in duration-300 hover:bg-pale-purple px-5 py-2.5 text-white rounded-lg">
               MESSAGE
