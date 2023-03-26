@@ -38,6 +38,28 @@ export const createNewBooking = createAsyncThunk(
   }
 );
 
+export const updateBooking = createAsyncThunk(
+  'updateBooking',
+  async ({ id, status, token, bookingId }, { rejectWithValue }) => {
+    try {
+      console.log(token, status, id, bookingId);
+      const { data } = await axios.put(
+        `/api/users/${id}/bookings/${bookingId}`,
+        { status: status },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      console.log(data);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 const bookingsSlice = createSlice({
   name: 'bookings',
   initialState: {
@@ -80,6 +102,19 @@ const bookingsSlice = createSlice({
         state.error = '';
       })
       .addCase(createNewBooking.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(updateBooking.fulfilled, (state, { payload }) => {
+        state.newBooking = payload || {};
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(updateBooking.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(updateBooking.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
