@@ -29,7 +29,7 @@ const UserPetProfiles = (props) => {
       <div className="flex flex-row flex-wrap gap-8">
         {allPets && allPets.length
           ? allPets.map((pet) => (
-              <div className="flex flex-row gap-5">
+              <div className="flex flex-row gap-5" key={pet.id}>
                 <div className="">
                   <img
                     className="h-24 w-24 object-cover rounded-full drop-shadow-md"
