@@ -127,7 +127,7 @@ const BookingRequestConfirmation = () => {
         additionalNotes: accessData.additionalNotes,
       });
     }
-  }, [id]);
+  }, [id, accessData.id]);
 
   const togglePet = (evt) => {
     if (petIds.includes(evt.target.value)) {
@@ -137,7 +137,6 @@ const BookingRequestConfirmation = () => {
   };
 
   const cancelBooking = async () => {
-    console.log(token);
     const status = 'withdrawn';
     const res = await dispatch(updateBooking({ id, status, token, bookingId }));
     if (res.type === 'updateBooking/fulfilled') {

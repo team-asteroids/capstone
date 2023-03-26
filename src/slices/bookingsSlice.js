@@ -30,7 +30,7 @@ export const createNewBooking = createAsyncThunk(
           },
         }
       );
-      console.log(data);
+
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -42,7 +42,6 @@ export const updateBooking = createAsyncThunk(
   'updateBooking',
   async ({ id, status, token, bookingId }, { rejectWithValue }) => {
     try {
-      console.log(token, status, id, bookingId);
       const { data } = await axios.put(
         `/api/users/${id}/bookings/${bookingId}`,
         { status: status },
@@ -52,7 +51,6 @@ export const updateBooking = createAsyncThunk(
           },
         }
       );
-      console.log(data);
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -106,7 +104,7 @@ const bookingsSlice = createSlice({
         state.error = payload.message;
       })
       .addCase(updateBooking.fulfilled, (state, { payload }) => {
-        state.newBooking = payload || {};
+        state.singleBooking = payload || {};
         state.status = 'success';
         state.error = '';
       })
