@@ -8,6 +8,8 @@ const bookings = [
     sitterId: 2,
     userId: 149,
     paymentId: 37,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -18,6 +20,8 @@ const bookings = [
     sitterId: 6,
     userId: 76,
     paymentId: 20,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -28,6 +32,8 @@ const bookings = [
     sitterId: 8,
     userId: 30,
     paymentId: 17,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -38,6 +44,8 @@ const bookings = [
     sitterId: 1,
     userId: 102,
     paymentId: 5,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -48,6 +56,8 @@ const bookings = [
     sitterId: 8,
     userId: 4,
     paymentId: 2,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -58,6 +68,8 @@ const bookings = [
     sitterId: 6,
     userId: 56,
     paymentId: 39,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -68,6 +80,8 @@ const bookings = [
     sitterId: 6,
     userId: 85,
     paymentId: 17,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -78,6 +92,8 @@ const bookings = [
     sitterId: 9,
     userId: 126,
     paymentId: 11,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -88,6 +104,8 @@ const bookings = [
     sitterId: 2,
     userId: 36,
     paymentId: 9,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -98,6 +116,8 @@ const bookings = [
     sitterId: 4,
     userId: 27,
     paymentId: 35,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -108,6 +128,8 @@ const bookings = [
     sitterId: 4,
     userId: 70,
     paymentId: 23,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -118,6 +140,8 @@ const bookings = [
     sitterId: 4,
     userId: 58,
     paymentId: 13,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -128,6 +152,8 @@ const bookings = [
     sitterId: 1,
     userId: 132,
     paymentId: 19,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -138,6 +164,8 @@ const bookings = [
     sitterId: 3,
     userId: 54,
     paymentId: 25,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -148,6 +176,8 @@ const bookings = [
     sitterId: 4,
     userId: 12,
     paymentId: 28,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -158,6 +188,8 @@ const bookings = [
     sitterId: 10,
     userId: 146,
     paymentId: 34,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -168,6 +200,8 @@ const bookings = [
     sitterId: 2,
     userId: 11,
     paymentId: 13,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -178,6 +212,8 @@ const bookings = [
     sitterId: 3,
     userId: 43,
     paymentId: 29,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -188,6 +224,8 @@ const bookings = [
     sitterId: 11,
     userId: 105,
     paymentId: 23,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -198,6 +236,8 @@ const bookings = [
     sitterId: 9,
     userId: 138,
     paymentId: 31,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -208,6 +248,8 @@ const bookings = [
     sitterId: 9,
     userId: 120,
     paymentId: 37,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -218,6 +260,8 @@ const bookings = [
     sitterId: 9,
     userId: 12,
     paymentId: 4,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -228,6 +272,8 @@ const bookings = [
     sitterId: 8,
     userId: 72,
     paymentId: 19,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -238,6 +284,8 @@ const bookings = [
     sitterId: 1,
     userId: 60,
     paymentId: 11,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -248,6 +296,8 @@ const bookings = [
     sitterId: 4,
     userId: 68,
     paymentId: 4,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -258,6 +308,8 @@ const bookings = [
     sitterId: 8,
     userId: 80,
     paymentId: 11,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -268,6 +320,8 @@ const bookings = [
     sitterId: 6,
     userId: 51,
     paymentId: 23,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -278,6 +332,8 @@ const bookings = [
     sitterId: 3,
     userId: 121,
     paymentId: 40,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -288,6 +344,8 @@ const bookings = [
     sitterId: 8,
     userId: 73,
     paymentId: 28,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -298,6 +356,8 @@ const bookings = [
     sitterId: 4,
     userId: 147,
     paymentId: 35,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -308,6 +368,8 @@ const bookings = [
     sitterId: 1,
     userId: 45,
     paymentId: 1,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -318,6 +380,8 @@ const bookings = [
     sitterId: 7,
     userId: 145,
     paymentId: 4,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -328,6 +392,8 @@ const bookings = [
     sitterId: 8,
     userId: 71,
     paymentId: 3,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -338,6 +404,8 @@ const bookings = [
     sitterId: 4,
     userId: 103,
     paymentId: 3,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -348,6 +416,8 @@ const bookings = [
     sitterId: 6,
     userId: 6,
     paymentId: 29,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -358,6 +428,8 @@ const bookings = [
     sitterId: 5,
     userId: 125,
     paymentId: 7,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -368,6 +440,8 @@ const bookings = [
     sitterId: 7,
     userId: 56,
     paymentId: 27,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -378,6 +452,8 @@ const bookings = [
     sitterId: 10,
     userId: 35,
     paymentId: 37,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -388,6 +464,8 @@ const bookings = [
     sitterId: 9,
     userId: 136,
     paymentId: 14,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -398,6 +476,8 @@ const bookings = [
     sitterId: 1,
     userId: 80,
     paymentId: 11,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -408,6 +488,8 @@ const bookings = [
     sitterId: 11,
     userId: 8,
     paymentId: 24,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -418,6 +500,8 @@ const bookings = [
     sitterId: 10,
     userId: 73,
     paymentId: 9,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -428,6 +512,8 @@ const bookings = [
     sitterId: 9,
     userId: 21,
     paymentId: 26,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -438,6 +524,8 @@ const bookings = [
     sitterId: 1,
     userId: 137,
     paymentId: 25,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -448,6 +536,8 @@ const bookings = [
     sitterId: 7,
     userId: 54,
     paymentId: 11,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -458,6 +548,8 @@ const bookings = [
     sitterId: 11,
     userId: 142,
     paymentId: 25,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -468,6 +560,8 @@ const bookings = [
     sitterId: 6,
     userId: 109,
     paymentId: 23,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -478,6 +572,8 @@ const bookings = [
     sitterId: 2,
     userId: 78,
     paymentId: 41,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -488,6 +584,8 @@ const bookings = [
     sitterId: 11,
     userId: 106,
     paymentId: 49,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -498,6 +596,8 @@ const bookings = [
     sitterId: 8,
     userId: 140,
     paymentId: 10,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -508,6 +608,8 @@ const bookings = [
     sitterId: 5,
     userId: 64,
     paymentId: 43,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -518,6 +620,8 @@ const bookings = [
     sitterId: 7,
     userId: 51,
     paymentId: 30,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -528,6 +632,8 @@ const bookings = [
     sitterId: 7,
     userId: 72,
     paymentId: 5,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -538,6 +644,8 @@ const bookings = [
     sitterId: 6,
     userId: 100,
     paymentId: 23,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -548,6 +656,8 @@ const bookings = [
     sitterId: 2,
     userId: 79,
     paymentId: 40,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -558,6 +668,8 @@ const bookings = [
     sitterId: 2,
     userId: 126,
     paymentId: 17,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -568,6 +680,8 @@ const bookings = [
     sitterId: 4,
     userId: 25,
     paymentId: 16,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -578,6 +692,8 @@ const bookings = [
     sitterId: 7,
     userId: 126,
     paymentId: 28,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -588,6 +704,8 @@ const bookings = [
     sitterId: 4,
     userId: 68,
     paymentId: 30,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -598,6 +716,8 @@ const bookings = [
     sitterId: 2,
     userId: 55,
     paymentId: 37,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -608,6 +728,8 @@ const bookings = [
     sitterId: 1,
     userId: 59,
     paymentId: 33,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -618,6 +740,8 @@ const bookings = [
     sitterId: 9,
     userId: 140,
     paymentId: 39,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -628,6 +752,8 @@ const bookings = [
     sitterId: 7,
     userId: 136,
     paymentId: 47,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -638,6 +764,8 @@ const bookings = [
     sitterId: 10,
     userId: 78,
     paymentId: 1,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -648,6 +776,8 @@ const bookings = [
     sitterId: 7,
     userId: 120,
     paymentId: 36,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -658,6 +788,8 @@ const bookings = [
     sitterId: 2,
     userId: 129,
     paymentId: 16,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -668,6 +800,8 @@ const bookings = [
     sitterId: 2,
     userId: 36,
     paymentId: 41,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -678,6 +812,8 @@ const bookings = [
     sitterId: 8,
     userId: 67,
     paymentId: 18,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -688,6 +824,8 @@ const bookings = [
     sitterId: 3,
     userId: 19,
     paymentId: 46,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -698,6 +836,8 @@ const bookings = [
     sitterId: 10,
     userId: 96,
     paymentId: 14,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -708,6 +848,8 @@ const bookings = [
     sitterId: 5,
     userId: 7,
     paymentId: 46,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -718,6 +860,8 @@ const bookings = [
     sitterId: 9,
     userId: 76,
     paymentId: 9,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -728,6 +872,8 @@ const bookings = [
     sitterId: 8,
     userId: 110,
     paymentId: 36,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -738,6 +884,8 @@ const bookings = [
     sitterId: 2,
     userId: 141,
     paymentId: 49,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -748,6 +896,8 @@ const bookings = [
     sitterId: 6,
     userId: 125,
     paymentId: 50,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -758,6 +908,8 @@ const bookings = [
     sitterId: 9,
     userId: 56,
     paymentId: 38,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -768,6 +920,8 @@ const bookings = [
     sitterId: 6,
     userId: 105,
     paymentId: 14,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -778,6 +932,8 @@ const bookings = [
     sitterId: 4,
     userId: 29,
     paymentId: 13,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -788,6 +944,8 @@ const bookings = [
     sitterId: 6,
     userId: 135,
     paymentId: 42,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -798,6 +956,8 @@ const bookings = [
     sitterId: 3,
     userId: 133,
     paymentId: 18,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -808,6 +968,8 @@ const bookings = [
     sitterId: 2,
     userId: 108,
     paymentId: 10,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -818,6 +980,8 @@ const bookings = [
     sitterId: 6,
     userId: 82,
     paymentId: 41,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -828,6 +992,8 @@ const bookings = [
     sitterId: 9,
     userId: 90,
     paymentId: 29,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -838,6 +1004,8 @@ const bookings = [
     sitterId: 5,
     userId: 91,
     paymentId: 38,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -848,6 +1016,8 @@ const bookings = [
     sitterId: 3,
     userId: 50,
     paymentId: 23,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -858,6 +1028,8 @@ const bookings = [
     sitterId: 4,
     userId: 24,
     paymentId: 9,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -868,6 +1040,8 @@ const bookings = [
     sitterId: 7,
     userId: 32,
     paymentId: 30,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -878,6 +1052,8 @@ const bookings = [
     sitterId: 3,
     userId: 136,
     paymentId: 19,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -888,6 +1064,8 @@ const bookings = [
     sitterId: 10,
     userId: 60,
     paymentId: 3,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -898,6 +1076,8 @@ const bookings = [
     sitterId: 1,
     userId: 77,
     paymentId: 46,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -908,6 +1088,8 @@ const bookings = [
     sitterId: 4,
     userId: 13,
     paymentId: 22,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -918,6 +1100,8 @@ const bookings = [
     sitterId: 1,
     userId: 52,
     paymentId: 5,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'pending',
@@ -928,6 +1112,8 @@ const bookings = [
     sitterId: 6,
     userId: 17,
     paymentId: 17,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -938,6 +1124,8 @@ const bookings = [
     sitterId: 11,
     userId: 107,
     paymentId: 42,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -948,6 +1136,8 @@ const bookings = [
     sitterId: 10,
     userId: 13,
     paymentId: 35,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -958,6 +1148,8 @@ const bookings = [
     sitterId: 8,
     userId: 97,
     paymentId: 18,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'approved',
@@ -968,6 +1160,8 @@ const bookings = [
     sitterId: 3,
     userId: 113,
     paymentId: 34,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'complete',
@@ -978,6 +1172,8 @@ const bookings = [
     sitterId: 5,
     userId: 50,
     paymentId: 5,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -988,6 +1184,8 @@ const bookings = [
     sitterId: 5,
     userId: 77,
     paymentId: 3,
+    totalDays: 10,
+    totalAmount: 10,
   },
   {
     status: 'cancelled',
@@ -998,6 +1196,8 @@ const bookings = [
     sitterId: 9,
     userId: 105,
     paymentId: 31,
+    totalDays: 10,
+    totalAmount: 10,
   },
 ].filter((booking) => booking.userId < 50);
 // bookings.length = 200
