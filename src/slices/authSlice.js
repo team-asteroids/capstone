@@ -73,7 +73,7 @@ export const getAccessData = createAsyncThunk('getAccessData', async (id) => {
       authorization: token,
     },
   });
-  console.log('getAccessData --> ', data);
+  // console.log('getAccessData --> ', data);
   return data;
 });
 
