@@ -13,7 +13,6 @@ const UserPetProfiles = (props) => {
   const id = user.id;
 
   const { allPets } = useSelector(selectPets);
-  console.log(allPets);
 
   useEffect(() => {
     if (id) {
