@@ -4,7 +4,7 @@ import { useNavigate, Routes, Route, useParams } from 'react-router-dom';
 // import { selectAuth } from '../../slices/authSlice';
 import defaultImg from '../../img/default-dog.jpg';
 import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
-import { SitterPrefSidebar, SitterProfile, UserSocialView } from '../index';
+import { SitterProfile, UserSocialView } from '../index';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
