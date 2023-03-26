@@ -31,7 +31,7 @@ const SitterProfile = () => {
       setRatings(sitterRatings);
       setAvgRating(total / sitterRatings.length);
     }
-  }, [singleSitter, avgRating, ratings]);
+  }, [singleSitter]);
 
   return (
     <div className="font-rubik flex flex-col gap-5 min-w-min">
