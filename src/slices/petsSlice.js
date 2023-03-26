@@ -45,6 +45,8 @@ const petsSlice = createSlice({
   },
 });
 
+export const { resetPetStatus } = petsSlice.actions;
+
 export const selectPets = (state) => state.pets;
 
 export default petsSlice.reducer;
