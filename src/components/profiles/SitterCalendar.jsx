@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { format, setMonth, getMonth, toDate } from 'date-fns';
+import { format, setMonth, getMonth } from 'date-fns';
+import { createNewBooking } from '../../slices/bookingsSlice';
 
 const SitterCalendar = (props) => {
   const dispatch = useDispatch();
-  const { rate } = props;
-  const { userAuth } = useSelector(selectAuth);
+  const { rate, sitterId } = props;
+  const { userAuth, token } = useSelector(selectAuth);
+  const id = userAuth.id;
 
   const today = new Date();
   const maxDay = setMonth(today, getMonth(today) + 6);
@@ -16,7 +18,7 @@ const SitterCalendar = (props) => {
   const [endDate, setEndDate] = useState('');
   const [totalDays, setTotalDays] = useState(0);
   const [bookingTotal, setBookingTotal] = useState(0);
-  const [bookingLocation, setBookingLocation] = useState('');
+  const [bookingLocation, setBookingLocation] = useState('owner');
   const [setter, setSetter] = useState(true);
 
   const [includesBlackoutDays, setIncludesBlackoutDays] = useState(false);
@@ -74,6 +76,21 @@ const SitterCalendar = (props) => {
 
   const submitBookingRequest = async (evt) => {
     evt.preventDefault();
+    // send id, token, formDetails (sitter id, userid, status, start, end, rate, location)
+    const bookingDetails = {
+      status: 'pending',
+      startDate: format(startDate, 'yyyy-MM-dd'),
+      endDate: format(endDate, 'yyyy-MM-dd'),
+      rate,
+      location: bookingLocation,
+      sitterId,
+      userId: id,
+    };
+
+    if (token && userAuth.id) {
+      console.log(bookingDetails);
+      dispatch(createNewBooking({ id, bookingDetails, token }));
+    }
   };
 
   return (
@@ -165,8 +182,8 @@ const SitterCalendar = (props) => {
                   className={validClass}
                   onChange={(evt) => setBookingLocation(evt.target.value)}
                 >
-                  <option>Owner Home</option>
-                  <option>Sitter Home</option>
+                  <option value="owner">Owner Home</option>
+                  <option value="sitter">Sitter Home</option>
                 </select>
               </div>
             </div>
