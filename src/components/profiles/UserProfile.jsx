@@ -44,7 +44,7 @@ const UserProfile = () => {
           <div id="userBio" className="min-w-max flex flex-col gap-5">
             <div className="flex flex-col gap-5 min-w-48">
               <img
-                className="h-48 w-48 rounded-full drop-shadow-md "
+                className="h-48 w-48 rounded-full drop-shadow-md"
                 src={defaultImg}
                 alt="alt"
               ></img>

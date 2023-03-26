@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSingleSitter, selectSitters } from '../../slices/sittersSlice';
-import { selectUser } from '../../slices/usersSlice';
+import { fetchSingleSitter, selectSitters } from '../../../slices/sittersSlice';
+import { selectUser } from '../../../slices/usersSlice';
 
 const SitterPrefSidebar = () => {
   const dispatch = useDispatch();

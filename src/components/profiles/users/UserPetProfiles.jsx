@@ -4,8 +4,8 @@ import {
   selectPets,
   fetchAllPets,
   resetPetStatus,
-} from '../../slices/petsSlice';
-import defaultImg from '../../img/default-dog.jpg';
+} from '../../../slices/petsSlice';
+import defaultImg from '../../../img/default-dog.jpg';
 
 const UserPetProfiles = (props) => {
   const dispatch = useDispatch();

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAuth } from '../../slices/authSlice';
+import { selectAuth } from '../../../slices/authSlice';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { format, setMonth, getMonth } from 'date-fns';
-import { createNewBooking } from '../../slices/bookingsSlice';
+import { createNewBooking } from '../../../slices/bookingsSlice';
 
 const SitterCalendar = (props) => {
   const dispatch = useDispatch();
