@@ -85,6 +85,8 @@ const SitterCalendar = (props) => {
       location: bookingLocation,
       sitterId,
       userId: id,
+      totalDays,
+      totalAmount: bookingTotal,
     };
 
     if (token && userAuth.id) {
