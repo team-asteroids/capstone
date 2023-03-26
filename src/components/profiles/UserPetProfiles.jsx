@@ -5,6 +5,7 @@ import {
   fetchAllPets,
   resetPetStatus,
 } from '../../slices/petsSlice';
+import defaultImg from '../../img/default-dog.jpg';
 
 const UserPetProfiles = (props) => {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ const UserPetProfiles = (props) => {
                   <img
                     className="h-24 w-24 object-cover rounded-full drop-shadow-md"
                     alt={'pet-pic'}
-                    src={pet.imageSrc}
+                    src={defaultImg}
                   />
                 </div>
                 <div>
