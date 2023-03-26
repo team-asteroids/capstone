@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Routes, Route, useParams } from 'react-router-dom';
 import { selectAuth } from '../../slices/authSlice';
-import { selectPets, fetchUserPets } from '../../slices/petsSlice';
-
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-// import OutlinedInput from '@mui/material/OutlinedInput';
-// import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import FormControl from '@mui/material/FormControl';
-// import ListItemText from '@mui/material/ListItemText';
-// import Select from '@mui/material/Select';
-// import Checkbox from '@mui/material/Checkbox';
 import { format, setMonth, getMonth, toDate } from 'date-fns';
 
 const SitterCalendar = (props) => {
   const dispatch = useDispatch();
   const { rate } = props;
   const { userAuth } = useSelector(selectAuth);
-  const { userPets } = useSelector(selectPets);
 
   const today = new Date();
   const maxDay = setMonth(today, getMonth(today) + 6);
@@ -28,7 +17,6 @@ const SitterCalendar = (props) => {
   const [totalDays, setTotalDays] = useState(0);
   const [bookingTotal, setBookingTotal] = useState(0);
   const [bookingLocation, setBookingLocation] = useState('');
-  const [bookingPets, setBookingPets] = useState([]);
   const [setter, setSetter] = useState(true);
 
   const [includesBlackoutDays, setIncludesBlackoutDays] = useState(false);
@@ -71,13 +59,6 @@ const SitterCalendar = (props) => {
       setBookingTotal(totalDays * rate);
     }
   }, [endDate, totalDays]);
-
-  useEffect(() => {
-    if (userAuth && userAuth.id) {
-      const id = userAuth.id;
-      dispatch(fetchUserPets(id));
-    }
-  }, [userAuth]);
 
   const validClass =
     'appearance-none block w-full bg-white-200 border rounded py-3 px-6 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-1 font-rubik';
@@ -174,24 +155,7 @@ const SitterCalendar = (props) => {
             </div>
 
             <div className="w-full flex flex-row mb-5 gap-5">
-              <div className="w-full flex flex-col md:w-1/2">
-                <label>Pets</label>
-
-                <select
-                  id="pets"
-                  name="pets"
-                  type="text"
-                  value={bookingPets}
-                  className={validClass}
-                  onChange={() => {
-                    console.log('pet');
-                  }}
-                >
-                  <option value="pet1">pet 1</option>
-                  <option value="pet2">pet 2</option>
-                </select>
-              </div>
-              <div className="w-full flex flex-col md:w-1/2">
+              <div className="w-full flex flex-col">
                 <label>Location</label>
                 <select
                   id="location"
