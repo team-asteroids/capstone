@@ -15,7 +15,7 @@ const UserSocialView = (props) => {
         <h2 className="font-rubikmono">USER PROFILE</h2>
       </div>
       <div className="font-rubik flex flex-row">
-        <div className="w-4/5 h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
+        <div className="min-w-4/5 h-[calc(100vh_-_20rem)] overflow-auto flex flex-col pr-10 gap-10">
           <div>
             <UserPetProfiles user={user} />
           </div>
