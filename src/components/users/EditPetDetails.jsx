@@ -29,6 +29,15 @@ const EditPetDetails = (props) => {
     navigate(-1);
   };
 
+  const labelClass = 'text-xs font-rubikmono';
+
+  const validClass =
+    'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+
+  const invalidClass =
+    'appearance-none block w-full border border-red-500 bg-white-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+  const breedList = ['a', 'b', 'c'];
+
   return (
     <div className="font-rubik flex flex-col gap-5">
       <button className="text-left text-xs font-semibold" onClick={goBack}>
@@ -38,130 +47,225 @@ const EditPetDetails = (props) => {
       <div className="flex flex-col gap-5 overflow-auto h-[calc(100vh_-_20rem)]">
         <section>
           <form>
-            <p>ABOUT</p>
+            <p className="font-rubikmono pb-2">ABOUT</p>
             <div className="w-full flex flex-col mb-3">
-              <label>Name</label>
-              <input type="text"></input>
+              <label className={labelClass}>Name</label>
+              <input type="text" className={validClass}></input>
             </div>
 
             <div className="flex flex-wrap mb-3">
               <div className="w-1/3 flex flex-col pr-6">
-                <label>Age</label>
-                <input type="text"></input>
+                <label className={labelClass}>Age</label>
+                <input
+                  type="number"
+                  min={0}
+                  max={30}
+                  step={1}
+                  className={validClass}
+                ></input>
               </div>
               <div className="w-1/3 flex flex-col pr-6">
-                <label>Breed</label>
-                <input type="text"></input>
+                <label className={labelClass}>Breed</label>
+                <select type="text" className={validClass}>
+                  {breedList.map((breed) => (
+                    <option key={breed} value={breed}>
+                      {breed}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="w-1/3 flex flex-col">
-                <label>Size</label>
-                <input type="text"></input>
+                <label className={labelClass}>Size</label>
+                <select id="bred" name="breed" className={validClass}>
+                  <option>small</option>
+                  <option>medium</option>
+                  <option>large</option>
+                  <option>extralarge</option>
+                </select>
               </div>
             </div>
 
             <div className="w-full flex flex-col mb-3">
-              <label>Bio</label>
-              <textarea rows={3} type="text"></textarea>
+              <label className={labelClass}>Bio</label>
+              <textarea rows={3} type="text" className={validClass}></textarea>
             </div>
 
             <div className="flex flex-wrap mb-3">
               <div className="w-1/4 flex flex-col pr-6">
-                <label>Microchipped</label>
-                <input type="text"></input>
+                <label className={labelClass}>Microchipped</label>
+                <select name="housetrained" className={validClass}>
+                  <option>true</option>
+                  <option>false</option>
+                </select>
               </div>
               <div className="w-1/4 flex flex-col pr-6">
-                <label>Housetrained</label>
-                <input type="text"></input>
+                <label className={labelClass}>Housetrained</label>
+                <select name="houstrained" className={validClass}>
+                  <option>true</option>
+                  <option>false</option>
+                </select>
               </div>
               <div className="w-1/4 flex flex-col pr-6">
-                <label>Cratetrained</label>
-                <input type="text"></input>
+                <label className={labelClass}>Cratetrained</label>
+                <select name="cratetrained" className={validClass}>
+                  <option>yes</option>
+                  <option>no</option>
+                  <option>n/a</option>
+                </select>
               </div>
               <div className="w-1/4 flex flex-col">
-                <label>Spayed / Neutered</label>
-                <input type="text"></input>
+                <label className={labelClass}>Spayed / Neutered</label>
+                <select name="fixed" className={validClass}>
+                  <option>true</option>
+                  <option>false</option>
+                </select>
               </div>
             </div>
-            <p>BEHAVIOR</p>
 
+            <p className="font-rubikmono pb-2">BEHAVIOR</p>
             <div className="flex flex-wrap mb-3">
               <div className="w-1/3 flex flex-col pr-6">
-                <label>Friendly with Dogs</label>
-                <input type="text"></input>
+                <label className={labelClass}>Friendly with Dogs</label>
+                <select name="otherDogs" className={validClass}>
+                  <option>yes</option>
+                  <option>no</option>
+                  <option>depends</option>
+                  <option>unsure</option>
+                </select>
               </div>
               <div className="w-1/3 flex flex-col pr-6">
-                <label>Friendly with Cats</label>
-                <input type="text"></input>
+                <label className={labelClass}>Friendly with Cats</label>
+                <select name="cats" className={validClass}>
+                  <option>yes</option>
+                  <option>no</option>
+                  <option>depends</option>
+                  <option>unsure</option>
+                </select>
               </div>
               <div className="w-1/3 flex flex-col">
-                <label>Friendly with Kids</label>
-                <input type="text"></input>
+                <label className={labelClass}>Friendly with Kids</label>
+                <select name="kids" className={validClass}>
+                  <option>yes</option>
+                  <option>no</option>
+                  <option>depends</option>
+                  <option>unsure</option>
+                </select>
               </div>
             </div>
             <div className="flex flex-wrap mb-3">
               <div className="w-1/2 flex flex-col pr-6">
-                <label>Engery Level</label>
-                <input type="text"></input>
+                <label className={labelClass}>Engery Level</label>
+                <select name="energy" className={validClass}>
+                  <option>low</option>
+                  <option>moderate</option>
+                  <option>high</option>
+                </select>
               </div>
               <div className="w-1/2 flex flex-col">
-                <label>Max Time Left Alone</label>
-                <input type="text"></input>
+                <label className={labelClass}>Max Time Left Alone</label>
+                <select name="alone" className={validClass}>
+                  <option>{'<1 hour'}</option>
+                  <option>1-4 hours</option>
+                  <option>custom</option>
+                </select>
               </div>
             </div>
             <div className="flex flex-wrap mb-3">
               <div className="w-1/2 flex flex-col mb-3 pr-6">
-                <label>Reactivity</label>
-                <textarea rows={2} type="text"></textarea>
+                <label className={labelClass}>Reactivity</label>
+                <textarea
+                  rows={2}
+                  type="text"
+                  className={validClass}
+                ></textarea>
               </div>
               <div className="w-1/2 flex flex-col mb-3">
-                <label>Left Alone Details</label>
-                <textarea rows={2} type="text"></textarea>
+                <label className={labelClass}>Left Alone Details</label>
+                <textarea
+                  rows={2}
+                  type="text"
+                  className={validClass}
+                ></textarea>
               </div>
             </div>
-            <p>FOOD / EXERCISE</p>
+            <p className="font-rubikmono pb-2">FOOD / EXERCISE</p>
             <div className="flex flex-wrap mb-3">
               <div className="w-1/3 flex flex-col pr-6">
-                <label>Feedings per Day</label>
-                <input type="text"></input>
+                <label className={labelClass}>Feedings per Day</label>
+                <select name="feeding" className={validClass}>
+                  <option>morning</option>
+                  <option>twice a day</option>
+                  <option>custom</option>
+                </select>
               </div>
               <div className="w-1/3 flex flex-col pr-6">
-                <label>Walks per Day</label>
-                <input type="text"></input>
+                <label className={labelClass}>Walks per Day</label>
+                <select name="walks" className={validClass}>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4+</option>
+                </select>
               </div>
               <div className="w-1/3 flex flex-col">
-                <label>Length of Walk</label>
-                <input type="text"></input>
+                <label className={labelClass}>Length of Walk</label>
+                <select name="walkLength" className={validClass}>
+                  <option>15</option>
+                  <option>30</option>
+                  <option>60</option>
+                </select>
               </div>
             </div>
             <div className="flex flex-wrap mb-3">
               <div className="w-1/2 flex flex-col mb-3 pr-6">
-                <label>Walk Details</label>
-                <textarea rows={2} type="text"></textarea>
+                <label className={labelClass}>Walk Details</label>
+                <textarea
+                  rows={2}
+                  type="text"
+                  className={validClass}
+                ></textarea>
               </div>
               <div className="w-1/2 flex flex-col mb-3">
-                <label>Food Details</label>
-                <textarea rows={2} type="text"></textarea>
+                <label className={labelClass}>Food Details</label>
+                <textarea
+                  rows={2}
+                  type="text"
+                  className={validClass}
+                ></textarea>
               </div>
             </div>
-            <p>MEDICATIONS & VET INFO</p>
+            <p className="font-rubikmono pb-2">MEDICATIONS & VET INFO</p>
             <div className="w-full flex flex-col mb-3">
-              <label>Type of Medications</label>
-              <input type="text"></input>
+              <label className={labelClass}>Type of Medications</label>
+              <select name="meds" className={validClass}>
+                <option>pill</option>
+                <option>topical</option>
+                <option>injection</option>
+                <option>n/a</option>
+              </select>
             </div>
             <div className="flex flex-wrap mb-3">
               <div className="w-1/2 flex flex-col mb-3 pr-6">
-                <label>Medication Details</label>
-                <textarea rows={2} type="text"></textarea>
+                <label className={labelClass}>Medication Details</label>
+                <textarea
+                  rows={2}
+                  type="text"
+                  className={validClass}
+                ></textarea>
               </div>
               <div className="w-1/2 flex flex-col mb-3">
-                <label>Vet Info</label>
-                <textarea rows={2} type="text"></textarea>
+                <label className={labelClass}>Vet Info</label>
+                <textarea
+                  rows={2}
+                  type="text"
+                  className={validClass}
+                ></textarea>
               </div>
             </div>
-            <p>ADDITIONAL INFO</p>
+            <p> className="font-rubikmono pb-2"ADDITIONAL INFO</p>
             <div className="w-full flex flex-col mb-3">
-              <label>Anything Else</label>
-              <textarea row={3} type="text"></textarea>
+              <label className={labelClass}>Anything Else</label>
+              <textarea row={3} type="text" className={validClass}></textarea>
             </div>
             <button>SAVE</button>
           </form>
