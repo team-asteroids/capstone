@@ -119,7 +119,7 @@ const BookingRequestConfirmation = () => {
     'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
   const invalidClass =
-    'appearance-none block border border-red-500 w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+    'appearance-none block border border-red-500 w-full bg-white-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
   const labelClass = 'text-xs font-rubikmono';
 
@@ -250,7 +250,7 @@ const BookingRequestConfirmation = () => {
     const status = 'withdrawn';
     const res = await dispatch(updateBooking({ id, status, token, bookingId }));
     if (res.type === 'updateBooking/fulfilled') {
-      navigate('/account');
+      navigate('/account/bookings');
     }
   };
 
