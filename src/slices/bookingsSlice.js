@@ -62,7 +62,6 @@ export const addPetsToBooking = createAsyncThunk(
   'addPets',
   async ({ id, token, bookingId, petIds }, { rejectWithValue }) => {
     try {
-      console.log(petIds);
       const { data } = await axios.post(
         `/api/users/${id}/bookings/${bookingId}/pets`,
         { pets: petIds },

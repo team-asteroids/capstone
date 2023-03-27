@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import {
   attemptTokenLogin,
@@ -18,11 +18,11 @@ import { fetchAllPets, selectPets } from '../../slices/petsSlice';
 const BookingRequestConfirmation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { bookingId } = useParams();
 
   const { userAuth, token, accessData } = useSelector(selectAuth);
   const { newBooking } = useSelector(selectBookings);
   const { allPets } = useSelector(selectPets);
-  // console.log(accessData);
 
   const [petIds, setPetIds] = useState([]);
 
@@ -50,7 +50,7 @@ const BookingRequestConfirmation = () => {
   });
 
   const id = userAuth.id;
-  const bookingId = newBooking.id;
+  // const bookingId = newBooking.id;
 
   const states = [
     'Alabama',
@@ -170,7 +170,6 @@ const BookingRequestConfirmation = () => {
   const checkFormValidation = () => {
     if (petIds.length < 1) {
       setIsInvalidPetIds(true);
-      console.log('invalidpetids');
     }
 
     if (formData.phone === '') {
@@ -242,7 +241,7 @@ const BookingRequestConfirmation = () => {
         res.type === 'updateAccessData/fulfilled' &&
         res2.type === 'addPets/fulfilled'
       ) {
-        navigate('/confirmation/success');
+        navigate(`/bookings/${bookingId}/success`);
       }
     }
   };
@@ -259,7 +258,7 @@ const BookingRequestConfirmation = () => {
     <div className="bg-[url('img/bulldog-bg.jpg')] h-[calc(100vh_-_5rem)] bg-center w-screen bg-no-repeat bg-cover">
       <div className="flex flex-row ml-20">
         <div className="w-1/2"></div>
-        <div className="w-1/2 flex flex-col px-10 justify-center">
+        <div className="w-1/2 flex flex-col px-10 mt-24 h-[calc(100vh_-_12rem)] overflow-auto">
           <div className="text-center mb-5">
             <h2 className="font-rubikmono text-2xl">One more step!</h2>
             <p className="">

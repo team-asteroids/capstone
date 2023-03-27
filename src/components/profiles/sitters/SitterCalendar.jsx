@@ -104,7 +104,8 @@ const SitterCalendar = (props) => {
 
   useEffect(() => {
     if (newBooking && status === 'success') {
-      navigate('/confirmation');
+      const bookingId = newBooking.id;
+      navigate(`/bookings/${bookingId}/confirmation`);
     }
     return () => {
       dispatch(resetBookingStatus());

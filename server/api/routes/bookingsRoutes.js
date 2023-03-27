@@ -111,8 +111,6 @@ router.post('/:bookingId/pets', requireToken, async (req, res, next) => {
     const bookingId = +req.params.bookingId;
     const { pets } = req.body;
 
-    console.log('backend:', pets);
-
     const booking = await Booking.findByPk(bookingId, {
       include: [Pet],
     });

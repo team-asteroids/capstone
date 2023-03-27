@@ -54,10 +54,13 @@ const App = () => {
           <Route path="/profile/:id/*" element={<UserProfile />} />
           <Route path="/sitters" element={<DiscoverSitters />} />
           <Route
-            path="/confirmation"
+            path="/bookings/:bookingId/confirmation"
             element={<BookingRequestConfirmation />}
           />
-          <Route path="/confirmation/success" element={<BookingSuccess />} />
+          <Route
+            path="/bookings/:bookingId/success"
+            element={<BookingSuccess />}
+          />
         </Routes>
         <Footer />
       </div>
