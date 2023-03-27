@@ -18,6 +18,7 @@ import {
   Footer,
   UserProfile,
   DiscoverSitters,
+  About,
   BookingRequestConfirmation,
   BookingSuccess,
   Chat,
@@ -52,6 +53,7 @@ const App = () => {
           <Route path="/chat" element={<Chat />} />
           <Route path="/profile/:id/*" element={<UserProfile />} />
           <Route path="/sitters" element={<DiscoverSitters />} />
+          <Route path="/about" element={<About />} />
           <Route
             path="/bookings/:bookingId/confirmation"
             element={<BookingRequestConfirmation />}
