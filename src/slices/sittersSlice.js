@@ -37,6 +37,22 @@ export const fetchSingleSitterReviews = createAsyncThunk(
   }
 );
 
+export const fetchSitterNames = createAsyncThunk(
+  'fetch/searchSitters',
+  async (name, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/api/sitters/name', {
+        params: {
+          name: name,
+        },
+      });
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const fetchSingleSitterRatings = createAsyncThunk(
   'sitterRatings',
   async (id, { rejectWithValue }) => {
@@ -112,6 +128,19 @@ export const sittersSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchSingleSitterRatings.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(fetchSitterNames.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.sitters = payload;
+      })
+      .addCase(fetchSitterNames.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchSitterNames.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
