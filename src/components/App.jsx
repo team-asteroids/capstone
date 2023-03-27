@@ -18,6 +18,8 @@ import {
   Footer,
   UserProfile,
   DiscoverSitters,
+  BookingRequestConfirmation,
+  BookingSuccess,
 } from './index';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -51,6 +53,14 @@ const App = () => {
           {/* <Route path="/chat" element={<Chat />} /> */}
           <Route path="/profile/:id/*" element={<UserProfile />} />
           <Route path="/sitters" element={<DiscoverSitters />} />
+          <Route
+            path="/bookings/:bookingId/confirmation"
+            element={<BookingRequestConfirmation />}
+          />
+          <Route
+            path="/bookings/:bookingId/success"
+            element={<BookingSuccess />}
+          />
         </Routes>
         <Footer />
       </div>
