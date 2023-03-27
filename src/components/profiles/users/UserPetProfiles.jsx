@@ -36,8 +36,8 @@ const UserPetProfiles = (props) => {
         {allPets && allPets.length
           ? allPets.map((pet) => (
               <div className="flex flex-col gap-5" key={pet.id}>
-                <div className="flex flex-row gap-5">
-                  <div className="">
+                <div className="flex flex-row flex-wrap gap-5">
+                  <div className="min-w-max">
                     <Link
                       to={
                         params['*'] === 'pets'
@@ -67,7 +67,7 @@ const UserPetProfiles = (props) => {
                 </div>
                 {params['*'] === 'pets' ? (
                   <Link
-                    to={`${location.pathname}/${pet.id}`}
+                    to={`${location.pathname}/${pet.id}/edit`}
                     className="text-left text-sm font-semibold"
                   >
                     EDIT

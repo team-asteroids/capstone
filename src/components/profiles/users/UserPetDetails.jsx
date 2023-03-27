@@ -39,7 +39,7 @@ const UserPetDetails = (props) => {
       {singlePet.pet_detail ? (
         <div className="flex flex-col gap-5 overflow-auto h-[calc(100vh_-_20rem)]">
           <div>
-            <h2>About Me:</h2>
+            <h2 className="font-semibold">ABOUT ME:</h2>
             <p>{singlePet.pet_detail.about}</p>
             <p>{singlePet.breed}</p>
             <p>{singlePet.age}</p>
@@ -51,34 +51,34 @@ const UserPetDetails = (props) => {
             <p>{singlePet.pet_detail.reactivity}</p>
           </div>
           <div>
-            <h2>Temperment:</h2>
+            <h2 className="font-semibold">TEMPERMENT:</h2>
             <p>{singlePet.pet_detail.friendlyWithDogs}</p>
             <p>{singlePet.pet_detail.friendlyWithCats}</p>
             <p>{singlePet.pet_detail.friendlyWithChildren}</p>
           </div>
           <div>
-            <h2>Food:</h2>
+            <h2 className="font-semibold">FOOD:</h2>
             <p>{singlePet.pet_detail.feedingSchedule}</p>
             <p>{singlePet.pet_detail.foodDetails}</p>
           </div>
           <div>
-            <h2>Exercise:</h2>
+            <h2 className="font-semibold">EXERCISE:</h2>
             <p>{singlePet.pet_detail.energyLevels}</p>
             <p>{singlePet.pet_detail.walkSchedule}</p>
             <p>{singlePet.pet_detail.walkDuration}</p>
             <p>{singlePet.pet_detail.walkDetails}</p>
           </div>
           <div>
-            <h2>Medication Details:</h2>
+            <h2 className="font-semibold">MEDICATIONS:</h2>
             <p>{singlePet.pet_detail.medications}</p>
             <p>{singlePet.pet_detail.medicationDetails}</p>
           </div>
           <div>
-            <h2>Vet Info:</h2>
+            <h2 className="font-semibold">VET INFO:</h2>
             <p>{singlePet.pet_detail.vetInfo}</p>
           </div>
           <div>
-            <h2>Additional Notes:</h2>
+            <h2 className="font-semibold">ADDITIONAL NOTES:</h2>
             <p>{singlePet.pet_detail.additionalDetails}</p>
           </div>
         </div>
