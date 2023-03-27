@@ -25,11 +25,18 @@ router.get('/', async (req, res, next) => {
 });
 
 // Get single pet basics
-router.get('/:id', async (req, res, next) => {
+router.get('/:petId', async (req, res, next) => {
   try {
-    const singlePet = await Pet.findByPk(req.params.id, {
-      include: { model: User, attributes: { exclude: ['password'] } },
+    const singlePet = await Pet.findByPk(req.params.petId, {
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ['password'] },
+        },
+        Pet_Detail,
+      ],
     });
+    console.log(singlePet);
     res.status(200).json(singlePet);
   } catch (err) {
     console.log('Backend issue fetching single pet basics');
