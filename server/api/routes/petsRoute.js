@@ -36,7 +36,7 @@ router.get('/:petId', async (req, res, next) => {
         Pet_Detail,
       ],
     });
-    console.log(singlePet);
+
     res.status(200).json(singlePet);
   } catch (err) {
     console.log('Backend issue fetching single pet basics');

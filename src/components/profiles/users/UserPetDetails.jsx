@@ -31,10 +31,10 @@ const UserPetDetails = (props) => {
 
   return (
     <div className="font-rubik flex flex-col gap-5">
-      <h2 className="font-rubikmono">{singlePet.name}</h2>
       <button className="text-left text-xs font-semibold" onClick={goBack}>
         BACK
       </button>
+      <h2 className="font-rubikmono">{singlePet.name}</h2>
 
       {singlePet.pet_detail ? (
         <div className="flex flex-col gap-5 overflow-auto h-[calc(100vh_-_20rem)]">
