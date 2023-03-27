@@ -23,6 +23,7 @@ import {
   BookingRequestConfirmation,
   BookingSuccess,
   Chat,
+  AllHowls,
 } from './index';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -65,6 +66,7 @@ const App = () => {
             element={<BookingSuccess />}
           />
         </Routes>
+        <Route path="/howls" element={<AllHowls />} />
         <Footer />
       </div>
     </LocalizationProvider>
