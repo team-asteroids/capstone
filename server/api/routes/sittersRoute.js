@@ -82,7 +82,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// get single sitter and clients and sitter prefs
+// returns single sitter, clients and sitter prefs
 router.get('/:id', async (req, res, next) => {
   try {
     // Fetch sitter
@@ -113,10 +113,31 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // create sitter (userId must already exist)
-router.post('/', async (req, res, next) => {
+router.post('/', requireToken, async (req, res, next) => {
+  const id = req.body.userId || req.user.id;
+
+  if (req.user.id !== id && req.user.role !== 'admin') {
+    return res.status(403).send('inadequate access rights');
+  }
+
   try {
-    const sitter = await Sitter.create(req.body);
-    res.json(sitter);
+    const { rate, calendar, bio, userId } = req.body;
+    const [newSitter, wasCreated] = await Sitter.findOrCreate({
+      where: {
+        userId,
+      },
+      defaults: {
+        rate,
+        calendar,
+        bio,
+        userId,
+      },
+    });
+
+    if (!wasCreated) {
+      return res.status(400).send('Sitter already exists!');
+    }
+    res.status(201).send(newSitter);
   } catch (e) {
     console.error('BACKEND ISSUE CREATING SITTER');
     next(e);
@@ -576,5 +597,126 @@ router.put('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
     next(err);
   }
 });
+
+// create sitter_prefs for an existing sitter (private)
+router.post('/:id/prefs', requireToken, async (req, res, next) => {
+  // if user is trying to change someone else's info and they are NOT an admin, fail w/403
+  const id = +req.params.id;
+
+  const sitterObject = await Sitter.findByPk(id);
+
+  if (!sitterObject) {
+    return res.status(404).send('sitter doesnt exist!');
+  }
+
+  const userId = sitterObject.userId;
+
+  try {
+    if (userId === req.user.id || req.user.role === 'admin') {
+      const sitter = await Sitter.findByPk(req.params.id, {
+        attributes: {
+          exclude: ['password'],
+        },
+      });
+      if (!sitter) return res.status(404).send('No sitter exists!');
+
+      const {
+        hostAtHome,
+        atOwnerHouse,
+        reactive,
+        puppies,
+        small,
+        medium,
+        large,
+        extraLarge,
+        multiplePets,
+        cats,
+        disabled,
+        medication,
+        sitterId,
+      } = req.body;
+
+      const [newPrefs, wasCreated] = await Sitter_Pref.findOrCreate({
+        where: {
+          sitterId: sitter.id,
+        },
+        defaults: {
+          hostAtHome,
+          atOwnerHouse,
+          reactive,
+          puppies,
+          small,
+          medium,
+          large,
+          extraLarge,
+          multiplePets,
+          cats,
+          disabled,
+          medication,
+          sitterId,
+        },
+      });
+
+      if (!wasCreated) {
+        return res.status(403).send('sitter prefs already exist!');
+      }
+
+      res.status(201).send(newPrefs);
+    } else {
+      return res
+        .status(403)
+        .send(
+          'inadequate access rights / requested user does not match logged in user'
+        );
+    }
+  } catch (err) {
+    console.log('BACKED ISSUE CREATING SITTER PREFS');
+    next(err);
+  }
+});
+
+// // edit sitter_prefs for an existing sitter (private)
+// router.put('/:id/prefs', requireToken, async (req, res, next) => {
+//   // if user is trying to change someone else's info and they are NOT an admin, fail w/403
+//   const id = +req.params.id;
+
+//   const sitterObject = await Sitter.findByPk(id);
+
+//   if (!sitterObject) {
+//     return res.status(404).send('sitter doesnt exist!');
+//   }
+
+//   const userId = sitterObject.userId;
+
+//   try {
+//     if (userId === req.user.id || req.user.role === 'admin') {
+//       const sitter = await Sitter.findByPk(req.params.id, {
+//         attributes: {
+//           exclude: ['password'],
+//         },
+//       });
+//       if (!sitter) return res.status(404).send('No sitter exists!');
+
+//       const sitterPrefs = await Sitter_Pref.update({
+//         where: {
+//           sitterId: id,
+//         },
+//       });
+
+//       const updatedSitterPrefs = await sitterPrefs.update(req.body);
+
+//       res.status(200).send(updatedSitterPrefs);
+//     } else {
+//       return res
+//         .status(403)
+//         .send(
+//           'inadequate access rights / requested user does not match logged in user'
+//         );
+//     }
+//   } catch (err) {
+//     console.log('BACKED ISSUE UPDATING SITTER PREFERENCES');
+//     next(err);
+//   }
+// });
 
 module.exports = router;
