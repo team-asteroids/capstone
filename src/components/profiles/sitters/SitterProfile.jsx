@@ -5,12 +5,12 @@ import {
   fetchSingleSitterRatings,
   fetchSingleSitterReviews,
   selectSitters,
-} from '../../slices/sittersSlice';
+} from '../../../slices/sittersSlice';
 import {
   SitterCalendar,
   SitterPrefSidebar,
   SitterRatingsReviews,
-} from '../index';
+} from '../../index';
 
 const SitterProfile = () => {
   const dispatch = useDispatch();

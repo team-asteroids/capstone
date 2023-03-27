@@ -44,7 +44,7 @@ const UserProfile = () => {
           <div id="userBio" className="min-w-max flex flex-col gap-5">
             <div className="flex flex-col gap-5 min-w-48">
               <img
-                className="h-48 w-48 rounded-full drop-shadow-md "
+                className="h-48 w-48 rounded-full drop-shadow-md"
                 src={defaultImg}
                 alt="alt"
               ></img>
@@ -86,7 +86,6 @@ const UserProfile = () => {
             <p className="font-rubikmono mb-2">Can Foster</p>
             <p>{singleUser.canFoster ? 'yes!' : 'not right now'}</p>
           </div>
-          {/* {sitterToggle ? <SitterPrefSidebar /> : <div>TEST</div>} */}
           <div className="w-1/4">
             <button className="bg-bold-purple font-bold ease-in duration-300 hover:bg-pale-purple px-5 py-2.5 text-white rounded-lg">
               MESSAGE
@@ -95,7 +94,7 @@ const UserProfile = () => {
         </div>
         <div className="w-4/5 font-rubikmono overflow-auto gap-5">
           <Routes>
-            <Route path="/" element={<UserSocialView />} />
+            <Route path="/" element={<UserSocialView user={singleUser} />} />
             <Route path="/sitter/*" element={<SitterProfile />} />
           </Routes>
         </div>
