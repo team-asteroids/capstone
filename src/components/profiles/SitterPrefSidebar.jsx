@@ -35,35 +35,35 @@ const SitterPrefSidebar = () => {
       </div>
       <div className="flex flex-col gap-3">
         <div>
-          <p>Location:</p>
+          <p className="font-semibold text-sm">LOCATION:</p>
           <ul>
-            {sitterPrefs.hostAtHome ? <li>sitter home</li> : null}
-            {sitterPrefs.atOwnerHouse ? <li>owner home</li> : null}
+            {sitterPrefs.hostAtHome ? <li>- sitter home</li> : null}
+            {sitterPrefs.atOwnerHouse ? <li>- owner home</li> : null}
           </ul>
         </div>
         <div>
-          <p>Size:</p>
+          <p className="font-semibold text-sm">SIZE:</p>
           <ul>
-            {sitterPrefs.small ? <li>small</li> : null}
-            {sitterPrefs.medium ? <li>medium</li> : null}
-            {sitterPrefs.large ? <li>large</li> : null}
-            {sitterPrefs.extraLarge ? <li>extra large</li> : null}
-            {sitterPrefs.puppies ? <li>puppies</li> : null}
+            {sitterPrefs.small ? <li>- small</li> : null}
+            {sitterPrefs.medium ? <li>- medium</li> : null}
+            {sitterPrefs.large ? <li>- large</li> : null}
+            {sitterPrefs.extraLarge ? <li>- extra large</li> : null}
+            {sitterPrefs.puppies ? <li>- puppies</li> : null}
           </ul>
         </div>
         <div>
-          <p>Other Pets:</p>
+          <p className="font-semibold text-sm">OTHER PETS:</p>
           <ul>
-            {sitterPrefs.cats ? <li>cats</li> : null}
-            {sitterPrefs.multiplePets ? <li>multiple pets</li> : null}
+            {sitterPrefs.cats ? <li>- cats</li> : null}
+            {sitterPrefs.multiplePets ? <li>- multiple pets</li> : null}
           </ul>
         </div>
         <div>
-          <p>Special Needs:</p>
+          <p className="font-semibold text-sm">SPECIAL NEEDS:</p>
           <ul>
-            {sitterPrefs.disabled ? <li>disabled</li> : null}
-            {sitterPrefs.medication ? <li>medication</li> : null}
-            {sitterPrefs.reactive ? <li>reactive</li> : null}
+            {sitterPrefs.disabled ? <li>- disabled</li> : null}
+            {sitterPrefs.medication ? <li>- medication</li> : null}
+            {sitterPrefs.reactive ? <li>- reactive</li> : null}
           </ul>
         </div>
       </div>
