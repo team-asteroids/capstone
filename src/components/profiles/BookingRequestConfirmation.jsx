@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import {
   attemptTokenLogin,
@@ -10,7 +10,7 @@ import {
 } from '../../slices/authSlice';
 import {
   addPetsToBooking,
-  selectBookings,
+  // selectBookings,
   updateBooking,
 } from '../../slices/bookingsSlice';
 import { fetchAllPets, selectPets } from '../../slices/petsSlice';
@@ -21,7 +21,7 @@ const BookingRequestConfirmation = () => {
   const { bookingId } = useParams();
 
   const { userAuth, token, accessData } = useSelector(selectAuth);
-  const { newBooking } = useSelector(selectBookings);
+  // const { newBooking, status } = useSelector(selectBookings);
   const { allPets } = useSelector(selectPets);
 
   const [petIds, setPetIds] = useState([]);
@@ -123,6 +123,12 @@ const BookingRequestConfirmation = () => {
 
   const labelClass = 'text-xs font-rubikmono';
 
+  const buttonClass =
+    'ease-in duration-300 font-rubikmono hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3';
+
+  const disabledButtonClass =
+    'font-rubikmono bg-bold-blue disabled:opacity-25 w-full text-white py-3 rounded-xl mx-auto block text-xl mt-3';
+
   useEffect(() => {
     if (id) {
       dispatch(fetchAllPets(id));
@@ -148,9 +154,10 @@ const BookingRequestConfirmation = () => {
   }, [id, accessData.id]);
 
   const togglePet = (evt) => {
-    if (petIds.includes(evt.target.value)) {
-      const idx = petIds.indexOf(evt.target.value);
+    if (petIds.includes(+evt.target.value)) {
+      const idx = petIds.indexOf(+evt.target.value);
       setPetIds([...petIds.slice(0, idx), ...petIds.slice(idx + 1)]);
+      if (setPetIds.length < 1) setIsInvalidPetIds(true);
     } else {
       setPetIds([...petIds, +evt.target.value]);
       setIsInvalidPetIds(false);
@@ -232,7 +239,7 @@ const BookingRequestConfirmation = () => {
   const confirmBooking = async (evt) => {
     evt.preventDefault();
     await checkFormValidation();
-    if (!isInvalid && petIds.length > 0) {
+    if (!isInvalid && !isInvalidPetIds) {
       const res = await dispatch(updateAccessData({ id, token, formData }));
       const res2 = await dispatch(
         addPetsToBooking({ id, token, bookingId, petIds })
@@ -242,6 +249,9 @@ const BookingRequestConfirmation = () => {
         res2.type === 'addPets/fulfilled'
       ) {
         navigate(`/bookings/${bookingId}/success`);
+      } else {
+        setPetIds([]);
+        setIsInvalidPetIds(true);
       }
     }
   };
@@ -483,7 +493,12 @@ const BookingRequestConfirmation = () => {
                   <div className="flex flex-wrap px-3 mx-3 mb-6">
                     <button
                       type="submit"
-                      className="ease-in duration-300 font-rubikmono hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
+                      className={
+                        isInvalid || petIds.length < 1
+                          ? disabledButtonClass
+                          : buttonClass
+                      }
+                      disabled={isInvalid || petIds.length < 1 ? true : false}
                     >
                       confirm
                     </button>
