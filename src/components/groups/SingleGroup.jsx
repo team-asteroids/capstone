@@ -8,11 +8,6 @@ import {
   addGroupMember,
   deleteGroupMember,
 } from '../../slices/groupsSlice';
-// import {
-//   fetchGroupPosts,
-//   addGroupMember,
-//   deleteGroupMember,
-// } from '../../slices/groupDetailsSlice';
 import GroupNav from './GroupNav';
 import PostsView from './PostsView';
 import MemberView from './MemberView';
@@ -22,52 +17,35 @@ import { selectAuth } from '../../slices/authSlice';
 const SingleGroup = () => {
   const dispatch = useDispatch();
   const { groupId } = useParams();
-  console.log('groupId --> ', groupId);
+  // console.log('groupId --> ', groupId);
 
   const { userAuth, token } = useSelector(selectAuth);
   const memberId = userAuth.id;
 
-  // console.log('userAuth in single group -->', userAuth);
-
   const group = useSelector((state) => state.groups.singleGroup);
+  const superSingle = useSelector(
+    (state) => state.groups.singleGroup.singleGroup
+  );
   const singleGroup = group.singleGroup;
   const members = group.members;
 
-  console.log('group --> ', group);
-  console.log('singleGroup --> ', singleGroup);
-
-  // const [loading, setLoading] = useState(true);
-  // const [isCreator, setCreator] = useState(false);
-  // const [isAdmin, setAdmin] = useState(false);
-
-  // useEffect(() => {
-  //   const setUserStatus = async () => {
-  //     if (userAuth.role === 'admin') {
-  //       setAdmin(true);
-  //     }
-  //     if (singleGroup) {
-  //       if (userAuth.id === singleGroup.creatorId) {
-  //         setCreator(true);
-  //       }
-  //     }
-  //   };
-  //   setUserStatus();
-  // }, [userAuth]);
+  // console.log('superSingle -->', superSingle);
 
   useEffect(() => {
     const fetchData = async () => {
-      // setLoading(true);
       await dispatch(fetchSingleGroup(groupId));
-      // setLoading(false);
     };
+    // console.log('singleGroup state BEFORE fetch->', singleGroup);
+
     fetchData();
-    // window.location.reload(false);
-  }, [dispatch, groupId]);
+    // console.log('singleGroup state AFTER fetch-->', singleGroup);
+    // console.log('group -->', group);
+  }, []);
 
   const joinGroup = async (e) => {
     e.preventDefault();
     if (token) {
-      await dispatch(addGroupMember({ groupId }));
+      await dispatch(addGroupMember(groupId));
     } else {
       console.log('no token in component');
     }
@@ -80,7 +58,7 @@ const SingleGroup = () => {
 
   const deleteGroup = async (e) => {
     e.preventDefault();
-    await dispatch(deleteSingleGroup({ groupId }));
+    await dispatch(deleteSingleGroup(groupId));
   };
 
   return (

@@ -7,6 +7,7 @@ import {
   createAccessData,
   selectAuth,
 } from '../../slices/authSlice';
+import axios from 'axios';
 
 function SignUp() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ function SignUp() {
   });
 
   // state for validations to confirm sign up success
-  const [isInvalid, setIsInvalid] = useState(true);
+  const [isInvalid, setIsInvalid] = useState(false);
   const [isInvalidFirstName, setIsInvalidFirstName] = useState(false);
   const [isInvalidLastName, setIsInvalidLastName] = useState(false);
   const [isInvalidEmail, setIsInvalidEmail] = useState(false);
@@ -57,41 +58,41 @@ function SignUp() {
   const checkFormValidation = () => {
     if (formData.firstName === '') {
       setIsInvalidFirstName(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (formData.lastName === '') {
       setIsInvalidLastName(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (formData.email === '') {
       setIsInvalidEmail(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (formData.userName === '') {
       setIsInvalidUserName(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (!validateEmail(formData.email)) {
       setIsInvalidEmail(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (formData.password === '' || formData.password.length < 8) {
       setIsInvalidPassword(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
     if (formData.zip === '') {
       setIsInvalidZip(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (!validateZip(formData.zip)) {
       setIsInvalidZip(true);
-      // setIsInvalid(true);
+      setIsInvalid(true);
     }
 
     if (
@@ -112,6 +113,21 @@ function SignUp() {
     // if all the form elements are valid (aka false)
     if (!isInvalid && validateZip(formData.zip)) {
       const res = await dispatch(signUp(formData));
+      await axios.post(
+        'https://api.chatengine.io/users/',
+        {
+          username: formData.userName,
+          secret: 'secret',
+          email: formData.email,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+        },
+        {
+          headers: {
+            'PRIVATE-KEY': process.env.REACT_APP_CHAT_ENGINE_PRIVATE_KEY,
+          },
+        }
+      );
       if (res.type === 'signup/rejected') setSignUpFail(true);
     }
   };

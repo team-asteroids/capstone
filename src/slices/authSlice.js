@@ -50,7 +50,7 @@ export const createAccessData = createAsyncThunk(
   async ({ id, zip, token }, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        `api/users/${id}/access`,
+        `/api/users/${id}/access`,
         { zip: zip },
         {
           headers: {
@@ -58,7 +58,58 @@ export const createAccessData = createAsyncThunk(
           },
         }
       );
-      console.log(data);
+      // console.log('createAccessData --> ', data);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const getAccessData = createAsyncThunk('getAccessData', async (id) => {
+  const token = window.localStorage.getItem('token');
+  const { data } = await axios.get(`/api/users/${id}/access/${id}`, {
+    headers: {
+      authorization: token,
+    },
+  });
+  // console.log('getAccessData --> ', data);
+  return data;
+});
+
+export const editSingleUser = createAsyncThunk(
+  'editSingleUser',
+  async ({ id, formData }, { rejectWithValue }) => {
+    try {
+      const token = window.localStorage.getItem('token');
+      if (!token) return {};
+      const { data } = await axios.put(`/api/users/${id}`, formData, {
+        headers: {
+          authorization: token,
+        },
+      });
+      // console.log('data--> ', data);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const updateAccessData = createAsyncThunk(
+  'updateAccessData',
+  async ({ id, token, formData }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.put(
+        `/api/users/${id}/access/${id}`,
+        formData,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -140,6 +191,45 @@ const authSlice = createSlice({
         state.error = '';
       })
       .addCase(createAccessData.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(getAccessData.fulfilled, (state, { payload }) => {
+        state.status = 'success';
+        state.accessData = payload;
+        state.error = '';
+      })
+      .addCase(getAccessData.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(getAccessData.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(editSingleUser.fulfilled, (state, { payload }) => {
+        state.userAuth = payload || {};
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(editSingleUser.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(editSingleUser.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(updateAccessData.fulfilled, (state, { payload }) => {
+        state.accessData = payload || {};
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(updateAccessData.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(updateAccessData.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });

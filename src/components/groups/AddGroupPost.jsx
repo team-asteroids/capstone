@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
-import { addGroupPost } from '../../slices/groupDetailsSlice';
+import { addGroupPost } from '../../slices/groupsSlice';
 
 const AddGroupPost = (props) => {
   const { groupId } = props;

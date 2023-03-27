@@ -24,7 +24,7 @@ const {
   Post_Comment_Like,
 } = require('./models/posts');
 const Access = require('./models/access');
-const Payment = require('./models/payments');
+// const Payment = require('./models/payments');
 const { FavSitter, FavGroup } = require('./models/favs');
 const Chat = require('./models/chats');
 
@@ -40,8 +40,8 @@ Booking.belongsTo(Sitter);
 User.hasMany(Booking);
 Booking.belongsTo(User);
 
-Payment.hasMany(Booking);
-Booking.belongsTo(Payment);
+// Payment.hasMany(Booking);
+// Booking.belongsTo(Payment);
 
 Pet.belongsToMany(Booking, { through: 'booking_pets' });
 Booking.belongsToMany(Pet, { through: 'booking_pets' });
@@ -73,7 +73,7 @@ Group_Post.belongsTo(User);
 User.hasMany(Group_Post);
 
 // -- put groupId on Group_Post table
-Group_Post.belongsTo(Group, { onDelete: 'cascade', hooks: true });
+Group_Post.belongsTo(Group, { onDelete: 'cascade' });
 Group.hasMany(Group_Post);
 
 // -- group_members
@@ -177,8 +177,8 @@ User.hasOne(Access);
 Map.belongsTo(User);
 User.hasMany(Map);
 
-User.hasMany(Payment);
-Payment.belongsTo(User);
+// User.hasMany(Payment);
+// Payment.belongsTo(User);
 
 // User.belongsToMany(Sitter, { through: 'fav_sitters' });
 // Sitter.belongsToMany(User, { through: 'fav_sitters' });
@@ -205,7 +205,7 @@ module.exports = {
   Post,
   Post_Comment,
   Access,
-  Payment,
+  // Payment,
   FavSitter,
   FavGroup,
   Post_Comment_Like,

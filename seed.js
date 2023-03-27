@@ -12,7 +12,7 @@ const {
   Pet_Detail,
   Booking,
   Event,
-  Payment,
+  // Payment,
   Group,
   Group_Post,
   Group_Member,
@@ -36,7 +36,7 @@ const sitterClientList = require('./mock-data/sitterClient');
 const sitterPrefsList = require('./mock-data/sitterPrefs');
 const pets = require('./mock-data/petSeed');
 const pet_details = require('./mock-data/pet_detailsSeed');
-const payments = require('./mock-data/paymentSeed');
+// const payments = require('./mock-data/paymentSeed');
 const { bookings } = require('./mock-data/bookingSeed');
 const groups = require('./mock-data/groupSeed');
 const groupMembers = require('./mock-data/groupMemSeed');
@@ -118,11 +118,11 @@ const init = async () => {
     });
     console.log('Pet_details seeding successful!');
 
-    console.log('seeding payments...');
-    const seedPayments = await Payment.bulkCreate(payments, {
-      validate: true,
-    });
-    console.log('Payment seeding successful!');
+    // console.log('seeding payments...');
+    // const seedPayments = await Payment.bulkCreate(payments, {
+    //   validate: true,
+    // });
+    // console.log('Payment seeding successful!');
 
     console.log('seeding bookings...');
     const seedBookings = await Booking.bulkCreate(bookings, {
