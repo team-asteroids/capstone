@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import {
   attemptTokenLogin,
@@ -10,7 +10,7 @@ import {
 } from '../../slices/authSlice';
 import {
   addPetsToBooking,
-  selectBookings,
+  // selectBookings,
   updateBooking,
 } from '../../slices/bookingsSlice';
 import { fetchAllPets, selectPets } from '../../slices/petsSlice';
@@ -21,7 +21,7 @@ const BookingRequestConfirmation = () => {
   const { bookingId } = useParams();
 
   const { userAuth, token, accessData } = useSelector(selectAuth);
-  const { newBooking } = useSelector(selectBookings);
+  // const { newBooking, status } = useSelector(selectBookings);
   const { allPets } = useSelector(selectPets);
 
   const [petIds, setPetIds] = useState([]);
@@ -154,8 +154,8 @@ const BookingRequestConfirmation = () => {
   }, [id, accessData.id]);
 
   const togglePet = (evt) => {
-    if (petIds.includes(evt.target.value)) {
-      const idx = petIds.indexOf(evt.target.value);
+    if (petIds.includes(+evt.target.value)) {
+      const idx = petIds.indexOf(+evt.target.value);
       setPetIds([...petIds.slice(0, idx), ...petIds.slice(idx + 1)]);
       if (setPetIds.length < 1) setIsInvalidPetIds(true);
     } else {
@@ -239,7 +239,7 @@ const BookingRequestConfirmation = () => {
   const confirmBooking = async (evt) => {
     evt.preventDefault();
     await checkFormValidation();
-    if (!isInvalid && petIds.length > 0) {
+    if (!isInvalid && !isInvalidPetIds) {
       const res = await dispatch(updateAccessData({ id, token, formData }));
       const res2 = await dispatch(
         addPetsToBooking({ id, token, bookingId, petIds })
@@ -249,7 +249,10 @@ const BookingRequestConfirmation = () => {
         res2.type === 'addPets/fulfilled'
       ) {
         navigate(`/bookings/${bookingId}/success`);
-      } else setIsInvalidPetIds(true);
+      } else {
+        setPetIds([]);
+        setIsInvalidPetIds(true);
+      }
     }
   };
 
