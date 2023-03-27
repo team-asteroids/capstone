@@ -25,7 +25,7 @@ const SitterPrefSidebar = () => {
   }, [singleSitter]);
 
   return (
-    <div>
+    <div className="min-w-max">
       <div className="pb-5">
         <h2 className="font-rubikmono pb-2">Rate</h2>
         <p>${singleSitter.rate}</p>
