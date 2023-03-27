@@ -23,6 +23,7 @@ import {
   BookingRequestConfirmation,
   BookingSuccess,
   Chat,
+  CreateEvent,
 } from './index';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="/map" element={<Map />} />
           <Route path="/events" element={<AllEvents />} />
           <Route path="/events/:id" element={<EventDetails />} />
+          <Route path="/events/create" element={<CreateEvent />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/groups" element={<BrowseGroups />} />
