@@ -19,6 +19,7 @@ import {
   UserProfile,
   DiscoverSitters,
   BookingRequestConfirmation,
+  BookingSuccess,
 } from './index';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -56,6 +57,7 @@ const App = () => {
             path="/confirmation"
             element={<BookingRequestConfirmation />}
           />
+          <Route path="/confirmation/success" element={<BookingSuccess />} />
         </Routes>
         <Footer />
       </div>

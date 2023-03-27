@@ -36,3 +36,4 @@ export { default as UserGroupsProfile } from './profiles/users/UserGroupsProfile
 export { default as UserEventsProfile } from './profiles/users/UserEventsProfile.jsx';
 export { default as UserFriendsSidebar } from './profiles/users/UserFriendsSidebar.jsx';
 export { default as BookingRequestConfirmation } from './profiles/BookingRequestConfirmation.jsx';
+export { default as BookingSuccess } from './ui/BookingSuccess.jsx';
