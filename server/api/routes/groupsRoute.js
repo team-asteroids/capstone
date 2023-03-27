@@ -41,22 +41,35 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// get single group (inc. posts, post_likes, members)
+// // get single group (inc. posts, post_likes, members)
+// // must be logged in
+// router.get('/:groupId', requireToken, async (req, res, next) => {
+//   try {
+//     const singleGroup = await Group.findByPk(req.params.groupId, {
+//       include: [{ model: Group_Post }],
+//     });
+
+//     const memberships = await Group_Member.findAll({
+//       where: { groupId: req.params.groupId },
+//     });
+//     const memberIds = memberships.map((mem) => mem.userId);
+
+//     const members = await Promise.all(memberIds.map((id) => User.findByPk(id)));
+
+//     res.status(200).json({ singleGroup, members });
+//   } catch (e) {
+//     console.log('Backend issue fetching single group');
+//     next(e);
+//   }
+// });
+
+// get single group (ONLY basic group info)
 // must be logged in
 router.get('/:groupId', requireToken, async (req, res, next) => {
   try {
-    const singleGroup = await Group.findByPk(req.params.groupId, {
-      include: [{ model: Group_Post }],
-    });
+    const singleGroup = await Group.findByPk(req.params.groupId);
 
-    const memberships = await Group_Member.findAll({
-      where: { groupId: req.params.groupId },
-    });
-    const memberIds = memberships.map((mem) => mem.userId);
-
-    const members = await Promise.all(memberIds.map((id) => User.findByPk(id)));
-
-    res.status(200).json({ singleGroup, members });
+    res.status(200).json(singleGroup);
   } catch (e) {
     console.log('Backend issue fetching single group');
     next(e);
@@ -70,6 +83,7 @@ router.post('/', requireToken, async (req, res, next) => {
     const [newGroup, wasCreated] = await Group.findOrCreate({
       where: {
         name: req.body.name,
+        description: req.body.description,
         creatorId: req.user.id,
       },
       defaults: {
@@ -229,7 +243,25 @@ router.delete(
   }
 );
 
-// get all group posts (& likes)
+// // get all group posts (& likes)
+// // must be logged in
+// router.get('/:groupId/posts', requireToken, async (req, res, next) => {
+//   try {
+//     const singleGroupPosts = await Group_Post.findAll({
+//       where: { groupId: req.params.groupId },
+//       include: { model: User },
+//     });
+//     const groupPostsAndLikes = await Promise.all(
+//       singleGroupPosts.map((post) => integrateLikes(post))
+//     );
+//     res.status(200).json(groupPostsAndLikes);
+//   } catch (e) {
+//     console.log('Backend issue fetching all posts');
+//     next(e);
+//   }
+// });
+
+// get all group posts (ONLY post info)
 // must be logged in
 router.get('/:groupId/posts', requireToken, async (req, res, next) => {
   try {
@@ -237,10 +269,8 @@ router.get('/:groupId/posts', requireToken, async (req, res, next) => {
       where: { groupId: req.params.groupId },
       include: { model: User },
     });
-    const groupPostsAndLikes = await Promise.all(
-      singleGroupPosts.map((post) => integrateLikes(post))
-    );
-    res.status(200).json(groupPostsAndLikes);
+
+    res.status(200).json(singleGroupPosts);
   } catch (e) {
     console.log('Backend issue fetching all posts');
     next(e);
@@ -309,7 +339,7 @@ router.put('/:groupId/posts/:postId', requireToken, async (req, res, next) => {
   }
 });
 
-// delete group post (& likes)
+// delete group post (& likes with cascade??)
 // token user id must match the group_post userId OR match the group creatorId
 router.delete(
   '/:groupId/posts/:postId',
@@ -324,18 +354,8 @@ router.delete(
         req.user.id === deletedGroupPost.userId ||
         req.user.id === group.creatorId
       ) {
-        const deletedGroupPostLikes = await Group_Post_Like.findAll({
-          where: {
-            groupPostId: req.params.postId,
-          },
-        });
-        await Group_Post_Like.destroy({
-          where: {
-            groupPostId: req.params.postId,
-          },
-        });
         await deletedGroupPost.destroy();
-        res.json({ deletedGroupPost, deletedGroupPostLikes });
+        res.json(deletedGroupPost);
       } else {
         res
           .status(403)
@@ -350,7 +370,52 @@ router.delete(
   }
 );
 
-// get all likes & users who liked a group_post
+// // get all likes & users who liked a group_post
+// // must be logged in
+// router.get(
+//   '/:groupId/posts/:postId/likes',
+//   requireToken,
+//   async (req, res, next) => {
+//     try {
+//       const likes = await Group_Post_Like.findAll({
+//         where: { groupPostId: req.params.postId },
+//       });
+
+//       const userIds = likes.map((like) => like.userId);
+
+//       const users = await Promise.all(
+//         userIds.map((userId) => User.findByPk(userId))
+//       );
+//       res.status(200).json({ likes, users });
+//     } catch (e) {
+//       console.log('Backend issue fetching all group_post likes');
+//       next(e);
+//     }
+//   }
+// );
+
+// get ALL likes for a GROUP
+// must be logged in
+router.get('/:groupId/likes', requireToken, async (req, res, next) => {
+  try {
+    const likes = await Group_Post_Like.findAll();
+    const singleGroupPosts = await Group_Post.findAll({
+      where: { groupId: req.params.groupId },
+    });
+    const ids = singleGroupPosts.map((post) => {
+      return post.id;
+    });
+    const thisGroupLikes = likes.filter((like) =>
+      ids.includes(like.groupPostId)
+    );
+    res.status(200).json(thisGroupLikes);
+  } catch (e) {
+    console.log('Backend issue fetching all group_post likes');
+    next(e);
+  }
+});
+
+// get all likes ONLY who liked a group_post
 // must be logged in
 router.get(
   '/:groupId/posts/:postId/likes',
@@ -361,12 +426,7 @@ router.get(
         where: { groupPostId: req.params.postId },
       });
 
-      const userIds = likes.map((like) => like.userId);
-
-      const users = await Promise.all(
-        userIds.map((userId) => User.findByPk(userId))
-      );
-      res.status(200).json({ likes, users });
+      res.status(200).json(likes);
     } catch (e) {
       console.log('Backend issue fetching all group_post likes');
       next(e);

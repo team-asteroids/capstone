@@ -28,11 +28,9 @@ const Group = db.define('group', {
   },
   imageSrc: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-      notNull: true,
-    },
+    defaultValue:
+      'https://parade.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTkwNTgxMTcyNzc1MzYzNzA5/homeward-bound-ftr.jpg',
+    allowNull: true,
   },
 });
 

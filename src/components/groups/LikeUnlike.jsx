@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { likeGroupPost, unlikeGroupPost } from '../../slices/groupsSlice';
 
 const LikeUnlike = (props) => {
@@ -10,16 +9,24 @@ const LikeUnlike = (props) => {
 
   const dispatch = useDispatch();
 
-  //   // console.log('post--> ', post);
-  const likeIds = likes.map((like) => {
-    return like.userId;
-  });
-  //   console.log('likeIds--> ', likeIds);
+  const testLike = () => {
+    if (!likes.length) {
+      return false;
+    } else {
+      const likeIds = likes.map((like) => {
+        return like.userId;
+      });
+      if (likeIds.includes(userAuth.id)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
 
   const likeUnlikePost = async (e) => {
     e.preventDefault();
-
-    if (likeIds.includes(userAuth.id)) {
+    if (testLike()) {
       await dispatch(unlikeGroupPost({ groupId, postId }));
     } else {
       await dispatch(likeGroupPost({ groupId, postId }));
@@ -28,11 +35,12 @@ const LikeUnlike = (props) => {
 
   return (
     <>
-      <div>Like</div>
       <p>
         <button
           onClick={likeUnlikePost}
-          className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+          className={`p-1 rounded-lg font-mono ${
+            testLike() ? 'bg-[#fb5607]' : 'bg-[#cbd5e1]'
+          }`}
         >
           Like
         </button>
