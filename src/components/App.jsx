@@ -64,9 +64,10 @@ const App = () => {
           <Route
             path="/bookings/:bookingId/success"
             element={<BookingSuccess />}
-          />
+          />{' '}
+          <Route path="/howls" element={<AllHowls />} />
         </Routes>
-        <Route path="/howls" element={<AllHowls />} />
+
         <Footer />
       </div>
     </LocalizationProvider>

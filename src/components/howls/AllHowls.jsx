@@ -1,32 +1,50 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchAllGroups } from '../../slices/groupsSlice';
-import Group from './Group';
+import { fetchAllPosts, fetchAllPostLikes } from '../../slices/postsSlice';
+import Howl from './Howl';
 
 const AllHowls = () => {
   const dispatch = useDispatch();
-  const groups = useSelector((state) => state.groups.allGroups);
+  const posts = useSelector((state) => state.posts.allPosts);
+  const likes = useSelector((state) => state.posts.postLikes);
+  //   console.log('posts --> ', posts[0]);
 
   useEffect(() => {
-    dispatch(fetchAllGroups());
+    const getData = async () => {
+      await dispatch(fetchAllPosts());
+      await dispatch(fetchAllPostLikes());
+    };
+    getData();
   }, [dispatch]);
 
   return (
     <>
-      <div className="p-6 bg-[#fca5a5]">
-        <h3 className=" text-bold-purple text-lg font-rubikmono ">Groups</h3>
-        <h3 className="text-lg font-rubikmono ">
-          <Link to={`/groups/create`}>
-            <li>Add New Group</li>
-          </Link>
-        </h3>
-        <div className="p-6 grid grid-cols-3 gap-8 font-mono">
-          {groups.map((group) => (
-            <div key={group.group.id} id="cardItem" className="col-xs-2">
-              <Group group={group.group} members={group.members} />
+      <div>
+        <div className="bg-white-smoke border rounded-lg shadow-lg">
+          <div className="p-4">
+            <div>
+              {posts.map((post) => (
+                <div key={post.id}>
+                  <Howl
+                    key={post.id}
+                    post={post}
+                    likes={likes.filter((like) => like.postId === post.id)}
+                  />
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+        </div>
+        {/* <div>
+          <AddGroupPost groupId={groupId} />
+        </div> */}
+        <div className="p-4">
+          {/* <Link to="/groups">
+            <button className="p-1 rounded-lg bg-[#cbd5e1] font-mono">
+              Back to Browse Groups
+            </button>
+          </Link> */}
         </div>
       </div>
     </>
