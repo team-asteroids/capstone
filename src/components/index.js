@@ -40,3 +40,4 @@ export { default as UserFriendsSidebar } from './profiles/users/UserFriendsSideb
 export { default as BookingRequestConfirmation } from './profiles/BookingRequestConfirmation.jsx';
 export { default as BookingSuccess } from './ui/BookingSuccess.jsx';
 export { default as Chat } from './ui/Chat.jsx';
+export { default as AllHowls } from './howls/AllHowls.jsx';
