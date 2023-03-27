@@ -1,7 +1,3 @@
-/** @format */
-
-//discover componente
-
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SitterCard from './SitterCard.jsx';
@@ -17,7 +13,6 @@ const DiscoverSitters = () => {
   const sitters = useSelector(selectSitters);
   const [search, setSearch] = useState('');
   const [searchResultValid, setSearchResultValid] = useState(true);
-  console.log('sitters', sitters.sitters);
 
   const handleSubmit = (e) => {
     e.preventDefault();
