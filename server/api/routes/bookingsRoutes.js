@@ -1,6 +1,6 @@
 // can come from USER or SITTER routes (or just straight admin)
 const router = require('express').Router({ mergeParams: true });
-const { Booking, User, Sitter } = require('../../db');
+const { Booking, User, Sitter, Pet } = require('../../db');
 const { requireToken, isAdmin } = require('../authMiddleware');
 
 // issues: not hitting some error paths
@@ -16,6 +16,7 @@ router.get('/', requireToken, async (req, res, next) => {
         include: [
           { model: User, attributes: { exclude: ['password'] } },
           Sitter,
+          Pet,
         ],
       });
       if (!allBookings) return res.status(404).send('no bookings!');
@@ -28,6 +29,7 @@ router.get('/', requireToken, async (req, res, next) => {
         include: [
           { model: User, attributes: { exclude: ['password'] } },
           Sitter,
+          Pet,
         ],
       });
       if (!allUserBookings) {
@@ -54,7 +56,11 @@ router.get('/:bookingId', requireToken, async (req, res, next) => {
     const id = +req.params.id;
     const bookingId = +req.params.bookingId;
     const booking = await Booking.findByPk(bookingId, {
-      include: [{ model: User, attributes: { exclude: ['password'] } }, Sitter],
+      include: [
+        { model: User, attributes: { exclude: ['password'] } },
+        Sitter,
+        Pet,
+      ],
     });
 
     if (
@@ -95,6 +101,37 @@ router.post('/', requireToken, async (req, res, next) => {
     }
   } catch (err) {
     console.log('BACKED ISSUE ADDING A NEW BOOKING');
+    next(err);
+  }
+});
+
+router.post('/:bookingId/pets', requireToken, async (req, res, next) => {
+  try {
+    const id = +req.params.id;
+    const bookingId = +req.params.bookingId;
+    const { pets } = req.body;
+
+    console.log('backend:', pets);
+
+    const booking = await Booking.findByPk(bookingId, {
+      include: [Pet],
+    });
+
+    if (!booking) return res.status(404).send('no booking exists');
+    else if (
+      (req.user.id === id && booking.userId === id) ||
+      req.user.role === 'admin'
+    ) {
+      await booking.addPets(pets);
+
+      const bookingWithPets = await Booking.findByPk(bookingId, {
+        include: [Pet],
+      });
+
+      return res.status(201).send(bookingWithPets);
+    }
+  } catch (err) {
+    console.log('BACKED ISSUE ADDING PET TO BOOKING');
     next(err);
   }
 });

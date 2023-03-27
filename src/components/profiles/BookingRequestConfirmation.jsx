@@ -8,7 +8,11 @@ import {
   selectAuth,
   updateAccessData,
 } from '../../slices/authSlice';
-import { selectBookings, updateBooking } from '../../slices/bookingsSlice';
+import {
+  addPetsToBooking,
+  selectBookings,
+  updateBooking,
+} from '../../slices/bookingsSlice';
 import { fetchAllPets, selectPets } from '../../slices/petsSlice';
 
 const BookingRequestConfirmation = () => {
@@ -24,7 +28,6 @@ const BookingRequestConfirmation = () => {
 
   const [isInvalid, setIsInvalid] = useState(false);
   const [isInvalidPetIds, setIsInvalidPetIds] = useState(false);
-
   const [isInvalidPhone, setIsInvalidPhone] = useState(false);
   const [isInvalidAddress1, setIsInvalidAddress1] = useState(false);
   const [isInvalidCity, setIsInvalidCity] = useState(false);
@@ -112,8 +115,6 @@ const BookingRequestConfirmation = () => {
   const toggleClass =
     "checked w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-blue";
 
-  const InvalidToggleClass = '';
-
   const validClass =
     'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
@@ -150,7 +151,10 @@ const BookingRequestConfirmation = () => {
     if (petIds.includes(evt.target.value)) {
       const idx = petIds.indexOf(evt.target.value);
       setPetIds([...petIds.slice(0, idx), ...petIds.slice(idx + 1)]);
-    } else setPetIds([...petIds, +evt.target.value]);
+    } else {
+      setPetIds([...petIds, +evt.target.value]);
+      setIsInvalidPetIds(false);
+    }
   };
 
   const validateZip = (zip) => {
@@ -229,11 +233,16 @@ const BookingRequestConfirmation = () => {
   const confirmBooking = async (evt) => {
     evt.preventDefault();
     await checkFormValidation();
-
     if (!isInvalid && petIds.length > 0) {
       const res = await dispatch(updateAccessData({ id, token, formData }));
-      if (res.type === 'updateAccessData/fulfilled') {
-        console.log('success');
+      const res2 = await dispatch(
+        addPetsToBooking({ id, token, bookingId, petIds })
+      );
+      if (
+        res.type === 'updateAccessData/fulfilled' &&
+        res2.type === 'addPets/fulfilled'
+      ) {
+        navigate('/confirmation/success');
       }
     }
   };
@@ -474,8 +483,8 @@ const BookingRequestConfirmation = () => {
                   </div>
                   <div className="flex flex-wrap px-3 mx-3 mb-6">
                     <button
-                      className="ease-in duration-300 font-rubikmono hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
                       type="submit"
+                      className="ease-in duration-300 font-rubikmono hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
                     >
                       confirm
                     </button>
