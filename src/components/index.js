@@ -37,3 +37,4 @@ export { default as UserEventsProfile } from './profiles/users/UserEventsProfile
 export { default as UserFriendsSidebar } from './profiles/users/UserFriendsSidebar.jsx';
 export { default as BookingRequestConfirmation } from './profiles/BookingRequestConfirmation.jsx';
 export { default as BookingSuccess } from './ui/BookingSuccess.jsx';
+export { default as Chat } from './ui/Chat.jsx';
