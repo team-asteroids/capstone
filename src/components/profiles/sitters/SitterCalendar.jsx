@@ -8,16 +8,16 @@ import {
   resetBookingStatus,
   selectBookings,
 } from '../../../slices/bookingsSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const SitterCalendar = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const params = useParams();
 
   const { rate, sitterId } = props;
   const { userAuth, token } = useSelector(selectAuth);
   const { newBooking, status } = useSelector(selectBookings);
-  const id = userAuth.id;
 
   const today = new Date();
   const maxDay = setMonth(today, getMonth(today) + 6);
@@ -85,6 +85,7 @@ const SitterCalendar = (props) => {
   const submitBookingRequest = async (evt) => {
     evt.preventDefault();
 
+    const id = userAuth.id;
     const bookingDetails = {
       status: 'pending',
       startDate: format(startDate, 'yyyy-MM-dd'),
@@ -209,11 +210,15 @@ const SitterCalendar = (props) => {
             <div className="text-center">
               <button
                 className={
-                  userAuth && userAuth.id
+                  userAuth && userAuth.id && userAuth.id !== +params.id
                     ? validButtonClass
                     : disabledButtonClass
                 }
-                disabled={userAuth && userAuth.id ? false : true}
+                disabled={
+                  userAuth && userAuth.id && userAuth.id !== +params.id
+                    ? false
+                    : true
+                }
               >
                 SUBMIT
               </button>
