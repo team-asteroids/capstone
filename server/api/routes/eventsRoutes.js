@@ -114,6 +114,7 @@ router.get('/:id', async (req, res, next) => {
 // this allows logged in user to create a event
 router.post('/', requireToken, async (req, res, next) => {
   try {
+    console.log(req.body);
     const newEvent = await Event.create(req.body);
     res.status(201).json(newEvent);
   } catch (error) {

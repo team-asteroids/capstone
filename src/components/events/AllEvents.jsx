@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchAllEvents, selectEvents } from '../../slices/eventsSlice';
 import EventList from './EventList';
 
@@ -13,6 +14,12 @@ const AllEvents = () => {
 
   return (
     <div className="bg-gradient-to-r from-bold-blue via-bold-purple to-white-smoke">
+      <h3 className="text-lg font-rubikmono ">
+        <Link to={`/events/create`}>
+          <li>Add New Event</li>
+        </Link>
+      </h3>
+
       <div className="container mx-auto ">
         {events.events.map((event) => (
           <EventList
