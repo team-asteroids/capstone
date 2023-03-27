@@ -94,7 +94,7 @@ const UserProfile = () => {
         </div>
         <div className="w-4/5 font-rubikmono overflow-auto gap-5">
           <Routes>
-            <Route path="/" element={<UserSocialView user={singleUser} />} />
+            <Route path="/*" element={<UserSocialView user={singleUser} />} />
             <Route path="/sitter/*" element={<SitterProfile />} />
           </Routes>
         </div>
