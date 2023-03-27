@@ -17,6 +17,8 @@ import {
   UserAccount,
   Footer,
   DiscoverSitters,
+  UserProfile,
+  About,
 } from './index';
 
 function App() {
@@ -44,6 +46,7 @@ function App() {
         <Route path="/account/*" element={<UserAccount />} />
         <Route path="/profile/:id/*" element={<UserProfile />} />
         <Route path="/sitters" element={<DiscoverSitters />} />
+        <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
     </div>
