@@ -123,6 +123,12 @@ const BookingRequestConfirmation = () => {
 
   const labelClass = 'text-xs font-rubikmono';
 
+  const buttonClass =
+    'ease-in duration-300 font-rubikmono hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3';
+
+  const disabledButtonClass =
+    'font-rubikmono bg-bold-blue disabled:opacity-25 w-full text-white py-3 rounded-xl mx-auto block text-xl mt-3';
+
   useEffect(() => {
     if (id) {
       dispatch(fetchAllPets(id));
@@ -151,6 +157,7 @@ const BookingRequestConfirmation = () => {
     if (petIds.includes(evt.target.value)) {
       const idx = petIds.indexOf(evt.target.value);
       setPetIds([...petIds.slice(0, idx), ...petIds.slice(idx + 1)]);
+      if (setPetIds.length < 1) setIsInvalidPetIds(true);
     } else {
       setPetIds([...petIds, +evt.target.value]);
       setIsInvalidPetIds(false);
@@ -242,7 +249,7 @@ const BookingRequestConfirmation = () => {
         res2.type === 'addPets/fulfilled'
       ) {
         navigate(`/bookings/${bookingId}/success`);
-      }
+      } else setIsInvalidPetIds(true);
     }
   };
 
@@ -483,7 +490,12 @@ const BookingRequestConfirmation = () => {
                   <div className="flex flex-wrap px-3 mx-3 mb-6">
                     <button
                       type="submit"
-                      className="ease-in duration-300 font-rubikmono hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
+                      className={
+                        isInvalid || petIds.length < 1
+                          ? disabledButtonClass
+                          : buttonClass
+                      }
+                      disabled={isInvalid || petIds.length < 1 ? true : false}
                     >
                       confirm
                     </button>
