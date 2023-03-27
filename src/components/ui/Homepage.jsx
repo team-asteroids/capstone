@@ -17,7 +17,7 @@ const Homepage = () => {
         <p>Digital dog park for Sitters, Friends, Packmates</p>
       </div>
       {token ? (
-        <div className="flex flex-col absolute top-[42rem] text-xl left-48">
+        <div className="flex flex-col absolute top-[40rem] text-xl left-48">
           <Link
             to={`/profile/${userAuth.id}`}
             className="bg-bold-pink px-6 py-3.5 rounded-xl text-white ease-in duration-200 hover:bg-pale-pink"
