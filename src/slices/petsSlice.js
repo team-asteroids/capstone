@@ -21,11 +21,20 @@ export const fetchSinglePet = createAsyncThunk(
   }
 );
 
+export const fetchPetDetails = createAsyncThunk(
+  'petDetails',
+  async (petId, { rejectWithValue }) => {
+    const { data } = await axios.get(`/api/pets/${petId}/details`);
+    return data;
+  }
+);
+
 const petsSlice = createSlice({
   name: 'pets',
   initialState: {
     allPets: [],
     singlePet: {},
+    petDetails: {},
     status: '',
     error: '',
   },
@@ -61,6 +70,19 @@ const petsSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchSinglePet.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(fetchPetDetails.fulfilled, (state, { payload }) => {
+        state.petDetails = payload;
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(fetchPetDetails.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchPetDetails.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
