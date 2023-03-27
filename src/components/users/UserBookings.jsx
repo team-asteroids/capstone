@@ -77,8 +77,8 @@ function UserBookings() {
             defaultValue={bookingFilter}
           >
             <option value="">all</option>
-            <option value="approved">approved</option>
             <option value="pending">pending</option>
+            <option value="approved">approved</option>
             <option value="completed">completed</option>
             <option value="cancelled">cancelled</option>
           </select>
@@ -128,7 +128,7 @@ function UserBookings() {
                 );
               })
             ) : (
-              <div className="font-rubikmono">No Bookings!</div>
+              <div className="font-rubikmono">No {bookingFilter} Bookings!</div>
             )}
           </div>
 

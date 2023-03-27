@@ -36,12 +36,13 @@ const Booking = db.define('booking', {
     },
   },
   totalDays: {
-    type: Sequelize.VIRTUAL,
-    get() {
-      return this.endDate - this.startDate;
-    },
-    set(value) {
-      return 'do not try to set this field';
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      notNull: true,
+      min: 0,
+      max: 100,
     },
   },
   rate: {
@@ -53,12 +54,13 @@ const Booking = db.define('booking', {
     },
   },
   totalAmount: {
-    type: Sequelize.VIRTUAL,
-    get() {
-      return this.totalDays * this.rate;
-    },
-    set(value) {
-      return 'do not try to set this field';
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      notNull: true,
+      min: 0,
+      max: 10000,
     },
   },
   location: {

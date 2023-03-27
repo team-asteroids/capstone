@@ -7,7 +7,6 @@ function NotFound() {
         <p className="leading-none pb-10 font-rubikmono">Woof Woof Woof!</p>
         <p className="text-2xl">(that's 404 page not found in dog talk)</p>
       </div>
-      <div className="flex absolute top-[35rem] text-2xl left-48"></div>
     </div>
   );
 }

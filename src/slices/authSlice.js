@@ -58,7 +58,7 @@ export const createAccessData = createAsyncThunk(
           },
         }
       );
-      console.log('createAccessData --> ', data);
+      // console.log('createAccessData --> ', data);
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -73,7 +73,7 @@ export const getAccessData = createAsyncThunk('getAccessData', async (id) => {
       authorization: token,
     },
   });
-  console.log('getAccessData --> ', data);
+  // console.log('getAccessData --> ', data);
   return data;
 });
 
@@ -89,6 +89,27 @@ export const editSingleUser = createAsyncThunk(
         },
       });
       // console.log('data--> ', data);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const updateAccessData = createAsyncThunk(
+  'updateAccessData',
+  async ({ id, token, formData }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.put(
+        `/api/users/${id}/access/${id}`,
+        formData,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -196,6 +217,19 @@ const authSlice = createSlice({
         state.error = '';
       })
       .addCase(editSingleUser.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(updateAccessData.fulfilled, (state, { payload }) => {
+        state.accessData = payload || {};
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(updateAccessData.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(updateAccessData.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
