@@ -83,6 +83,7 @@ router.post('/', requireToken, async (req, res, next) => {
     const [newGroup, wasCreated] = await Group.findOrCreate({
       where: {
         name: req.body.name,
+        description: req.body.description,
         creatorId: req.user.id,
       },
       defaults: {

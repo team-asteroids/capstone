@@ -53,8 +53,17 @@ export const deleteSingleGroup = createAsyncThunk(
 );
 export const addSingleGroup = createAsyncThunk(
   '/addSingleGroup',
-  async (groupInfo) => {
-    const { data } = await axios.post('/api/groups', groupInfo);
+  async ({ name, topic, description, imageSrc }) => {
+    const token = localStorage.getItem('token');
+    const { data } = await axios.post(
+      '/api/groups',
+      { name, topic, description, imageSrc },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     return data;
   }
 );

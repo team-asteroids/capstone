@@ -13,6 +13,7 @@ import {
   Map,
   EventDetails,
   BrowseGroups,
+  CreateGroup,
   SingleGroup,
   UserAccount,
   Footer,
@@ -41,6 +42,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/groups" element={<BrowseGroups />} />
+        <Route path="/groups/create" element={<CreateGroup />} />
         <Route path="/groups/:groupId/*" element={<SingleGroup />} />
         <Route path="/account/*" element={<UserAccount />} />
         <Route path="/profile/:id/*" element={<UserProfile />} />
