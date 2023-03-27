@@ -51,8 +51,8 @@ function UserAccount() {
 
   return (
     <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-[calc(100vh_-_5rem)]">
-      <div className="flex flex-row pt-20 mb-16 gap-10 mx-20 px-20">
-        <div className="w-1/4 flex flex-col gap-5">
+      <div className="flex flex-row justify-center pt-20 mb-16 mx-20 px-20">
+        <div className="min-w-1/5 flex flex-col gap-5  mr-20">
           <div id="userBio" className="w-full flex flex-col gap-5">
             <div className="flex flex-col gap-5">
               <img
@@ -101,7 +101,7 @@ function UserAccount() {
             </div>
           </div>
         </div>
-        <div className="w-3/4 font-rubikmono overflow-auto flex flex-col gap-5">
+        <div className="w-4/5 font-rubikmono overflow-auto gap-5">
           <Routes>
             <Route path="/" element={<UserOverview />}></Route>
             <Route path="/editprofile" element={<EditUserProfile />}></Route>
