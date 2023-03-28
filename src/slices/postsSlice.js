@@ -7,13 +7,7 @@ export const fetchAllPosts = createAsyncThunk('/allPosts', async () => {
 });
 
 export const fetchAllPostLikes = createAsyncThunk('/allPostLikes', async () => {
-  const token = localStorage.getItem('token');
-  const { data } = await axios.get('/api/posts/likes', {
-    headers: {
-      authorization: token,
-    },
-  });
-  console.log('likes in thunk -->', data);
+  const { data } = await axios.get('/api/posts/likes');
   return data;
 });
 
@@ -43,6 +37,30 @@ export const unlikePost = createAsyncThunk(
     return data;
   }
 );
+
+export const addPost = createAsyncThunk('/addPost', async ({ content }) => {
+  const token = localStorage.getItem('token');
+  const { data } = await axios.post(
+    '/api/posts',
+    { content },
+    {
+      headers: {
+        authorization: token,
+      },
+    }
+  );
+  return data;
+});
+
+export const deletePost = createAsyncThunk('/deletePost', async (postId) => {
+  const token = localStorage.getItem('token');
+  const { data } = await axios.delete(`/api/posts/${postId}`, {
+    headers: {
+      authorization: token,
+    },
+  });
+  return data;
+});
 
 export const fetchPostsThroughSearch = createAsyncThunk(
   '/postsSearch',
@@ -88,7 +106,6 @@ export const postsSlice = createSlice({
       })
       .addCase(fetchAllPostLikes.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
-        console.log(payload);
         state.error = '';
         state.postLikes = payload;
       })
@@ -121,7 +138,7 @@ export const postsSlice = createSlice({
         state.status = 'fulfilled';
         state.error = '';
         // state.likedStatus = false;
-        state.postLikes = state.likes.filter(
+        state.postLikes = state.postLikes.filter(
           (like) =>
             !(like.postId === payload.postId && like.userId === payload.userId)
         );
@@ -136,6 +153,38 @@ export const postsSlice = createSlice({
         // state.likedStatus = true; // or dont change at all?
         state.error = payload;
         // check on this
+      })
+      .addCase(addPost.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.allPosts.push(payload);
+        // state.posts.push(payload);
+      })
+      .addCase(addPost.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(addPost.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+      })
+      .addCase(deletePost.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        // console.log('posts before change--> ', state.posts);
+        state.allPosts = state.allPosts.filter(
+          (post) => post.id !== payload.id
+        );
+        // console.log('posts before change--> ', state.posts);
+        // what should we do with payload?
+      })
+      .addCase(deletePost.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(deletePost.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
       })
       .addCase(fetchPostsThroughSearch.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
