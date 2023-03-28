@@ -57,7 +57,7 @@ const SitterCard = ({ id, firstName, rate, rating, reviews, bio }) => {
                       </svg>
                       <span className="ml-2 flex-1 w-0 truncate">
                         <Link // profile or bookings page?
-                          to={`/sitters/${id}`}
+                          to={`/profile/${id}`}
                           className="font-medium text-indigo-600 hover:text-indigo-500"
                         >
                           Available
