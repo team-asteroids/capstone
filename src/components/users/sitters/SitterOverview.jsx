@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SitterOverview() {
+const SitterOverview = () => {
   return (
     <div className="font-rubik flex flex-col gap-5">
       <div>
@@ -14,6 +14,6 @@ function SitterOverview() {
       </div>
     </div>
   );
-}
+};
 
 export default SitterOverview;
