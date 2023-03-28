@@ -37,22 +37,6 @@ export const fetchSingleSitterReviews = createAsyncThunk(
   }
 );
 
-export const fetchSitterNames = createAsyncThunk(
-  'fetch/searchSitters',
-  async (name, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.post('/api/sitters/name', {
-        params: {
-          name: name,
-        },
-      });
-      return data;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
-
 export const fetchSingleSitterRatings = createAsyncThunk(
   'sitterRatings',
   async (id, { rejectWithValue }) => {
@@ -162,3 +146,10 @@ export const sittersSlice = createSlice({
       });
   },
 });
+
+export const { resetSitterStatus } = sittersSlice.actions;
+
+export const selectSitters = (state) => state.sitters;
+export const selectSingleSitter = (state) => state.sitters.singleSitter;
+
+export default sittersSlice.reducer;
