@@ -41,3 +41,4 @@ export { default as BookingRequestConfirmation } from './profiles/BookingRequest
 export { default as BookingSuccess } from './ui/BookingSuccess.jsx';
 export { default as Chat } from './ui/Chat.jsx';
 export { default as EditPetDetails } from './users/EditPetDetails.jsx';
+export { default as AddNewPet } from './users/AddNewPet.jsx';

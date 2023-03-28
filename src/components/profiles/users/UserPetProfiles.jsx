@@ -65,14 +65,6 @@ const UserPetProfiles = (props) => {
                     </p>
                   </div>
                 </div>
-                {params['*'] === 'pets' ? (
-                  <Link
-                    to={`${location.pathname}/${pet.id}/edit`}
-                    className="text-left text-sm font-semibold"
-                  >
-                    EDIT
-                  </Link>
-                ) : null}
               </div>
             ))
           : 'no pets!'}

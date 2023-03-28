@@ -17,6 +17,7 @@ import {
   EditUserAccess,
   UserPetDetails,
   EditPetDetails,
+  AddNewPet,
 } from '../index';
 
 function UserAccount() {
@@ -114,6 +115,7 @@ function UserAccount() {
               path="/pets/:petId/*"
               element={<EditPetDetails user={userAuth} />}
             />
+            <Route path="/addpet" element={<AddNewPet user={userAuth} />} />
             {/* SITTER ROUTES */}
             <Route path="/sitter" element={<SitterOverview />}></Route>
             <Route

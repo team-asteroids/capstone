@@ -74,14 +74,47 @@ router.get('/:id/everything', async (req, res, next) => {
 });
 
 // Add pet
-router.post('/', async (req, res, next) => {
+router.post('/', requireToken, async (req, res, next) => {
   try {
-    const [newPet, wasCreated] = await Pet.findOrCreate({
-      where: { userId: req.body.userId, name: req.body.name },
-      defaults: req.body,
-    });
-    if (!wasCreated) return res.status(409).send('Pet already exists');
-    res.status(201).json(newPet);
+    const id = +req.params.id;
+    if (req.user.role === 'admin' || req.user.id === id) {
+      const [newPet, wasCreated] = await Pet.findOrCreate({
+        where: { userId: id, name: req.body.name },
+        defaults: req.body,
+      });
+      if (!wasCreated) return res.status(409).send('Pet already exists');
+      res.status(201).send(newPet);
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
+  } catch (err) {
+    console.error('BACKEND ISSUE ADDING NEW PET');
+    next(err);
+  }
+});
+
+router.post('/:petId/details', requireToken, async (req, res, next) => {
+  try {
+    const id = +req.params.id;
+    if (req.user.role === 'admin' || req.user.id === id) {
+      const [newPetDetails, wasCreated] = await Pet_Detail.findOrCreate({
+        where: { petId: req.params.petId },
+        defaults: req.body,
+      });
+      if (!wasCreated)
+        return res.status(409).send('Pet Details already exists');
+      res.status(201).send(newPetDetails);
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
   } catch (err) {
     console.error('BACKEND ISSUE ADDING NEW PET');
     next(err);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
+import { Link } from 'react-router-dom';
 import { UserPetProfiles } from '../index';
 
 function EditUserPets() {
@@ -14,7 +15,11 @@ function EditUserPets() {
         <div>
           <UserPetProfiles user={userAuth} />
         </div>
-        <div>Add new pet profile</div>
+        <div>
+          <p className="font-rubikmono mt-5 hover:text-bold-purple">
+            <Link to="/account/addpet">Add new pet</Link>
+          </p>
+        </div>
       </div>
     </div>
   );

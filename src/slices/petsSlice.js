@@ -64,6 +64,34 @@ export const updatePetDetails = createAsyncThunk(
   }
 );
 
+export const addPet = createAsyncThunk(
+  'addPet',
+  async ({ id, token, petInfo }, { rejectWithValue }) => {
+    const { data } = await axios.post(`/api/users/${id}/pets`, petInfo, {
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  }
+);
+
+export const addPetDetails = createAsyncThunk(
+  'addPetDetails',
+  async ({ id, token, petId, petDetailsData }, { rejectWithValue }) => {
+    const { data } = await axios.post(
+      `/api/users/${id}/pets/${petId}/details`,
+      petDetailsData,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    return data;
+  }
+);
+
 export const deletePet = createAsyncThunk(
   'deletePet',
   async ({ id, token, petId }, { rejectWithValue }) => {
@@ -72,6 +100,7 @@ export const deletePet = createAsyncThunk(
         authorization: token,
       },
     });
+    console.log(data);
     return data;
   }
 );
@@ -170,6 +199,32 @@ const petsSlice = createSlice({
         state.error = '';
       })
       .addCase(deletePet.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(addPet.fulfilled, (state, { payload }) => {
+        state.singlePet = payload;
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(addPet.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(addPet.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(addPetDetails.fulfilled, (state, { payload }) => {
+        state.petDetails = payload;
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(addPetDetails.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(addPetDetails.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
