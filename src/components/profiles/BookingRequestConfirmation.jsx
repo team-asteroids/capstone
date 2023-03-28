@@ -119,7 +119,7 @@ const BookingRequestConfirmation = () => {
     'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
   const invalidClass =
-    'appearance-none block border border-red-500 w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+    'appearance-none block w-full border border-red-500 bg-white-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
   const labelClass = 'text-xs font-rubikmono';
 
@@ -249,9 +249,6 @@ const BookingRequestConfirmation = () => {
         res2.type === 'addPets/fulfilled'
       ) {
         navigate(`/bookings/${bookingId}/success`);
-      } else {
-        setPetIds([]);
-        setIsInvalidPetIds(true);
       }
     }
   };
@@ -454,7 +451,7 @@ const BookingRequestConfirmation = () => {
                       <input
                         className={
                           isInvalidEmergencyContactPhone
-                            ? setIsInvalid
+                            ? invalidClass
                             : validClass
                         }
                         id="emergencyContactPhone"
