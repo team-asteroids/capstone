@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import {
   fetchSinglePet,
   selectPets,
@@ -8,6 +8,7 @@ import {
   updatePet,
   updatePetDetails,
 } from '../../slices/petsSlice';
+import { selectAuth } from '../../slices/authSlice';
 
 const EditPetDetails = (props) => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const EditPetDetails = (props) => {
   const [formDisabled, setFormDisabled] = useState(false);
 
   const { user } = props;
+  const { userAuth } = useSelector(selectAuth);
 
   const { singlePet, petDetails } = useSelector(selectPets);
 
@@ -352,7 +354,14 @@ const EditPetDetails = (props) => {
         BACK
       </button>
       {formDisabled ? (
-        <h2 className="font-rubikmono">{singlePet.name} Profile</h2>
+        <div className="flex flex-row gap-3 align-baseline">
+          <p className="font-rubikmono">{singlePet.name} Profile</p>
+          {userAuth.id === user.id ? (
+            <p className=" hover:text-bold-pink">
+              <Link to={`/account/pets/${petId}/edit`}>(edit)</Link>
+            </p>
+          ) : null}
+        </div>
       ) : (
         <h2 className="font-rubikmono">Edit Pet Details</h2>
       )}
