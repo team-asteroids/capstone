@@ -681,23 +681,7 @@ const AddNewPet = (props) => {
                 </select>
               </div>
             </div>
-            <div className="flex flex-wrap mb-3">
-              <div className="w-1/2 flex flex-col mb-3 pr-6">
-                <label className={labelClass}>Walk Details</label>
-                <textarea
-                  rows={3}
-                  type="text"
-                  className={validClass}
-                  value={petDetailsData.walkDetails}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      walkDetails: evt.target.value,
-                    });
-                  }}
-                ></textarea>
-              </div>
+            <div className="flex flex-wrap mb-3 pr-6">
               <div className="w-1/2 flex flex-col mb-3">
                 <label className={labelClass}>Food Details</label>
                 <textarea
@@ -710,6 +694,22 @@ const AddNewPet = (props) => {
                     setPetDetailsData({
                       ...petDetailsData,
                       foodDetails: evt.target.value,
+                    });
+                  }}
+                ></textarea>
+              </div>
+              <div className="w-1/2 flex flex-col mb-3">
+                <label className={labelClass}>Walk Details</label>
+                <textarea
+                  rows={3}
+                  type="text"
+                  className={validClass}
+                  value={petDetailsData.walkDetails}
+                  onChange={(evt) => {
+                    // setIsInvalidPhone(false);
+                    setPetDetailsData({
+                      ...petDetailsData,
+                      walkDetails: evt.target.value,
                     });
                   }}
                 ></textarea>
