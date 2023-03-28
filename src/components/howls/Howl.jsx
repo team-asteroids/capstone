@@ -6,7 +6,7 @@ import { selectAuth } from '../../slices/authSlice';
 import LikeUnlikeHowl from './LikeUnlikeHowl';
 
 const Howl = (props) => {
-  const { post, likes } = props;
+  const { post, likes, userAuth } = props;
   // const postId = post.id;
   const content = post.content;
   const comments = post.post_comments;
@@ -16,7 +16,7 @@ const Howl = (props) => {
 
   const dispatch = useDispatch();
 
-  const { userAuth } = useSelector(selectAuth);
+  // const { userAuth } = useSelector(selectAuth);
 
   const date = post.createdAt;
   const dateData = new Date(date);

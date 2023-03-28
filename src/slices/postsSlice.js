@@ -39,6 +39,20 @@ export const unlikePost = createAsyncThunk(
   }
 );
 
+export const addPost = createAsyncThunk('/addPost', async ({ content }) => {
+  const token = localStorage.getItem('token');
+  const { data } = await axios.post(
+    '/api/posts',
+    { content },
+    {
+      headers: {
+        authorization: token,
+      },
+    }
+  );
+  return data;
+});
+
 export const postsSlice = createSlice({
   name: 'posts',
   initialState: {
@@ -115,6 +129,20 @@ export const postsSlice = createSlice({
         // state.likedStatus = true; // or dont change at all?
         state.error = payload;
         // check on this
+      })
+      .addCase(addPost.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.allPosts.push(payload);
+        // state.posts.push(payload);
+      })
+      .addCase(addPost.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(addPost.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
       });
   },
 });
