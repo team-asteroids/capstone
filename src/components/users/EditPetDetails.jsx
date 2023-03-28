@@ -81,6 +81,7 @@ const EditPetDetails = (props) => {
       setPetInfo({
         name: singlePet.name,
         age: singlePet.age,
+        sex: singlePet.sex,
         breed: singlePet.breed,
         size: singlePet.size,
       });
@@ -377,19 +378,39 @@ const EditPetDetails = (props) => {
           <fieldset disabled={formDisabled ? true : false}>
             <form onSubmit={submitPetUpdateDetails}>
               <p className="font-rubikmono pb-2">ABOUT</p>
-              <div className="w-full flex flex-col mb-3">
-                <label className={labelClass}>Name</label>
-                <input
-                  type="text"
-                  className={validClass}
-                  id="name"
-                  name="name"
-                  value={petInfo.name}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetInfo({ ...petInfo, name: evt.target.value });
-                  }}
-                />
+              <div className="flex flex-wrap mb-3">
+                <div className="w-1/2 flex flex-col pr-6">
+                  <label className={labelClass}>Name</label>
+                  <input
+                    type="text"
+                    className={validClass}
+                    id="name"
+                    name="name"
+                    value={petInfo.name}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetInfo({ ...petInfo, name: evt.target.value });
+                    }}
+                  />
+                </div>
+                <div className="w-1/2 flex flex-col">
+                  <label className={labelClass}>Breed</label>
+                  <select
+                    className={validClass}
+                    value={petInfo.breed}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetInfo({ ...petInfo, breed: evt.target.value });
+                    }}
+                  >
+                    <option disabled></option>
+                    {breedList.map((breed) => (
+                      <option key={breed} value={breed}>
+                        {breed}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div className="flex flex-wrap mb-3">
@@ -409,20 +430,18 @@ const EditPetDetails = (props) => {
                   />
                 </div>
                 <div className="w-1/3 flex flex-col pr-6">
-                  <label className={labelClass}>Breed</label>
+                  <label className={labelClass}>Gender</label>
                   <select
                     className={validClass}
-                    value={petInfo.breed}
+                    value={petInfo.sex}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
-                      setPetInfo({ ...petInfo, breed: evt.target.value });
+                      setPetInfo({ ...petInfo, sex: evt.target.value });
                     }}
                   >
-                    {breedList.map((breed) => (
-                      <option key={breed} value={breed}>
-                        {breed}
-                      </option>
-                    ))}
+                    <option disabled></option>
+                    <option>male</option>
+                    <option>female</option>
                   </select>
                 </div>
                 <div className="w-1/3 flex flex-col">
