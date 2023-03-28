@@ -14,6 +14,8 @@ const EditPetDetails = (props) => {
   const navigate = useNavigate();
   const params = useParams();
 
+  const [formDisabled, setFormDisabled] = useState(false);
+
   const { user } = props;
 
   const { singlePet, petDetails } = useSelector(selectPets);
@@ -25,6 +27,12 @@ const EditPetDetails = (props) => {
   } else {
     petId = +params['*'].split('/')[1];
   }
+
+  useEffect(() => {
+    if (params['*'].includes('edit')) {
+      setFormDisabled(false);
+    } else setFormDisabled(true);
+  }, [params]);
 
   const [petInfo, setPetInfo] = useState({
     name: singlePet.name,
@@ -343,483 +351,491 @@ const EditPetDetails = (props) => {
       <button className="text-left text-xs font-semibold" onClick={goBack}>
         BACK
       </button>
-      <h2 className="font-rubikmono">Edit Pet Details</h2>
+      {formDisabled ? (
+        <h2 className="font-rubikmono">{singlePet.name} Profile</h2>
+      ) : (
+        <h2 className="font-rubikmono">Edit Pet Details</h2>
+      )}
       <div className="flex flex-col gap-5 overflow-auto h-[calc(100vh_-_20rem)]">
         <section>
-          <form onSubmit={submitPetUpdateDetails}>
-            <p className="font-rubikmono pb-2">ABOUT</p>
-            <div className="w-full flex flex-col mb-3">
-              <label className={labelClass}>Name</label>
-              <input
-                type="text"
-                className={validClass}
-                id="name"
-                name="name"
-                value={petInfo.name}
-                onChange={(evt) => {
-                  // setIsInvalidPhone(false);
-                  setPetInfo({ ...petInfo, name: evt.target.value });
-                }}
-              />
-            </div>
-
-            <div className="flex flex-wrap mb-3">
-              <div className="w-1/3 flex flex-col pr-6">
-                <label className={labelClass}>Age</label>
+          <fieldset disabled={formDisabled ? true : false}>
+            <form onSubmit={submitPetUpdateDetails}>
+              <p className="font-rubikmono pb-2">ABOUT</p>
+              <div className="w-full flex flex-col mb-3">
+                <label className={labelClass}>Name</label>
                 <input
-                  type="number"
-                  min={0}
-                  max={30}
-                  step={1}
+                  type="text"
                   className={validClass}
-                  value={petInfo.age}
+                  id="name"
+                  name="name"
+                  value={petInfo.name}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({ ...petInfo, age: evt.target.value });
+                    setPetInfo({ ...petInfo, name: evt.target.value });
                   }}
                 />
               </div>
-              <div className="w-1/3 flex flex-col pr-6">
-                <label className={labelClass}>Breed</label>
-                <select
-                  className={validClass}
-                  value={petInfo.breed}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetInfo({ ...petInfo, breed: evt.target.value });
-                  }}
-                >
-                  {breedList.map((breed) => (
-                    <option key={breed} value={breed}>
-                      {breed}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="w-1/3 flex flex-col">
-                <label className={labelClass}>Size</label>
-                <select
-                  id="size"
-                  name="size"
-                  className={validClass}
-                  value={petInfo.size}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetInfo({ ...petInfo, size: evt.target.value });
-                  }}
-                >
-                  <option>small</option>
-                  <option>medium</option>
-                  <option>large</option>
-                  <option>extralarge</option>
-                </select>
-              </div>
-            </div>
 
-            <div className="w-full flex flex-col mb-3">
-              <label className={labelClass}>Bio</label>
-              <textarea
-                rows={3}
-                type="text"
-                className={validClass}
-                value={petDetailsData.about}
-                onChange={(evt) => {
-                  // setIsInvalidPhone(false);
-                  setPetDetailsData({
-                    ...petDetailsData,
-                    about: evt.target.value,
-                  });
-                }}
-              ></textarea>
-            </div>
+              <div className="flex flex-wrap mb-3">
+                <div className="w-1/3 flex flex-col pr-6">
+                  <label className={labelClass}>Age</label>
+                  <input
+                    type="number"
+                    min={0}
+                    max={30}
+                    step={1}
+                    className={validClass}
+                    value={petInfo.age}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetInfo({ ...petInfo, age: evt.target.value });
+                    }}
+                  />
+                </div>
+                <div className="w-1/3 flex flex-col pr-6">
+                  <label className={labelClass}>Breed</label>
+                  <select
+                    className={validClass}
+                    value={petInfo.breed}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetInfo({ ...petInfo, breed: evt.target.value });
+                    }}
+                  >
+                    {breedList.map((breed) => (
+                      <option key={breed} value={breed}>
+                        {breed}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="w-1/3 flex flex-col">
+                  <label className={labelClass}>Size</label>
+                  <select
+                    id="size"
+                    name="size"
+                    className={validClass}
+                    value={petInfo.size}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetInfo({ ...petInfo, size: evt.target.value });
+                    }}
+                  >
+                    <option>small</option>
+                    <option>medium</option>
+                    <option>large</option>
+                    <option>extralarge</option>
+                  </select>
+                </div>
+              </div>
 
-            <div className="flex flex-wrap mb-3">
-              <div className="w-1/4 flex flex-col pr-6">
-                <label className={labelClass}>Microchipped</label>
-                <select
-                  name="housetrained"
+              <div className="w-full flex flex-col mb-3">
+                <label className={labelClass}>Bio</label>
+                <textarea
+                  rows={3}
+                  type="text"
                   className={validClass}
-                  value={petDetailsData.microchipped}
+                  value={petDetailsData.about}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
                     setPetDetailsData({
                       ...petDetailsData,
-                      microchipped: evt.target.value,
+                      about: evt.target.value,
                     });
                   }}
-                >
-                  <option>true</option>
-                  <option>false</option>
-                </select>
+                ></textarea>
               </div>
-              <div className="w-1/4 flex flex-col pr-6">
-                <label className={labelClass}>Housetrained</label>
-                <select
-                  name="houstrained"
-                  className={validClass}
-                  value={petDetailsData.housetrained}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      housetrained: evt.target.value,
-                    });
-                  }}
-                >
-                  <option>true</option>
-                  <option>false</option>
-                </select>
+
+              <div className="flex flex-wrap mb-3">
+                <div className="w-1/4 flex flex-col pr-6">
+                  <label className={labelClass}>Microchipped</label>
+                  <select
+                    name="housetrained"
+                    className={validClass}
+                    value={petDetailsData.microchipped}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        microchipped: evt.target.value,
+                      });
+                    }}
+                  >
+                    <option>true</option>
+                    <option>false</option>
+                  </select>
+                </div>
+                <div className="w-1/4 flex flex-col pr-6">
+                  <label className={labelClass}>Housetrained</label>
+                  <select
+                    name="houstrained"
+                    className={validClass}
+                    value={petDetailsData.housetrained}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        housetrained: evt.target.value,
+                      });
+                    }}
+                  >
+                    <option>true</option>
+                    <option>false</option>
+                  </select>
+                </div>
+                <div className="w-1/4 flex flex-col pr-6">
+                  <label className={labelClass}>Cratetrained</label>
+                  <select
+                    name="cratetrained"
+                    className={validClass}
+                    value={petDetailsData.cratetrained}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        cratetrained: evt.target.value,
+                      });
+                    }}
+                  >
+                    <option>yes</option>
+                    <option>no</option>
+                    <option>n/a</option>
+                  </select>
+                </div>
+                <div className="w-1/4 flex flex-col">
+                  <label className={labelClass}>Spayed / Neutered</label>
+                  <select
+                    name="fixed"
+                    className={validClass}
+                    value={petDetailsData.spayedOrNeutered}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        spayedOrNeutered: evt.target.value,
+                      });
+                    }}
+                  >
+                    <option>true</option>
+                    <option>false</option>
+                  </select>
+                </div>
               </div>
-              <div className="w-1/4 flex flex-col pr-6">
-                <label className={labelClass}>Cratetrained</label>
+
+              <p className="font-rubikmono pb-2">BEHAVIOR</p>
+              <div className="flex flex-wrap mb-3">
+                <div className="w-1/3 flex flex-col pr-6">
+                  <label className={labelClass}>Friendly with Dogs</label>
+                  <select
+                    name="otherDogs"
+                    className={validClass}
+                    value={petDetailsData.friendlyWithDogs}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        friendlyWithDogs: evt.target.value,
+                      });
+                    }}
+                  >
+                    <option>yes</option>
+                    <option>no</option>
+                    <option>depends</option>
+                    <option>unsure</option>
+                  </select>
+                </div>
+                <div className="w-1/3 flex flex-col pr-6">
+                  <label className={labelClass}>Friendly with Cats</label>
+                  <select
+                    name="cats"
+                    className={validClass}
+                    value={petDetailsData.friendlyWithCats}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        friendlyWithCats: evt.target.value,
+                      });
+                    }}
+                  >
+                    <option>yes</option>
+                    <option>no</option>
+                    <option>depends</option>
+                    <option>unsure</option>
+                  </select>
+                </div>
+                <div className="w-1/3 flex flex-col">
+                  <label className={labelClass}>Friendly with Kids</label>
+                  <select
+                    name="kids"
+                    className={validClass}
+                    value={petDetailsData.friendlyWithChildren}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        friendlyWithChildren: evt.target.value,
+                      });
+                    }}
+                  >
+                    <option>yes</option>
+                    <option>no</option>
+                    <option>depends</option>
+                    <option>unsure</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex flex-wrap mb-3">
+                <div className="w-1/2 flex flex-col pr-6">
+                  <label className={labelClass}>Energy Level</label>
+                  <select
+                    name="energy"
+                    className={validClass}
+                    value={petDetailsData.energyLevels}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        energyLevels: evt.target.value,
+                      });
+                    }}
+                  >
+                    <option>low</option>
+                    <option>moderate</option>
+                    <option>high</option>
+                  </select>
+                </div>
+                <div className="w-1/2 flex flex-col">
+                  <label className={labelClass}>Max Time Left Alone</label>
+                  <select
+                    name="alone"
+                    className={validClass}
+                    value={petDetailsData.canBeLeftAlone}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        canBeLeftAlone: evt.target.value,
+                      });
+                    }}
+                  >
+                    <option>{'<1 hour'}</option>
+                    <option>1-4 hours</option>
+                    <option>custom</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex flex-wrap mb-3">
+                <div className="w-1/2 flex flex-col mb-3 pr-6">
+                  <label className={labelClass}>Reactivity</label>
+                  <textarea
+                    rows={3}
+                    type="text"
+                    className={validClass}
+                    value={petDetailsData.reactivity}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        reactivity: evt.target.value,
+                      });
+                    }}
+                  ></textarea>
+                </div>
+                <div className="w-1/2 flex flex-col mb-3">
+                  <label className={labelClass}>Left Alone Details</label>
+                  <textarea
+                    rows={3}
+                    type="text"
+                    className={validClass}
+                    value={petDetailsData.canBeLeftAloneDetails}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        canBeLeftAloneDetails: evt.target.value,
+                      });
+                    }}
+                  ></textarea>
+                </div>
+              </div>
+              <p className="font-rubikmono pb-2">FOOD / EXERCISE</p>
+              <div className="flex flex-wrap mb-3">
+                <div className="w-1/3 flex flex-col pr-6">
+                  <label className={labelClass}>Feedings per Day</label>
+                  <select
+                    name="feeding"
+                    className={validClass}
+                    value={petDetailsData.feedingSchedule}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        feedingSchedule: evt.target.value,
+                      });
+                    }}
+                  >
+                    <option>morning</option>
+                    <option>twice a day</option>
+                    <option>custom</option>
+                  </select>
+                </div>
+                <div className="w-1/3 flex flex-col pr-6">
+                  <label className={labelClass}>Walks per Day</label>
+                  <select
+                    name="walks"
+                    className={validClass}
+                    value={petDetailsData.walkSchedule}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        walkSchedule: evt.target.value,
+                      });
+                    }}
+                  >
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4+</option>
+                  </select>
+                </div>
+                <div className="w-1/3 flex flex-col">
+                  <label className={labelClass}>Walk Duration</label>
+                  <select
+                    name="walkDuration"
+                    className={validClass}
+                    value={petDetailsData.walkDuration}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        walkDuration: evt.target.value,
+                      });
+                    }}
+                  >
+                    <option>15</option>
+                    <option>30</option>
+                    <option>60</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex flex-wrap mb-3">
+                <div className="w-1/2 flex flex-col mb-3 pr-6">
+                  <label className={labelClass}>Walk Details</label>
+                  <textarea
+                    rows={3}
+                    type="text"
+                    className={validClass}
+                    value={petDetailsData.walkDetails}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        walkDetails: evt.target.value,
+                      });
+                    }}
+                  ></textarea>
+                </div>
+                <div className="w-1/2 flex flex-col mb-3">
+                  <label className={labelClass}>Food Details</label>
+                  <textarea
+                    rows={3}
+                    type="text"
+                    className={validClass}
+                    value={petDetailsData.foodDetails}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        foodDetails: evt.target.value,
+                      });
+                    }}
+                  ></textarea>
+                </div>
+              </div>
+              <p className="font-rubikmono pb-2">MEDICATIONS & VET INFO</p>
+              <div className="w-full flex flex-col mb-3">
+                <label className={labelClass}>Type of Medications</label>
                 <select
-                  name="cratetrained"
+                  name="meds"
                   className={validClass}
-                  value={petDetailsData.cratetrained}
+                  value={petDetailsData.medications}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
                     setPetDetailsData({
                       ...petDetailsData,
-                      cratetrained: evt.target.value,
+                      medications: evt.target.value,
                     });
                   }}
                 >
-                  <option>yes</option>
-                  <option>no</option>
+                  <option>pill</option>
+                  <option>topical</option>
+                  <option>injection</option>
                   <option>n/a</option>
                 </select>
               </div>
-              <div className="w-1/4 flex flex-col">
-                <label className={labelClass}>Spayed / Neutered</label>
-                <select
-                  name="fixed"
-                  className={validClass}
-                  value={petDetailsData.spayedOrNeutered}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      spayedOrNeutered: evt.target.value,
-                    });
-                  }}
-                >
-                  <option>true</option>
-                  <option>false</option>
-                </select>
+              <div className="flex flex-wrap mb-3">
+                <div className="w-1/2 flex flex-col mb-3 pr-6">
+                  <label className={labelClass}>Medication Details</label>
+                  <textarea
+                    rows={3}
+                    type="text"
+                    className={validClass}
+                    value={petDetailsData.medicationDetails}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        medicationDetails: evt.target.value,
+                      });
+                    }}
+                  ></textarea>
+                </div>
+                <div className="w-1/2 flex flex-col mb-3">
+                  <label className={labelClass}>Vet Info</label>
+                  <textarea
+                    rows={3}
+                    type="text"
+                    className={validClass}
+                    value={petDetailsData.vetInfo}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetDetailsData({
+                        ...petDetailsData,
+                        vetInfo: evt.target.value,
+                      });
+                    }}
+                  ></textarea>
+                </div>
               </div>
-            </div>
-
-            <p className="font-rubikmono pb-2">BEHAVIOR</p>
-            <div className="flex flex-wrap mb-3">
-              <div className="w-1/3 flex flex-col pr-6">
-                <label className={labelClass}>Friendly with Dogs</label>
-                <select
-                  name="otherDogs"
-                  className={validClass}
-                  value={petDetailsData.friendlyWithDogs}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      friendlyWithDogs: evt.target.value,
-                    });
-                  }}
-                >
-                  <option>yes</option>
-                  <option>no</option>
-                  <option>depends</option>
-                  <option>unsure</option>
-                </select>
-              </div>
-              <div className="w-1/3 flex flex-col pr-6">
-                <label className={labelClass}>Friendly with Cats</label>
-                <select
-                  name="cats"
-                  className={validClass}
-                  value={petDetailsData.friendlyWithCats}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      friendlyWithCats: evt.target.value,
-                    });
-                  }}
-                >
-                  <option>yes</option>
-                  <option>no</option>
-                  <option>depends</option>
-                  <option>unsure</option>
-                </select>
-              </div>
-              <div className="w-1/3 flex flex-col">
-                <label className={labelClass}>Friendly with Kids</label>
-                <select
-                  name="kids"
-                  className={validClass}
-                  value={petDetailsData.friendlyWithChildren}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      friendlyWithChildren: evt.target.value,
-                    });
-                  }}
-                >
-                  <option>yes</option>
-                  <option>no</option>
-                  <option>depends</option>
-                  <option>unsure</option>
-                </select>
-              </div>
-            </div>
-            <div className="flex flex-wrap mb-3">
-              <div className="w-1/2 flex flex-col pr-6">
-                <label className={labelClass}>Energy Level</label>
-                <select
-                  name="energy"
-                  className={validClass}
-                  value={petDetailsData.energyLevels}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      energyLevels: evt.target.value,
-                    });
-                  }}
-                >
-                  <option>low</option>
-                  <option>moderate</option>
-                  <option>high</option>
-                </select>
-              </div>
-              <div className="w-1/2 flex flex-col">
-                <label className={labelClass}>Max Time Left Alone</label>
-                <select
-                  name="alone"
-                  className={validClass}
-                  value={petDetailsData.canBeLeftAlone}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      canBeLeftAlone: evt.target.value,
-                    });
-                  }}
-                >
-                  <option>{'<1 hour'}</option>
-                  <option>1-4 hours</option>
-                  <option>custom</option>
-                </select>
-              </div>
-            </div>
-            <div className="flex flex-wrap mb-3">
-              <div className="w-1/2 flex flex-col mb-3 pr-6">
-                <label className={labelClass}>Reactivity</label>
+              <p className="font-rubikmono pb-2">ADDITIONAL INFO</p>
+              <div className="w-full flex flex-col mb-3">
+                <label className={labelClass}>Anything Else</label>
                 <textarea
-                  rows={3}
+                  rows={4}
                   type="text"
                   className={validClass}
-                  value={petDetailsData.reactivity}
+                  value={petDetailsData.additionalDetails}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
                     setPetDetailsData({
                       ...petDetailsData,
-                      reactivity: evt.target.value,
+                      additionalDetails: evt.target.value,
                     });
                   }}
                 ></textarea>
               </div>
-              <div className="w-1/2 flex flex-col mb-3">
-                <label className={labelClass}>Left Alone Details</label>
-                <textarea
-                  rows={3}
-                  type="text"
-                  className={validClass}
-                  value={petDetailsData.canBeLeftAloneDetails}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      canBeLeftAloneDetails: evt.target.value,
-                    });
-                  }}
-                ></textarea>
-              </div>
-            </div>
-            <p className="font-rubikmono pb-2">FOOD / EXERCISE</p>
-            <div className="flex flex-wrap mb-3">
-              <div className="w-1/3 flex flex-col pr-6">
-                <label className={labelClass}>Feedings per Day</label>
-                <select
-                  name="feeding"
-                  className={validClass}
-                  value={petDetailsData.feedingSchedule}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      feedingSchedule: evt.target.value,
-                    });
-                  }}
+              {formDisabled ? null : (
+                <button
+                  type="submit"
+                  className="ease-in duration-300 font-rubikmono hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-6"
                 >
-                  <option>morning</option>
-                  <option>twice a day</option>
-                  <option>custom</option>
-                </select>
-              </div>
-              <div className="w-1/3 flex flex-col pr-6">
-                <label className={labelClass}>Walks per Day</label>
-                <select
-                  name="walks"
-                  className={validClass}
-                  value={petDetailsData.walkSchedule}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      walkSchedule: evt.target.value,
-                    });
-                  }}
-                >
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4+</option>
-                </select>
-              </div>
-              <div className="w-1/3 flex flex-col">
-                <label className={labelClass}>Walk Duration</label>
-                <select
-                  name="walkDuration"
-                  className={validClass}
-                  value={petDetailsData.walkDuration}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      walkDuration: evt.target.value,
-                    });
-                  }}
-                >
-                  <option>15</option>
-                  <option>30</option>
-                  <option>60</option>
-                </select>
-              </div>
-            </div>
-            <div className="flex flex-wrap mb-3">
-              <div className="w-1/2 flex flex-col mb-3 pr-6">
-                <label className={labelClass}>Walk Details</label>
-                <textarea
-                  rows={3}
-                  type="text"
-                  className={validClass}
-                  value={petDetailsData.walkDetails}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      walkDetails: evt.target.value,
-                    });
-                  }}
-                ></textarea>
-              </div>
-              <div className="w-1/2 flex flex-col mb-3">
-                <label className={labelClass}>Food Details</label>
-                <textarea
-                  rows={3}
-                  type="text"
-                  className={validClass}
-                  value={petDetailsData.foodDetails}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      foodDetails: evt.target.value,
-                    });
-                  }}
-                ></textarea>
-              </div>
-            </div>
-            <p className="font-rubikmono pb-2">MEDICATIONS & VET INFO</p>
-            <div className="w-full flex flex-col mb-3">
-              <label className={labelClass}>Type of Medications</label>
-              <select
-                name="meds"
-                className={validClass}
-                value={petDetailsData.medications}
-                onChange={(evt) => {
-                  // setIsInvalidPhone(false);
-                  setPetDetailsData({
-                    ...petDetailsData,
-                    medications: evt.target.value,
-                  });
-                }}
-              >
-                <option>pill</option>
-                <option>topical</option>
-                <option>injection</option>
-                <option>n/a</option>
-              </select>
-            </div>
-            <div className="flex flex-wrap mb-3">
-              <div className="w-1/2 flex flex-col mb-3 pr-6">
-                <label className={labelClass}>Medication Details</label>
-                <textarea
-                  rows={3}
-                  type="text"
-                  className={validClass}
-                  value={petDetailsData.medicationDetails}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      medicationDetails: evt.target.value,
-                    });
-                  }}
-                ></textarea>
-              </div>
-              <div className="w-1/2 flex flex-col mb-3">
-                <label className={labelClass}>Vet Info</label>
-                <textarea
-                  rows={3}
-                  type="text"
-                  className={validClass}
-                  value={petDetailsData.vetInfo}
-                  onChange={(evt) => {
-                    // setIsInvalidPhone(false);
-                    setPetDetailsData({
-                      ...petDetailsData,
-                      vetInfo: evt.target.value,
-                    });
-                  }}
-                ></textarea>
-              </div>
-            </div>
-            <p className="font-rubikmono pb-2">ADDITIONAL INFO</p>
-            <div className="w-full flex flex-col mb-3">
-              <label className={labelClass}>Anything Else</label>
-              <textarea
-                rows={4}
-                type="text"
-                className={validClass}
-                value={petDetailsData.additionalDetails}
-                onChange={(evt) => {
-                  // setIsInvalidPhone(false);
-                  setPetDetailsData({
-                    ...petDetailsData,
-                    additionalDetails: evt.target.value,
-                  });
-                }}
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              className="ease-in duration-300 font-rubikmono hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-6"
-            >
-              SAVE
-            </button>
-          </form>
+                  SAVE
+                </button>
+              )}
+            </form>
+          </fieldset>
         </section>
       </div>
     </div>

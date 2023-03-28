@@ -111,13 +111,13 @@ function UserAccount() {
             <Route path="/pets" element={<EditUserPets />}></Route>
             <Route path="/access" element={<EditUserAccess />}></Route>
             <Route
-              path="/pets/:petId"
-              element={<UserPetDetails user={userAuth} />}
-            />
-            <Route
-              path="/pets/:petId/edit"
+              path="/pets/:petId/*"
               element={<EditPetDetails user={userAuth} />}
             />
+            {/* <Route
+              path="/pets/:petId/edit"
+              element={<EditPetDetails user={userAuth} />}
+            /> */}
             {/* SITTER ROUTES */}
             <Route path="/sitter" element={<SitterOverview />}></Route>
             <Route
