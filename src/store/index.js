@@ -6,6 +6,7 @@ import bookingsSlice from '../slices/bookingsSlice';
 import sittersSlice from '../slices/sittersSlice';
 import usersSlice from '../slices/usersSlice';
 import petsSlice from '../slices/petsSlice';
+import postsSlice from '../slices/postsSlice';
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     sitters: sittersSlice,
     users: usersSlice,
     pets: petsSlice,
+    posts: postsSlice,
   },
 });
 
