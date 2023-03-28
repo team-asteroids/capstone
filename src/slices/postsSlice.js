@@ -44,6 +44,22 @@ export const unlikePost = createAsyncThunk(
   }
 );
 
+export const fetchPostsThroughSearch = createAsyncThunk(
+  '/postsSearch',
+  async (name, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/api/posts/search', {
+        params: {
+          content: name,
+        },
+      });
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const postsSlice = createSlice({
   name: 'posts',
   initialState: {
@@ -120,6 +136,20 @@ export const postsSlice = createSlice({
         // state.likedStatus = true; // or dont change at all?
         state.error = payload;
         // check on this
+      })
+      .addCase(fetchPostsThroughSearch.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        // console.log(payload);
+        state.error = '';
+        state.allPosts = payload;
+      })
+      .addCase(fetchPostsThroughSearch.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchPostsThroughSearch.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
       });
   },
 });

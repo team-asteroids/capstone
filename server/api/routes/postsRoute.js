@@ -7,6 +7,7 @@ const {
   Post_Comment_Like,
 } = require('../../db');
 const { requireToken } = require('../authMiddleware');
+const sequelize = require('sequelize');
 
 // helper function
 const integrateLikes = async (post) => {
@@ -411,6 +412,25 @@ router.delete('/:postId/comments/:commentId/likes', async (req, res, next) => {
   } catch (e) {
     console.log('Backend issue deleting post_comment_like');
     next(e);
+  }
+});
+
+router.post('/search', async (req, res, next) => {
+  try {
+    const content = req.body.params.content;
+    const searchedPosts = await Post.findAll({
+      where: {
+        content: {
+          [sequelize.Op.iLike]: `%${content}%`,
+        },
+      },
+
+      include: [{ model: Post_Comment }, { model: User }],
+    });
+    res.status(200).json(searchedPosts);
+  } catch (error) {
+    console.log('Backend issue searching posts');
+    next(error);
   }
 });
 
