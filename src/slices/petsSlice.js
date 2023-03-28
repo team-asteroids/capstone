@@ -29,6 +29,41 @@ export const fetchPetDetails = createAsyncThunk(
   }
 );
 
+export const updatePet = createAsyncThunk(
+  'updatePet',
+  async ({ id, token, petId, petInfo }, { rejectWithValue }) => {
+    const { data } = await axios.put(
+      `/api/users/${id}/pets/${petId}`,
+      { petInfo },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    return data;
+  }
+);
+
+export const updatePetDetails = createAsyncThunk(
+  'updatePetDetails',
+  async (
+    { id, token, petId, detailsId, petDetailsData },
+    { rejectWithValue }
+  ) => {
+    const { data } = await axios.put(
+      `/api/users/${id}/pets/${petId}/details/${detailsId}`,
+      { petDetailsData },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    return data;
+  }
+);
+
 const petsSlice = createSlice({
   name: 'pets',
   initialState: {
@@ -83,6 +118,32 @@ const petsSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchPetDetails.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(updatePet.fulfilled, (state, { payload }) => {
+        state.singlePet = payload;
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(updatePet.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(updatePet.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(updatePetDetails.fulfilled, (state, { payload }) => {
+        state.petDetails = payload;
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(updatePetDetails.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(updatePetDetails.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });

@@ -89,14 +89,24 @@ router.post('/', async (req, res, next) => {
 });
 
 // Edit pet basic
-router.put('/:id', async (req, res, next) => {
+router.put('/:petId', requireToken, async (req, res, next) => {
   try {
-    const singlePet = await Pet.findByPk(req.params.id, {
-      include: { model: User, attributes: { exclude: ['password'] } },
-    });
-    if (!singlePet) return res.status(404).send('No pet exists!');
-    const updatedPet = await singlePet.update(req.body);
-    res.json(updatedPet);
+    const id = +req.params.id;
+    console.log('req.body', req.body);
+    if (req.user.role === 'admin' || req.user.id === id) {
+      const singlePet = await Pet.findByPk(req.params.petId, {
+        include: { model: User, attributes: { exclude: ['password'] } },
+      });
+      if (!singlePet) return res.status(404).send('No pet exists!');
+      const updatedPet = await singlePet.update(req.body);
+      res.status(200).send(updatedPet);
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
   } catch (e) {
     console.error('BACKEND ISSUE UPDATING PET BASICS');
     next(e);
@@ -104,21 +114,35 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // Edit pet details
-router.put('/:id/details', async (req, res, next) => {
-  try {
-    const singlePetDetails = await Pet_Detail.findOne({
-      where: {
-        petId: req.params.id,
-      },
-    });
-    if (!singlePetDetails) return res.status(404).send('No pet details exist!');
-    const updatedSinglePetDetails = await singlePetDetails.update(req.body);
-    res.json(updatedSinglePetDetails);
-  } catch (e) {
-    console.error('BACKEND ISSUE UPDATING PET DETAILS');
-    next(e);
+router.put(
+  '/:petId/details/:detailsId',
+  requireToken,
+  async (req, res, next) => {
+    try {
+      const id = +req.params.id;
+      if (req.user.role === 'admin' || req.user.id === id) {
+        const singlePetDetails = await Pet_Detail.findOne({
+          where: {
+            id: req.params.detailsId,
+          },
+        });
+        if (!singlePetDetails)
+          return res.status(404).send('No pet details exist!');
+        const updatedSinglePetDetails = await singlePetDetails.update(req.body);
+        res.status(200).send(updatedSinglePetDetails);
+      } else {
+        res
+          .status(403)
+          .send(
+            'Inadequate access rights / Requested user does not match logged-in user'
+          );
+      }
+    } catch (e) {
+      console.error('BACKEND ISSUE UPDATING PET DETAILS');
+      next(e);
+    }
   }
-});
+);
 
 // Delete pet
 router.delete('/:id', async (req, res, next) => {

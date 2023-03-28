@@ -5,6 +5,7 @@ import {
   fetchSinglePet,
   selectPets,
   fetchPetDetails,
+  updatePet,
 } from '../../slices/petsSlice';
 
 const EditPetDetails = (props) => {
@@ -101,6 +102,23 @@ const EditPetDetails = (props) => {
   const goBack = () => {
     navigate(-1);
   };
+
+  const updatePetDetails = async (evt) => {
+    evt.preventDefault();
+    const id = user.id;
+    const detailsId = petDetails.id;
+    const token = window.localStorage.getItem('token');
+
+    const res1 = await dispatch(updatePet({ id, token, petId, petInfo }));
+    console.log(res1);
+
+    const res2 = await dispatch(
+      updatePetDetails({ id, token, petId, detailsId, petDetailsData })
+    );
+    console.log(res2);
+  };
+
+  const deletePet = () => {};
 
   const labelClass = 'text-xs font-rubikmono';
 
@@ -318,10 +336,10 @@ const EditPetDetails = (props) => {
       <button className="text-left text-xs font-semibold" onClick={goBack}>
         BACK
       </button>
-      <h2 className="font-rubikmono">{singlePet.name}</h2>
+      <h2 className="font-rubikmono">Edit Pet Details</h2>
       <div className="flex flex-col gap-5 overflow-auto h-[calc(100vh_-_20rem)]">
         <section>
-          <form>
+          <form onSubmit={updatePetDetails}>
             <p className="font-rubikmono pb-2">ABOUT</p>
             <div className="w-full flex flex-col mb-3">
               <label className={labelClass}>Name</label>
@@ -546,7 +564,7 @@ const EditPetDetails = (props) => {
             </div>
             <div className="flex flex-wrap mb-3">
               <div className="w-1/2 flex flex-col pr-6">
-                <label className={labelClass}>Engery Level</label>
+                <label className={labelClass}>Energy Level</label>
                 <select
                   name="energy"
                   className={validClass}
@@ -588,7 +606,7 @@ const EditPetDetails = (props) => {
               <div className="w-1/2 flex flex-col mb-3 pr-6">
                 <label className={labelClass}>Reactivity</label>
                 <textarea
-                  rows={2}
+                  rows={3}
                   type="text"
                   className={validClass}
                   value={petDetails.reactivity}
@@ -604,7 +622,7 @@ const EditPetDetails = (props) => {
               <div className="w-1/2 flex flex-col mb-3">
                 <label className={labelClass}>Left Alone Details</label>
                 <textarea
-                  rows={2}
+                  rows={3}
                   type="text"
                   className={validClass}
                   value={petDetails.canBeLeftAloneDetails}
@@ -683,7 +701,7 @@ const EditPetDetails = (props) => {
               <div className="w-1/2 flex flex-col mb-3 pr-6">
                 <label className={labelClass}>Walk Details</label>
                 <textarea
-                  rows={2}
+                  rows={3}
                   type="text"
                   className={validClass}
                   value={petDetails.walkDetails}
@@ -699,7 +717,7 @@ const EditPetDetails = (props) => {
               <div className="w-1/2 flex flex-col mb-3">
                 <label className={labelClass}>Food Details</label>
                 <textarea
-                  rows={2}
+                  rows={3}
                   type="text"
                   className={validClass}
                   value={petDetails.foodDetails}
@@ -738,7 +756,7 @@ const EditPetDetails = (props) => {
               <div className="w-1/2 flex flex-col mb-3 pr-6">
                 <label className={labelClass}>Medication Details</label>
                 <textarea
-                  rows={2}
+                  rows={3}
                   type="text"
                   className={validClass}
                   value={petDetails.medicationDetails}
@@ -754,7 +772,7 @@ const EditPetDetails = (props) => {
               <div className="w-1/2 flex flex-col mb-3">
                 <label className={labelClass}>Vet Info</label>
                 <textarea
-                  rows={2}
+                  rows={3}
                   type="text"
                   className={validClass}
                   value={petDetails.vetInfo}
@@ -768,11 +786,11 @@ const EditPetDetails = (props) => {
                 ></textarea>
               </div>
             </div>
-            <p> className="font-rubikmono pb-2"ADDITIONAL INFO</p>
+            <p className="font-rubikmono pb-2">ADDITIONAL INFO</p>
             <div className="w-full flex flex-col mb-3">
               <label className={labelClass}>Anything Else</label>
               <textarea
-                row={3}
+                rows={4}
                 type="text"
                 className={validClass}
                 value={petDetails.additionalDetails}
@@ -785,7 +803,12 @@ const EditPetDetails = (props) => {
                 }}
               ></textarea>
             </div>
-            <button>SAVE</button>
+            <button
+              type="submit"
+              className="ease-in duration-300 font-rubikmono hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-6"
+            >
+              SAVE
+            </button>
           </form>
         </section>
       </div>
