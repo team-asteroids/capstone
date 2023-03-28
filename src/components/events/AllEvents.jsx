@@ -1,39 +1,59 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchAllEvents,
+  selectEvents,
+  fetchEventNames,
+} from '../../slices/eventsSlice';
 import { Link } from 'react-router-dom';
-import { fetchAllEvents, selectEvents } from '../../slices/eventsSlice';
+
+
 import EventList from './EventList';
 
 const AllEvents = () => {
   const dispatch = useDispatch();
   const events = useSelector(selectEvents);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     dispatch(fetchAllEvents());
   }, [dispatch]);
 
-  return (
-    <div className="bg-gradient-to-r from-bold-blue via-bold-purple to-white-smoke">
-      <h3 className="text-lg font-rubikmono ">
-        <Link to={`/events/create`}>
-          <li>Add New Event</li>
-        </Link>
-      </h3>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(fetchEventNames(search));
+    setSearch('');
+  };
 
-      <div className="container mx-auto ">
-        {events.events.map((event) => (
-          <EventList
-            key={event.id}
-            eventId={event.id}
-            creatorId={event.creatorId}
-            topic={event.topic}
-            description={event.description}
-            date={event.event_start}
-            zip={event.zip_code}
-          />
-        ))}
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Search events"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        <button type="submit">Search</button>
+      </form>
+      
+      <div className="bg-gradient-to-r from-bold-blue via-bold-purple to-white-smoke">
+        <div className="container mx-auto ">
+          {events.events.map((event) => (
+            <EventList
+              key={event.id}
+              eventId={event.id}
+              creatorId={event.creatorId}
+              topic={event.topic}
+              description={event.description}
+              date={event.event_start}
+              zip={event.zip_code}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -74,6 +74,22 @@ export const removeRsvpAsync = createAsyncThunk('/removeRSVP', async (id) => {
   return data;
 });
 
+export const fetchEventNames = createAsyncThunk(
+  'fetch/searchEvents',
+  async (name, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/api/events/name', {
+        params: {
+          topic: name,
+        },
+      });
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const eventsSlice = createSlice({
   name: 'events',
   initialState: {
@@ -151,6 +167,19 @@ export const eventsSlice = createSlice({
         state.status = 'failed';
         state.error = payload.message;
       })
+      .addCase(fetchEventNames.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.events = payload;
+      })
+      .addCase(fetchEventNames.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchEventNames.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+       })
       .addCase(createEventAsync.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
