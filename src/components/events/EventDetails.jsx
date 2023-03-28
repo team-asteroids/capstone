@@ -36,7 +36,7 @@ const EventDetails = () => {
       setLoading(false);
     };
     fetchData();
-  }, [dispatch, id, user]);
+  }, [dispatch, id, event]);
   const alreadyRSVPd = myRsvps.filter((rsvp) => rsvp.eventId === event.id);
 
   if (!auth.userAuth) {
