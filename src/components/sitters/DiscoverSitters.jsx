@@ -14,13 +14,13 @@ const DiscoverSitters = () => {
   const [search, setSearch] = useState('');
   const [searchResultValid, setSearchResultValid] = useState(true);
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(fetchSitterNames(search));
     setSearch('');
   };
 
-  console.log('searchResultValid', searchResultValid);
 
   useEffect(() => {
     dispatch(fetchAllSitters());
