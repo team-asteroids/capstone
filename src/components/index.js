@@ -43,3 +43,4 @@ export { default as Chat } from './ui/Chat.jsx';
 export { default as AllHowls } from './howls/AllHowls.jsx';
 export { default as EditPetDetails } from './users/EditPetDetails.jsx';
 export { default as AddNewPet } from './users/AddNewPet.jsx';
+export { default as BookingCard } from './users/sitters/BookingCard.jsx';

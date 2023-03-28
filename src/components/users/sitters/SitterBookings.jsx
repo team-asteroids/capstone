@@ -6,6 +6,7 @@ import {
   resetSitterStatus,
 } from '../../../slices/sittersSlice';
 import { selectAuth } from '../../../slices/authSlice';
+import { BookingCard } from '../../index';
 
 const SitterBookings = (props) => {
   const { sitter } = props;
@@ -64,7 +65,7 @@ const SitterBookings = (props) => {
           {approved && approved.length
             ? approved.map((booking) => (
                 <div key={booking.id}>
-                  <p>{booking.status}</p>
+                  <BookingCard booking={booking} />
                 </div>
               ))
             : 'no upcoming bookings!'}
@@ -75,7 +76,7 @@ const SitterBookings = (props) => {
             {completed && completed.length
               ? completed.map((booking) => (
                   <div key={booking.id}>
-                    <p>{booking.status}</p>
+                    <BookingCard booking={booking} />
                   </div>
                 ))
               : 'no past bookings!'}
@@ -86,7 +87,7 @@ const SitterBookings = (props) => {
           {cancelled && cancelled.length
             ? cancelled.map((booking) => (
                 <div key={booking.id}>
-                  <p>{booking.status}</p>
+                  <BookingCard booking={booking} />
                 </div>
               ))
             : 'no cancelled bookings!'}
