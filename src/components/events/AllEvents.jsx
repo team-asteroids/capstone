@@ -5,6 +5,9 @@ import {
   selectEvents,
   fetchEventNames,
 } from '../../slices/eventsSlice';
+import { Link } from 'react-router-dom';
+
+
 import EventList from './EventList';
 
 const AllEvents = () => {
@@ -34,6 +37,7 @@ const AllEvents = () => {
 
         <button type="submit">Search</button>
       </form>
+      
       <div className="bg-gradient-to-r from-bold-blue via-bold-purple to-white-smoke">
         <div className="container mx-auto ">
           {events.events.map((event) => (
