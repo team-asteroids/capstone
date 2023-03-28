@@ -16,22 +16,37 @@ const integrateLikes = async (post) => {
   return { post, likes };
 };
 
-// get all posts (w/comments & likes)
+// get all posts (w/comments)
 // public access
 router.get('/', async (req, res, next) => {
   try {
     const allPosts = await Post.findAll({
-      include: [{ model: Post_Comment }],
+      include: [{ model: Post_Comment }, { model: User }],
     });
-    const postsAndLikes = await Promise.all(
-      allPosts.map((post) => integrateLikes(post))
-    );
-    res.status(200).json(postsAndLikes);
+
+    res.status(200).json(allPosts);
   } catch (e) {
     console.log('Backend issue fetching all posts');
     next(e);
   }
 });
+
+// // get all posts (w/comments & likes)
+// // public access
+// router.get('/', async (req, res, next) => {
+//   try {
+//     const allPosts = await Post.findAll({
+//       include: [{ model: Post_Comment }],
+//     });
+//     const postsAndLikes = await Promise.all(
+//       allPosts.map((post) => integrateLikes(post))
+//     );
+//     res.status(200).json(postsAndLikes);
+//   } catch (e) {
+//     console.log('Backend issue fetching all posts');
+//     next(e);
+//   }
+// });
 
 // get a single post (w/comments & likes)
 // must be logged in
@@ -242,24 +257,38 @@ router.delete(
 
 // _____________________________________________________________
 
-// get all likes &/ users who liked single post -- maybe delete bc pos no use case??
-router.get('/:postId/likes', requireToken, async (req, res, next) => {
+// get all likes &/ users
+router.get('/likes', requireToken, async (req, res, next) => {
   try {
+    console.log('hitting like route');
     const likes = await Post_Like.findAll({
-      where: { postId: req.params.postId },
+      include: [{ model: User }],
     });
-
-    const userIds = likes.map((like) => like.userId);
-
-    const users = await Promise.all(
-      userIds.map((userId) => User.findByPk(userId))
-    );
-    res.status(200).json({ likes, users });
+    res.status(200).json(likes);
   } catch (e) {
     console.log('Backend issue fetching all post likes');
     next(e);
   }
 });
+
+// // get all likes &/ users who liked single post -- maybe delete bc pos no use case??
+// router.get('/:postId/likes', requireToken, async (req, res, next) => {
+//   try {
+//     const likes = await Post_Like.findAll({
+//       where: { postId: req.params.postId },
+//     });
+
+//     const userIds = likes.map((like) => like.userId);
+
+//     const users = await Promise.all(
+//       userIds.map((userId) => User.findByPk(userId))
+//     );
+//     res.status(200).json({ likes, users });
+//   } catch (e) {
+//     console.log('Backend issue fetching all post likes');
+//     next(e);
+//   }
+// });
 
 //  like a post
 //  must be logged in -- userId of like automatically set to token user id
@@ -285,7 +314,7 @@ router.post('/:postId/likes', requireToken, async (req, res, next) => {
 router.delete('/:postId/likes', requireToken, async (req, res, next) => {
   try {
     const deletedPostLike = await Post_Like.findOne({
-      where: { postId: req.params.postId },
+      where: { postId: req.params.postId, userId: req.user.id },
     });
     if (!deletedPostLike) {
       return res.status(404).send('That post_like does not exist!');

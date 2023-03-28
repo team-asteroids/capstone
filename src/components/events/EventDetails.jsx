@@ -11,7 +11,7 @@ import {
 } from '../../slices/eventsSlice';
 import { selectAuth } from '../../slices/authSlice';
 import defaultImg from '../../img/group-puppies-celebrating-new-year.jpg';
-
+import Map from '../maps/Map';
 const EventDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,7 +20,6 @@ const EventDetails = () => {
   const auth = useSelector(selectAuth);
   const myRsvps = useSelector(selectMyRsvps);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(fetchSingleEvent(id));
@@ -28,7 +27,6 @@ const EventDetails = () => {
     };
     fetchData();
   }, [dispatch, id]);
-
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(getMyRsvpsAsync());
@@ -36,10 +34,7 @@ const EventDetails = () => {
     };
     fetchData();
   }, [dispatch, id]);
-
   const alreadyRSVPd = myRsvps.filter((rsvp) => rsvp.eventId === event.id);
-  console.log(alreadyRSVPd);
-
   if (!auth.userAuth) {
     return (
       <>
@@ -67,9 +62,7 @@ const EventDetails = () => {
               Event Details
             </div>
             <div className="pl-5 pt-3  container mx-auto relative">
-
               <img className="w-100 " src={defaultImg} alt="puppy event" />
-
               <div className="p-1">Topic: {event.topic}</div>
               <div className="p-1">Event Creator: @howlr_{event.creatorId}</div>
               <div className="p-1 ">
@@ -77,10 +70,10 @@ const EventDetails = () => {
                 {event.description}
                 {event.description}
               </div>
-
               <button className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3">
                 <Link to={'/login'}>Login to RSVP</Link>
               </button>
+              <Map zip={event.zip_code} />
             </div>
           </div>
         )}
@@ -92,8 +85,8 @@ const EventDetails = () => {
         {loading ? (
           <div>Loading</div>
         ) : (
-          <div className=" bg-bold-purple h-screen w-screen text-slate-200 items-center">
-            <div className="bg-bold-blue pl-5 flex pt-3 pb-3  font-rubikmono ">
+          <div className=" bg-bold-purple h-vh100 w-screen text-slate-200 ">
+            <div className="bg-bold-blue pl-5 flex pt-3 pb-3  font-rubikmono">
               <span className="pr-1.5">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -112,14 +105,14 @@ const EventDetails = () => {
               </span>
               Event Details
             </div>
-            <div className="pl-3 pt-3  container mx-auto relative">
+            <div>
               <img
                 className="w-100 rounded-3xl"
-
                 src={defaultImg}
-
                 alt="puppy event"
               />
+            </div>
+            <div className="pl-3 pt-3  container mx-auto relative">
               <div className="p-1">
                 <strong>PUP-E-VENT:</strong> {event.topic}
               </div>
@@ -169,6 +162,7 @@ const EventDetails = () => {
                 </button>
               )}
             </div>
+            <Map zip={event.zip_code} />
           </div>
         )}
       </>

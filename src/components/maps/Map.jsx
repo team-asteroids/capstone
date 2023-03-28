@@ -9,45 +9,34 @@ import {
 import { formatRelative } from 'date-fns';
 import mapStyles from './mapStyles';
 const dogMarker = require('../../../src/img/dog.png');
-
 const libraries = ['places'];
 const mapContainerStyle = {
   width: '100vw',
   height: '100vh',
 };
-
 const options = {
   styles: mapStyles,
   disableDefaultUI: true,
   zoomControl: true,
 };
-
-function Map() {
+function Map(props) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
-
   if (loadError) return 'Error loading maps';
   if (!isLoaded) return 'Loading Maps';
-
-  return <MapCreate />;
+  return <MapCreate zip={props.zip} />;
 }
-
-function MapCreate() {
+function MapCreate(props) {
   const [latLng, setLatLng] = React.useState(null);
   const [marker, setMarker] = useState([]);
   const [selected, setSelected] = useState(null);
-
-  console.log('marker', marker);
-  console.log('selected', selected);
-
   // TODO: Fetch address and event name from Single Event slice
   // TODO: OnClick populate InfoWindow with event name and address
   useEffect(() => {
-    const address = '10021';
+    const address = props.zip;
     const eventName = 'Dog Concert in Central Park';
-
     fetch(
       `https://maps.googleapis.com/maps/api/geocode/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&address=${address}`
     )
@@ -55,7 +44,6 @@ function MapCreate() {
       .then((data) => {
         const { lat, lng } = data.results[0].geometry.location;
         setLatLng({ lat, lng });
-
         const marker = {
           lat,
           lng,
@@ -63,20 +51,15 @@ function MapCreate() {
         };
         setMarker(marker);
       })
-
       .catch((error) => console.log(error));
   }, []);
-
   const center = useMemo(() => latLng, [latLng]);
-
   // Reference to map instance
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
   }, []);
-
   if (marker.length === 0) return null;
-
   return (
     <div>
       <GoogleMap
@@ -100,9 +83,7 @@ function MapCreate() {
     </div>
   );
 }
-
 export default Map;
-
 /*       onClick={() => {
             setSelected(marker);
           }}
