@@ -62,6 +62,22 @@ export const deletePost = createAsyncThunk('/deletePost', async (postId) => {
   return data;
 });
 
+export const fetchPostsThroughSearch = createAsyncThunk(
+  '/postsSearch',
+  async (name, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/api/posts/search', {
+        params: {
+          content: name,
+        },
+      });
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const postsSlice = createSlice({
   name: 'posts',
   initialState: {
@@ -167,6 +183,20 @@ export const postsSlice = createSlice({
         state.error = '';
       })
       .addCase(deletePost.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+      })
+      .addCase(fetchPostsThroughSearch.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        // console.log(payload);
+        state.error = '';
+        state.allPosts = payload;
+      })
+      .addCase(fetchPostsThroughSearch.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchPostsThroughSearch.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload;
       });
