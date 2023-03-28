@@ -8,6 +8,7 @@ const {
   Sitter_Review,
   Pet,
   Booking,
+  Booking_Pet,
 } = require('../../db');
 const { requireToken, isSitter } = require('../authMiddleware');
 const sequelize = require('sequelize');
@@ -538,7 +539,13 @@ router.get('/:id/bookings', requireToken, async (req, res, next) => {
         where: {
           sitterId: id,
         },
-        include: [{ model: User, attributes: { exclude: ['password'] } }],
+        include: [
+          {
+            model: User,
+            attributes: { exclude: ['password'] },
+          },
+          Pet,
+        ],
       });
       if (!allSitterBookings) {
         return res.status(404).send('no user bookings!');

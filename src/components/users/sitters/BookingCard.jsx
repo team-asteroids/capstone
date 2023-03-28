@@ -1,3 +1,4 @@
+import { Divider } from '@mui/material';
 import React from 'react';
 
 const labelClass = 'text-xs font-rubikmono';
@@ -11,42 +12,74 @@ const invalidClass =
 const BookingCard = (props) => {
   const { booking } = props;
   const bookingId = booking.id;
+  const bookingPets = booking.pets;
+  const client = booking.user;
 
   return (
-    <div>
-      <p className="font-rubikmono pb-2">{booking.id}</p>
-      <section>
-        <form>
-          <div className="flex flex-wrap mb-3">
-            <div className="w-1/3 flex flex-col pr-6">
-              <label className={labelClass}>Status</label>
-              <input className={validClass} value={booking.status}></input>
-            </div>
-            <div className="w-1/3 flex flex-col pr-6">
-              <label className={labelClass}>Days</label>
-              <input className={validClass} value={booking.totalDays}></input>
-            </div>
-            <div className="w-1/3 flex flex-col pr-6">
-              <label className={labelClass}>Total</label>
-              <input className={validClass} value={booking.totalAmount}></input>
-            </div>
+    <div className="pt-3 px-5">
+      <div className="flex flex-row flex-wrap">
+        <div className="w-1/5 flex flex-col pr-2">
+          <div>
+            <p className="font-rubikmono text-sm pb-1">Booking Id:</p>
+            <p>{bookingId}</p>
           </div>
-          <div className="flex flex-wrap mb-3">
-            <div className="w-1/3 flex flex-col pr-6">
-              <label className={labelClass}>Start</label>
-              <input className={validClass} value={booking.startDate}></input>
-            </div>
-            <div className="w-1/3 flex flex-col pr-6">
-              <label className={labelClass}>End</label>
-              <input className={validClass} value={booking.endDate}></input>
-            </div>
-            <div className="w-1/3 flex flex-col pr-6">
-              <label className={labelClass}>Location</label>
-              <input className={validClass} value={booking.location}></input>
-            </div>
+          <div>
+            <p className="font-rubikmono text-sm pb-1">Client:</p>
+            <p>{client.fullName}</p>
           </div>
-        </form>
-      </section>
+          <div>
+            <p className="font-rubikmono text-sm pb-1">Pets:</p>
+
+            {bookingPets && bookingPets.length
+              ? bookingPets.map((pet) => (
+                  <div key={pet.id}>
+                    <p>{pet.name}</p>
+                  </div>
+                ))
+              : 'client did not add any pets!'}
+          </div>
+        </div>
+        <section className="w-4/5">
+          <fieldset disabled>
+            <form>
+              <p className="font-rubikmono text-sm pb-2">Details:</p>
+              <div className="flex flex-wrap mb-3">
+                <div className="w-1/3 flex flex-col pr-6">
+                  <label className={labelClass}>Status</label>
+                  <input className={validClass} value={booking.status} />
+                </div>
+                <div className="w-1/3 flex flex-col pr-6">
+                  <label className={labelClass}>Start</label>
+                  <input className={validClass} value={booking.startDate} />
+                </div>
+                <div className="w-1/3 flex flex-col pr-6">
+                  <label className={labelClass}>End</label>
+                  <input className={validClass} value={booking.endDate} />
+                </div>
+              </div>
+              <div className="flex flex-wrap mb-3">
+                <div className="w-1/4 flex flex-col pr-6">
+                  <label className={labelClass}>Location</label>
+                  <input className={validClass} value={booking.location} />
+                </div>
+                <div className="w-1/4 flex flex-col pr-6">
+                  <label className={labelClass}>Total Days</label>
+                  <input className={validClass} value={booking.totalDays} />
+                </div>
+                <div className="w-1/4 flex flex-col pr-6">
+                  <label className={labelClass}>Rate</label>
+                  <input className={validClass} value={booking.rate} />
+                </div>
+                <div className="w-1/4 flex flex-col pr-6">
+                  <label className={labelClass}>Total Amount</label>
+                  <input className={validClass} value={booking.totalAmount} />
+                </div>
+              </div>
+            </form>
+          </fieldset>
+        </section>
+      </div>
+      <Divider className="pt-5" />
     </div>
   );
 };

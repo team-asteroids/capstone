@@ -56,23 +56,29 @@ const SitterBookings = (props) => {
       <div>
         <h2 className="font-rubikmono">Manage Sitter Bookings</h2>
       </div>
+      <div>
+        <p>Review Booking Requests ({pending.length})</p>
+      </div>
       <div className="h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
         <div>
-          <p>Review Booking Requests ({pending.length})</p>
+          <p className="font-rubikmono text-lg pb-2">
+            Upcoming ({approved.length})
+          </p>
+          <div className="flex flex-col gap-5">
+            {approved && approved.length
+              ? approved.map((booking) => (
+                  <div key={booking.id}>
+                    <BookingCard booking={booking} />
+                  </div>
+                ))
+              : 'no upcoming bookings!'}
+          </div>
         </div>
         <div>
-          <p>Upcoming ({approved.length})</p>
-          {approved && approved.length
-            ? approved.map((booking) => (
-                <div key={booking.id}>
-                  <BookingCard booking={booking} />
-                </div>
-              ))
-            : 'no upcoming bookings!'}
-        </div>
-        <div>
-          <p>Past ({completed.length})</p>
-          <div>
+          <p className="font-rubikmono text-lg pb-2">
+            Completed ({completed.length})
+          </p>
+          <div className="flex flex-col gap-5">
             {completed && completed.length
               ? completed.map((booking) => (
                   <div key={booking.id}>
@@ -83,14 +89,18 @@ const SitterBookings = (props) => {
           </div>
         </div>
         <div>
-          <p>Cancelled ({cancelled.length})</p>
-          {cancelled && cancelled.length
-            ? cancelled.map((booking) => (
-                <div key={booking.id}>
-                  <BookingCard booking={booking} />
-                </div>
-              ))
-            : 'no cancelled bookings!'}
+          <p className="font-rubikmono text-lg pb-2">
+            Cancelled ({cancelled.length})
+          </p>
+          <div className="flex flex-col gap-5">
+            {cancelled && cancelled.length
+              ? cancelled.map((booking) => (
+                  <div key={booking.id}>
+                    <BookingCard booking={booking} />
+                  </div>
+                ))
+              : 'no cancelled bookings!'}
+          </div>
         </div>
       </div>
     </div>
