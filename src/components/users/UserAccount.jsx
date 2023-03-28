@@ -2,6 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link, Routes, Route, useParams } from 'react-router-dom';
 import { logOut, selectAuth } from '../../slices/authSlice';
+import {
+  selectSitters,
+  resetSitterStatus,
+  fetchSingleSitter,
+} from '../../slices/sittersSlice';
+import {
+  resetUserStatus,
+  selectUser,
+  fetchSingleUser,
+} from '../../slices/usersSlice';
 import defaultImg from '../../img/default-dog.jpg';
 import {
   UserBookings,
@@ -32,6 +42,28 @@ function UserAccount() {
   }, []);
 
   const { userAuth } = useSelector(selectAuth);
+  const { singleUser } = useSelector(selectUser);
+  const { singleSitter } = useSelector(selectSitters);
+
+  useEffect(() => {
+    if (userAuth && userAuth.id) {
+      const id = userAuth.id;
+      dispatch(fetchSingleUser(id));
+    }
+    return () => {
+      dispatch(resetUserStatus());
+    };
+  }, [userAuth]);
+
+  useEffect(() => {
+    if (singleUser && singleUser.id) {
+      const id = singleUser.sitter.id;
+      dispatch(fetchSingleSitter(id));
+    }
+    return () => {
+      dispatch(resetSitterStatus());
+    };
+  }, [singleUser]);
 
   const toggleClass =
     "checked w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink";
@@ -117,16 +149,22 @@ function UserAccount() {
             />
             <Route path="/addpet" element={<AddNewPet user={userAuth} />} />
             {/* SITTER ROUTES */}
-            <Route path="/sitter" element={<SitterOverview />}></Route>
+            <Route
+              path="/sitter"
+              element={<SitterOverview sitter={singleSitter} />}
+            ></Route>
             <Route
               path="/sitter/editprofile"
-              element={<EditSitterProfile />}
+              element={<EditSitterProfile sitter={singleSitter} />}
             ></Route>
             <Route
               path="/sitter/updatepetprefs"
-              element={<EditSitterPetPrefs />}
+              element={<EditSitterPetPrefs sitte={singleSitter} />}
             ></Route>
-            <Route path="/sitter/bookings" element={<SitterBookings />}></Route>
+            <Route
+              path="/sitter/bookings"
+              element={<SitterBookings sitter={singleSitter} />}
+            ></Route>
           </Routes>
         </div>
       </div>
