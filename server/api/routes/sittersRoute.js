@@ -737,48 +737,48 @@ router.post('/:id/prefs', requireToken, async (req, res, next) => {
   }
 });
 
-// // edit sitter_prefs for an existing sitter (private)
-// router.put('/:id/prefs', requireToken, async (req, res, next) => {
-//   // if user is trying to change someone else's info and they are NOT an admin, fail w/403
-//   const id = +req.params.id;
+// edit sitter_prefs for an existing sitter (private)
+router.put('/:id/prefs', requireToken, async (req, res, next) => {
+  // if user is trying to change someone else's info and they are NOT an admin, fail w/403
+  const id = +req.params.id;
 
-//   const sitterObject = await Sitter.findByPk(id);
+  const sitterObject = await Sitter.findByPk(id);
 
-//   if (!sitterObject) {
-//     return res.status(404).send('sitter doesnt exist!');
-//   }
+  if (!sitterObject) {
+    return res.status(404).send('sitter doesnt exist!');
+  }
 
-//   const userId = sitterObject.userId;
+  const userId = sitterObject.userId;
 
-//   try {
-//     if (userId === req.user.id || req.user.role === 'admin') {
-//       const sitter = await Sitter.findByPk(req.params.id, {
-//         attributes: {
-//           exclude: ['password'],
-//         },
-//       });
-//       if (!sitter) return res.status(404).send('No sitter exists!');
+  try {
+    if (userId === req.user.id || req.user.role === 'admin') {
+      const sitter = await Sitter.findByPk(req.params.id, {
+        attributes: {
+          exclude: ['password'],
+        },
+      });
+      if (!sitter) return res.status(404).send('No sitter exists!');
 
-//       const sitterPrefs = await Sitter_Pref.update({
-//         where: {
-//           sitterId: id,
-//         },
-//       });
+      const sitterPrefs = await Sitter_Pref.findOne({
+        where: {
+          sitterId: id,
+        },
+      });
 
-//       const updatedSitterPrefs = await sitterPrefs.update(req.body);
+      const updatedSitterPrefs = await sitterPrefs.update(req.body);
 
-//       res.status(200).send(updatedSitterPrefs);
-//     } else {
-//       return res
-//         .status(403)
-//         .send(
-//           'inadequate access rights / requested user does not match logged in user'
-//         );
-//     }
-//   } catch (err) {
-//     console.log('BACKED ISSUE UPDATING SITTER PREFERENCES');
-//     next(err);
-//   }
-// });
+      res.status(200).send(updatedSitterPrefs);
+    } else {
+      return res
+        .status(403)
+        .send(
+          'inadequate access rights / requested user does not match logged in user'
+        );
+    }
+  } catch (err) {
+    console.log('BACKED ISSUE UPDATING SITTER PREFERENCES');
+    next(err);
+  }
+});
 
 module.exports = router;
