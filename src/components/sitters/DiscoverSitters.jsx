@@ -1,12 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SitterCard from './SitterCard.jsx';
 import defaultImg from '../../img/default-dog.jpg';
 import { fetchAllSitters, selectSitters } from '../../slices/sittersSlice';
+import Pagination from '../ui/Pagination';
 
 const DiscoverSitters = () => {
   const dispatch = useDispatch();
-  const sitters = useSelector(selectSitters);
+  const { sitters } = useSelector(selectSitters);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+
+  // Get current posts
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = sitters.slice(indexOfFirstItem, indexOfLastItem);
+  const nPages = Math.ceil(sitters.length / itemsPerPage);
 
   useEffect(() => {
     dispatch(fetchAllSitters());
@@ -15,7 +25,7 @@ const DiscoverSitters = () => {
   return (
     <div className="bg-gradient-to-r from-yellow-400 to-blue-300">
       <div className="container mx-auto">
-        {sitters.sitters.map((sitter) => (
+        {currentItems.map((sitter) => (
           <SitterCard
             key={sitter.id}
             img={defaultImg}
@@ -27,6 +37,12 @@ const DiscoverSitters = () => {
           />
         ))}
       </div>
+      <br></br>
+      <Pagination
+        nPages={nPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 };
