@@ -20,9 +20,6 @@ const AllHowls = () => {
   const currentItems = posts.slice(indexOfFirstItem, indexOfLastItem);
   const nPages = Math.ceil(posts.length / itemsPerPage);
 
-  // Change the page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   useEffect(() => {
     const getData = async () => {
       await dispatch(fetchAllPosts());
@@ -50,8 +47,6 @@ const AllHowls = () => {
             <br></br>
             <Pagination
               nPages={nPages}
-              totalItems={posts.length}
-              paginate={paginate}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />
