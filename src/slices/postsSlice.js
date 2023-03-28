@@ -171,7 +171,7 @@ export const postsSlice = createSlice({
       .addCase(deletePost.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
-        // console.log('posts before change--> ', state.posts);
+        console.log('deleted post id--> ', payload.id);
         state.allPosts = state.allPosts.filter(
           (post) => post.id !== payload.id
         );

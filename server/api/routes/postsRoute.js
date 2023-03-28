@@ -141,18 +141,8 @@ router.delete('/:postId', requireToken, async (req, res, next) => {
     const deletedPost = await Post.findByPk(req.params.postId);
     if (!deletedPost) return res.status(404).send('No post exists!');
     if (req.user.id === deletedPost.creatorId || req.user.role === 'admin') {
-      const deletedPostComments = await Post_Comment.findAll({
-        where: {
-          postId: req.params.postId,
-        },
-      });
-      await Post_Comment.destroy({
-        where: {
-          postId: req.params.postId,
-        },
-      });
       await deletedPost.destroy();
-      res.json({ deletedPost, deletedPostComments });
+      res.json(deletedPost);
     } else {
       res
         .status(403)
