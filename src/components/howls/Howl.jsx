@@ -2,12 +2,11 @@ import React, { useEffect } from 'react';
 // import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
-// import { fetchGroupPostLikes, deleteGroupPost } from '../../slices/groupsSlice';
+import { deletePost } from '../../slices/postsSlice';
 import LikeUnlikeHowl from './LikeUnlikeHowl';
 
 const Howl = (props) => {
   const { post, likes, userAuth } = props;
-  // const postId = post.id;
   const content = post.content;
   const comments = post.post_comments;
   const author = post.user.fullName;
@@ -23,11 +22,10 @@ const Howl = (props) => {
   const formattedDate = dateData.toDateString();
   const formattedTime = dateData.toLocaleTimeString('en-US');
 
-  const deletePost = async (e) => {
+  const deleteHandler = async (e) => {
     e.preventDefault();
-    console.log('delete howl');
-    // const postId = post.id;
-    // await dispatch(deleteHowl({ groupId, postId }));
+    const postId = post.id;
+    await dispatch(deletePost(postId));
   };
 
   return (
@@ -57,17 +55,17 @@ const Howl = (props) => {
             />
           </div>
         )}
-
-        {userAuth && userAuth.id === post.userId && (
-          <p>
-            <button
-              onClick={deletePost}
-              className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
-            >
-              X
-            </button>
-          </p>
-        )}
+        {userAuth &&
+          (userAuth.id === post.creatorId || userAuth.role === 'admin') && (
+            <p>
+              <button
+                onClick={deleteHandler}
+                className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+              >
+                X
+              </button>
+            </p>
+          )}
       </div>
     </div>
   );

@@ -16,6 +16,8 @@ const AllHowls = () => {
 
   const { userAuth } = useSelector(selectAuth);
 
+  // console.log('userAuth -->', userAuth);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 

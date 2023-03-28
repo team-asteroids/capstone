@@ -28,7 +28,7 @@ const GroupPost = (props) => {
 
   // console.log('likes--> ', likes);
 
-  const deletePost = async (e) => {
+  const deleteHandler = async (e) => {
     e.preventDefault();
     const postId = post.id;
     await dispatch(deleteGroupPost({ groupId, postId }));
@@ -57,7 +57,7 @@ const GroupPost = (props) => {
         {userAuth.id === post.userId && (
           <p>
             <button
-              onClick={deletePost}
+              onClick={deleteHandler}
               className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
             >
               X

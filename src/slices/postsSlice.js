@@ -8,7 +8,6 @@ export const fetchAllPosts = createAsyncThunk('/allPosts', async () => {
 
 export const fetchAllPostLikes = createAsyncThunk('/allPostLikes', async () => {
   const { data } = await axios.get('/api/posts/likes');
-  console.log('likes in thunk -->', data);
   return data;
 });
 
@@ -53,6 +52,16 @@ export const addPost = createAsyncThunk('/addPost', async ({ content }) => {
   return data;
 });
 
+export const deletePost = createAsyncThunk('/deletePost', async (postId) => {
+  const token = localStorage.getItem('token');
+  const { data } = await axios.delete(`/api/posts/${postId}`, {
+    headers: {
+      authorization: token,
+    },
+  });
+  return data;
+});
+
 export const postsSlice = createSlice({
   name: 'posts',
   initialState: {
@@ -81,7 +90,6 @@ export const postsSlice = createSlice({
       })
       .addCase(fetchAllPostLikes.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
-        console.log(payload);
         state.error = '';
         state.postLikes = payload;
       })
@@ -141,6 +149,24 @@ export const postsSlice = createSlice({
         state.error = '';
       })
       .addCase(addPost.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+      })
+      .addCase(deletePost.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        // console.log('posts before change--> ', state.posts);
+        state.allPosts = state.allPosts.filter(
+          (post) => post.id !== payload.id
+        );
+        // console.log('posts before change--> ', state.posts);
+        // what should we do with payload?
+      })
+      .addCase(deletePost.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(deletePost.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload;
       });
