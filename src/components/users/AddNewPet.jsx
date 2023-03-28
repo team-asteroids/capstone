@@ -681,8 +681,8 @@ const AddNewPet = (props) => {
                 </select>
               </div>
             </div>
-            <div className="flex flex-wrap mb-3 pr-6">
-              <div className="w-1/2 flex flex-col mb-3">
+            <div className="flex flex-wrap mb-3">
+              <div className="w-1/2 flex flex-col mb-3 pr-6">
                 <label className={labelClass}>Food Details</label>
                 <textarea
                   rows={3}
