@@ -114,7 +114,16 @@ router.get('/:id', async (req, res, next) => {
 // this allows logged in user to create a event
 router.post('/', requireToken, async (req, res, next) => {
   try {
-    const newEvent = await Event.create(req.body);
+    console.log(req.body);
+    const { event_start, event_end, zip_code, topic, description } = req.body;
+    const newEvent = await Event.create({
+      event_start,
+      event_end,
+      zip_code,
+      topic,
+      description,
+      creatorId: req.user.id,
+    });
     res.status(201).json(newEvent);
   } catch (error) {
     console.log('Backend issue adding event');

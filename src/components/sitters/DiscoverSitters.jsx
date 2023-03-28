@@ -12,12 +12,15 @@ const DiscoverSitters = () => {
   const dispatch = useDispatch();
   const sitters = useSelector(selectSitters);
   const [search, setSearch] = useState('');
+  const [searchResultValid, setSearchResultValid] = useState(true);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(fetchSitterNames(search));
     setSearch('');
   };
+
 
   useEffect(() => {
     dispatch(fetchAllSitters());

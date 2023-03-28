@@ -16,6 +16,29 @@ export const fetchSingleEvent = createAsyncThunk(
   }
 );
 
+export const createEventAsync = createAsyncThunk(
+  '/addEvent',
+  async ({ eventStart, eventEnd, topic, description, zipCode }) => {
+    const token = window.localStorage.getItem('token');
+    const { data } = await axios.post(
+      '/api/events',
+      {
+        event_start: eventStart,
+        event_end: eventEnd,
+        zip_code: zipCode,
+        topic: topic,
+        description: description,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    return data;
+  }
+);
+
 export const getMyRsvpsAsync = createAsyncThunk('/getRSVPs', async () => {
   const token = window.localStorage.getItem('token');
   const { data } = await axios.get('/api/events/attending', {
@@ -127,6 +150,19 @@ export const eventsSlice = createSlice({
       .addCase(removeRsvpAsync.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
+      })
+      .addCase(createEventAsync.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.events = payload;
+      })
+      .addCase(createEventAsync.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(createEventAsync.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
       });
   },
 });
