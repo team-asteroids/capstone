@@ -9,10 +9,11 @@ const DiscoverSitters = () => {
   const dispatch = useDispatch();
   const { sitters } = useSelector(selectSitters);
 
+  // Pagination setup
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
 
-  // Get current posts
+  // Calculate what to map each time page changes
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sitters.slice(indexOfFirstItem, indexOfLastItem);
