@@ -109,7 +109,14 @@ const EventDetails = () => {
                   />
                 </svg>
               </span>
-              Event Details
+              <span>Event Details</span>
+              {auth.userAuth.id === event.creatorId ? (
+                <Link to={`/events/${id}/edit`}>
+                  <div className="pl-5">Edit</div>
+                </Link>
+              ) : (
+                <></>
+              )}
             </div>
             <div>
               <img
