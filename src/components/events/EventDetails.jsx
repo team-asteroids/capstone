@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import {
   addRsvpAsync,
   fetchSingleEvent,
@@ -14,7 +14,6 @@ import defaultImg from '../../img/group-puppies-celebrating-new-year.jpg';
 import Map from '../maps/Map';
 const EventDetails = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { id } = useParams();
   const event = useSelector(selectSingleEvent);
   const auth = useSelector(selectAuth);
