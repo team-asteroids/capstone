@@ -31,6 +31,18 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// get all likes
+router.get('/likes', async (req, res, next) => {
+  try {
+    const likes = await Post_Like.findAll();
+
+    res.status(200).json(likes);
+  } catch (e) {
+    console.log('Backend issue fetching all posts');
+    next(e);
+  }
+});
+
 // // get all posts (w/comments & likes)
 // // public access
 // router.get('/', async (req, res, next) => {
@@ -256,20 +268,6 @@ router.delete(
 );
 
 // _____________________________________________________________
-
-// get all likes &/ users
-router.get('/likes', requireToken, async (req, res, next) => {
-  try {
-    console.log('hitting like route');
-    const likes = await Post_Like.findAll({
-      include: [{ model: User }],
-    });
-    res.status(200).json(likes);
-  } catch (e) {
-    console.log('Backend issue fetching all post likes');
-    next(e);
-  }
-});
 
 // // get all likes &/ users who liked single post -- maybe delete bc pos no use case??
 // router.get('/:postId/likes', requireToken, async (req, res, next) => {

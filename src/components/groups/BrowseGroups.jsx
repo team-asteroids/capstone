@@ -3,11 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchAllGroups, fetchGroupNames } from '../../slices/groupsSlice';
 import Group from './Group';
+import Pagination from '../ui/Pagination';
 
 const BrowseGroups = () => {
   const dispatch = useDispatch();
   const groups = useSelector((state) => state.groups.allGroups);
   const [search, setSearch] = useState('');
+
+  // Pagination setup
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6);
+
+  // Calculate what to map each time page changes
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = groups.slice(indexOfFirstItem, indexOfLastItem);
+  const nPages = Math.ceil(groups.length / itemsPerPage);
 
   useEffect(() => {
     dispatch(fetchAllGroups());
@@ -39,12 +50,18 @@ const BrowseGroups = () => {
           </Link>
         </h3>
         <div className="p-6 grid grid-cols-3 gap-8 font-mono">
-          {groups.map((group) => (
+          {currentItems.map((group) => (
             <div key={group.group.id} id="cardItem" className="col-xs-2">
               <Group group={group.group} members={group.members} />
             </div>
           ))}
         </div>
+        <br></br>
+        <Pagination
+          nPages={nPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </>
   );

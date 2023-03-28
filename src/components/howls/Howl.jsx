@@ -44,7 +44,7 @@ const Howl = (props) => {
             Posted at: {formattedTime} on {formattedDate}
           </p>
           <p>Comments: {comments.length}</p>
-          <p>Likes: {likes.length}</p>
+          {/* <p>Likes: {likes.length}</p> */}
         </div>
         <div>
           <LikeUnlikeHowl

@@ -21,7 +21,6 @@ const DiscoverSitters = () => {
     setSearch('');
   };
 
-
   useEffect(() => {
     dispatch(fetchAllSitters());
   }, [dispatch]);
