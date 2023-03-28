@@ -88,7 +88,7 @@ User.belongsToMany(Group, { through: FavGroup });
 Group_Post.belongsToMany(
   User,
   { through: Group_Post_Like },
-  { onDelete: 'cascade', hooks: true }
+  { onDelete: 'cascade' }
 );
 User.belongsToMany(Group_Post, { through: Group_Post_Like });
 
@@ -105,7 +105,7 @@ Post.belongsTo(User, { foreignKey: 'creatorId' });
 User.hasMany(Post, { foreignKey: 'creatorId' });
 
 // -- put postId on Post_Comment table
-Post_Comment.belongsTo(Post);
+Post_Comment.belongsTo(Post, { onDelete: 'cascade' });
 Post.hasMany(Post_Comment);
 
 // -- put userId on Post_Comment table

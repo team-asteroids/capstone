@@ -25,6 +25,7 @@ const Howl = (props) => {
   const deleteHandler = async (e) => {
     e.preventDefault();
     const postId = post.id;
+    console.log('postId -->', postId);
     await dispatch(deletePost(postId));
   };
 
