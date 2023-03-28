@@ -140,8 +140,6 @@ const EditPetDetails = (props) => {
     }
   };
 
-  console.log(singlePet.imageSrc);
-
   const submitDeletePet = async () => {
     console.log('delete attempted');
     const id = userAuth.id;

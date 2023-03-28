@@ -111,14 +111,23 @@ function UserAccount() {
                   </label>
                 </div>
               ) : (
-                <div>
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" className="sr-only peer" disabled />
-                    <div className={toggleClass}></div>
-                    <span className="ml-3 text-sm font-medium text-gray-400">
-                      Sitter Profile
-                    </span>
-                  </label>
+                <div className="group" type="tooltip">
+                  <div>
+                    <label className="relative inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        className="sr-only peer"
+                        disabled
+                      />
+                      <div className={toggleClass}></div>
+                      <span className="ml-3 text-sm font-medium text-gray-400">
+                        Sitter Profile
+                      </span>
+                    </label>
+                  </div>
+                  <span className="group-hover:opacity-100 transition-opacity position absolute ml-10 bg-pale-blue p-1 text-sm text-bright-white rounded px-2 opacity-0">
+                    Not a sitter!
+                  </span>
                 </div>
               )}
             </div>

@@ -28,6 +28,7 @@ module.exports = {
         // 'pale-purple': '#CAA9F7',
         'pale-purple': '#AF7EF3',
         'pale-pink': '#FF5BA2',
+        'bright-white': '#ffffff',
       },
     },
   },
