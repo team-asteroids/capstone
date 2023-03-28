@@ -8,8 +8,9 @@ import Howl from './Howl';
 const AllHowls = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.allPosts);
-  // const likes = useSelector((state) => state.posts.postLikes);
+  const likes = useSelector((state) => state.posts.postLikes);
   //   console.log('posts --> ', posts[0]);
+  console.log('likes --> ', likes);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
@@ -23,7 +24,7 @@ const AllHowls = () => {
   useEffect(() => {
     const getData = async () => {
       await dispatch(fetchAllPosts());
-      // await dispatch(fetchAllPostLikes());
+      await dispatch(fetchAllPostLikes());
     };
     getData();
   }, [dispatch]);
@@ -39,7 +40,7 @@ const AllHowls = () => {
                   <Howl
                     key={post.id}
                     post={post}
-                    // likes={likes.filter((like) => like.postId === post.id)}
+                    likes={likes.filter((like) => like.postId === post.id)}
                   />
                 </div>
               ))}

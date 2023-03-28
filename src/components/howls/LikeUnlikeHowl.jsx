@@ -3,11 +3,7 @@ import { useDispatch } from 'react-redux';
 import { likePost, unlikePost } from '../../slices/postsSlice';
 
 const LikeUnlikeHowl = (props) => {
-  const { post, userAuth } = props;
-  // pull likes above when they work
-
-  //temporary variable:
-  const likes = 5;
+  const { post, likes, userAuth } = props;
 
   const postId = post.id;
 
@@ -31,9 +27,9 @@ const LikeUnlikeHowl = (props) => {
   const likeUnlikePost = async (e) => {
     e.preventDefault();
     if (testLike()) {
-      await dispatch(unlikePost(postId));
+      await dispatch(unlikePost({ postId }));
     } else {
-      await dispatch(likePost(postId));
+      await dispatch(likePost({ postId }));
     }
   };
 

@@ -7,12 +7,7 @@ export const fetchAllPosts = createAsyncThunk('/allPosts', async () => {
 });
 
 export const fetchAllPostLikes = createAsyncThunk('/allPostLikes', async () => {
-  const token = localStorage.getItem('token');
-  const { data } = await axios.get('/api/posts/likes', {
-    headers: {
-      authorization: token,
-    },
-  });
+  const { data } = await axios.get('/api/posts/likes');
   console.log('likes in thunk -->', data);
   return data;
 });
@@ -105,7 +100,7 @@ export const postsSlice = createSlice({
         state.status = 'fulfilled';
         state.error = '';
         // state.likedStatus = false;
-        state.postLikes = state.likes.filter(
+        state.postLikes = state.postLikes.filter(
           (like) =>
             !(like.postId === payload.postId && like.userId === payload.userId)
         );

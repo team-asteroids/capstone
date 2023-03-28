@@ -7,7 +7,7 @@ import LikeUnlikeHowl from './LikeUnlikeHowl';
 
 const Howl = (props) => {
   const { post, likes } = props;
-  const postId = post.id;
+  // const postId = post.id;
   const content = post.content;
   const comments = post.post_comments;
   const author = post.user.fullName;
@@ -23,11 +23,12 @@ const Howl = (props) => {
   const formattedDate = dateData.toDateString();
   const formattedTime = dateData.toLocaleTimeString('en-US');
 
-  //   const deletePost = async (e) => {
-  //     e.preventDefault();
-  //     const postId = post.id;
-  //     await dispatch(deleteHowl({ groupId, postId }));
-  //   };
+  const deletePost = async (e) => {
+    e.preventDefault();
+    console.log('delete howl');
+    // const postId = post.id;
+    // await dispatch(deleteHowl({ groupId, postId }));
+  };
 
   return (
     <div className="bg-white-smoke border rounded-lg shadow-lg font-rubik">
@@ -44,17 +45,20 @@ const Howl = (props) => {
             Posted at: {formattedTime} on {formattedDate}
           </p>
           <p>Comments: {comments.length}</p>
-          {/* <p>Likes: {likes.length}</p> */}
+          <p>Likes: {likes.length}</p>
         </div>
-        <div>
-          <LikeUnlikeHowl
-            key={post.id}
-            post={post}
-            likes={likes}
-            userAuth={userAuth}
-          />
-        </div>
-        {/* {userAuth.id === post.userId && (
+        {userAuth && (
+          <div>
+            <LikeUnlikeHowl
+              key={post.id}
+              post={post}
+              likes={likes}
+              userAuth={userAuth}
+            />
+          </div>
+        )}
+
+        {userAuth && userAuth.id === post.userId && (
           <p>
             <button
               onClick={deletePost}
@@ -63,7 +67,7 @@ const Howl = (props) => {
               X
             </button>
           </p>
-        )} */}
+        )}
       </div>
     </div>
   );
