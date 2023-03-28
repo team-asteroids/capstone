@@ -78,6 +78,23 @@ export const fetchPostsThroughSearch = createAsyncThunk(
   }
 );
 
+export const addPostComment = createAsyncThunk(
+  '/addPostComment',
+  async ({ content, postId }) => {
+    const token = localStorage.getItem('token');
+    const { data } = await axios.post(
+      `/api/posts/${postId}/comments`,
+      { content },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    return data;
+  }
+);
+
 export const postsSlice = createSlice({
   name: 'posts',
   initialState: {
@@ -197,6 +214,20 @@ export const postsSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchPostsThroughSearch.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+      })
+      .addCase(addPostComment.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        // state.allPosts.map()
+        // state.posts.push(payload);
+      })
+      .addCase(addPostComment.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(addPostComment.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload;
       });

@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { deletePost } from '../../slices/postsSlice';
 import LikeUnlikeHowl from './LikeUnlikeHowl';
+import HowlComment from './HowlComment';
 
 const Howl = (props) => {
   const { post, likes, userAuth } = props;
@@ -12,6 +13,8 @@ const Howl = (props) => {
   const author = post.user.fullName;
 
   //   console.log('likes -->', likes);
+
+  const [commentView, setCommentView] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -46,16 +49,35 @@ const Howl = (props) => {
           <p>Comments: {comments.length}</p>
           <p>Likes: {likes.length}</p>
         </div>
+        <br></br>
         {userAuth && (
+          <>
+            <div>
+              <LikeUnlikeHowl
+                key={post.id}
+                post={post}
+                likes={likes}
+                userAuth={userAuth}
+              />
+            </div>
+            <br></br>
+            <div>
+              <button
+                onClick={() => setCommentView(true)}
+                className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+              >
+                Comment
+              </button>
+            </div>
+          </>
+        )}
+
+        {commentView && (
           <div>
-            <LikeUnlikeHowl
-              key={post.id}
-              post={post}
-              likes={likes}
-              userAuth={userAuth}
-            />
+            <HowlComment post={post} userAuth={userAuth} />
           </div>
         )}
+
         {userAuth &&
           (userAuth.id === post.creatorId || userAuth.role === 'admin') && (
             <p>
