@@ -68,9 +68,7 @@ const EventDetails = () => {
             <div className="pl-5 pt-3  container mx-auto relative">
               <img className="w-100 " src={defaultImg} alt="puppy event" />
               <div className="p-1">Topic: {event.topic}</div>
-              <div className="p-1">
-                Event Creator: {user.singleUser.userName}
-              </div>
+
               <div className="p-1 ">
                 Description: {event.description}
                 {event.description}
