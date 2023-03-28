@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   fetchSinglePet,
   selectPets,
@@ -14,6 +14,7 @@ const EditPetDetails = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
+  const location = useLocation();
 
   const [formDisabled, setFormDisabled] = useState(false);
 
@@ -130,7 +131,7 @@ const EditPetDetails = (props) => {
         res1.type === 'updatePet/fulfilled' &&
         res2.type === 'updatePetDetails/fulfilled'
       ) {
-        navigate(`/account/pets/${petId}`);
+        navigate(-1);
       }
     }
   };
@@ -358,7 +359,7 @@ const EditPetDetails = (props) => {
           <p className="font-rubikmono">{singlePet.name} Profile</p>
           {userAuth.id === user.id ? (
             <p className=" hover:text-bold-pink">
-              <Link to={`/account/pets/${petId}/edit`}>(edit)</Link>
+              <Link to={`${location.pathname}/edit`}>(edit)</Link>
             </p>
           ) : null}
         </div>
