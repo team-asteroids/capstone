@@ -14,10 +14,10 @@ const SitterBookings = (props) => {
   const { token } = useSelector(selectAuth);
   const { sitterBookings } = useSelector(selectSitters);
 
-  const [pending, setPending] = useState([]);
-  const [approved, setApproved] = useState([]);
-  const [completed, setCompleted] = useState([]);
-  const [cancelled, setCancelled] = useState([]);
+  let pending = [];
+  let approved = [];
+  let completed = [];
+  let cancelled = [];
 
   useEffect(() => {
     if (sitter && sitter.id) {
@@ -29,6 +29,27 @@ const SitterBookings = (props) => {
     };
   }, [sitter]);
 
+  if (sitterBookings && sitterBookings.length) {
+    sitterBookings.forEach((booking) => {
+      if (booking.status === 'pending' && !pending.includes(booking))
+        pending.push(booking);
+
+      if (booking.status === 'approved' && !approved.includes(booking))
+        approved.push(booking);
+
+      if (booking.status === 'complete' && !completed.includes(booking))
+        completed.push(booking);
+
+      if (
+        ['cancelled', 'withdrawn', 'declined'].includes(booking.status) &&
+        !cancelled.includes(booking)
+      )
+        cancelled.push(booking);
+    });
+  }
+
+  if (!sitterBookings.length) return <div>Loading...</div>;
+
   return (
     <div className="font-rubik flex flex-col gap-5">
       <div>
@@ -36,13 +57,39 @@ const SitterBookings = (props) => {
       </div>
       <div className="h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
         <div>
-          <p>New Booking Requests</p>
+          <p>Review Booking Requests ({pending.length})</p>
         </div>
         <div>
-          <p>Upcoming Bookings</p>
+          <p>Upcoming ({approved.length})</p>
+          {approved && approved.length
+            ? approved.map((booking) => (
+                <div key={booking.id}>
+                  <p>{booking.status}</p>
+                </div>
+              ))
+            : 'no upcoming bookings!'}
         </div>
         <div>
-          <p>Past Bookings</p>
+          <p>Past ({completed.length})</p>
+          <div>
+            {completed && completed.length
+              ? completed.map((booking) => (
+                  <div key={booking.id}>
+                    <p>{booking.status}</p>
+                  </div>
+                ))
+              : 'no past bookings!'}
+          </div>
+        </div>
+        <div>
+          <p>Cancelled ({cancelled.length})</p>
+          {cancelled && cancelled.length
+            ? cancelled.map((booking) => (
+                <div key={booking.id}>
+                  <p>{booking.status}</p>
+                </div>
+              ))
+            : 'no cancelled bookings!'}
         </div>
       </div>
     </div>
