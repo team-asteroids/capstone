@@ -49,6 +49,22 @@ export const fetchSingleSitterRatings = createAsyncThunk(
   }
 );
 
+export const fetchSitterBookings = createAsyncThunk(
+  'sitterBookings',
+  async ({ id, token }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/sitters/${id}/bookings`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const sittersSlice = createSlice({
   name: 'sitters',
   initialState: {
@@ -57,10 +73,17 @@ export const sittersSlice = createSlice({
     // add clients, preferences, etc
     sitterReviews: [],
     sitterRatings: [],
+    sitterBookings: [],
+    sitterBooking: {},
     error: '',
     status: '',
   },
-  reducers: {},
+  reducers: {
+    resetSitterStatus: (state) => {
+      state.error = '';
+      state.status = '';
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllSitters.fulfilled, (state, { payload }) => {
@@ -112,6 +135,19 @@ export const sittersSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchSingleSitterRatings.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(fetchSitterBookings.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.sitterBookings = payload;
+      })
+      .addCase(fetchSitterBookings.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchSitterBookings.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
