@@ -32,7 +32,9 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(getMyRsvpsAsync());
-      await dispatch(fetchSingleUser(event.creatorId));
+      if (event.creatorId) {
+        await dispatch(fetchSingleUser(event.creatorId));
+      }
       setLoading(false);
     };
     fetchData();
