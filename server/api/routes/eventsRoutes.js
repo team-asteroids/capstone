@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Event, User, Event_RSVP } = require('../../db');
 const { requireToken } = require('../authMiddleware');
+const sequelize = require('sequelize');
 
 // this sends back a list of all events
 router.get('/', async (req, res, next) => {
@@ -152,6 +153,23 @@ router.delete('/:id', requireToken, async (req, res, next) => {
     }
   } catch (error) {
     console.log('backend issue deleting event');
+    next(error);
+  }
+});
+
+router.post('/name', async (req, res, next) => {
+  try {
+    topic = req.body.params.topic;
+    const searchedEvents = await Event.findAll({
+      where: {
+        topic: {
+          [sequelize.Op.iLike]: `%${topic}%`,
+        },
+      },
+    });
+    res.status(200).json(searchedEvents);
+  } catch (error) {
+    console.log('backend issue fetching searched events');
     next(error);
   }
 });
