@@ -114,10 +114,6 @@ function UserAccount() {
               path="/pets/:petId/*"
               element={<EditPetDetails user={userAuth} />}
             />
-            {/* <Route
-              path="/pets/:petId/edit"
-              element={<EditPetDetails user={userAuth} />}
-            /> */}
             {/* SITTER ROUTES */}
             <Route path="/sitter" element={<SitterOverview />}></Route>
             <Route

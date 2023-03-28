@@ -4,7 +4,7 @@ import {
   UserPetProfiles,
   UserEventsProfile,
   UserGroupsProfile,
-  UserPetDetails,
+  EditPetDetails,
   UserFriendsSidebar,
 } from '../../index';
 
@@ -15,9 +15,6 @@ const UserSocialView = (props) => {
 
   return (
     <div className="font-rubik flex flex-col gap-5">
-      <div>
-        <h2 className="font-rubikmono">USER PROFILE</h2>
-      </div>
       {params['*'] === '' ? (
         <div className="font-rubik flex flex-row">
           <div className="w-4/5 h-[calc(100vh_-_20rem)] overflow-auto flex flex-col pr-10 gap-10">
@@ -35,7 +32,7 @@ const UserSocialView = (props) => {
           </div>
         </div>
       ) : (
-        <UserPetDetails user={user} />
+        <EditPetDetails user={user} />
       )}
     </div>
   );
