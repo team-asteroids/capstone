@@ -1,2 +1,7 @@
-buildCommand: npm run build
-startCommand: npm run start
+services:
+  - name: web
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    env:
+      - key: PORT
+        value: '8080'
