@@ -3,7 +3,11 @@ import { useDispatch } from 'react-redux';
 import { likePost, unlikePost } from '../../slices/postsSlice';
 
 const LikeUnlikeHowl = (props) => {
-  const { post, likes, userAuth } = props;
+  const { post, userAuth } = props;
+  // pull likes above when they work
+
+  //temporary variable:
+  const likes = 5;
 
   const postId = post.id;
 

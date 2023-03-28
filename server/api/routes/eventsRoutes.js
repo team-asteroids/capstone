@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Event, User, Event_RSVP } = require('../../db');
 const { requireToken } = require('../authMiddleware');
+const sequelize = require('sequelize');
 
 // this sends back a list of all events
 router.get('/', async (req, res, next) => {
@@ -114,7 +115,16 @@ router.get('/:id', async (req, res, next) => {
 // this allows logged in user to create a event
 router.post('/', requireToken, async (req, res, next) => {
   try {
-    const newEvent = await Event.create(req.body);
+    console.log(req.body);
+    const { event_start, event_end, zip_code, topic, description } = req.body;
+    const newEvent = await Event.create({
+      event_start,
+      event_end,
+      zip_code,
+      topic,
+      description,
+      creatorId: req.user.id,
+    });
     res.status(201).json(newEvent);
   } catch (error) {
     console.log('Backend issue adding event');
@@ -152,6 +162,23 @@ router.delete('/:id', requireToken, async (req, res, next) => {
     }
   } catch (error) {
     console.log('backend issue deleting event');
+    next(error);
+  }
+});
+
+router.post('/name', async (req, res, next) => {
+  try {
+    topic = req.body.params.topic;
+    const searchedEvents = await Event.findAll({
+      where: {
+        topic: {
+          [sequelize.Op.iLike]: `%${topic}%`,
+        },
+      },
+    });
+    res.status(200).json(searchedEvents);
+  } catch (error) {
+    console.log('backend issue fetching searched events');
     next(error);
   }
 });

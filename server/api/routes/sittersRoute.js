@@ -82,6 +82,68 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.post('/name', async (req, res, next) => {
+  try {
+    const name = req.body.params.name;
+    const users = await User.findAll({
+      where: {
+        firstName: {
+          [sequelize.Op.iLike]: `%${name}%`,
+        },
+      },
+    });
+    const userIds = users.map((user) => user.dataValues.id);
+    const sitters = await Sitter.findAll({
+      where: {
+        userId: userIds,
+      },
+    });
+
+    const sitterIds = sitters.map((sitter) => sitter.id);
+    const sitterRatings = await Sitter_Rating.findAll({
+      attributes: [
+        'sitterId',
+        [sequelize.literal('ROUND(AVG(rating), 2)'), 'averageRating'],
+      ],
+      group: ['sitterId'],
+    });
+
+    const ratingMap = {};
+    sitterRatings.forEach((rating) => {
+      ratingMap[rating.sitterId] = rating.dataValues.averageRating;
+    });
+
+    // count sitter reviews
+    const sitterReviewCount = await Sitter_Review.findAll({
+      attributes: ['sitterId', [sequelize.fn('COUNT', 'sitterId'), 'count']],
+      group: ['sitterId'],
+    });
+
+    const reviewCountMap = {};
+    sitterReviewCount.forEach((review) => {
+      reviewCountMap[review.sitterId] = review.dataValues.count;
+    });
+
+    const combinedData = [];
+    sitters.forEach((sitter) => {
+      const userData = users.find((user) => user.id === sitter.userId);
+      const sitterRating = ratingMap[sitter.id] || 0;
+      const sitterReviewCount = reviewCountMap[sitter.id] || 0;
+      combinedData.push({
+        ...userData.dataValues,
+        ...sitter.dataValues,
+        sitterRating,
+        sitterReviewCount,
+      });
+    });
+
+    res.status(200).json(combinedData);
+  } catch (err) {
+    console.log('BACKED ISSUE FETCHING SITTERS');
+    next(err);
+  }
+});
+
 // returns single sitter, clients and sitter prefs
 router.get('/:id', async (req, res, next) => {
   try {
