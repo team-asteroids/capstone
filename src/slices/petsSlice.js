@@ -34,7 +34,7 @@ export const updatePet = createAsyncThunk(
   async ({ id, token, petId, petInfo }, { rejectWithValue }) => {
     const { data } = await axios.put(
       `/api/users/${id}/pets/${petId}`,
-      { petInfo },
+      petInfo,
       {
         headers: {
           authorization: token,
@@ -53,7 +53,7 @@ export const updatePetDetails = createAsyncThunk(
   ) => {
     const { data } = await axios.put(
       `/api/users/${id}/pets/${petId}/details/${detailsId}`,
-      { petDetailsData },
+      petDetailsData,
       {
         headers: {
           authorization: token,

@@ -6,6 +6,7 @@ import {
   selectPets,
   fetchPetDetails,
   updatePet,
+  updatePetDetails,
 } from '../../slices/petsSlice';
 
 const EditPetDetails = (props) => {
@@ -103,19 +104,25 @@ const EditPetDetails = (props) => {
     navigate(-1);
   };
 
-  const updatePetDetails = async (evt) => {
+  const submitPetUpdateDetails = async (evt) => {
     evt.preventDefault();
+
     const id = user.id;
     const detailsId = petDetails.id;
     const token = window.localStorage.getItem('token');
 
-    const res1 = await dispatch(updatePet({ id, token, petId, petInfo }));
-    console.log(res1);
-
-    const res2 = await dispatch(
-      updatePetDetails({ id, token, petId, detailsId, petDetailsData })
-    );
-    console.log(res2);
+    if (singlePet.id && petDetails.id) {
+      const res1 = await dispatch(updatePet({ id, token, petId, petInfo }));
+      const res2 = await dispatch(
+        updatePetDetails({ id, token, petId, detailsId, petDetailsData })
+      );
+      if (
+        res1.type === 'updatePet/fulfilled' &&
+        res2.type === 'updatePetDetails/fulfilled'
+      ) {
+        navigate(`/account/pets/${petId}`);
+      }
+    }
   };
 
   const deletePet = () => {};
@@ -339,7 +346,7 @@ const EditPetDetails = (props) => {
       <h2 className="font-rubikmono">Edit Pet Details</h2>
       <div className="flex flex-col gap-5 overflow-auto h-[calc(100vh_-_20rem)]">
         <section>
-          <form onSubmit={updatePetDetails}>
+          <form onSubmit={submitPetUpdateDetails}>
             <p className="font-rubikmono pb-2">ABOUT</p>
             <div className="w-full flex flex-col mb-3">
               <label className={labelClass}>Name</label>
@@ -415,10 +422,13 @@ const EditPetDetails = (props) => {
                 rows={3}
                 type="text"
                 className={validClass}
-                value={petDetails.about}
+                value={petDetailsData.about}
                 onChange={(evt) => {
                   // setIsInvalidPhone(false);
-                  setPetInfo({ ...petDetails, about: evt.target.value });
+                  setPetDetailsData({
+                    ...petDetailsData,
+                    about: evt.target.value,
+                  });
                 }}
               ></textarea>
             </div>
@@ -429,11 +439,11 @@ const EditPetDetails = (props) => {
                 <select
                   name="housetrained"
                   className={validClass}
-                  value={petDetails.microchipped}
+                  value={petDetailsData.microchipped}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       microchipped: evt.target.value,
                     });
                   }}
@@ -447,11 +457,11 @@ const EditPetDetails = (props) => {
                 <select
                   name="houstrained"
                   className={validClass}
-                  value={petDetails.housetrained}
+                  value={petDetailsData.housetrained}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       housetrained: evt.target.value,
                     });
                   }}
@@ -465,11 +475,11 @@ const EditPetDetails = (props) => {
                 <select
                   name="cratetrained"
                   className={validClass}
-                  value={petDetails.cratetrained}
+                  value={petDetailsData.cratetrained}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       cratetrained: evt.target.value,
                     });
                   }}
@@ -484,11 +494,11 @@ const EditPetDetails = (props) => {
                 <select
                   name="fixed"
                   className={validClass}
-                  value={petDetails.spayedOrNeutered}
+                  value={petDetailsData.spayedOrNeutered}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       spayedOrNeutered: evt.target.value,
                     });
                   }}
@@ -506,11 +516,11 @@ const EditPetDetails = (props) => {
                 <select
                   name="otherDogs"
                   className={validClass}
-                  value={petDetails.friendlyWithDogs}
+                  value={petDetailsData.friendlyWithDogs}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       friendlyWithDogs: evt.target.value,
                     });
                   }}
@@ -526,11 +536,11 @@ const EditPetDetails = (props) => {
                 <select
                   name="cats"
                   className={validClass}
-                  value={petDetails.friendlyWithCats}
+                  value={petDetailsData.friendlyWithCats}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       friendlyWithCats: evt.target.value,
                     });
                   }}
@@ -546,11 +556,11 @@ const EditPetDetails = (props) => {
                 <select
                   name="kids"
                   className={validClass}
-                  value={petDetails.friendlyWithChildren}
+                  value={petDetailsData.friendlyWithChildren}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       friendlyWithChildren: evt.target.value,
                     });
                   }}
@@ -568,11 +578,11 @@ const EditPetDetails = (props) => {
                 <select
                   name="energy"
                   className={validClass}
-                  value={petDetails.energyLevels}
+                  value={petDetailsData.energyLevels}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       energyLevels: evt.target.value,
                     });
                   }}
@@ -587,11 +597,11 @@ const EditPetDetails = (props) => {
                 <select
                   name="alone"
                   className={validClass}
-                  value={petDetails.canBeLeftAlone}
+                  value={petDetailsData.canBeLeftAlone}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       canBeLeftAlone: evt.target.value,
                     });
                   }}
@@ -609,11 +619,11 @@ const EditPetDetails = (props) => {
                   rows={3}
                   type="text"
                   className={validClass}
-                  value={petDetails.reactivity}
+                  value={petDetailsData.reactivity}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       reactivity: evt.target.value,
                     });
                   }}
@@ -625,12 +635,12 @@ const EditPetDetails = (props) => {
                   rows={3}
                   type="text"
                   className={validClass}
-                  value={petDetails.canBeLeftAloneDetails}
+                  value={petDetailsData.canBeLeftAloneDetails}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
-                      canBeLeftAlone: evt.target.value,
+                    setPetDetailsData({
+                      ...petDetailsData,
+                      canBeLeftAloneDetails: evt.target.value,
                     });
                   }}
                 ></textarea>
@@ -643,11 +653,11 @@ const EditPetDetails = (props) => {
                 <select
                   name="feeding"
                   className={validClass}
-                  value={petDetails.feedingSchedule}
+                  value={petDetailsData.feedingSchedule}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       feedingSchedule: evt.target.value,
                     });
                   }}
@@ -662,11 +672,11 @@ const EditPetDetails = (props) => {
                 <select
                   name="walks"
                   className={validClass}
-                  value={petDetails.walkSchedule}
+                  value={petDetailsData.walkSchedule}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       walkSchedule: evt.target.value,
                     });
                   }}
@@ -682,11 +692,11 @@ const EditPetDetails = (props) => {
                 <select
                   name="walkDuration"
                   className={validClass}
-                  value={petDetails.walkDuration}
+                  value={petDetailsData.walkDuration}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       walkDuration: evt.target.value,
                     });
                   }}
@@ -704,11 +714,11 @@ const EditPetDetails = (props) => {
                   rows={3}
                   type="text"
                   className={validClass}
-                  value={petDetails.walkDetails}
+                  value={petDetailsData.walkDetails}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       walkDetails: evt.target.value,
                     });
                   }}
@@ -720,11 +730,11 @@ const EditPetDetails = (props) => {
                   rows={3}
                   type="text"
                   className={validClass}
-                  value={petDetails.foodDetails}
+                  value={petDetailsData.foodDetails}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       foodDetails: evt.target.value,
                     });
                   }}
@@ -737,11 +747,11 @@ const EditPetDetails = (props) => {
               <select
                 name="meds"
                 className={validClass}
-                value={petDetails.medications}
+                value={petDetailsData.medications}
                 onChange={(evt) => {
                   // setIsInvalidPhone(false);
-                  setPetInfo({
-                    ...petDetails,
+                  setPetDetailsData({
+                    ...petDetailsData,
                     medications: evt.target.value,
                   });
                 }}
@@ -759,11 +769,11 @@ const EditPetDetails = (props) => {
                   rows={3}
                   type="text"
                   className={validClass}
-                  value={petDetails.medicationDetails}
+                  value={petDetailsData.medicationDetails}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       medicationDetails: evt.target.value,
                     });
                   }}
@@ -775,11 +785,11 @@ const EditPetDetails = (props) => {
                   rows={3}
                   type="text"
                   className={validClass}
-                  value={petDetails.vetInfo}
+                  value={petDetailsData.vetInfo}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
-                    setPetInfo({
-                      ...petDetails,
+                    setPetDetailsData({
+                      ...petDetailsData,
                       vetInfo: evt.target.value,
                     });
                   }}
@@ -793,11 +803,11 @@ const EditPetDetails = (props) => {
                 rows={4}
                 type="text"
                 className={validClass}
-                value={petDetails.additionalDetails}
+                value={petDetailsData.additionalDetails}
                 onChange={(evt) => {
                   // setIsInvalidPhone(false);
-                  setPetInfo({
-                    ...petDetails,
+                  setPetDetailsData({
+                    ...petDetailsData,
                     additionalDetails: evt.target.value,
                   });
                 }}

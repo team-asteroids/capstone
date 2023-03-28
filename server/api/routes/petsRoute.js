@@ -92,13 +92,13 @@ router.post('/', async (req, res, next) => {
 router.put('/:petId', requireToken, async (req, res, next) => {
   try {
     const id = +req.params.id;
-    console.log('req.body', req.body);
     if (req.user.role === 'admin' || req.user.id === id) {
       const singlePet = await Pet.findByPk(req.params.petId, {
         include: { model: User, attributes: { exclude: ['password'] } },
       });
       if (!singlePet) return res.status(404).send('No pet exists!');
       const updatedPet = await singlePet.update(req.body);
+      console.log(updatedPet);
       res.status(200).send(updatedPet);
     } else {
       res
@@ -119,6 +119,7 @@ router.put(
   requireToken,
   async (req, res, next) => {
     try {
+      console.log('req.body', req.body);
       const id = +req.params.id;
       if (req.user.role === 'admin' || req.user.id === id) {
         const singlePetDetails = await Pet_Detail.findOne({
