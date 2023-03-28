@@ -18,32 +18,41 @@ const BookingCard = (props) => {
   return (
     <div className="pt-3 px-5">
       <div className="flex flex-row flex-wrap">
-        <div className="w-1/5 flex flex-col pr-2">
+        <div className="w-1/5 flex flex-col justify-between pr-2">
           <div>
-            <p className="font-rubikmono text-sm pb-1">Booking Id:</p>
-            <p>{bookingId}</p>
-          </div>
-          <div>
-            <p className="font-rubikmono text-sm pb-1">Client:</p>
-            <p>{client.fullName}</p>
-          </div>
-          <div>
-            <p className="font-rubikmono text-sm pb-1">Pets:</p>
+            <div>
+              <p className="font-rubikmono text-sm pb-1">Booking Id:</p>
+              <p>{bookingId}</p>
+            </div>
+            <div>
+              <p className="font-rubikmono text-sm pb-1">Client:</p>
+              <p>{client.fullName}</p>
+            </div>
+            <div>
+              <p className="font-rubikmono text-sm pb-1">Pets:</p>
 
-            {bookingPets && bookingPets.length
-              ? bookingPets.map((pet) => (
-                  <div key={pet.id}>
-                    <p>{pet.name}</p>
-                  </div>
-                ))
-              : 'client did not add any pets!'}
+              {bookingPets && bookingPets.length
+                ? bookingPets.map((pet) => (
+                    <div key={pet.id}>
+                      <p>{pet.name}</p>
+                    </div>
+                  ))
+                : 'client did not add any pets!'}
+            </div>
+          </div>
+          <div>
+            {booking.status === 'approved' ? (
+              <p className="text-sm pb-2.5">see details / update</p>
+            ) : (
+              <p className="text-sm pb-2.5">see details</p>
+            )}
           </div>
         </div>
         <section className="w-4/5">
           <fieldset disabled>
             <form>
               <p className="font-rubikmono text-sm pb-2">Details:</p>
-              <div className="flex flex-wrap mb-3">
+              <div className="flex flex-wrap mb-5">
                 <div className="w-1/3 flex flex-col pr-6">
                   <label className={labelClass}>Status</label>
                   <input className={validClass} value={booking.status} />
@@ -79,7 +88,6 @@ const BookingCard = (props) => {
           </fieldset>
         </section>
       </div>
-      <Divider className="pt-5" />
     </div>
   );
 };

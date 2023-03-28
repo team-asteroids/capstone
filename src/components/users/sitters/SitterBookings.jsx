@@ -7,6 +7,7 @@ import {
 } from '../../../slices/sittersSlice';
 import { selectAuth } from '../../../slices/authSlice';
 import { BookingCard } from '../../index';
+import { Divider } from '@mui/material';
 
 const SitterBookings = (props) => {
   const { sitter } = props;
@@ -69,6 +70,9 @@ const SitterBookings = (props) => {
               ? approved.map((booking) => (
                   <div key={booking.id}>
                     <BookingCard booking={booking} />
+                    <div className="pt-5 pr-10">
+                      <Divider />
+                    </div>
                   </div>
                 ))
               : 'no upcoming bookings!'}
@@ -83,6 +87,9 @@ const SitterBookings = (props) => {
               ? completed.map((booking) => (
                   <div key={booking.id}>
                     <BookingCard booking={booking} />
+                    <div className="pt-5 pr-10">
+                      <Divider />
+                    </div>
                   </div>
                 ))
               : 'no past bookings!'}
@@ -97,6 +104,9 @@ const SitterBookings = (props) => {
               ? cancelled.map((booking) => (
                   <div key={booking.id}>
                     <BookingCard booking={booking} />
+                    <div className="pt-5 pr-10">
+                      <Divider />
+                    </div>
                   </div>
                 ))
               : 'no cancelled bookings!'}
