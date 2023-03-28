@@ -25,7 +25,6 @@ import {
   Chat,
   CreateEvent,
   AllHowls,
-
 } from './index';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
