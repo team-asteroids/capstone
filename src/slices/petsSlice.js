@@ -64,6 +64,18 @@ export const updatePetDetails = createAsyncThunk(
   }
 );
 
+export const deletePet = createAsyncThunk(
+  'deletePet',
+  async ({ id, token, petId }, { rejectWithValue }) => {
+    const { data } = await axios.delete(`/api/users/${id}/pets/${petId}`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  }
+);
+
 const petsSlice = createSlice({
   name: 'pets',
   initialState: {
@@ -144,6 +156,20 @@ const petsSlice = createSlice({
         state.error = '';
       })
       .addCase(updatePetDetails.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(deletePet.fulfilled, (state, { payload }) => {
+        state.singlePet = payload.deletedPetBasics;
+        state.petDetails = payload.deletedPetDetails;
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(deletePet.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(deletePet.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });

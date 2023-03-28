@@ -119,7 +119,6 @@ router.put(
   requireToken,
   async (req, res, next) => {
     try {
-      console.log('req.body', req.body);
       const id = +req.params.id;
       if (req.user.role === 'admin' || req.user.id === id) {
         const singlePetDetails = await Pet_Detail.findOne({
@@ -146,17 +145,26 @@ router.put(
 );
 
 // Delete pet
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:petId', requireToken, async (req, res, next) => {
   try {
-    const deletedPetBasics = await Pet.findByPk(req.params.id);
-    const deletedPetDetails = await Pet_Detail.findOne({
-      where: {
-        petId: req.params.id,
-      },
-    });
-    await deletedPetDetails.destroy();
-    await deletedPetBasics.destroy();
-    res.json({ deletedPetBasics, deletedPetDetails });
+    const id = +req.params.id;
+    if (req.user.role === 'admin' || req.user.id === id) {
+      const deletedPetBasics = await Pet.findByPk(req.params.petId);
+      const deletedPetDetails = await Pet_Detail.findOne({
+        where: {
+          petId: req.params.id,
+        },
+      });
+      await deletedPetDetails.destroy();
+      await deletedPetBasics.destroy();
+      res.send(200).send({ deletedPetBasics, deletedPetDetails });
+    } else {
+      res
+        .status(403)
+        .send(
+          'Inadequate access rights / Requested user does not match logged-in user'
+        );
+    }
   } catch (err) {
     next(err);
   }

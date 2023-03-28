@@ -7,6 +7,7 @@ import {
   fetchPetDetails,
   updatePet,
   updatePetDetails,
+  deletePet,
 } from '../../slices/petsSlice';
 import { selectAuth } from '../../slices/authSlice';
 
@@ -19,7 +20,7 @@ const EditPetDetails = (props) => {
   const [formDisabled, setFormDisabled] = useState(false);
 
   const { user } = props;
-  const { userAuth } = useSelector(selectAuth);
+  const { userAuth, token } = useSelector(selectAuth);
 
   const { singlePet, petDetails } = useSelector(selectPets);
 
@@ -136,7 +137,12 @@ const EditPetDetails = (props) => {
     }
   };
 
-  const deletePet = () => {};
+  const submitDeletePet = async () => {
+    console.log('delete attempted');
+    const id = userAuth.id;
+    const res = await dispatch(deletePet({ id, token, petId }));
+    if (res.type === 'deletePet/fulfilled') navigate('/account/pets');
+  };
 
   const labelClass = 'text-xs font-rubikmono';
 
@@ -358,7 +364,7 @@ const EditPetDetails = (props) => {
         <div className="flex flex-row gap-3 align-baseline">
           <p className="font-rubikmono">{singlePet.name} Profile</p>
           {userAuth.id === user.id ? (
-            <p className=" hover:text-bold-pink">
+            <p className=" hover:text-bold-purple">
               <Link to={`${location.pathname}/edit`}>(edit)</Link>
             </p>
           ) : null}
@@ -460,7 +466,7 @@ const EditPetDetails = (props) => {
                 <div className="w-1/4 flex flex-col pr-6">
                   <label className={labelClass}>Microchipped</label>
                   <select
-                    name="housetrained"
+                    name="microchipped"
                     className={validClass}
                     value={petDetailsData.microchipped}
                     onChange={(evt) => {
@@ -846,6 +852,14 @@ const EditPetDetails = (props) => {
               )}
             </form>
           </fieldset>
+          <div className="">
+            <button
+              className="font-semibold cursor-pointer text-red-600 hover:text-red-900 mt-5"
+              onClick={submitDeletePet}
+            >
+              Delete Pet Profile
+            </button>
+          </div>
         </section>
       </div>
     </div>
