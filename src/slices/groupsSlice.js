@@ -242,6 +242,22 @@ export const unlikeGroupPost = createAsyncThunk(
   }
 );
 
+export const fetchGroupNames = createAsyncThunk(
+  'fetch/searchGroups',
+  async (name, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/api/groups/name', {
+        params: {
+          name: name,
+        },
+      });
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const groupSlice = createSlice({
   name: 'groups',
   initialState: {
@@ -493,6 +509,19 @@ export const groupSlice = createSlice({
         state.likedStatus = true; // or dont change at all?
         state.error = payload;
         // check on this
+      })
+      .addCase(fetchGroupNames.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.allGroups = payload;
+      })
+      .addCase(fetchGroupNames.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchGroupNames.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
       });
   },
 });

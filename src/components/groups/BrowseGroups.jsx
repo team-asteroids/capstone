@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchAllGroups } from '../../slices/groupsSlice';
+import { fetchAllGroups, fetchGroupNames } from '../../slices/groupsSlice';
 import Group from './Group';
 import Pagination from '../ui/Pagination';
 
 const BrowseGroups = () => {
   const dispatch = useDispatch();
   const groups = useSelector((state) => state.groups.allGroups);
+  const [search, setSearch] = useState('');
 
   // Pagination setup
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,8 +24,24 @@ const BrowseGroups = () => {
     dispatch(fetchAllGroups());
   }, [dispatch]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(fetchGroupNames(search));
+    setSearch('');
+  };
+
   return (
     <>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Search groups"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        <button type="submit">Search</button>
+      </form>
       <div className="p-6 bg-[#fca5a5]">
         <h3 className=" text-bold-purple text-lg font-rubikmono ">Groups</h3>
         <h3 className="text-lg font-rubikmono ">

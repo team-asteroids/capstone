@@ -6,6 +6,7 @@ const {
   Group_Post_Like,
   User,
 } = require('../../db');
+const sequelize = require('sequelize');
 
 const { requireToken } = require('../authMiddleware');
 
@@ -491,5 +492,27 @@ router.delete(
     }
   }
 );
+
+router.post('/name', async (req, res, next) => {
+  try {
+    const name = req.body.params.name;
+    const searchedGroups = await Group.findAll({
+      where: {
+        name: {
+          [sequelize.Op.iLike]: `%${name}%`,
+        },
+      },
+    });
+
+    const groupsAndMembers = await Promise.all(
+      searchedGroups.map(async (group) => integrateMembers(group))
+    );
+
+    res.status(200).json(groupsAndMembers);
+  } catch (err) {
+    console.log('BACKED ISSUE FETCHING GROUPS');
+    next(err);
+  }
+});
 
 module.exports = router;
