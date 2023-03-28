@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "PORT=$PORT concurrently \"nodemon server/server.js\" \"react-scripts start\"",
-    "build": "npm install -g concurrently && react-scripts build",
+    "start": "PORT=$PORT nodemon server/server.js & react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "seed": "node seed.js",
     "eject": "react-scripts eject",
