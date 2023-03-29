@@ -119,6 +119,39 @@ export const editSitterBooking = createAsyncThunk(
   }
 );
 
+export const fetchSitterClients = createAsyncThunk(
+  'fetchClients',
+  async ({ id, token }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/sitters/${id}/clients`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const fetchSingleClient = createAsyncThunk(
+  'fetchClient',
+  async ({ id, token, userId }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/sitters/${id}/clients/${userId}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const sittersSlice = createSlice({
   name: 'sitters',
   initialState: {
@@ -129,6 +162,8 @@ export const sittersSlice = createSlice({
     sitterRatings: [],
     sitterBookings: [],
     sitterBooking: {},
+    clients: [],
+    client: {},
     error: '',
     status: '',
   },
@@ -245,6 +280,32 @@ export const sittersSlice = createSlice({
         state.error = '';
       })
       .addCase(editSitterBooking.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(fetchSitterClients.fulfilled, (state, { payload }) => {
+        state.clients = payload.clientsOfSitter;
+        state.status = 'fulfilled';
+        state.error = '';
+      })
+      .addCase(fetchSitterClients.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchSitterClients.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(fetchSingleClient.fulfilled, (state, { payload }) => {
+        state.client = payload;
+        state.status = 'fulfilled';
+        state.error = '';
+      })
+      .addCase(fetchSingleClient.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchSingleClient.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });

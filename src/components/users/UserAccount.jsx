@@ -28,6 +28,7 @@ import {
   UserPetDetails,
   EditPetDetails,
   AddNewPet,
+  SitterClients,
 } from '../index';
 import BookingDetailsCard from './sitters/BookingDetailsCard';
 
@@ -176,8 +177,12 @@ function UserAccount() {
               element={<SitterBookings sitter={singleSitter} />}
             ></Route>
             <Route
-              path="/sitter/bookings/:bookingId"
+              path="/sitter/bookings/:bookingId/"
               element={<BookingDetailsCard sitter={singleSitter} />}
+            />
+            <Route
+              path="/sitter/clients"
+              element={<SitterClients sitter={singleSitter} />}
             />
           </Routes>
         </div>
