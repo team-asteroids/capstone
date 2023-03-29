@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { deletePost } from '../../slices/postsSlice';
 import LikeUnlikeHowl from './LikeUnlikeHowl';
-import HowlComment from './HowlComment';
+import AddComment from './AddComment';
+import CommentView from './CommentView';
 
 const Howl = (props) => {
   const { post, likes, userAuth } = props;
@@ -66,16 +67,25 @@ const Howl = (props) => {
                 onClick={() => setCommentView(true)}
                 className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
               >
-                Comment
+                View Comments
               </button>
             </div>
           </>
         )}
 
         {commentView && (
-          <div>
-            <HowlComment post={post} userAuth={userAuth} />
-          </div>
+          <>
+            <div>
+              <CommentView
+                post={post}
+                comments={comments}
+                userAuth={userAuth}
+              />
+            </div>
+            <div>
+              <AddComment post={post} userAuth={userAuth} />
+            </div>
+          </>
         )}
 
         {userAuth &&

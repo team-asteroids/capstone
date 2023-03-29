@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { addPostComment } from '../../slices/postsSlice';
 
-const HowlComment = (props) => {
+const AddComment = (props) => {
   const { post, userAuth } = props;
 
   const dispatch = useDispatch();
@@ -44,4 +44,4 @@ const HowlComment = (props) => {
   );
 };
 
-export default HowlComment;
+export default AddComment;
