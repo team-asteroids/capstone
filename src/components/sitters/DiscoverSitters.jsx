@@ -12,8 +12,10 @@ const DiscoverSitters = () => {
   const dispatch = useDispatch();
   const sitters = useSelector(selectSitters);
   const [search, setSearch] = useState('');
+
   const [rating, setRating] = useState('');
   const [price, setPrice] = useState('');
+
 
   const handleSubmit = (e) => {
     e.preventDefault();

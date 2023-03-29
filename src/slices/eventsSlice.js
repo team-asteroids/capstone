@@ -39,6 +39,29 @@ export const createEventAsync = createAsyncThunk(
   }
 );
 
+export const editEventAsync = createAsyncThunk(
+  '/editEvent',
+  async ({ id, formData }) => {
+    const token = window.localStorage.getItem('token');
+    const { data } = await axios.put(
+      `/api/events/${id}`,
+      {
+        event_start: formData.eventStart,
+        event_end: formData.eventEnd,
+        zip_code: formData.zipCode,
+        topic: formData.topic,
+        description: formData.description,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    return data;
+  }
+);
+
 export const getMyRsvpsAsync = createAsyncThunk('/getRSVPs', async () => {
   const token = window.localStorage.getItem('token');
   const { data } = await axios.get('/api/events/attending', {
@@ -128,6 +151,19 @@ export const eventsSlice = createSlice({
         state.status = 'failed';
         state.error = payload.message;
       })
+      .addCase(editEventAsync.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.singleEvent = payload;
+      })
+      .addCase(editEventAsync.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(editEventAsync.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+      })
       .addCase(addRsvpAsync.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
@@ -179,7 +215,7 @@ export const eventsSlice = createSlice({
       .addCase(fetchEventNames.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
-       })
+      })
       .addCase(createEventAsync.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';

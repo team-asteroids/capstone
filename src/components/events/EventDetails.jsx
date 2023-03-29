@@ -10,13 +10,16 @@ import {
   removeRsvpAsync,
 } from '../../slices/eventsSlice';
 import { selectAuth } from '../../slices/authSlice';
+import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
 import defaultImg from '../../img/group-puppies-celebrating-new-year.jpg';
 import Map from '../maps/Map';
 const EventDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const event = useSelector(selectSingleEvent);
+  const user = useSelector(selectUser);
   const auth = useSelector(selectAuth);
+
   const myRsvps = useSelector(selectMyRsvps);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -29,11 +32,15 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(getMyRsvpsAsync());
+      if (event.creatorId) {
+        await dispatch(fetchSingleUser(event.creatorId));
+      }
       setLoading(false);
     };
     fetchData();
-  }, [dispatch, id]);
+  }, [dispatch, id, event]);
   const alreadyRSVPd = myRsvps.filter((rsvp) => rsvp.eventId === event.id);
+
   if (!auth.userAuth) {
     return (
       <>
@@ -63,7 +70,7 @@ const EventDetails = () => {
             <div className="pl-5 pt-3  container mx-auto relative">
               <img className="w-100 " src={defaultImg} alt="puppy event" />
               <div className="p-1">Topic: {event.topic}</div>
-              <div className="p-1">Event Creator: @howlr_{event.creatorId}</div>
+
               <div className="p-1 ">
                 Description: {event.description}
                 {event.description}
@@ -102,7 +109,14 @@ const EventDetails = () => {
                   />
                 </svg>
               </span>
-              Event Details
+              <span>Event Details</span>
+              {auth.userAuth.id === event.creatorId ? (
+                <Link to={`/events/${id}/edit`}>
+                  <div className="pl-5">Edit</div>
+                </Link>
+              ) : (
+                <></>
+              )}
             </div>
             <div>
               <img
@@ -116,7 +130,10 @@ const EventDetails = () => {
                 <strong>PUP-E-VENT:</strong> {event.topic}
               </div>
               <div className="p-1">
-                <strong>PACK LEADER:</strong> @howlr_{event.creatorId}
+                <strong>PACK LEADER: </strong>{' '}
+                <Link to={`/profile/${event.creatorId}`}>
+                  {user.singleUser.userName}
+                </Link>
               </div>
               <div className="p-1 ">
                 <strong>DESCRIPTION:</strong> Lorem ipsum dolor sit amet,
@@ -133,7 +150,7 @@ const EventDetails = () => {
               <ul>
                 {event.users.length ? (
                   event.users.map((user) => (
-                    <li key={user.id}>@howlr_{user.id}</li>
+                    <li key={user.id}>{user.userName}</li>
                   ))
                 ) : (
                   <p>No HOWLR's...yet</p>
