@@ -78,11 +78,58 @@ export const fetchPostsThroughSearch = createAsyncThunk(
   }
 );
 
+export const fetchSinglePostComments = createAsyncThunk(
+  '/singlePostComments',
+  async (postId) => {
+    const token = localStorage.getItem('token');
+    const { data } = await axios.get(`/api/posts/${postId}/comments`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  }
+);
+
+export const addPostComment = createAsyncThunk(
+  '/addPostComment',
+  async ({ content, postId }) => {
+    const token = localStorage.getItem('token');
+    const { data } = await axios.post(
+      `/api/posts/${postId}/comments`,
+      { content },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    return data;
+  }
+);
+
+export const deletePostComment = createAsyncThunk(
+  '/deletePostComment',
+  async ({ postId, commentId }) => {
+    const token = localStorage.getItem('token');
+    const { data } = await axios.delete(
+      `/api/posts/${postId}/comments/${commentId}`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    return data;
+  }
+);
+
 export const postsSlice = createSlice({
   name: 'posts',
   initialState: {
     allPosts: [],
     allComments: [],
+    singlePostComments: [],
     postLikes: [],
     error: '',
     status: '',
@@ -171,7 +218,7 @@ export const postsSlice = createSlice({
       .addCase(deletePost.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
-        // console.log('posts before change--> ', state.posts);
+        console.log('deleted post id--> ', payload.id);
         state.allPosts = state.allPosts.filter(
           (post) => post.id !== payload.id
         );
@@ -197,6 +244,52 @@ export const postsSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchPostsThroughSearch.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+      })
+      .addCase(fetchSinglePostComments.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        // console.log(payload);
+        state.error = '';
+        state.singlePostComments = payload;
+      })
+      .addCase(fetchSinglePostComments.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchSinglePostComments.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+      })
+      .addCase(addPostComment.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.allComments.push(payload);
+        // state.posts.push(payload);
+      })
+      .addCase(addPostComment.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(addPostComment.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+      })
+      .addCase(deletePostComment.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        console.log('deleted post id--> ', payload.id);
+        state.allComments = state.allComments.filter(
+          (comment) => comment.id !== payload.id
+        );
+        // console.log('posts before change--> ', state.posts);
+        // what should we do with payload?
+      })
+      .addCase(deletePostComment.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(deletePostComment.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload;
       });
