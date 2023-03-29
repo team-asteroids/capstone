@@ -11,7 +11,7 @@ const config = require('config');
 
 // const connectionString = process.env.DATABASE_URL;
 
-console.log('database url --> ', process.env.DATABASE_URL);
+console.log('database url wooo --> ', process.env.DATABASE_URL);
 // console.log('database url --> ', REACT_APP_CHAT_ENGINE_PRIVATE_KEY)
 
 const db = new Sequelize(process.env.DATABASE_URL, {
