@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { deletePost } from '../../slices/postsSlice';
 import LikeUnlikeHowl from './LikeUnlikeHowl';
+import AddComment from './AddComment';
+import CommentView from './CommentView';
 
 const Howl = (props) => {
   const { post, likes, userAuth } = props;
@@ -12,6 +14,8 @@ const Howl = (props) => {
   const author = post.user.fullName;
 
   //   console.log('likes -->', likes);
+
+  const [commentView, setCommentView] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -22,9 +26,14 @@ const Howl = (props) => {
   const formattedDate = dateData.toDateString();
   const formattedTime = dateData.toLocaleTimeString('en-US');
 
+  const toggleCommentView = () => {
+    setCommentView(!commentView);
+  };
+
   const deleteHandler = async (e) => {
     e.preventDefault();
     const postId = post.id;
+    console.log('postId -->', postId);
     await dispatch(deletePost(postId));
   };
 
@@ -45,16 +54,44 @@ const Howl = (props) => {
           <p>Comments: {comments.length}</p>
           <p>Likes: {likes.length}</p>
         </div>
+        <br></br>
         {userAuth && (
-          <div>
-            <LikeUnlikeHowl
-              key={post.id}
-              post={post}
-              likes={likes}
-              userAuth={userAuth}
-            />
-          </div>
+          <>
+            <div>
+              <LikeUnlikeHowl
+                key={post.id}
+                post={post}
+                likes={likes}
+                userAuth={userAuth}
+              />
+            </div>
+            <br></br>
+            <div>
+              <button
+                onClick={toggleCommentView}
+                className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+              >
+                View Comments
+              </button>
+            </div>
+          </>
         )}
+
+        {commentView && (
+          <>
+            <div>
+              <CommentView
+                post={post}
+                comments={comments}
+                userAuth={userAuth}
+              />
+            </div>
+            <div>
+              <AddComment post={post} userAuth={userAuth} />
+            </div>
+          </>
+        )}
+
         {userAuth &&
           (userAuth.id === post.creatorId || userAuth.role === 'admin') && (
             <p>

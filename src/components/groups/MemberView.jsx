@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchGroupMembers } from '../../slices/groupsSlice';
-import GroupPost from './GroupPost';
 
 const MemberView = () => {
   const dispatch = useDispatch();
@@ -25,9 +24,7 @@ const MemberView = () => {
   return (
     <>
       {loading ? (
-        <div className="bg-white-smoke border rounded-lg shadow-lg text-lg">
-          Loading
-        </div>
+        <div className="font-rubikmono">Fetching good things...</div>
       ) : (
         <div>
           <div className="bg-white-smoke border rounded-lg shadow-lg">
@@ -53,10 +50,11 @@ const MemberView = () => {
                         {mem.userName}
                       </div>
                       <div className="basis-1/3">
-                        {' '}
-                        <button className="p-1 rounded-lg bg-[#cbd5e1] ">
-                          Add as Friend
-                        </button>
+                        <Link to={`/profile/${mem.id}`}>
+                          <button className="p-1 rounded-lg bg-[#cbd5e1] ">
+                            View Profile
+                          </button>
+                        </Link>
                       </div>
                     </div>
                   </div>

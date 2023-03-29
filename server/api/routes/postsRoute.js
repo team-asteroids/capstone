@@ -22,7 +22,10 @@ const integrateLikes = async (post) => {
 router.get('/', async (req, res, next) => {
   try {
     const allPosts = await Post.findAll({
-      include: [{ model: Post_Comment }, { model: User }],
+      include: [
+        { model: Post_Comment, include: [{ model: User }] },
+        { model: User },
+      ],
     });
 
     res.status(200).json(allPosts);
@@ -141,18 +144,8 @@ router.delete('/:postId', requireToken, async (req, res, next) => {
     const deletedPost = await Post.findByPk(req.params.postId);
     if (!deletedPost) return res.status(404).send('No post exists!');
     if (req.user.id === deletedPost.creatorId || req.user.role === 'admin') {
-      const deletedPostComments = await Post_Comment.findAll({
-        where: {
-          postId: req.params.postId,
-        },
-      });
-      await Post_Comment.destroy({
-        where: {
-          postId: req.params.postId,
-        },
-      });
       await deletedPost.destroy();
-      res.json({ deletedPost, deletedPostComments });
+      res.json(deletedPost);
     } else {
       res
         .status(403)
@@ -175,7 +168,7 @@ router.get('/:postId/comments', requireToken, async (req, res, next) => {
     const allPostComments = await Post_Comment.findAll({
       where: { postId: req.params.postId },
       //include User info:
-      include: { model: User },
+      include: [{ model: User }],
     });
     res.status(200).json(allPostComments);
   } catch (e) {
