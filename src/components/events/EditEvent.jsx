@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   selectSingleEvent,
   fetchSingleEvent,
@@ -11,6 +11,7 @@ const EditEvent = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const event = useSelector(selectSingleEvent);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchSingleEvent(id));
@@ -27,6 +28,7 @@ const EditEvent = () => {
   const handleEdit = async (e) => {
     e.preventDefault();
     await dispatch(editEventAsync({ id, formData }));
+    navigate(-1);
   };
 
   return (
