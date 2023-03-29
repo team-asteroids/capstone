@@ -14,9 +14,12 @@ const config = require('config');
 console.log('database url --> ', process.env.REACT_APP_DATABASE_URL);
 // console.log('database url --> ', REACT_APP_CHAT_ENGINE_PRIVATE_KEY)
 
-const db = new Sequelize(process.env.REACT_APP_DATABASE_URL, {
-  logging: false,
-});
+const db = new Sequelize(
+  process.env.REACT_APP_DATABASE_URL || `postgres://localhost:5432/howlr`,
+  {
+    logging: false,
+  }
+);
 
 const main = async () => {
   try {
