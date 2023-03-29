@@ -283,7 +283,7 @@ export const sittersSlice = createSlice({
         state.error = payload.message;
       })
       .addCase(fetchSitterClients.fulfilled, (state, { payload }) => {
-        state.clients = payload.clientsOfSitter;
+        state.clients = payload.clientsAndStatus;
         state.status = 'fulfilled';
         state.error = '';
       })

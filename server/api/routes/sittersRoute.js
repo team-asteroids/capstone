@@ -374,6 +374,7 @@ router.get('/:id/clients', requireToken, async (req, res, next) => {
 
       // Get all userIds of clients and fetch user data
       const userIds = clients.map((client) => client.userId);
+
       const users = await Promise.all(
         userIds.map((userId) =>
           User.findByPk(userId, {
@@ -386,10 +387,22 @@ router.get('/:id/clients', requireToken, async (req, res, next) => {
 
       const clientsOfSitter = users.map((user) => user.dataValues);
 
+      // combine status from Sitter_Client with client details
+      let clientsAndStatus = [];
+
+      clientsOfSitter.forEach((clientObj) => {
+        for (let i = 0; i < clients.length; i++) {
+          if (clientObj.id === clients[i].userId) {
+            let status = clients[i].status;
+            clientsAndStatus.push({ ...clientObj, status });
+          }
+        }
+      });
+
       const sitterAndClients = {
         ...user.dataValues,
         ...sitter.dataValues,
-        clientsOfSitter,
+        clientsAndStatus,
       };
 
       res.status(200).send(sitterAndClients);
@@ -616,6 +629,21 @@ router.get('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
     next(err);
   }
 });
+
+router.get(
+  '/:id/bookings/:bookingId/access',
+  requireToken,
+  async (req, res, next) => {
+    const id = +req.params.id;
+    const { userId } = +req.body;
+
+    try {
+    } catch (err) {
+      console.log('BACKED ISSUE FETCHING BOOKING ACCESS');
+      next(err);
+    }
+  }
+);
 
 // edit booking from pending to complete (sitter)
 router.put('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
