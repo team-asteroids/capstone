@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchSingleSitter,
@@ -11,10 +11,17 @@ import {
   SitterPrefSidebar,
   SitterRatingsReviews,
 } from '../../index';
+import { useNavigate } from 'react-router-dom';
 
 const SitterProfile = () => {
   const dispatch = useDispatch();
   const [avgRating, setAvgRating] = useState(0);
+
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
 
   const { singleSitter, sitterReviews, sitterRatings } =
     useSelector(selectSitters);
@@ -39,6 +46,12 @@ const SitterProfile = () => {
 
   return (
     <div className="font-rubik flex flex-col gap-5 min-w-min">
+      <button
+        className="text-left text-xs font-semibold hover:text-bold-purple ease-in-out duration-100"
+        onClick={goBack}
+      >
+        BACK
+      </button>
       <div>
         <h2 className="font-rubikmono">Sitter Profile</h2>
       </div>

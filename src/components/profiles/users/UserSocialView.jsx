@@ -1,5 +1,6 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+
 import {
   UserPetProfiles,
   UserEventsProfile,
@@ -10,11 +11,22 @@ import {
 
 const UserSocialView = (props) => {
   const params = useParams();
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
 
   const { user } = props;
 
   return (
     <div className="font-rubik flex flex-col gap-5">
+      <button
+        className="text-left text-xs font-semibold hover:text-bold-purple ease-in-out duration-100"
+        onClick={goBack}
+      >
+        BACK
+      </button>
       {params['*'] === '' ? (
         <div className="font-rubik flex flex-row">
           <div className="w-4/5 h-[calc(100vh_-_20rem)] overflow-auto flex flex-col pr-10 gap-10">
