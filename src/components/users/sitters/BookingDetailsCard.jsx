@@ -76,6 +76,9 @@ const BookingDetailsCard = (props) => {
   const validClass =
     'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
+  const validLinkClass =
+    'cursor-pointer appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+
   return (
     <div className="font-rubik flex flex-col gap-5">
       <button
@@ -229,7 +232,7 @@ const BookingDetailsCard = (props) => {
                 <label className={labelClass}>Client</label>
                 <Link to={`/profile/${sitterBooking.user.id}`}>
                   <input
-                    className={validClass}
+                    className={validLinkClass}
                     value={sitterBooking.user.fullName}
                     disabled
                   />
@@ -242,7 +245,7 @@ const BookingDetailsCard = (props) => {
                     <input
                       key={pet.id}
                       value={pet.name}
-                      className={validClass}
+                      className={validLinkClass}
                       disabled
                     />
                   </Link>
