@@ -59,10 +59,24 @@ const SitterBookings = (props) => {
       <div>
         <h2 className="font-rubikmono">Manage Sitter Bookings</h2>
       </div>
-      <div>
-        <p>Review Booking Requests ({pending.length})</p>
-      </div>
       <div className="h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
+        <div>
+          <p className="font-rubikmono text-lg pb-2">
+            Review New Booking Requests ({pending.length})
+          </p>
+          <div className="flex flex-col gap-5">
+            {pending && pending.length
+              ? pending.map((booking) => (
+                  <div key={booking.id}>
+                    <BookingCard booking={booking} />
+                    <div className="pt-5">
+                      <Divider />
+                    </div>
+                  </div>
+                ))
+              : 'no upcoming bookings!'}
+          </div>
+        </div>
         <div>
           <p className="font-rubikmono text-lg pb-2">
             Upcoming ({approved.length})

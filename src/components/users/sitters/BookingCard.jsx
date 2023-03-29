@@ -42,7 +42,13 @@ const BookingCard = (props) => {
             </div>
           </div>
           <div>
-            {booking.status === 'approved' ? (
+            {booking.status === 'pending' ? (
+              <p className="text-sm pb-2.5 hover:text-bold-orange ease-in-out duration-100">
+                <Link to={`${location.pathname}/${booking.id}`}>
+                  review / confirm
+                </Link>
+              </p>
+            ) : booking.status === 'approved' ? (
               <p className="text-sm pb-2.5 hover:text-bold-orange ease-in-out duration-100">
                 <Link to={`${location.pathname}/${booking.id}`}>
                   see details / update

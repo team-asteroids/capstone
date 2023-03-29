@@ -133,17 +133,31 @@ const BookingDetailsCard = (props) => {
                       });
                     }}
                   >
-                    <option>pending</option>
-                    <option>approved</option>
-                    <option>complete</option>
-                    <option>cancelled</option>
+                    <option value="pending">pending</option>
+                    <option value="approved">approve</option>
+                    <option
+                      value="complete"
+                      disabled={
+                        sitterBooking.status === 'pending' ? true : false
+                      }
+                    >
+                      complete
+                    </option>
+                    <option
+                      value="cancelled"
+                      disabled={
+                        sitterBooking.status === 'pending' ? true : false
+                      }
+                    >
+                      cancel
+                    </option>
                     <option
                       disabled={
                         sitterBooking.status === 'pending' ? false : true
                       }
                       value="declined"
                     >
-                      declined
+                      decline
                     </option>
                   </select>
                 </div>
