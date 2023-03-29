@@ -59,10 +59,6 @@ const BookingDetailsCard = (props) => {
     };
   }, [bookingId, sitterBooking]);
 
-  // if (client && client.id) {
-  //   console.log(client.client.status);
-  // }
-
   const goBack = () => {
     navigate(-1);
   };
@@ -243,18 +239,18 @@ const BookingDetailsCard = (props) => {
                 <Link to={`/profile/${sitterBooking.user.id}`}>
                   <input
                     className={validLinkClass}
-                    value={sitterBooking.user.fullName}
+                    defaultValue={sitterBooking.user.fullName}
                     disabled
                   />
                 </Link>
               </div>
               <label className={labelClass}>Pets</label>
               {sitterBooking.pets.map((pet) => (
-                <div className="w-full">
+                <div className="w-full" key={pet.id}>
                   <Link to={`/profile/${sitterBooking.user.id}/pets/${pet.id}`}>
                     <input
                       key={pet.id}
-                      value={pet.name}
+                      defaultValue={pet.name}
                       className={validLinkClass}
                       disabled
                     />
