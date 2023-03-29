@@ -32,17 +32,7 @@ const main = async () => {
 
 main();
 
-// (async () => {
-//   try {
-//     const [results, metadata] = await db.query('SELECT NOW()');
-//     console.log(results);
-//   } catch (err) {
-//     console.error('error executing query:', err);
-//   } finally {
-//     await db.close();
-//   }
-// })();
-
+module.exports = db;
 // const db = new Sequelize(
 //   // loads the correct database url based on NODE_ENV (default / dev / test)
 //   database_url || `postgres://localhost:5432/howlr`,
