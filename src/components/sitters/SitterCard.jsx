@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import defaultImg from '../../img/sitter-profile.jpg';
 
-const SitterCard = ({ id, firstName, rate, rating, reviews, bio }) => {
+const SitterCard = ({ id, firstName, rate, rating, reviews, bio, userId }) => {
   return (
     <div className="pt-8">
       <div className="overflow-hidden bg-white shadow sm:rounded-lg mb-8">
@@ -57,7 +57,7 @@ const SitterCard = ({ id, firstName, rate, rating, reviews, bio }) => {
                       </svg>
                       <span className="ml-2 flex-1 w-0 truncate">
                         <Link // profile or bookings page?
-                          to={`/sitters/${id}`}
+                          to={`/profile/${userId}`}
                           className="font-medium text-indigo-600 hover:text-indigo-500"
                         >
                           Available

@@ -135,8 +135,8 @@ router.post('/', requireToken, async (req, res, next) => {
 // this allows a event creator to edit said event
 router.put('/:id', requireToken, async (req, res, next) => {
   try {
+    console.log('req.body', req.body);
     const event = await Event.findByPk(req.params.id);
-    console.log(event);
     if (!event) return res.status(404).send('Event does not exist');
     if (event.creatorId === req.user.id) {
       res.json(await event.update(req.body));
@@ -168,7 +168,7 @@ router.delete('/:id', requireToken, async (req, res, next) => {
 
 router.post('/name', async (req, res, next) => {
   try {
-    topic = req.body.params.topic;
+    const { topic } = req.body.params.topic;
     const searchedEvents = await Event.findAll({
       where: {
         topic: {

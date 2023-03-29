@@ -15,6 +15,7 @@ const AllHowls = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.allPosts);
   const likes = useSelector((state) => state.posts.postLikes);
+  const allComments = useSelector((state) => state.posts.allComments);
   const [search, setSearch] = useState('');
   // const likes = useSelector((state) => state.posts.postLikes);
   //   console.log('posts --> ', posts[0]);
@@ -45,7 +46,7 @@ const AllHowls = () => {
       await dispatch(fetchAllPostLikes());
     };
     getData();
-  }, [dispatch]);
+  }, [dispatch, allComments]);
 
   return (
     <>
