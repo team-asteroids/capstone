@@ -144,7 +144,6 @@ export const fetchSingleClient = createAsyncThunk(
           authorization: token,
         },
       });
-
       return data;
     } catch (err) {
       return rejectWithValue(err);
