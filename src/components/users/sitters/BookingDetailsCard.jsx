@@ -72,8 +72,6 @@ const BookingDetailsCard = (props) => {
     }
   };
 
-  console.log(saveSuccess);
-
   const labelClass = 'text-xs font-rubikmono';
 
   const validClass =
