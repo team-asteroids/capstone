@@ -3,19 +3,19 @@ import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { fetchGroupPostLikes, deleteGroupPost } from '../../slices/groupsSlice';
-import LikeUnlike from './LikeUnlike';
+import LikeUnlikeHowl from './LikeUnlikeHowl';
 
 const PostComment = (props) => {
   const { comment } = props;
   //   const postId = post.id;
 
-  const { groupId } = useParams();
-  const dispatch = useDispatch();
+  // const { groupId } = useParams();
+  // const dispatch = useDispatch();
 
   // const likes = useSelector((state) => state.groups.likes);
   const { userAuth } = useSelector(selectAuth);
 
-  const date = post.createdAt;
+  const date = comment.createdAt;
   const dateData = new Date(date);
   const formattedDate = dateData.toDateString();
   const formattedTime = dateData.toLocaleTimeString('en-US');
@@ -28,22 +28,22 @@ const PostComment = (props) => {
 
   // console.log('likes--> ', likes);
 
-  const deleteHandler = async (e) => {
-    e.preventDefault();
-    const postId = post.id;
-    // await dispatch(deletePostComment({ groupId, postId }));
-  };
+  // const deleteHandler = async (e) => {
+  //   e.preventDefault();
+  //   const postId = post.id;
+  //   // await dispatch(deletePostComment({ groupId, postId }));
+  // };
 
   return (
     <div className="bg-white-smoke border rounded-lg shadow-lg font-rubik">
       <div className="p-2">
         <div>
-          <p>Content: {post.content}</p>
-          {/* <p>Posted by: {user.fullName}</p> */}
+          <p>Content: {comment.content}</p>
+          {/* <p>By: {comment.user.fullName}</p> */}
           <p>
             Posted at: {formattedTime} on {formattedDate}
           </p>
-          <p>Likes: {likes.length}</p>
+          {/* <p>Likes: {likes.length}</p> */}
         </div>
         {/* <div>
           <LikeUnlike
@@ -54,7 +54,7 @@ const PostComment = (props) => {
             userAuth={userAuth}
           />
         </div> */}
-        {userAuth.id === post.userId && (
+        {/* {userAuth.id === post.userId && (
           <p>
             <button
               onClick={deleteHandler}
@@ -63,7 +63,7 @@ const PostComment = (props) => {
               X
             </button>
           </p>
-        )}
+        )} */}
       </div>
     </div>
   );

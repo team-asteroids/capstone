@@ -3,7 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchGroupPosts, fetchGroupLikes } from '../../slices/groupsSlice';
 import PostComment from './PostComment';
-import AddGroupPost from './AddGroupPost';
 
 const CommentView = (props) => {
   const { post, comments, userAuth } = props;
@@ -35,13 +34,7 @@ const CommentView = (props) => {
         {/* <div>
           <AddGroupPost groupId={groupId} />
         </div> */}
-        <div className="p-4">
-          <Link to="/groups">
-            <button className="p-1 rounded-lg bg-[#cbd5e1] font-mono">
-              Back to Browse Groups
-            </button>
-          </Link>
-        </div>
+        <div className="p-4"></div>
       </div>
     </>
   );

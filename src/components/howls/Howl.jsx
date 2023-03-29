@@ -26,6 +26,10 @@ const Howl = (props) => {
   const formattedDate = dateData.toDateString();
   const formattedTime = dateData.toLocaleTimeString('en-US');
 
+  const toggleCommentView = () => {
+    setCommentView(!commentView);
+  };
+
   const deleteHandler = async (e) => {
     e.preventDefault();
     const postId = post.id;
@@ -64,7 +68,7 @@ const Howl = (props) => {
             <br></br>
             <div>
               <button
-                onClick={() => setCommentView(true)}
+                onClick={toggleCommentView}
                 className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
               >
                 View Comments
