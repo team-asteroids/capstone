@@ -16,7 +16,6 @@ const DiscoverSitters = () => {
   const [rating, setRating] = useState('');
   const [price, setPrice] = useState('');
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(fetchSitterNames(search));
@@ -131,6 +130,7 @@ const DiscoverSitters = () => {
                   rating={sitter.sitterRating}
                   reviews={sitter.sitterReviewCount}
                   bio={sitter.bio}
+                  userId={sitter.userId}
                 />
               ))}
           </div>
