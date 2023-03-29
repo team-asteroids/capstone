@@ -43,6 +43,7 @@ const EditPetDetails = (props) => {
     age: singlePet.age,
     breed: singlePet.breed,
     size: singlePet.size,
+    imageSrc: singlePet.imageSrc,
   });
 
   const [petDetailsData, setPetDetailsData] = useState({
@@ -84,6 +85,7 @@ const EditPetDetails = (props) => {
         sex: singlePet.sex,
         breed: singlePet.breed,
         size: singlePet.size,
+        imageSrc: singlePet.imageSrc,
       });
     }
     if (petDetails && petDetails.id) {
@@ -414,7 +416,7 @@ const EditPetDetails = (props) => {
               </div>
 
               <div className="flex flex-wrap mb-3">
-                <div className="w-1/3 flex flex-col pr-6">
+                <div className="w-1/4 flex flex-col pr-6">
                   <label className={labelClass}>Age</label>
                   <input
                     type="number"
@@ -429,7 +431,7 @@ const EditPetDetails = (props) => {
                     }}
                   />
                 </div>
-                <div className="w-1/3 flex flex-col pr-6">
+                <div className="w-1/4 flex flex-col pr-6">
                   <label className={labelClass}>Gender</label>
                   <select
                     className={validClass}
@@ -444,7 +446,7 @@ const EditPetDetails = (props) => {
                     <option>female</option>
                   </select>
                 </div>
-                <div className="w-1/3 flex flex-col">
+                <div className="w-1/4 flex flex-col pr-6">
                   <label className={labelClass}>Size</label>
                   <select
                     id="size"
@@ -461,6 +463,19 @@ const EditPetDetails = (props) => {
                     <option>large</option>
                     <option>extralarge</option>
                   </select>
+                </div>
+                <div className="w-1/4 flex flex-col">
+                  <label className={labelClass}>Image Url</label>
+                  <input
+                    id="size"
+                    name="size"
+                    className={validClass}
+                    value={petInfo.imageSrc}
+                    onChange={(evt) => {
+                      // setIsInvalidPhone(false);
+                      setPetInfo({ ...petInfo, imageSrc: evt.target.value });
+                    }}
+                  />
                 </div>
               </div>
 
@@ -871,14 +886,20 @@ const EditPetDetails = (props) => {
               )}
             </form>
           </fieldset>
-          <div className="">
-            <button
-              className="font-semibold cursor-pointer text-red-600 hover:text-red-900 mt-5"
-              onClick={submitDeletePet}
-            >
-              Delete Pet Profile
-            </button>
-          </div>
+          {singlePet &&
+          singlePet.id &&
+          userAuth &&
+          userAuth.id &&
+          singlePet.user.id === userAuth.id ? (
+            <div className="">
+              <button
+                className="font-semibold cursor-pointer text-red-600 hover:text-red-900 mt-5"
+                onClick={submitDeletePet}
+              >
+                Delete Pet Profile
+              </button>
+            </div>
+          ) : null}
         </section>
       </div>
     </div>

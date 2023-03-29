@@ -2,6 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link, Routes, Route, useParams } from 'react-router-dom';
 import { logOut, selectAuth } from '../../slices/authSlice';
+import {
+  selectSitters,
+  resetSitterStatus,
+  fetchSingleSitter,
+} from '../../slices/sittersSlice';
+import {
+  resetUserStatus,
+  selectUser,
+  fetchSingleUser,
+} from '../../slices/usersSlice';
 import defaultImg from '../../img/default-dog.jpg';
 import {
   UserBookings,
@@ -18,7 +28,9 @@ import {
   UserPetDetails,
   EditPetDetails,
   AddNewPet,
+  SitterClients,
 } from '../index';
+import BookingDetailsCard from './sitters/BookingDetailsCard';
 
 function UserAccount() {
   const dispatch = useDispatch();
@@ -32,6 +44,28 @@ function UserAccount() {
   }, []);
 
   const { userAuth } = useSelector(selectAuth);
+  const { singleUser } = useSelector(selectUser);
+  const { singleSitter } = useSelector(selectSitters);
+
+  useEffect(() => {
+    if (userAuth && userAuth.id) {
+      const id = userAuth.id;
+      dispatch(fetchSingleUser(id));
+    }
+    return () => {
+      dispatch(resetUserStatus());
+    };
+  }, [userAuth]);
+
+  useEffect(() => {
+    if (singleUser && singleUser.sitter) {
+      const id = singleUser.sitter.id;
+      dispatch(fetchSingleSitter(id));
+    }
+    return () => {
+      dispatch(resetSitterStatus());
+    };
+  }, [singleUser.id]);
 
   const toggleClass =
     "checked w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink";
@@ -79,14 +113,23 @@ function UserAccount() {
                   </label>
                 </div>
               ) : (
-                <div>
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" className="sr-only peer" disabled />
-                    <div className={toggleClass}></div>
-                    <span className="ml-3 text-sm font-medium text-gray-400">
-                      Sitter Profile
-                    </span>
-                  </label>
+                <div className="group" type="tooltip">
+                  <div>
+                    <label className="relative inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        className="sr-only peer"
+                        disabled
+                      />
+                      <div className={toggleClass}></div>
+                      <span className="ml-3 text-sm font-medium text-gray-400">
+                        Sitter Profile
+                      </span>
+                    </label>
+                  </div>
+                  <span className="group-hover:opacity-100 transition-opacity position absolute ml-10 bg-pale-blue p-1 text-sm text-bright-white rounded px-2 opacity-0">
+                    Not a sitter!
+                  </span>
                 </div>
               )}
             </div>
@@ -117,16 +160,30 @@ function UserAccount() {
             />
             <Route path="/addpet" element={<AddNewPet user={userAuth} />} />
             {/* SITTER ROUTES */}
-            <Route path="/sitter" element={<SitterOverview />}></Route>
+            <Route
+              path="/sitter"
+              element={<SitterOverview sitter={singleSitter} />}
+            ></Route>
             <Route
               path="/sitter/editprofile"
-              element={<EditSitterProfile />}
+              element={<EditSitterProfile sitter={singleSitter} />}
             ></Route>
             <Route
               path="/sitter/updatepetprefs"
-              element={<EditSitterPetPrefs />}
+              element={<EditSitterPetPrefs sitter={singleSitter} />}
             ></Route>
-            <Route path="/sitter/bookings" element={<SitterBookings />}></Route>
+            <Route
+              path="/sitter/bookings"
+              element={<SitterBookings sitter={singleSitter} />}
+            ></Route>
+            <Route
+              path="/sitter/bookings/:bookingId/"
+              element={<BookingDetailsCard sitter={singleSitter} />}
+            />
+            <Route
+              path="/sitter/clients"
+              element={<SitterClients sitter={singleSitter} />}
+            />
           </Routes>
         </div>
       </div>

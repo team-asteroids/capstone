@@ -86,6 +86,36 @@ function SitterAccountSidebar() {
           Manage Bookings
         </Link>
       </div>
+      <div>
+        <Link
+          to="/account/sitter/calendar"
+          className={
+            selectedSidebar === 'sitter/calendar'
+              ? selectedSidebarFontClass
+              : sidebarFontClass
+          }
+          onClick={() => {
+            setSelectedSidebar('calendar');
+          }}
+        >
+          Manage Calendar
+        </Link>
+      </div>
+      <div>
+        <Link
+          to="/account/sitter/clients"
+          className={
+            selectedSidebar === 'sitter/clients'
+              ? selectedSidebarFontClass
+              : sidebarFontClass
+          }
+          onClick={() => {
+            setSelectedSidebar('clients');
+          }}
+        >
+          Clients
+        </Link>
+      </div>
     </div>
   );
 }

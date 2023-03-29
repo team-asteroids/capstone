@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express').Router({ mergeParams: true });
 const {
   Sitter,
   User,
@@ -8,6 +8,8 @@ const {
   Sitter_Review,
   Pet,
   Booking,
+  Booking_Pet,
+  Access,
 } = require('../../db');
 const { requireToken, isSitter } = require('../authMiddleware');
 const sequelize = require('sequelize');
@@ -81,6 +83,37 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.get(
+  '/:id/clients/:userId/access',
+  requireToken,
+  async (req, res, next) => {
+    try {
+      const sitterObject = await Sitter.findByPk(+req.params.id);
+      console.log(sitterObject);
+      if (+req.user.id === +sitterObject.userId || req.user.role === 'admin') {
+        const clientStatus = await Sitter_Client.findOne({
+          where: { sitterId: +req.params.id, userId: +req.params.userId },
+        });
+
+        console.log(clientStatus);
+        if (!clientStatus) {
+          return res.status(404).send('no client data!');
+        } else if (clientStatus.status) {
+          const accessData = await Access.findOne({
+            where: { userId: +req.params.userId },
+          });
+          if (!accessData) {
+            return res.status(404).send('no access data!');
+          } else res.status(200).send(accessData);
+        }
+      }
+    } catch (err) {
+      console.log('BACKEND ISSUE FETCHING CLIENT ACCESS DATA');
+      next(err);
+    }
+  }
+);
 
 router.post('/name', async (req, res, next) => {
   try {
@@ -262,6 +295,7 @@ router.delete('/:id', requireToken, async (req, res, next) => {
           sitterId: +req.params.id,
         },
       });
+
       // Fetch all sitter clients
       const sitterClients = await Sitter_Client.findOne({
         where: {
@@ -373,6 +407,7 @@ router.get('/:id/clients', requireToken, async (req, res, next) => {
 
       // Get all userIds of clients and fetch user data
       const userIds = clients.map((client) => client.userId);
+
       const users = await Promise.all(
         userIds.map((userId) =>
           User.findByPk(userId, {
@@ -385,10 +420,22 @@ router.get('/:id/clients', requireToken, async (req, res, next) => {
 
       const clientsOfSitter = users.map((user) => user.dataValues);
 
+      // combine status from Sitter_Client with client details
+      let clientsAndStatus = [];
+
+      clientsOfSitter.forEach((clientObj) => {
+        for (let i = 0; i < clients.length; i++) {
+          if (clientObj.id === clients[i].userId) {
+            let status = clients[i].status;
+            clientsAndStatus.push({ ...clientObj, status });
+          }
+        }
+      });
+
       const sitterAndClients = {
         ...user.dataValues,
         ...sitter.dataValues,
-        clientsOfSitter,
+        clientsAndStatus,
       };
 
       res.status(200).send(sitterAndClients);
@@ -409,6 +456,7 @@ router.get('/:id/clients', requireToken, async (req, res, next) => {
 router.get('/:id/clients/:userId', requireToken, async (req, res, next) => {
   // if user is trying to change someone else's info and they are NOT an admin, fail w/403
   const id = +req.params.id;
+  // const clientId = +req.params.id;
 
   const sitterObject = await Sitter.findByPk(id);
 
@@ -420,15 +468,17 @@ router.get('/:id/clients/:userId', requireToken, async (req, res, next) => {
 
   try {
     if (userId === req.user.id || req.user.role === 'admin') {
-      const sitter = await Sitter.findByPk(req.params.id, {
+      const sitter = await Sitter.findByPk(id, {
         attributes: {
           exclude: ['password'],
         },
       });
+
       if (!sitter) return res.status(404).send('No sitter exists!');
 
       const client = await Sitter_Client.findOne({
         where: {
+          sitterId: id,
           userId: +req.params.userId,
         },
       });
@@ -452,13 +502,16 @@ router.get('/:id/clients/:userId', requireToken, async (req, res, next) => {
       });
 
       // combine client, user and pets data
+      const status = client.dataValues.status;
+
       const clientAndPets = {
         ...user.dataValues,
-        ...client.dataValues,
+        // ...client.dataValues,
       };
 
       if (pets.length > 0) {
         clientAndPets.pets = pets;
+        clientAndPets.status = status;
       }
 
       res.status(200).send(clientAndPets);
@@ -538,7 +591,13 @@ router.get('/:id/bookings', requireToken, async (req, res, next) => {
         where: {
           sitterId: id,
         },
-        include: [{ model: User, attributes: { exclude: ['password'] } }],
+        include: [
+          {
+            model: User,
+            attributes: { exclude: ['password'] },
+          },
+          Pet,
+        ],
       });
       if (!allSitterBookings) {
         return res.status(404).send('no user bookings!');
@@ -589,7 +648,7 @@ router.get('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
         where: {
           sitterId: id,
         },
-        include: [{ model: User, attributes: { exclude: ['password'] } }],
+        include: [{ model: User, attributes: { exclude: ['password'] } }, Pet],
       });
       if (!oneSitterBooking) {
         return res.status(404).send('no user bookings!');
@@ -609,6 +668,21 @@ router.get('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
     next(err);
   }
 });
+
+// router.get(
+//   '/:id/bookings/:bookingId/access',
+//   requireToken,
+//   async (req, res, next) => {
+//     const id = +req.params.id;
+//     const { userId } = +req.body;
+
+//     try {
+//     } catch (err) {
+//       console.log('BACKED ISSUE FETCHING BOOKING ACCESS');
+//       next(err);
+//     }
+//   }
+// );
 
 // edit booking from pending to complete (sitter)
 router.put('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
@@ -637,15 +711,15 @@ router.put('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
         where: {
           sitterId: sitterId,
         },
+        include: [{ model: User, attributes: { exclude: ['password'] } }, Pet],
       });
       if (!booking) {
         return res.status(404).send('no user bookings!');
         // returns one booking for sitter (booking and user who made the booking)
       }
 
-      const updatedBooking = await booking.update({
-        status: 'complete',
-      });
+      const updatedBooking = await booking.update(req.body);
+
       res.status(200).send(updatedBooking);
     } else {
       return res

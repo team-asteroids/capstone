@@ -10,6 +10,7 @@ router.use('/:id/reviews', require('./reviewsRoutes'));
 router.use('/:id/ratings', require('./ratingsRoutes'));
 router.use('/:id/access', require('./accessRoutes'));
 router.use('/:id/pets', require('./petsRoute'));
+router.use('/:id/sitters', require('./sittersRoute'));
 
 // Get all users
 router.get('/', async (req, res, next) => {
