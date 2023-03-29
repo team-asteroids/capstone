@@ -27,6 +27,7 @@ const BookingDetailsCard = (props) => {
   const [bookingForm, setBookingForm] = useState({
     status: sitterBooking.status,
     rate: sitterBooking.rate,
+    totalAmount: sitterBooking.totalAmount,
   });
 
   useEffect(() => {
@@ -46,6 +47,7 @@ const BookingDetailsCard = (props) => {
     setBookingForm({
       status: sitterBooking.status,
       rate: sitterBooking.rate,
+      totalAmount: sitterBooking.totalAmount,
     });
 
     if (sitterBooking && sitterBooking.user) {
@@ -195,9 +197,12 @@ const BookingDetailsCard = (props) => {
                     }
                     onChange={(evt) => {
                       setSaveSuccess(false);
+                      const newTotal =
+                        evt.target.value * sitterBooking.totalDays;
                       setBookingForm({
                         ...bookingForm,
                         rate: evt.target.value,
+                        totalAmount: newTotal,
                       });
                     }}
                   />
@@ -206,7 +211,7 @@ const BookingDetailsCard = (props) => {
                   <label className={labelClass}>Total Amount</label>
                   <input
                     className={validClass}
-                    value={sitterBooking.totalAmount}
+                    value={bookingForm.totalAmount}
                     disabled={true}
                   />
                 </div>
