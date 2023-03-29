@@ -90,13 +90,12 @@ router.get(
   async (req, res, next) => {
     try {
       const sitterObject = await Sitter.findByPk(+req.params.id);
-      console.log(sitterObject);
+
       if (+req.user.id === +sitterObject.userId || req.user.role === 'admin') {
         const clientStatus = await Sitter_Client.findOne({
           where: { sitterId: +req.params.id, userId: +req.params.userId },
         });
 
-        console.log(clientStatus);
         if (!clientStatus) {
           return res.status(404).send('no client data!');
         } else if (clientStatus.status) {
