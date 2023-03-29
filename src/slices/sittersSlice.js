@@ -152,6 +152,25 @@ export const fetchSingleClient = createAsyncThunk(
   }
 );
 
+export const fetchClientAccessData = createAsyncThunk(
+  'clientAccess',
+  async ({ id, token, userId }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        `/api/sitters/${id}/clients/${userId}/access`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const sittersSlice = createSlice({
   name: 'sitters',
   initialState: {
@@ -164,6 +183,7 @@ export const sittersSlice = createSlice({
     sitterBooking: {},
     clients: [],
     client: {},
+    clientAccess: {},
     error: '',
     status: '',
   },
@@ -306,6 +326,19 @@ export const sittersSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchSingleClient.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(fetchClientAccessData.fulfilled, (state, { payload }) => {
+        state.clientAccess = payload;
+        state.status = 'fulfilled';
+        state.error = '';
+      })
+      .addCase(fetchClientAccessData.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchClientAccessData.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });

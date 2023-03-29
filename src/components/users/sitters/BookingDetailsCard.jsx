@@ -9,6 +9,7 @@ import {
   editSitterBooking,
   resetSingleBooking,
   fetchSingleClient,
+  fetchClientAccessData,
 } from '../../../slices/sittersSlice';
 
 const BookingDetailsCard = (props) => {
@@ -22,7 +23,7 @@ const BookingDetailsCard = (props) => {
   const bookingId = +params.bookingId;
 
   const { token } = useSelector(selectAuth);
-  const { sitterBooking, client } = useSelector(selectSitters);
+  const { sitterBooking, client, clientAccess } = useSelector(selectSitters);
 
   const [bookingForm, setBookingForm] = useState({
     status: sitterBooking.status,
@@ -50,20 +51,29 @@ const BookingDetailsCard = (props) => {
       totalAmount: sitterBooking.totalAmount,
     });
 
-    if (sitterBooking && sitterBooking.user) {
+    if (sitterBooking && sitterBooking.user && token) {
       const id = +sitter.id;
       const userId = +sitterBooking.user.id;
       dispatch(fetchSingleClient({ id, token, userId }));
     }
-
     return () => {
       resetSingleBooking();
     };
-  }, [bookingId, sitterBooking]);
+  }, [bookingId, sitterBooking, sitterBooking.id]);
+
+  useEffect(() => {
+    if (token && client && client.id && sitter && sitter.id) {
+      const id = +sitter.id;
+      const userId = client.id;
+      dispatch(fetchClientAccessData({ id, token, userId }));
+    }
+  }, [client]);
 
   const goBack = () => {
     navigate(-1);
   };
+
+  console.log(clientAccess);
 
   const submitSitterBookingUpdate = async (evt) => {
     evt.preventDefault();
@@ -282,8 +292,21 @@ const BookingDetailsCard = (props) => {
       ) : null}
 
       <h2 className="font-rubikmono">Access Data</h2>
+      {clientAccess && clientAccess.id ? (
+        <section>
+          <form>
+            <div className="flex flex-wrap mb-5"></div>
+            <label>TEST</label>
+            <input></input>
+          </form>
+        </section>
+      ) : (
+        'this information is not available, please contact owner!'
+      )}
     </div>
   );
 };
 
 export default BookingDetailsCard;
+
+// 11, 18, 19, 20, 26, 30, 44, 45, 49, 50

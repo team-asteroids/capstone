@@ -9,6 +9,7 @@ const {
   Pet,
   Booking,
   Booking_Pet,
+  Access,
 } = require('../../db');
 const { requireToken, isSitter } = require('../authMiddleware');
 const sequelize = require('sequelize');
@@ -82,6 +83,37 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.get(
+  '/:id/clients/:userId/access',
+  requireToken,
+  async (req, res, next) => {
+    try {
+      const sitterObject = await Sitter.findByPk(+req.params.id);
+      console.log(sitterObject);
+      if (+req.user.id === +sitterObject.userId || req.user.role === 'admin') {
+        const clientStatus = await Sitter_Client.findOne({
+          where: { sitterId: +req.params.id, userId: +req.params.userId },
+        });
+
+        console.log(clientStatus);
+        if (!clientStatus) {
+          return res.status(404).send('no client data!');
+        } else if (clientStatus.status) {
+          const accessData = await Access.findOne({
+            where: { userId: +req.params.userId },
+          });
+          if (!accessData) {
+            return res.status(404).send('no access data!');
+          } else res.status(200).send(accessData);
+        }
+      }
+    } catch (err) {
+      console.log('BACKEND ISSUE FETCHING CLIENT ACCESS DATA');
+      next(err);
+    }
+  }
+);
 
 router.post('/name', async (req, res, next) => {
   try {
@@ -263,6 +295,7 @@ router.delete('/:id', requireToken, async (req, res, next) => {
           sitterId: +req.params.id,
         },
       });
+
       // Fetch all sitter clients
       const sitterClients = await Sitter_Client.findOne({
         where: {
@@ -636,20 +669,20 @@ router.get('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
   }
 });
 
-router.get(
-  '/:id/bookings/:bookingId/access',
-  requireToken,
-  async (req, res, next) => {
-    const id = +req.params.id;
-    const { userId } = +req.body;
+// router.get(
+//   '/:id/bookings/:bookingId/access',
+//   requireToken,
+//   async (req, res, next) => {
+//     const id = +req.params.id;
+//     const { userId } = +req.body;
 
-    try {
-    } catch (err) {
-      console.log('BACKED ISSUE FETCHING BOOKING ACCESS');
-      next(err);
-    }
-  }
-);
+//     try {
+//     } catch (err) {
+//       console.log('BACKED ISSUE FETCHING BOOKING ACCESS');
+//       next(err);
+//     }
+//   }
+// );
 
 // edit booking from pending to complete (sitter)
 router.put('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
