@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
-import { fetchGroupPostLikes, deleteGroupPost } from '../../slices/groupsSlice';
-import LikeUnlikeHowl from './LikeUnlikeHowl';
+import { deletePostComment } from '../../slices/postsSlice';
+// import LikeUnlikeHowl from './LikeUnlikeHowl';
 
 const PostComment = (props) => {
   const { comment } = props;
   //   const postId = post.id;
 
   // const { groupId } = useParams();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   console.log(comment);
 
@@ -30,11 +30,12 @@ const PostComment = (props) => {
 
   // console.log('likes--> ', likes);
 
-  // const deleteHandler = async (e) => {
-  //   e.preventDefault();
-  //   const postId = post.id;
-  //   // await dispatch(deletePostComment({ groupId, postId }));
-  // };
+  const deleteHandler = async (e) => {
+    e.preventDefault();
+    const postId = comment.postId;
+    const commentId = comment.id;
+    await dispatch(deletePostComment({ postId, commentId }));
+  };
 
   return (
     <div className="bg-white-smoke border rounded-lg shadow-lg font-rubik">
@@ -56,7 +57,7 @@ const PostComment = (props) => {
             userAuth={userAuth}
           />
         </div> */}
-        {/* {userAuth.id === post.userId && (
+        {userAuth.id === comment.userId && (
           <p>
             <button
               onClick={deleteHandler}
@@ -65,7 +66,7 @@ const PostComment = (props) => {
               X
             </button>
           </p>
-        )} */}
+        )}
       </div>
     </div>
   );

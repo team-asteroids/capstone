@@ -108,6 +108,22 @@ export const addPostComment = createAsyncThunk(
   }
 );
 
+export const deletePostComment = createAsyncThunk(
+  '/deletePostComment',
+  async ({ postId, commentId }) => {
+    const token = localStorage.getItem('token');
+    const { data } = await axios.delete(
+      `/api/posts/${postId}/comments/${commentId}`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    return data;
+  }
+);
+
 export const postsSlice = createSlice({
   name: 'posts',
   initialState: {
@@ -256,6 +272,24 @@ export const postsSlice = createSlice({
         state.error = '';
       })
       .addCase(addPostComment.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+      })
+      .addCase(deletePostComment.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        console.log('deleted post id--> ', payload.id);
+        state.allComments = state.allComments.filter(
+          (comment) => comment.id !== payload.id
+        );
+        // console.log('posts before change--> ', state.posts);
+        // what should we do with payload?
+      })
+      .addCase(deletePostComment.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(deletePostComment.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload;
       });
