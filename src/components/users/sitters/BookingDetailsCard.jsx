@@ -261,7 +261,7 @@ const BookingDetailsCard = (props) => {
             </div>
           </div>
           <div>
-            <h2 className="font-rubikmono">Client & Pets</h2>
+            <h2 className="font-rubikmono pb-3">Client & Pets</h2>
             {/* {sitterBooking && sitterBooking.user ? (
         <EditPetDetails user={sitterBooking.user} />
       ) : null} */}
@@ -300,11 +300,11 @@ const BookingDetailsCard = (props) => {
             ) : null}
           </div>
           <div>
-            <h2 className="font-rubikmono">Access Data</h2>
+            <h2 className="font-rubikmono pb-3">Access Data</h2>
             {clientAccess && clientAccess.id ? (
               <section>
                 <form>
-                  <div className="flex flex-wrap px-3 mx-3 mb-3">
+                  <div className="flex flex-wrap mb-5">
                     <div className="w-full flex flex-col">
                       <label className={labelClass}>Phone</label>
                       <input
@@ -316,8 +316,8 @@ const BookingDetailsCard = (props) => {
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap mx-3 mb-3">
-                    <div className="w-full text-left md:w-1/2 px-3 md:mb-0">
+                  <div className="flex flex-wrap mb-5">
+                    <div className="w-1/2 pr-6">
                       <label className={labelClass}>Address Line 1</label>
                       <input
                         className={validClass}
@@ -326,7 +326,7 @@ const BookingDetailsCard = (props) => {
                         type="text"
                       />
                     </div>
-                    <div className="w-full text-left md:w-1/2 px-3 md:mb-0">
+                    <div className="w-1/2">
                       <label className={labelClass}>Address Line 2</label>
                       <input
                         className={validClass}
@@ -337,13 +337,13 @@ const BookingDetailsCard = (props) => {
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap mx-3 mb-3">
-                    <div className="w-full md:w-1/3 px-3  md:mb-0">
+                  <div className="flex flex-wrap mb-5">
+                    <div className="w-1/3 pr-6">
                       <label className={labelClass}>City</label>
                       <input className={validClass} id="city" name="city" />
                     </div>
 
-                    <div className="w-full md:w-1/3 px-3 md:mb-0">
+                    <div className="w-1/3 pr-6">
                       <label className={labelClass}>State</label>
                       <select
                         className={validClass}
@@ -352,7 +352,7 @@ const BookingDetailsCard = (props) => {
                       ></select>
                     </div>
 
-                    <div className="w-full md:w-1/3 px-3 md:mb-0">
+                    <div className="w-1/3">
                       <label className={labelClass}>Zip Code</label>
                       <input
                         className={validClass}
@@ -363,8 +363,8 @@ const BookingDetailsCard = (props) => {
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap mx-3 mb-3">
-                    <div className="w-full text-left md:w-1/2 px-3 md:mb-0">
+                  <div className="flex flex-wrap mb-5">
+                    <div className="w-1/2 text-left pr-6">
                       <label className={labelClass}>
                         Emergency Contact Name
                       </label>
@@ -375,7 +375,7 @@ const BookingDetailsCard = (props) => {
                         type="text"
                       />
                     </div>
-                    <div className="w-full text-left md:w-1/2 px-3 md:mb-0">
+                    <div className="w-1/2 text-left">
                       <label className={labelClass}>
                         Emergency Contact Phone
                       </label>
@@ -387,8 +387,8 @@ const BookingDetailsCard = (props) => {
                       />
                     </div>
                   </div>
-                  <div className="flex flex-wrap mx-3 mb-3">
-                    <div className="w-full text-left px-3 md:mb-0">
+                  <div className="flex flex-wrap mb-5">
+                    <div className="w-full text-left">
                       <label className={labelClass}>Additional Notes</label>
                       <textarea
                         className={validClass}
