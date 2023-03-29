@@ -1,22 +1,15 @@
-// initialize postgres db
-// const Sequelize = require('sequelize-cockroachdb');
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize-cockroachdb');
 const dotenv = require('dotenv').config();
-const config = require('config');
-
-// const database_url =
-//   process.env.DATABASE_URL || `postgres://localhost:5432/howlr`;
-
-// console.log('Using database url ', database_url);
-
-// const connectionString = process.env.DATABASE_URL;
-
-console.log('database url --> ', process.env.REACT_APP_DATABASE_URL);
-// console.log('database url --> ', REACT_APP_CHAT_ENGINE_PRIVATE_KEY)
 
 const db = new Sequelize(
-  process.env.REACT_APP_DATABASE_URL || `postgres://localhost:5432/howlr`,
+  process.env.REACT_APP_DATABASE_URL ||
+    'postgresql://root@localhost:26257/howlr',
   {
+    dialectOptions: {
+      ssl: {
+        ca: process.env.COCKROACHDB_CERT,
+      },
+    },
     logging: false,
   }
 );
@@ -31,14 +24,5 @@ const main = async () => {
 };
 
 main();
-
-module.exports = db;
-// const db = new Sequelize(
-//   // loads the correct database url based on NODE_ENV (default / dev / test)
-//   database_url || `postgres://localhost:5432/howlr`,
-//   {
-//     logging: false,
-//   }
-// );
 
 module.exports = db;
