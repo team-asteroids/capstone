@@ -4,6 +4,7 @@ import {
   selectSitters,
   fetchSitterBookings,
   resetSitterStatus,
+  resetSingleBooking,
 } from '../../../slices/sittersSlice';
 import { selectAuth } from '../../../slices/authSlice';
 import { BookingCard } from '../../index';
@@ -28,6 +29,7 @@ const SitterBookings = (props) => {
     }
     return () => {
       dispatch(resetSitterStatus());
+      dispatch(resetSingleBooking());
     };
   }, [sitter]);
 
@@ -70,7 +72,7 @@ const SitterBookings = (props) => {
               ? approved.map((booking) => (
                   <div key={booking.id}>
                     <BookingCard booking={booking} />
-                    <div className="pt-5 pr-10">
+                    <div className="pt-5">
                       <Divider />
                     </div>
                   </div>
@@ -87,7 +89,7 @@ const SitterBookings = (props) => {
               ? completed.map((booking) => (
                   <div key={booking.id}>
                     <BookingCard booking={booking} />
-                    <div className="pt-5 pr-10">
+                    <div className="pt-5">
                       <Divider />
                     </div>
                   </div>
@@ -104,7 +106,7 @@ const SitterBookings = (props) => {
               ? cancelled.map((booking) => (
                   <div key={booking.id}>
                     <BookingCard booking={booking} />
-                    <div className="pt-5 pr-10">
+                    <div className="pt-5">
                       <Divider />
                     </div>
                   </div>

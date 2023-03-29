@@ -80,6 +80,45 @@ export const fetchSitterBookings = createAsyncThunk(
   }
 );
 
+export const fetchSingleSitterBooking = createAsyncThunk(
+  'singleSitterBooking',
+  async ({ id, bookingId, token }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        `/api/sitters/${id}/bookings/${bookingId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const editSitterBooking = createAsyncThunk(
+  'editSitterBooking',
+  async ({ id, bookingId, token, bookingForm }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.put(
+        `/api/sitters/${id}/bookings/${bookingId}`,
+        bookingForm,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const sittersSlice = createSlice({
   name: 'sitters',
   initialState: {
@@ -97,6 +136,10 @@ export const sittersSlice = createSlice({
     resetSitterStatus: (state) => {
       state.error = '';
       state.status = '';
+      // state.sitterBooking = {};
+    },
+    resetSingleBooking: (state) => {
+      state.sitterBooking = {};
     },
   },
   extraReducers: (builder) => {
@@ -178,11 +221,37 @@ export const sittersSlice = createSlice({
       .addCase(fetchSitterBookings.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
+      })
+      .addCase(fetchSingleSitterBooking.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.sitterBooking = payload;
+      })
+      .addCase(fetchSingleSitterBooking.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchSingleSitterBooking.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(editSitterBooking.fulfilled, (state, { payload }) => {
+        state.sitterBooking = payload;
+        state.status = 'fulfilled';
+        state.error = '';
+      })
+      .addCase(editSitterBooking.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(editSitterBooking.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
       });
   },
 });
 
-export const { resetSitterStatus } = sittersSlice.actions;
+export const { resetSitterStatus, resetSingleBooking } = sittersSlice.actions;
 
 export const selectSitters = (state) => state.sitters;
 export const selectSingleSitter = (state) => state.sitters.singleSitter;

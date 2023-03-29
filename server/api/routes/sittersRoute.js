@@ -596,7 +596,7 @@ router.get('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
         where: {
           sitterId: id,
         },
-        include: [{ model: User, attributes: { exclude: ['password'] } }],
+        include: [{ model: User, attributes: { exclude: ['password'] } }, Pet],
       });
       if (!oneSitterBooking) {
         return res.status(404).send('no user bookings!');
@@ -650,9 +650,8 @@ router.put('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
         // returns one booking for sitter (booking and user who made the booking)
       }
 
-      const updatedBooking = await booking.update({
-        status: 'complete',
-      });
+      const updatedBooking = await booking.update(req.body);
+
       res.status(200).send(updatedBooking);
     } else {
       return res

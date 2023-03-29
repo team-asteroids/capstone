@@ -29,6 +29,7 @@ import {
   EditPetDetails,
   AddNewPet,
 } from '../index';
+import BookingDetailsCard from './sitters/BookingDetailsCard';
 
 function UserAccount() {
   const dispatch = useDispatch();
@@ -174,6 +175,10 @@ function UserAccount() {
               path="/sitter/bookings"
               element={<SitterBookings sitter={singleSitter} />}
             ></Route>
+            <Route
+              path="/sitter/bookings/:bookingId"
+              element={<BookingDetailsCard sitter={singleSitter} />}
+            />
           </Routes>
         </div>
       </div>
