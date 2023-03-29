@@ -8,6 +8,7 @@ import {
   resetSitterStatus,
   editSitterBooking,
   resetSingleBooking,
+  fetchSingleClient,
 } from '../../../slices/sittersSlice';
 
 const BookingDetailsCard = (props) => {
@@ -21,7 +22,7 @@ const BookingDetailsCard = (props) => {
   const bookingId = +params.bookingId;
 
   const { token } = useSelector(selectAuth);
-  const { sitterBooking } = useSelector(selectSitters);
+  const { sitterBooking, client } = useSelector(selectSitters);
 
   const [bookingForm, setBookingForm] = useState({
     status: sitterBooking.status,
@@ -32,7 +33,7 @@ const BookingDetailsCard = (props) => {
     setSaveSuccess(false);
     dispatch(resetSingleBooking());
     if (sitter && sitter.id) {
-      const id = sitter.id;
+      const id = +sitter.id;
 
       dispatch(fetchSingleSitterBooking({ id, bookingId, token }));
     }
@@ -47,10 +48,20 @@ const BookingDetailsCard = (props) => {
       rate: sitterBooking.rate,
     });
 
+    if (sitterBooking && sitterBooking.user) {
+      const id = +sitter.id;
+      const userId = +sitterBooking.user.id;
+      dispatch(fetchSingleClient({ id, token, userId }));
+    }
+
     return () => {
       resetSingleBooking();
     };
   }, [bookingId, sitterBooking]);
+
+  // if (client && client.id) {
+  //   console.log(client.client.status);
+  // }
 
   const goBack = () => {
     navigate(-1);

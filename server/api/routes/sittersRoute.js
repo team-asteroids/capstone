@@ -423,6 +423,7 @@ router.get('/:id/clients', requireToken, async (req, res, next) => {
 router.get('/:id/clients/:userId', requireToken, async (req, res, next) => {
   // if user is trying to change someone else's info and they are NOT an admin, fail w/403
   const id = +req.params.id;
+  // const clientId = +req.params.id;
 
   const sitterObject = await Sitter.findByPk(id);
 
@@ -434,15 +435,17 @@ router.get('/:id/clients/:userId', requireToken, async (req, res, next) => {
 
   try {
     if (userId === req.user.id || req.user.role === 'admin') {
-      const sitter = await Sitter.findByPk(req.params.id, {
+      const sitter = await Sitter.findByPk(id, {
         attributes: {
           exclude: ['password'],
         },
       });
+
       if (!sitter) return res.status(404).send('No sitter exists!');
 
       const client = await Sitter_Client.findOne({
         where: {
+          sitterId: id,
           userId: +req.params.userId,
         },
       });
@@ -466,13 +469,16 @@ router.get('/:id/clients/:userId', requireToken, async (req, res, next) => {
       });
 
       // combine client, user and pets data
+      const status = client.dataValues.status;
+
       const clientAndPets = {
         ...user.dataValues,
-        ...client.dataValues,
+        // ...client.dataValues,
       };
 
       if (pets.length > 0) {
         clientAndPets.pets = pets;
+        clientAndPets.status = status;
       }
 
       res.status(200).send(clientAndPets);
