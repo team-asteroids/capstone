@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "PORT=$PORT nodemon server/server.js & react-scripts start",
+    "start": "PORT=$PORT server/server.js & react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "seed": "node seed.js",
