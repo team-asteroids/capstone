@@ -1,10 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import {
+  selectSingleEvent,
+  fetchSingleEvent,
+  editEventAsync,
+} from '../../slices/eventsSlice';
 
 const EditEvent = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const event = useSelector(selectSingleEvent);
+
+  useEffect(() => {
+    dispatch(fetchSingleEvent(id));
+  }, [dispatch, id]);
+
+  const [formData, setFormData] = useState({
+    eventStart: event.event_start,
+    eventEnd: event.event_end,
+    topic: event.topic,
+    description: event.description,
+    zipCode: event.zip_code,
+  });
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    await dispatch(editEventAsync({ id, formData }));
+  };
+
   return (
     <>
       <div className="w-100 h-vh100 bg-pale-blue">
-        <form>
+        <form onSubmit={handleEdit}>
           <div className="grid gap-6 mb-6 md:grid-cols-2">
             <div>
               <label
@@ -16,9 +44,15 @@ const EditEvent = () => {
               <input
                 type="datetime-local"
                 id="event_start"
-                value=""
+                value={formData.eventStart}
+                onChange={(evt) => {
+                  setFormData({
+                    ...formData,
+                    eventStart: evt.target.value,
+                  });
+                }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required
+                // required
               ></input>
             </div>
             <div>
@@ -31,9 +65,15 @@ const EditEvent = () => {
               <input
                 type="datetime-local"
                 id="event_end"
-                value=""
+                value={formData.eventEnd}
+                onChange={(evt) => {
+                  setFormData({
+                    ...formData,
+                    eventEnd: evt.target.value,
+                  });
+                }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required
+                // required
               ></input>
             </div>
 
@@ -47,10 +87,16 @@ const EditEvent = () => {
               <input
                 type="text"
                 id="topic"
-                value=""
+                value={formData.topic}
+                onChange={(evt) => {
+                  setFormData({
+                    ...formData,
+                    topic: evt.target.value,
+                  });
+                }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Birthday, Group Playdate, etc..."
-                required
+                // required
               ></input>
             </div>
             <div>
@@ -63,10 +109,16 @@ const EditEvent = () => {
               <input
                 type="number"
                 id="zip_code"
-                value=""
+                value={formData.zipCode}
+                onChange={(evt) => {
+                  setFormData({
+                    ...formData,
+                    zipCode: evt.target.value,
+                  });
+                }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="01010"
-                required
+                // required
               ></input>
             </div>
           </div>
@@ -80,10 +132,16 @@ const EditEvent = () => {
             <input
               type="text"
               id="description"
-              value=""
+              value={formData.description}
+              onChange={(evt) => {
+                setFormData({
+                  ...formData,
+                  description: evt.target.value,
+                });
+              }}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Tell us a little bit more about this event"
-              required
+              //   required
             ></input>
           </div>
 
@@ -92,9 +150,9 @@ const EditEvent = () => {
               <input
                 id="remember"
                 type="checkbox"
-                value=""
+                // value=""
                 className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                required
+                // required
               ></input>
             </div>
             <label
