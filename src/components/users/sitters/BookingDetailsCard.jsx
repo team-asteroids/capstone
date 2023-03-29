@@ -238,12 +238,14 @@ const BookingDetailsCard = (props) => {
               <label className={labelClass}>Pets</label>
               {sitterBooking.pets.map((pet) => (
                 <div className="w-full">
-                  <input
-                    key={pet.id}
-                    value={pet.name}
-                    className={validClass}
-                    disabled
-                  />
+                  <Link to={`/profile/${sitterBooking.user.id}/pets/${pet.id}`}>
+                    <input
+                      key={pet.id}
+                      value={pet.name}
+                      className={validClass}
+                      disabled
+                    />
+                  </Link>
                 </div>
               ))}
             </div>
