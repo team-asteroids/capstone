@@ -53,10 +53,11 @@ const MemberView = () => {
                         {mem.userName}
                       </div>
                       <div className="basis-1/3">
-                        {' '}
-                        <button className="p-1 rounded-lg bg-[#cbd5e1] ">
-                          Add as Friend
-                        </button>
+                        <Link to={`/profile/${mem.id}`}>
+                          <button className="p-1 rounded-lg bg-[#cbd5e1] ">
+                            View Profile
+                          </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
