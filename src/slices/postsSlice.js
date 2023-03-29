@@ -248,7 +248,7 @@ export const postsSlice = createSlice({
       .addCase(addPostComment.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
-        state.singlePostComments.push(payload);
+        state.allComments.push(payload);
         // state.posts.push(payload);
       })
       .addCase(addPostComment.pending, (state, { payload }) => {

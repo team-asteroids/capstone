@@ -22,7 +22,10 @@ const integrateLikes = async (post) => {
 router.get('/', async (req, res, next) => {
   try {
     const allPosts = await Post.findAll({
-      include: [{ model: Post_Comment }, { model: User }],
+      include: [
+        { model: Post_Comment, include: [{ model: User }] },
+        { model: User },
+      ],
     });
 
     res.status(200).json(allPosts);
@@ -165,7 +168,7 @@ router.get('/:postId/comments', requireToken, async (req, res, next) => {
     const allPostComments = await Post_Comment.findAll({
       where: { postId: req.params.postId },
       //include User info:
-      include: { model: User },
+      include: [{ model: User }],
     });
     res.status(200).json(allPostComments);
   } catch (e) {

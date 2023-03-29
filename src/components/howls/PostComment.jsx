@@ -12,6 +12,8 @@ const PostComment = (props) => {
   // const { groupId } = useParams();
   // const dispatch = useDispatch();
 
+  console.log(comment);
+
   // const likes = useSelector((state) => state.groups.likes);
   const { userAuth } = useSelector(selectAuth);
 
@@ -39,7 +41,7 @@ const PostComment = (props) => {
       <div className="p-2">
         <div>
           <p>Content: {comment.content}</p>
-          {/* <p>By: {comment.user.fullName}</p> */}
+          <p>By: {comment.user.fullName}</p>
           <p>
             Posted at: {formattedTime} on {formattedDate}
           </p>
