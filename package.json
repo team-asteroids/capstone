@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"nodemon server/server.js\" \"react-scripts start\" ",
-    "build": "react-scripts build && node seed.js",
+    "build": "concurrently \"react-scripts build\" \"node seed.js\" ",
     "test": "react-scripts test",
     "seed": "node seed.js",
     "eject": "react-scripts eject",
