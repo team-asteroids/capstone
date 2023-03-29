@@ -9,7 +9,6 @@ import {
   editSitterBooking,
   resetSingleBooking,
 } from '../../../slices/sittersSlice';
-import { EditPetDetails } from '../../index';
 
 const BookingDetailsCard = (props) => {
   const { sitter } = props;
