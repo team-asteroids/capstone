@@ -262,9 +262,6 @@ const BookingDetailsCard = (props) => {
           </div>
           <div>
             <h2 className="font-rubikmono pb-3">Client & Pets</h2>
-            {/* {sitterBooking && sitterBooking.user ? (
-        <EditPetDetails user={sitterBooking.user} />
-      ) : null} */}
             {sitterBooking && sitterBooking.user ? (
               <section>
                 <form>
@@ -300,7 +297,7 @@ const BookingDetailsCard = (props) => {
             ) : null}
           </div>
           <div>
-            <h2 className="font-rubikmono pb-3">Access Data</h2>
+            <h2 className="font-rubikmono pb-3">Client Personal Info</h2>
             {clientAccess && clientAccess.id ? (
               <section>
                 <form>
@@ -312,6 +309,8 @@ const BookingDetailsCard = (props) => {
                         id="phone"
                         name="phone"
                         type="text"
+                        defaultValue={clientAccess.phone}
+                        disabled
                       />
                     </div>
                   </div>
@@ -324,6 +323,8 @@ const BookingDetailsCard = (props) => {
                         id="address1"
                         name="address1"
                         type="text"
+                        defaultValue={clientAccess.address1}
+                        disabled
                       />
                     </div>
                     <div className="w-1/2">
@@ -333,6 +334,8 @@ const BookingDetailsCard = (props) => {
                         id="address2"
                         name="address2"
                         type="text"
+                        defaultValue={clientAccess.address2}
+                        disabled
                       />
                     </div>
                   </div>
@@ -340,16 +343,24 @@ const BookingDetailsCard = (props) => {
                   <div className="flex flex-wrap mb-5">
                     <div className="w-1/3 pr-6">
                       <label className={labelClass}>City</label>
-                      <input className={validClass} id="city" name="city" />
+                      <input
+                        className={validClass}
+                        id="city"
+                        name="city"
+                        defaultValue={clientAccess.city}
+                        disabled
+                      />
                     </div>
 
                     <div className="w-1/3 pr-6">
                       <label className={labelClass}>State</label>
-                      <select
+                      <input
                         className={validClass}
                         id="state"
                         name="state"
-                      ></select>
+                        defaultValue={clientAccess.state}
+                        disabled
+                      />
                     </div>
 
                     <div className="w-1/3">
@@ -359,6 +370,8 @@ const BookingDetailsCard = (props) => {
                         type="text"
                         id="zip"
                         name="zip"
+                        defaultValue={clientAccess.zip}
+                        disabled
                       />
                     </div>
                   </div>
@@ -373,6 +386,8 @@ const BookingDetailsCard = (props) => {
                         id="emergencyContactName"
                         name="emergencyContactName"
                         type="text"
+                        defaultValue={clientAccess.emergencyContactName}
+                        disabled
                       />
                     </div>
                     <div className="w-1/2 text-left">
@@ -384,6 +399,8 @@ const BookingDetailsCard = (props) => {
                         id="emergencyContactPhone"
                         name="emergencyContactPhone"
                         type="tel"
+                        defaultValue={clientAccess.emergencyContactPhone}
+                        disabled
                       />
                     </div>
                   </div>
@@ -396,6 +413,8 @@ const BookingDetailsCard = (props) => {
                         name="additionalNotes"
                         type="text"
                         rows={6}
+                        defaultValue={clientAccess.additionalNotes}
+                        disabled
                       />
                     </div>
                   </div>
