@@ -886,14 +886,20 @@ const EditPetDetails = (props) => {
               )}
             </form>
           </fieldset>
-          <div className="">
-            <button
-              className="font-semibold cursor-pointer text-red-600 hover:text-red-900 mt-5"
-              onClick={submitDeletePet}
-            >
-              Delete Pet Profile
-            </button>
-          </div>
+          {singlePet &&
+          singlePet.id &&
+          userAuth &&
+          userAuth.id &&
+          singlePet.user.id === userAuth.id ? (
+            <div className="">
+              <button
+                className="font-semibold cursor-pointer text-red-600 hover:text-red-900 mt-5"
+                onClick={submitDeletePet}
+              >
+                Delete Pet Profile
+              </button>
+            </div>
+          ) : null}
         </section>
       </div>
     </div>
