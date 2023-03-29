@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { selectAuth } from '../../../slices/authSlice';
 import {
   selectSitters,
@@ -9,8 +9,7 @@ import {
   editSitterBooking,
   resetSingleBooking,
 } from '../../../slices/sittersSlice';
-
-// 10, 18, 19, 20, 27, 29, 44, 46, 47, 49, 50
+import { EditPetDetails } from '../../index';
 
 const BookingDetailsCard = (props) => {
   const { sitter } = props;
@@ -219,6 +218,38 @@ const BookingDetailsCard = (props) => {
       </div>
 
       <h2 className="font-rubikmono">Client & Pets</h2>
+      {/* {sitterBooking && sitterBooking.user ? (
+        <EditPetDetails user={sitterBooking.user} />
+      ) : null} */}
+      {sitterBooking && sitterBooking.user ? (
+        <section>
+          <form>
+            <div className="flex flex-wrap mb-5">
+              <div className="w-full mb-5">
+                <label className={labelClass}>Client</label>
+                <Link to={`/profile/${sitterBooking.user.id}`}>
+                  <input
+                    className={validClass}
+                    value={sitterBooking.user.fullName}
+                    disabled
+                  />
+                </Link>
+              </div>
+              <label className={labelClass}>Pets</label>
+              {sitterBooking.pets.map((pet) => (
+                <div className="w-full">
+                  <input
+                    key={pet.id}
+                    value={pet.name}
+                    className={validClass}
+                    disabled
+                  />
+                </div>
+              ))}
+            </div>
+          </form>
+        </section>
+      ) : null}
 
       <h2 className="font-rubikmono">Access Data</h2>
     </div>
