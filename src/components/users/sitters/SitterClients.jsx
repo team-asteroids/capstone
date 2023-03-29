@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../../slices/authSlice';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import {
   fetchSitterClients,
   selectSitters,
@@ -25,37 +26,64 @@ const SitterClients = (props) => {
     };
   }, [sitter]);
 
-  // let clientAndStatus = [];
+  const labelClass = 'text-xs font-rubikmono';
 
-  // if (clients && clients.clients && clients.clientsOfSitter) {
-  //   const clientStatus = clients.clients;
+  const validClass =
+    'cursor-pointer appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
-  //   clients.clientsOfSitter.forEach((clientObj) => {
-  //     for (let i = 0; i < clientStatus.length; i++) {
-  //       if (clientObj.id === clientStatus[i].userId) {
-  //         let status = clientStatus[i].status;
-  //         console.log('found');
-  //         clientAndStatus.push({ ...clientObj, status });
-  //       }
-  //     }
-  //   });
-  // }
-  console.log(clients);
+  const inactiveStatusClass =
+    'cursor-pointer appearance-none block text-red-600 w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
   return (
     <div>
-      <p>Clients</p>
+      <p className="pb-5">Clients</p>
       <div>
         {clients
           ? clients.map((client) => (
-              <div key={client.id} className="font-rubik">
-                <p>
-                  {client.firstName} {client.lastName}
-                </p>
-                <p>{client.username}</p>
-                <p>{client.email}</p>
-                <p>{client.status.toString()}</p>
-              </div>
+              <Link to={`/profile/${client.id}`}>
+                <div key={client.id} className="font-rubik mb-10">
+                  <div className="flex flex-wrap mb-3">
+                    <div className="w-1/5 flex flex-col pr-6">
+                      <label className={labelClass}>Name</label>
+                      <input
+                        className={validClass}
+                        disabled
+                        defaultValue={`${client.firstName}, ${client.lastName}`}
+                      />
+                    </div>
+                    <div className="w-1/5 flex flex-col pr-6">
+                      <label className={labelClass}>Status</label>
+                      <input
+                        className={
+                          client.status === true
+                            ? validClass
+                            : inactiveStatusClass
+                        }
+                        disabled
+                        defaultValue={
+                          client.status === true ? 'active' : 'inactive'
+                        }
+                      />
+                    </div>
+                    <div className="w-1/5 flex flex-col pr-6">
+                      <label className={labelClass}>Username</label>
+                      <input
+                        className={validClass}
+                        disabled
+                        defaultValue={client.userName}
+                      />
+                    </div>
+                    <div className="w-2/5 flex flex-col pr-6">
+                      <label className={labelClass}>Email</label>
+                      <input
+                        className={validClass}
+                        disabled
+                        defaultValue={client.email}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Link>
             ))
           : 'no clients!'}
       </div>
