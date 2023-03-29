@@ -11,7 +11,7 @@ const SingleGroup = () => {
   const location = useLocation();
   const url = location.pathname;
 
-  console.log('location --> ', location);
+  // console.log('location --> ', location);
 
   return (
     <>

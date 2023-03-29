@@ -6,8 +6,7 @@ import { fetchGroupPostLikes, deleteGroupPost } from '../../slices/groupsSlice';
 import LikeUnlike from './LikeUnlike';
 
 const GroupPost = (props) => {
-  const { post, likes } = props;
-  const postId = post.id;
+  const { post, likes, memberIds } = props;
 
   const { groupId } = useParams();
   const dispatch = useDispatch();
@@ -39,21 +38,23 @@ const GroupPost = (props) => {
       <div className="p-2">
         <div>
           <p>Content: {post.content}</p>
-          {/* <p>Posted by: {user.fullName}</p> */}
+          <p>Posted by: {post.user.fullName}</p>
           <p>
             Posted at: {formattedTime} on {formattedDate}
           </p>
           <p>Likes: {likes.length}</p>
         </div>
-        <div>
-          <LikeUnlike
-            key={post.id}
-            groupId={groupId}
-            post={post}
-            likes={likes}
-            userAuth={userAuth}
-          />
-        </div>
+        {memberIds.includes(userAuth.id) && (
+          <div>
+            <LikeUnlike
+              key={post.id}
+              groupId={groupId}
+              post={post}
+              likes={likes}
+              userAuth={userAuth}
+            />
+          </div>
+        )}
         {userAuth.id === post.userId && (
           <p>
             <button
