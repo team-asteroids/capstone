@@ -678,6 +678,7 @@ router.put('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
         where: {
           sitterId: sitterId,
         },
+        include: [{ model: User, attributes: { exclude: ['password'] } }, Pet],
       });
       if (!booking) {
         return res.status(404).send('no user bookings!');
