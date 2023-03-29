@@ -14,7 +14,7 @@ const config = require('config');
 console.log('database url wooo --> ', process.env.DATABASE_URL);
 // console.log('database url --> ', REACT_APP_CHAT_ENGINE_PRIVATE_KEY)
 
-const db = new Sequelize(process.env.DATABASE_URL);
+const db = new Sequelize('postgresql://nicaemma:v2_42bs7_uQVDEKvdrCGDvE7Wni7fPXB@db.bit.io:5432/nicaemma~Howlr?sslmode=require');
 
 const main = async () => {
   try {
