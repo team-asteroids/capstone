@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "concurrently \"nodemon server/server.js\" \"react-scripts start\" ",
+    "start": "concurrently \"node server/server.js\" \"react-scripts start\" ",
     "build": "concurrently \"react-scripts build\" \"node seed.js\" ",
     "test": "react-scripts test",
     "seed": "node seed.js",
