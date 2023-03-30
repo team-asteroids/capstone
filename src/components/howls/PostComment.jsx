@@ -3,28 +3,23 @@ import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { deletePostComment } from '../../slices/postsSlice';
-// import LikeUnlikeHowl from './LikeUnlikeHowl';
+import LikeUnlikeComment from './LikeUnlikeComment';
 
 const PostComment = (props) => {
-  const { comment } = props;
+  const { comment, likes } = props;
   //   const postId = post.id;
 
   // const { groupId } = useParams();
   const dispatch = useDispatch();
 
-  console.log(comment);
+  // console.log(comment);
 
-  // const likes = useSelector((state) => state.groups.likes);
   const { userAuth } = useSelector(selectAuth);
 
   const date = comment.createdAt;
   const dateData = new Date(date);
   const formattedDate = dateData.toDateString();
   const formattedTime = dateData.toLocaleTimeString('en-US');
-
-  // useEffect(() => {
-  //   dispatch(fetchPostCommentLikes({ groupId, postId }));
-  // }, [dispatch]);
 
   // console.log('post--> ', post);
 
@@ -46,17 +41,17 @@ const PostComment = (props) => {
           <p>
             Posted at: {formattedTime} on {formattedDate}
           </p>
-          {/* <p>Likes: {likes.length}</p> */}
+          <p>Likes: {likes.length}</p>
         </div>
-        {/* <div>
-          <LikeUnlike
-            key={post.id}
-            groupId={groupId}
-            post={post}
+        <div>
+          <LikeUnlikeComment
+            key={comment.id}
+            postId={comment.postId}
+            comment={comment}
             likes={likes}
             userAuth={userAuth}
           />
-        </div> */}
+        </div>
         {userAuth.id === comment.userId && (
           <p>
             <button
