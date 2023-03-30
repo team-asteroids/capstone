@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Routes, Route, useParams } from 'react-router-dom';
+import { useNavigate, Routes, Route, useParams, Link } from 'react-router-dom';
 // import { selectAuth } from '../../slices/authSlice';
 import defaultImg from '../../img/default-dog.jpg';
 import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
@@ -96,9 +96,11 @@ const UserProfile = () => {
             <p>{singleUser.canFoster ? 'yes!' : 'not right now'}</p>
           </div>
           <div className="w-1/4">
-            <button className="bg-bold-purple font-bold ease-in duration-300 hover:bg-pale-purple px-5 py-2.5 text-white rounded-lg">
-              MESSAGE
-            </button>
+            <Link to={`/chat/`}>
+              <button className="bg-bold-purple font-bold ease-in duration-300 hover:bg-pale-purple px-5 py-2.5 text-white rounded-lg">
+                MESSAGE
+              </button>
+            </Link>
           </div>
         </div>
         <div className="w-4/5 font-rubikmono overflow-auto gap-5">
