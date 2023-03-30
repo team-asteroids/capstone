@@ -172,7 +172,7 @@ export const fetchClientAccessData = createAsyncThunk(
 );
 
 export const updateSitter = createAsyncThunk(
-  'udpateSitter',
+  'updateSitter',
   async ({ id, token, formData }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(`/api/sitters/${id}`, formData, {
@@ -188,7 +188,7 @@ export const updateSitter = createAsyncThunk(
 );
 
 export const updateSitterPrefs = createAsyncThunk(
-  'udpateSitterPrefs',
+  'updateSitterPrefs',
   async ({ id, token, prefsData }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(`/api/sitters/${id}/prefs`, prefsData, {
