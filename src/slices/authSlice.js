@@ -109,7 +109,26 @@ export const updateAccessData = createAsyncThunk(
           },
         }
       );
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
 
+export const updateClientSitterStatus = createAsyncThunk(
+  'updateStatus',
+  async ({ id, token, sitterId, accessStatus }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.put(
+        `/api/users/${id}/sitter/${sitterId}/access`,
+        { status: accessStatus },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -123,6 +142,9 @@ const authSlice = createSlice({
     token: '',
     userAuth: {},
     accessData: {},
+    userSitters: [],
+    userSitter: {},
+    accessPermissions: {},
     error: '',
     status: '',
   },
@@ -230,6 +252,19 @@ const authSlice = createSlice({
         state.error = '';
       })
       .addCase(updateAccessData.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(updateClientSitterStatus.fulfilled, (state, { payload }) => {
+        state.accessPermissions = payload || {};
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(updateClientSitterStatus.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(updateClientSitterStatus.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
