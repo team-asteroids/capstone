@@ -5,6 +5,7 @@
   "scripts": {
     "start": "concurrently \"node server/server.js\" \"react-scripts start\" ",
     "build": "concurrently \"react-scripts build\" \"node seed.js\" ",
+    "api": "node server/server.js"
     "test": "react-scripts test",
     "seed": "node seed.js",
     "eject": "react-scripts eject",
