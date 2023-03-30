@@ -155,7 +155,7 @@ router.delete('/:groupId', requireToken, async (req, res, next) => {
 
 // get all groups a user is a member of
 // must be logged in
-router.get('/memberships', requireToken, async (req, res, next) => {
+router.get('/memberships/:id', requireToken, async (req, res, next) => {
   try {
     const memberships = await Group_Member.findAll({
       where: { userId: req.params.id },
@@ -309,7 +309,17 @@ router.post('/:groupId/posts', requireToken, async (req, res, next) => {
       },
     });
     if (!wasCreated) return res.status(409).send('Group Post already exists');
-    res.status(201).json(newGroupPost);
+
+    const postWithUser = await Group_Post.findOne({
+      where: {
+        content: req.body.content,
+        userId: req.user.id,
+        groupId: req.params.groupId,
+      },
+      include: { model: User },
+    });
+    // console.log('inRoute--> ', postWithUser);
+    res.status(201).json(postWithUser);
   } catch (e) {
     console.log('Backend issue adding single group_post');
     next(e);

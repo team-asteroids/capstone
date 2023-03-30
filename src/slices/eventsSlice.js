@@ -62,9 +62,9 @@ export const editEventAsync = createAsyncThunk(
   }
 );
 
-export const getMyRsvpsAsync = createAsyncThunk('/getRSVPs', async () => {
+export const getMyRsvpsAsync = createAsyncThunk('/getRSVPs', async (id) => {
   const token = window.localStorage.getItem('token');
-  const { data } = await axios.get('/api/events/attending', {
+  const { data } = await axios.get(`/api/events/attending/${id}`, {
     headers: {
       authorization: token,
     },
@@ -188,7 +188,7 @@ export const eventsSlice = createSlice({
       })
       .addCase(getMyRsvpsAsync.rejected, (state, { payload }) => {
         state.status = 'failed';
-        state.error = payload.message;
+        state.error = payload;
       })
       .addCase(removeRsvpAsync.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';

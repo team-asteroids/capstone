@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const EventList = ({ topic, description, date, zip, creatorId, eventId }) => {
+  const dateData = new Date(date);
+  const formattedDate = dateData.toDateString();
+  const formattedTime = dateData.toLocaleTimeString('en-US');
+
   return (
     <div className="pt-8">
       <div className="overflow-hidden bg-white shadow sm:rounded-lg mb-8">
@@ -22,7 +26,7 @@ const EventList = ({ topic, description, date, zip, creatorId, eventId }) => {
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-500">Date/Time</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                {date}
+                {formattedTime} on {formattedDate}
               </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

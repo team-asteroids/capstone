@@ -2,7 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import defaultImg from '../../img/sitter-profile.jpg';
 
-const SitterCard = ({ id, firstName, rate, rating, reviews, bio, userId }) => {
+const SitterCard = ({
+  id,
+  firstName,
+  rate,
+  rating,
+  reviews,
+  bio,
+  userId,
+  zip,
+}) => {
   return (
     <div className="pt-8">
       <div className="overflow-hidden bg-white shadow sm:rounded-lg mb-8">
@@ -30,9 +39,11 @@ const SitterCard = ({ id, firstName, rate, rating, reviews, bio, userId }) => {
                 Reviews: {reviews}
               </dt>
             </div>
-
             <div className="bg-white px-4 py-5">
               <dt className="text-sm font-medium text-gray-500">Bio: {bio}</dt>
+            </div>
+            <div className="bg-white px-4 py-5">
+              <dt className="text-sm font-medium text-gray-500">Zip: {zip}</dt>
             </div>
             <div className="bg-gray-50 px-4 py-5">
               <dt className="text-sm font-medium text-gray-500">Details</dt>

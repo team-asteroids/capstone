@@ -47,6 +47,19 @@ router.get('/likes', async (req, res, next) => {
   }
 });
 
+// get all post_comment likes
+// must be logged in
+router.get('/comment-likes', requireToken, async (req, res, next) => {
+  try {
+    const likes = await Post_Comment_Like.findAll();
+
+    res.status(200).json(likes);
+  } catch (e) {
+    console.log('Backend issue fetching all post-comment likes');
+    next(e);
+  }
+});
+
 // // get all posts (w/comments & likes)
 // // public access
 // router.get('/', async (req, res, next) => {
@@ -106,7 +119,12 @@ router.post('/', requireToken, async (req, res, next) => {
       defaults: { content: req.body.content, creatorId: req.user.id },
     });
     if (!wasCreated) return res.status(409).send('Post already exists');
-    res.status(201).json(newPost);
+
+    const postWithUser = await Post.findOne({
+      where: { content: req.body.content, creatorId: req.user.id },
+      include: [{ model: User }, { model: Post_Comment }],
+    });
+    res.status(201).json(postWithUser);
   } catch (e) {
     console.log('Backend issue adding single post');
     next(e);
@@ -340,12 +358,12 @@ router.get(
         where: { postCommentId: req.params.commentId },
       });
 
-      const userIds = likes.map((like) => like.userId);
+      // const userIds = likes.map((like) => like.userId);
 
-      const users = await Promise.all(
-        userIds.map((userId) => User.findByPk(userId))
-      );
-      res.status(200).json({ likes, users });
+      // const users = await Promise.all(
+      //   userIds.map((userId) => User.findByPk(userId))
+      // );
+      res.status(200).json(likes);
     } catch (e) {
       console.log('Backend issue fetching all post-comment likes');
       next(e);
@@ -356,14 +374,14 @@ router.get(
 // like a post-comment
 // must be logged in -- userId of like automatically set to token user id
 router.post(
-  '/:postId/comments/:commentId/likes',
+  '/comments/:postCommentId/likes',
   requireToken,
   async (req, res, next) => {
     try {
       const [newPostCommentLike, wasCreated] =
         await Post_Comment_Like.findOrCreate({
           where: {
-            postCommentId: req.params.commentId,
+            postCommentId: req.body.postCommentId,
             userId: req.user.id,
           },
         });
@@ -381,32 +399,36 @@ router.post(
 
 //  remove like from post-comment
 //  token user id must match the post creatorId OR you are admin
-router.delete('/:postId/comments/:commentId/likes', async (req, res, next) => {
-  try {
-    const deletedPostCommentLike = await Post_Comment_Like.findOne({
-      where: { postCommentId: req.body.postCommentId },
-    });
-    if (!deletedPostCommentLike) {
-      return res.status(404).send('That post_comment_like does not exist!');
+router.delete(
+  '/comments/:postCommentId/likes',
+  requireToken,
+  async (req, res, next) => {
+    try {
+      const deletedPostCommentLike = await Post_Comment_Like.findOne({
+        where: { postCommentId: req.params.postCommentId, userId: req.user.id },
+      });
+      if (!deletedPostCommentLike) {
+        return res.status(404).send('That post_comment_like does not exist!');
+      }
+      if (
+        req.user.id === deletedPostCommentLike.userId ||
+        req.user.role === 'admin'
+      ) {
+        await deletedPostCommentLike.destroy();
+        res.json(deletedPostCommentLike);
+      } else {
+        res
+          .status(403)
+          .send(
+            'Inadequate access rights / Requested user does not match logged-in user'
+          );
+      }
+    } catch (e) {
+      console.log('Backend issue deleting post_comment_like');
+      next(e);
     }
-    if (
-      req.user.id === deletedPostCommentLike.userId ||
-      req.user.role === 'admin'
-    ) {
-      await deletedPostCommentLike.destroy();
-      res.json(deletedPostCommentLike);
-    } else {
-      res
-        .status(403)
-        .send(
-          'Inadequate access rights / Requested user does not match logged-in user'
-        );
-    }
-  } catch (e) {
-    console.log('Backend issue deleting post_comment_like');
-    next(e);
   }
-});
+);
 
 router.post('/search', async (req, res, next) => {
   try {

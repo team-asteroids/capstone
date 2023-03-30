@@ -7,20 +7,31 @@ import {
   selectSitters,
   fetchSitterNames,
 } from '../../slices/sittersSlice';
+import Pagination from '../ui/Pagination.jsx';
 
 const DiscoverSitters = () => {
   const dispatch = useDispatch();
-  const sitters = useSelector(selectSitters);
+  const { sitters } = useSelector(selectSitters);
   const [search, setSearch] = useState('');
-
   const [rating, setRating] = useState('');
   const [price, setPrice] = useState('');
+  const [zip, setZip] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(fetchSitterNames(search));
     setSearch('');
   };
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+
+  // Pagination -- get current posts
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = sitters.slice(indexOfFirstItem, indexOfLastItem);
+  const nPages = Math.ceil(sitters.length / itemsPerPage);
 
   useEffect(() => {
     dispatch(fetchAllSitters());
@@ -34,7 +45,7 @@ const DiscoverSitters = () => {
     return <div>Something went wrong...</div>;
   }
 
-  if (sitters.sitters.length === 0) {
+  if (sitters.length === 0) {
     return (
       <div>
         <form onSubmit={handleSubmit}>
@@ -72,6 +83,15 @@ const DiscoverSitters = () => {
         <div className="flex flex-row">
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-5">
+              <h2 className="font-rubikmono">Filter by Zip Code</h2>
+              <input
+                type="text"
+                placeholder="Search for a sitter"
+                value={zip}
+                onChange={(e) => setZip(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col gap-5">
               <h2 className="font-rubikmono">Filter by Rating</h2>
               <select
                 value={rating}
@@ -97,12 +117,21 @@ const DiscoverSitters = () => {
             </div>
           </div>
           <div className="flex flex-col gap-5">
-            {sitters.sitters
+            {currentItems
               .filter((sitter) => {
                 if (search === '') {
                   return sitter;
                 } else if (
                   sitter.name.toLowerCase().includes(search.toLowerCase())
+                ) {
+                  return sitter;
+                }
+              })
+              .filter((sitter) => {
+                if (zip === '') {
+                  return sitter;
+                } else if (
+                  sitter.sitterZip.toString().includes(zip.toString())
                 ) {
                   return sitter;
                 }
@@ -131,10 +160,17 @@ const DiscoverSitters = () => {
                   reviews={sitter.sitterReviewCount}
                   bio={sitter.bio}
                   userId={sitter.userId}
+                  zip={sitter.sitterZip}
                 />
               ))}
           </div>
         </div>
+        <br></br>
+        <Pagination
+          nPages={nPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     );
   }

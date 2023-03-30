@@ -29,9 +29,10 @@ const EventDetails = () => {
     };
     fetchData();
   }, [dispatch, id]);
+
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(getMyRsvpsAsync());
+      await dispatch(getMyRsvpsAsync(auth.userAuth.id));
       if (event.creatorId) {
         await dispatch(fetchSingleUser(event.creatorId));
       }
