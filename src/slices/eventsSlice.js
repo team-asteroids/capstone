@@ -188,7 +188,7 @@ export const eventsSlice = createSlice({
       })
       .addCase(getMyRsvpsAsync.rejected, (state, { payload }) => {
         state.status = 'failed';
-        state.error = payload.message;
+        state.error = payload;
       })
       .addCase(removeRsvpAsync.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
