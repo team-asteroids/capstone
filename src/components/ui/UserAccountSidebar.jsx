@@ -85,21 +85,6 @@ function UserAccountSidebar() {
           Bookings
         </Link>
       </div>
-      <div>
-        <Link
-          to="/account/access"
-          className={
-            selectedSidebar === 'access'
-              ? selectedSidebarFontClass
-              : sidebarFontClass
-          }
-          onClick={() => {
-            setSelectedSidebar('access');
-          }}
-        >
-          Access
-        </Link>
-      </div>
     </div>
   );
 }
