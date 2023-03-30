@@ -7,10 +7,11 @@ import {
   selectSitters,
   fetchSitterNames,
 } from '../../slices/sittersSlice';
+import Pagination from '../ui/Pagination.jsx';
 
 const DiscoverSitters = () => {
   const dispatch = useDispatch();
-  const sitters = useSelector(selectSitters);
+  const { sitters } = useSelector(selectSitters);
   const [search, setSearch] = useState('');
 
   const [rating, setRating] = useState('');
@@ -21,6 +22,16 @@ const DiscoverSitters = () => {
     dispatch(fetchSitterNames(search));
     setSearch('');
   };
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+
+  // Pagination -- get current posts
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = sitters.slice(indexOfFirstItem, indexOfLastItem);
+  const nPages = Math.ceil(sitters.length / itemsPerPage);
 
   useEffect(() => {
     dispatch(fetchAllSitters());
@@ -34,7 +45,7 @@ const DiscoverSitters = () => {
     return <div>Something went wrong...</div>;
   }
 
-  if (sitters.sitters.length === 0) {
+  if (sitters.length === 0) {
     return (
       <div>
         <form onSubmit={handleSubmit}>
@@ -97,7 +108,7 @@ const DiscoverSitters = () => {
             </div>
           </div>
           <div className="flex flex-col gap-5">
-            {sitters.sitters
+            {currentItems
               .filter((sitter) => {
                 if (search === '') {
                   return sitter;
@@ -135,6 +146,12 @@ const DiscoverSitters = () => {
               ))}
           </div>
         </div>
+        <br></br>
+        <Pagination
+          nPages={nPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     );
   }

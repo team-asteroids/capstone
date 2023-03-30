@@ -6,13 +6,23 @@ import {
   fetchEventNames,
 } from '../../slices/eventsSlice';
 import { Link } from 'react-router-dom';
-
+import Pagination from '../ui/Pagination';
 import EventList from './EventList';
 
 const AllEvents = () => {
   const dispatch = useDispatch();
-  const events = useSelector(selectEvents);
+  const { events } = useSelector(selectEvents);
   const [search, setSearch] = useState('');
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+
+  // Pagination -- get current posts
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = events.slice(indexOfFirstItem, indexOfLastItem);
+  const nPages = Math.ceil(events.length / itemsPerPage);
 
   useEffect(() => {
     dispatch(fetchAllEvents());
@@ -42,7 +52,7 @@ const AllEvents = () => {
           <div>Create Event</div>
         </Link>
         <div className="container mx-auto ">
-          {events.events.map((event) => (
+          {currentItems.map((event) => (
             <EventList
               key={event.id}
               eventId={event.id}
@@ -54,6 +64,12 @@ const AllEvents = () => {
             />
           ))}
         </div>
+        <br></br>
+        <Pagination
+          nPages={nPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </>
   );
