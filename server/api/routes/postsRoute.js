@@ -106,7 +106,12 @@ router.post('/', requireToken, async (req, res, next) => {
       defaults: { content: req.body.content, creatorId: req.user.id },
     });
     if (!wasCreated) return res.status(409).send('Post already exists');
-    res.status(201).json(newPost);
+
+    const postWithUser = await Post.findOne({
+      where: { content: req.body.content, creatorId: req.user.id },
+      include: { model: User },
+    });
+    res.status(201).json(postWithUser);
   } catch (e) {
     console.log('Backend issue adding single post');
     next(e);
