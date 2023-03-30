@@ -50,6 +50,16 @@ router.get('/', async (req, res, next) => {
       ratingMap[rating.sitterId] = rating.dataValues.averageRating;
     });
 
+    // Fetch zip from accesses table for each sitter
+    const sitterAccesses = await Access.findAll({
+      attributes: ['userId', 'zip'],
+    });
+
+    const accessMap = {};
+    sitterAccesses.forEach((access) => {
+      accessMap[access.userId] = access.zip;
+    });
+
     // count sitter reviews
     const sitterReviewCount = await Sitter_Review.findAll({
       attributes: ['sitterId', [sequelize.fn('COUNT', 'sitterId'), 'count']],
@@ -69,11 +79,13 @@ router.get('/', async (req, res, next) => {
       );
       const sitterRating = ratingMap[sitter.id] || 0;
       const sitterReviewCount = reviewCountMap[sitter.id] || 0;
+      const sitterZip = accessMap[sitter.userId] || 0;
       combinedData.push({
         ...userData.dataValues,
         ...sitter.dataValues,
         sitterRating,
         sitterReviewCount,
+        sitterZip,
       });
     });
 
