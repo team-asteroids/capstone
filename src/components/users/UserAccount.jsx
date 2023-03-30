@@ -34,12 +34,6 @@ function UserAccount() {
   const navigate = useNavigate();
   const location = useParams();
 
-  const [sitterToggle, setSitterToggle] = useState(false);
-
-  useEffect(() => {
-    if (location['*'] === 'sitter') navigate('/account');
-  }, []);
-
   const { userAuth, accessData } = useSelector(selectAuth);
   const { singleUser } = useSelector(selectUser);
   const { singleSitter } = useSelector(selectSitters);
@@ -74,11 +68,9 @@ function UserAccount() {
   };
 
   const toggleSitter = () => {
-    setSitterToggle(!sitterToggle);
-    if (!sitterToggle) navigate('/account/sitter');
-    else if (sitterToggle) {
+    if (location['*'].includes('sitter')) {
       navigate('/account');
-    }
+    } else navigate('/account/sitter');
   };
 
   if (!userAuth.firstName)
@@ -103,6 +95,7 @@ function UserAccount() {
                       type="checkbox"
                       className="sr-only peer"
                       onClick={toggleSitter}
+                      checked={location['*'].includes('sitter') ? true : false}
                     />
                     <div className={toggleClass}></div>
                     <span className="ml-3 text-sm font-medium text-gray-900">
@@ -131,7 +124,11 @@ function UserAccount() {
                 </div>
               )}
             </div>
-            {!sitterToggle ? <UserAccountSidebar /> : <SitterAccountSidebar />}
+            {!location['*'].includes('sitter') ? (
+              <UserAccountSidebar />
+            ) : (
+              <SitterAccountSidebar />
+            )}
 
             <div className="align-baseline">
               <button
