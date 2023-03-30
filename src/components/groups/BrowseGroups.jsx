@@ -32,16 +32,22 @@ const BrowseGroups = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Search groups"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        <button type="submit">Search</button>
-      </form>
+      <div className="bg-white-smoke border rounded-lg shadow-lg">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Search groups"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+          >
+            Search
+          </button>
+        </form>
+      </div>
       <div className="p-6 bg-[#fca5a5]">
         <h3 className=" text-bold-purple text-lg font-rubikmono ">Groups</h3>
         <h3 className="text-lg font-rubikmono ">
