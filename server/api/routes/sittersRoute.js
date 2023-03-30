@@ -840,7 +840,11 @@ router.put('/:id/prefs', requireToken, async (req, res, next) => {
 
       const updatedSitterPrefs = await sitterPrefs.update(req.body);
 
-      res.status(200).send(updatedSitterPrefs);
+      const updatedSitter = await Sitter.findByPk(id, {
+        include: Sitter_Pref,
+      });
+
+      res.status(200).send(updatedSitter);
     } else {
       return res
         .status(403)
