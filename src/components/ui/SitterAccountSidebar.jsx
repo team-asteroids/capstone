@@ -17,6 +17,12 @@ function SitterAccountSidebar() {
     } else setSelectedSidebar(location['*']);
   }, [location]);
 
+  useEffect(() => {
+    if (location['*'].includes('sitter/bookings')) {
+      setSelectedSidebar('sitter/bookings');
+    }
+  }, [location]);
+
   const sidebarFontClass =
     'font-regular duration-200 hover:tracking-wide hover:font-bold hover:text-bold-purple';
 

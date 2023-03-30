@@ -22,6 +22,13 @@ function UserAccountSidebar() {
 
   const selectedSidebarFontClass = 'tracking-wide font-bold text-bold-purple';
 
+  // if (location.includes('pets')) console.log(true);
+  useEffect(() => {
+    if (location['*'].includes('pets') || location['*'].includes('addpet')) {
+      setSelectedSidebar('pets');
+    }
+  }, [location]);
+
   return (
     <div className="flex flex-col gap-5">
       <div>
