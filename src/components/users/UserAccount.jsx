@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link, Routes, Route, useParams } from 'react-router-dom';
-import { logOut, selectAuth } from '../../slices/authSlice';
+import { logOut, selectAuth, getAccessData } from '../../slices/authSlice';
 import {
   selectSitters,
   resetSitterStatus,
@@ -43,7 +43,7 @@ function UserAccount() {
     if (location['*'] === 'sitter') navigate('/account');
   }, []);
 
-  const { userAuth } = useSelector(selectAuth);
+  const { userAuth, accessData } = useSelector(selectAuth);
   const { singleUser } = useSelector(selectUser);
   const { singleSitter } = useSelector(selectSitters);
 
@@ -51,6 +51,7 @@ function UserAccount() {
     if (userAuth && userAuth.id) {
       const id = userAuth.id;
       dispatch(fetchSingleUser(id));
+      dispatch(getAccessData(id));
     }
     return () => {
       dispatch(resetUserStatus());
@@ -153,7 +154,10 @@ function UserAccount() {
             <Route path="/editprofile" element={<EditUserProfile />}></Route>
             <Route path="/bookings" element={<UserBookings />}></Route>
             <Route path="/pets" element={<EditUserPets />}></Route>
-            <Route path="/access" element={<EditUserAccess />}></Route>
+            <Route
+              path="/access"
+              element={<EditUserAccess user={userAuth} access={accessData} />}
+            ></Route>
             <Route
               path="/pets/:petId/*"
               element={<EditPetDetails user={userAuth} />}
