@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { selectAuth } from '../../slices/authSlice';
 import {
   fetchAllPosts,
   fetchAllPostLikes,
   fetchPostsThroughSearch,
 } from '../../slices/postsSlice';
-import Pagination from '../ui/Pagination';
-import Howl from './Howl';
-import AddHowl from './AddHowl';
+
+import HowlsView from './HowlsView';
 
 const AllHowls = () => {
   const dispatch = useDispatch();
@@ -17,13 +15,10 @@ const AllHowls = () => {
   const likes = useSelector((state) => state.posts.postLikes);
   const allComments = useSelector((state) => state.posts.allComments);
   const [search, setSearch] = useState('');
-  // const likes = useSelector((state) => state.posts.postLikes);
-  // console.log('posts --> ', posts);
-  // console.log('likes --> ', likes);
 
   const { userAuth } = useSelector(selectAuth);
 
-  const posts = postsData.slice(0).sort((a, b) => {
+  const recentPosts = postsData.slice(0).sort((a, b) => {
     const timeA = a.createdAt;
     const timeB = b.createdAt;
     if (timeA < timeB) {
@@ -35,19 +30,19 @@ const AllHowls = () => {
     return 0;
   });
 
-  // console.log('sorted --> ', sorted);
+  const olderPosts = postsData.slice(0).sort((a, b) => {
+    const timeA = a.createdAt;
+    const timeB = b.createdAt;
+    if (timeA < timeB) {
+      return -1;
+    }
+    if (timeA > timeB) {
+      return 1;
+    }
+    return 0;
+  });
 
-  // console.log('userAuth -->', userAuth);
-
-  // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
-
-  // Pagination -get current posts
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = posts.slice(indexOfFirstItem, indexOfLastItem);
-  const nPages = Math.ceil(posts.length / itemsPerPage);
+  const [sorted, setSorted] = useState('recent');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,35 +77,27 @@ const AllHowls = () => {
         </form>
       </div>
       <div>
-        <div className="bg-white-smoke border rounded-lg shadow-lg">
-          {userAuth && (
-            <div>
-              <AddHowl />
-            </div>
-          )}
-          <div className="p-4">
-            <div>
-              {currentItems.map((post) => (
-                <div key={post.id}>
-                  <Howl
-                    key={post.id}
-                    post={post}
-                    userAuth={userAuth}
-                    likes={likes.filter((like) => like.postId === post.id)}
-                  />
-                </div>
-              ))}
-            </div>{' '}
-            <br></br>
-            <Pagination
-              nPages={nPages}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5">
+            <h2 className="font-rubikmono">Sort</h2>
+            <select onChange={(e) => setSorted(e.target.value)}>
+              <option value="recent">Sort</option>
+              <option value="recent">Most Recent</option>
+              <option value="older">Oldest</option>
+            </select>
           </div>
         </div>
-        <div className="p-4"></div>
       </div>
+      {sorted === 'recent' && (
+        <div>
+          <HowlsView posts={recentPosts} likes={likes} userAuth={userAuth} />
+        </div>
+      )}
+      {sorted === 'older' && (
+        <div>
+          <HowlsView posts={olderPosts} likes={likes} userAuth={userAuth} />
+        </div>
+      )}
     </>
   );
 };
