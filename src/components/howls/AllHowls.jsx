@@ -50,16 +50,22 @@ const AllHowls = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Search for a sitter"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        <button type="submit">Search</button>
-      </form>
+      <div className="bg-white-smoke border rounded-lg shadow-lg">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Search howls"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+          >
+            Search
+          </button>
+        </form>
+      </div>
       <div>
         <div className="bg-white-smoke border rounded-lg shadow-lg">
           {userAuth && (
@@ -88,13 +94,7 @@ const AllHowls = () => {
             />
           </div>
         </div>
-        <div className="p-4">
-          {/* <Link to="/groups">
-            <button className="p-1 rounded-lg bg-[#cbd5e1] font-mono">
-              Back to Browse Groups
-            </button>
-          </Link> */}
-        </div>
+        <div className="p-4"></div>
       </div>
     </>
   );

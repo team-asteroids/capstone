@@ -414,6 +414,7 @@ export const groupSlice = createSlice({
         state.status = 'fulfilled';
         state.error = '';
         state.post = payload;
+        console.log('payload for adding group post --> ', payload);
         state.posts.push(payload);
         // state.posts.push(payload);
       })
