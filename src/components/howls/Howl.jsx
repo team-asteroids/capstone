@@ -13,13 +13,9 @@ const Howl = (props) => {
   const comments = post.post_comments;
   const author = post.user.fullName;
 
-  //   console.log('likes -->', likes);
-
   const [commentView, setCommentView] = useState(false);
 
   const dispatch = useDispatch();
-
-  // const { userAuth } = useSelector(selectAuth);
 
   const date = post.createdAt;
   const dateData = new Date(date);
@@ -36,8 +32,6 @@ const Howl = (props) => {
     console.log('postId -->', postId);
     await dispatch(deletePost(postId));
   };
-
-  console.log(post);
 
   return (
     <div className="bg-white-smoke border rounded-lg shadow-lg font-rubik">

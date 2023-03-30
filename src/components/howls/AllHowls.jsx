@@ -11,12 +11,14 @@ import HowlsView from './HowlsView';
 
 const AllHowls = () => {
   const dispatch = useDispatch();
+  const { userAuth } = useSelector(selectAuth);
+
   const postsData = useSelector((state) => state.posts.allPosts);
   const likes = useSelector((state) => state.posts.postLikes);
   const allComments = useSelector((state) => state.posts.allComments);
-  const [search, setSearch] = useState('');
 
-  const { userAuth } = useSelector(selectAuth);
+  const [search, setSearch] = useState('');
+  const [sorted, setSorted] = useState('recent');
 
   const recentPosts = postsData.slice(0).sort((a, b) => {
     const timeA = a.createdAt;
@@ -41,8 +43,6 @@ const AllHowls = () => {
     }
     return 0;
   });
-
-  const [sorted, setSorted] = useState('recent');
 
   const handleSubmit = (e) => {
     e.preventDefault();
