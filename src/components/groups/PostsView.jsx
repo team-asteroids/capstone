@@ -25,7 +25,7 @@ const PostsView = () => {
   });
 
   const [loading, setLoading] = useState(true);
-  console.log(members);
+  // console.log(posts);
 
   useEffect(() => {
     dispatch(fetchGroupMembers(groupId));
@@ -50,43 +50,56 @@ const PostsView = () => {
           </div>
         ) : (
           <>
-            <div className="bg-white-smoke border rounded-lg shadow-lg">
-              <div className="p-4">
-                <div>
-                  {posts.map((post) => (
-                    <div key={post.id}>
-                      <GroupPost
-                        key={post.id}
-                        post={post}
-                        user={post.user}
-                        members={members}
-                        memberIds={memberIds}
-                        userAuth={userAuth}
-                        likes={likes.filter(
-                          (like) => like.groupPostId === post.id
-                        )}
-                      />
+            {posts.length ? (
+              <>
+                <div className="bg-white-smoke border rounded-lg shadow-lg">
+                  <div className="p-4">
+                    <div>
+                      {posts.map((post) => (
+                        <div key={post.id}>
+                          <GroupPost
+                            key={post.id}
+                            post={post}
+                            user={post.user}
+                            members={members}
+                            memberIds={memberIds}
+                            userAuth={userAuth}
+                            likes={likes.filter(
+                              (like) => like.groupPostId === post.id
+                            )}
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </div>
-            </div>
-            {memberIds.includes(userAuth.id) && (
-              <div>
-                <AddGroupPost groupId={groupId} />
-              </div>
+                <div className="p-4">
+                  <Link to="/groups">
+                    <button className="p-1 rounded-lg bg-[#cbd5e1] font-mono">
+                      Back to Browse Groups
+                    </button>
+                  </Link>
+                </div>
+              </>
+            ) : (
+              <>
+                {memberIds.includes(userAuth.id) ? (
+                  <div>No posts yet! Be the first to post!</div>
+                ) : (
+                  <div>No posts yet! Please join to post!</div>
+                )}
+              </>
             )}
-
-            <div className="p-4">
-              <Link to="/groups">
-                <button className="p-1 rounded-lg bg-[#cbd5e1] font-mono">
-                  Back to Browse Groups
-                </button>
-              </Link>
-            </div>
           </>
         )}
       </div>
+      <>
+        {memberIds.includes(userAuth.id) && (
+          <div>
+            <AddGroupPost groupId={groupId} />
+          </div>
+        )}
+      </>
     </>
   );
 };
