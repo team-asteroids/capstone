@@ -108,13 +108,13 @@ function UserBookings() {
       <div className="h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
         <div>
           <p className="font-rubikmono text-lg pb-2">
-            Review New Booking Requests ({pending.length})
+            Pending Requests ({pending.length})
           </p>
           <div className="flex flex-col gap-5">
             {pending && pending.length
               ? pending.map((booking) => (
                   <div key={booking.id}>
-                    <BookingCard booking={booking} />
+                    <BookingCard booking={booking} role={'user'} />
                     <div className="pt-5">
                       <Divider />
                     </div>
@@ -131,7 +131,7 @@ function UserBookings() {
             {approved && approved.length
               ? approved.map((booking) => (
                   <div key={booking.id}>
-                    <BookingCard booking={booking} />
+                    <BookingCard booking={booking} role={'user'} />
                     <div className="pt-5">
                       <Divider />
                     </div>
@@ -148,7 +148,7 @@ function UserBookings() {
             {completed && completed.length
               ? completed.map((booking) => (
                   <div key={booking.id}>
-                    <BookingCard booking={booking} />
+                    <BookingCard booking={booking} role={'user'} />
                     <div className="pt-5">
                       <Divider />
                     </div>
@@ -165,7 +165,7 @@ function UserBookings() {
             {cancelled && cancelled.length
               ? cancelled.map((booking) => (
                   <div key={booking.id}>
-                    <BookingCard booking={booking} />
+                    <BookingCard booking={booking} role={'user'} />
                     <div className="pt-5">
                       <Divider />
                     </div>
