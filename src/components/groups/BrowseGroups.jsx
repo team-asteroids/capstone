@@ -14,7 +14,7 @@ const BrowseGroups = () => {
   const [searchAlert, setSearchAlert] = useState('');
   const [topic, setTopic] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     dispatch(fetchGroupNames(search));
     setSearchAlert(search);
@@ -51,7 +51,7 @@ const BrowseGroups = () => {
       <div className="bg-white-smoke border rounded-lg shadow-lg">
         <div className="p-4 flex flex-row justify-between">
           <div className="basis-1/3 ">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSearch}>
               <input
                 type="text"
                 placeholder="Search groups"
