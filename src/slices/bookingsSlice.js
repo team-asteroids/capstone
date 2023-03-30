@@ -111,6 +111,9 @@ const bookingsSlice = createSlice({
       state.status = '';
       state.error = '';
     },
+    resetSingleBooking: (state) => {
+      state.singleBooking = {};
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -182,7 +185,7 @@ const bookingsSlice = createSlice({
   },
 });
 
-export const { resetBookingStatus } = bookingsSlice.actions;
+export const { resetBookingStatus, resetSingleBooking } = bookingsSlice.actions;
 
 export const selectBookings = (state) => state.bookings;
 
