@@ -1,37 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SitterCard from './SitterCard.jsx';
-import defaultImg from '../../img/default-dog.jpg';
 import {
   fetchAllSitters,
   selectSitters,
   fetchSitterNames,
 } from '../../slices/sittersSlice';
-import Pagination from '../ui/Pagination.jsx';
+import SittersView from './SittersView.jsx';
 
 const DiscoverSitters = () => {
   const dispatch = useDispatch();
   const { sitters } = useSelector(selectSitters);
+
   const [search, setSearch] = useState('');
 
   const [rating, setRating] = useState('');
   const [price, setPrice] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     dispatch(fetchSitterNames(search));
     setSearch('');
   };
 
-  // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
-
-  // Pagination -- get current posts
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = sitters.slice(indexOfFirstItem, indexOfLastItem);
-  const nPages = Math.ceil(sitters.length / itemsPerPage);
+  const sitterSelection = sitters
+    .filter((sitter) => {
+      if (search === '') {
+        return sitter;
+      } else if (sitter.name.toLowerCase().includes(search.toLowerCase())) {
+        return sitter;
+      }
+    })
+    .filter((sitter) => {
+      if (rating === '') {
+        return sitter;
+      } else if (sitter.sitterRating >= rating) {
+        return sitter;
+      }
+    })
+    .filter((sitter) => {
+      if (price === '') {
+        return sitter;
+      } else if (sitter.rate >= price) {
+        return sitter;
+      }
+    });
 
   useEffect(() => {
     dispatch(fetchAllSitters());
@@ -48,7 +60,7 @@ const DiscoverSitters = () => {
   if (sitters.length === 0) {
     return (
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSearch}>
           <input
             type="text"
             placeholder="Search for a sitter"
@@ -70,16 +82,22 @@ const DiscoverSitters = () => {
   } else {
     return (
       <div>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Search for a sitter"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-
-          <button type="submit">Search</button>
-        </form>
+        <div className="bg-white-smoke border rounded-lg shadow-lg">
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Search for a sitter"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+            >
+              Search
+            </button>
+          </form>
+        </div>
         <div className="flex flex-row">
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-5">
@@ -107,51 +125,12 @@ const DiscoverSitters = () => {
               </select>
             </div>
           </div>
-          <div className="flex flex-col gap-5">
-            {currentItems
-              .filter((sitter) => {
-                if (search === '') {
-                  return sitter;
-                } else if (
-                  sitter.name.toLowerCase().includes(search.toLowerCase())
-                ) {
-                  return sitter;
-                }
-              })
-              .filter((sitter) => {
-                if (rating === '') {
-                  return sitter;
-                } else if (sitter.sitterRating >= rating) {
-                  return sitter;
-                }
-              })
-              .filter((sitter) => {
-                if (price === '') {
-                  return sitter;
-                } else if (sitter.rate >= price) {
-                  return sitter;
-                }
-              })
-              .map((sitter) => (
-                <SitterCard
-                  key={sitter.id}
-                  img={defaultImg}
-                  firstName={sitter.firstName}
-                  rate={sitter.rate}
-                  rating={sitter.sitterRating}
-                  reviews={sitter.sitterReviewCount}
-                  bio={sitter.bio}
-                  userId={sitter.userId}
-                />
-              ))}
+          <div>
+            <div>
+              <SittersView sitters={sitterSelection} />
+            </div>
           </div>
         </div>
-        <br></br>
-        <Pagination
-          nPages={nPages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
       </div>
     );
   }
