@@ -18,17 +18,16 @@ import {
   UserAccountSidebar,
   SitterAccountSidebar,
   EditSitterProfile,
-  EditUserProfile,
   EditUserPets,
   UserOverview,
   EditSitterPetPrefs,
   SitterOverview,
   SitterBookings,
-  EditUserAccess,
   UserPetDetails,
   EditPetDetails,
   AddNewPet,
   SitterClients,
+  EditUser,
 } from '../index';
 import BookingDetailsCard from './sitters/BookingDetailsCard';
 
@@ -151,12 +150,12 @@ function UserAccount() {
         <div className="w-4/5 font-rubikmono overflow-auto gap-5">
           <Routes>
             <Route path="/" element={<UserOverview />}></Route>
-            <Route path="/editprofile" element={<EditUserProfile />}></Route>
+
             <Route path="/bookings" element={<UserBookings />}></Route>
             <Route path="/pets" element={<EditUserPets />}></Route>
             <Route
-              path="/access"
-              element={<EditUserAccess user={userAuth} access={accessData} />}
+              path="/editprofile"
+              element={<EditUser user={userAuth} access={accessData} />}
             ></Route>
             <Route
               path="/pets/:petId/*"
