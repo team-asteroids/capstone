@@ -328,7 +328,13 @@ const UserBookingCardDetails = (props) => {
           <div>
             <h2 className="font-rubikmono pb-3">Send Sitter Personal Info</h2>
             <p className="mb-2">
-              To review / edit your personal info, please see Edit Profile
+              To review / edit your personal info, please see{' '}
+              <Link
+                className="hover:text-bold-purple ease-in-out duration-200"
+                to="/account/editprofile"
+              >
+                Edit Profile
+              </Link>
             </p>
             <div className="pl-2">
               <label className="relative inline-flex items-center cursor-pointer">
