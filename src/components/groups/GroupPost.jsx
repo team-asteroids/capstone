@@ -10,8 +10,8 @@ const GroupPost = (props) => {
 
   const { groupId } = useParams();
   const dispatch = useDispatch();
-  console.log('post-->', post);
-  console.log('user-->', user);
+  // console.log('post-->', post);
+  // console.log('user-->', user);
 
   // const likes = useSelector((state) => state.groups.likes);
   const { userAuth } = useSelector(selectAuth);
