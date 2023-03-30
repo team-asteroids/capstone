@@ -171,6 +171,38 @@ export const fetchClientAccessData = createAsyncThunk(
   }
 );
 
+export const updateSitter = createAsyncThunk(
+  'udpateSitter',
+  async ({ id, token, formData }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.put(`/api/sitters/${id}`, formData, {
+        headers: {
+          authorization: token,
+        },
+      });
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const updateSitterPrefs = createAsyncThunk(
+  'udpateSitterPrefs',
+  async ({ id, token, prefsData }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.put(`/api/sitters/${id}/prefs`, prefsData, {
+        headers: {
+          authorization: token,
+        },
+      });
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const sittersSlice = createSlice({
   name: 'sitters',
   initialState: {
@@ -339,6 +371,32 @@ export const sittersSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchClientAccessData.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(updateSitter.fulfilled, (state, { payload }) => {
+        state.singleSitter = payload;
+        state.status = 'fulfilled';
+        state.error = '';
+      })
+      .addCase(updateSitter.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(updateSitter.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(updateSitterPrefs.fulfilled, (state, { payload }) => {
+        state.singleSitter = payload;
+        state.status = 'fulfilled';
+        state.error = '';
+      })
+      .addCase(updateSitterPrefs.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(updateSitterPrefs.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
