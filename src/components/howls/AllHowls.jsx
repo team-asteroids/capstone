@@ -77,11 +77,11 @@ const AllHowls = () => {
         </form>
       </div>
       <div>
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-col gap-5">
+        <div className="bg-white-smoke border rounded-lg shadow-lg font-rubik">
+          <div className="p-2">
             <h2 className="font-rubikmono">Sort</h2>
             <select onChange={(e) => setSorted(e.target.value)}>
-              <option value="recent">Sort</option>
+              <option value="recent">Sort By:</option>
               <option value="recent">Most Recent</option>
               <option value="older">Oldest</option>
             </select>
