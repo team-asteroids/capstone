@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, useLocation, useParams } from 'react-router-dom';
+import { Routes, Route, useLocation, useParams, Link } from 'react-router-dom';
 
 import GroupInfo from './GroupInfo';
 import PostsView from './PostsView';
@@ -32,6 +32,13 @@ const SingleGroup = () => {
           <PostsView />
         </div>
       )}
+      <div className="p-4">
+        <Link to="/groups">
+          <button className="p-1 rounded-lg bg-[#cbd5e1] font-mono">
+            Back to Browse Groups
+          </button>
+        </Link>
+      </div>
     </>
   );
 };

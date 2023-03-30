@@ -219,7 +219,7 @@ export const eventsSlice = createSlice({
       .addCase(createEventAsync.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
-        state.events = payload;
+        state.events.push(payload);
       })
       .addCase(createEventAsync.pending, (state, { payload }) => {
         state.status = 'loading';
