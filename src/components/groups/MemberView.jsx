@@ -9,6 +9,8 @@ const MemberView = () => {
 
   const members = useSelector((state) => state.groups.members);
 
+  const member = useSelector((state) => state.groups.member);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,7 +19,7 @@ const MemberView = () => {
       setLoading(false);
     };
     fetchData();
-  }, [dispatch, groupId]);
+  }, [dispatch, groupId, member]);
 
   // console.log('members-->', members);
 
