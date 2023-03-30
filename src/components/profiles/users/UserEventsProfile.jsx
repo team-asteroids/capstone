@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getMyRsvpsAsync, selectMyRsvps } from '../../../slices/eventsSlice';
 
 const UserEventsProfile = (props) => {
@@ -19,7 +19,9 @@ const UserEventsProfile = (props) => {
       <h2 className="font-semibold text-sm">UPCOMING EVENTS</h2>
       <ul>
         {rsvps.map((rsvp) => (
-          <li>{rsvp.eventId}</li>
+          <Link to={`/events/${rsvp.eventId}`}>
+            <li>Event Id: {rsvp.eventId}</li>
+          </Link>
         ))}
       </ul>
     </div>
