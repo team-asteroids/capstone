@@ -34,7 +34,18 @@ router.get('/', requireToken, async (req, res, next) => {
       });
       if (!allUserBookings) {
         return res.status(404).send('no user bookings!');
-      } else res.status(200).send(allUserBookings);
+      } else {
+        const combinedData = [];
+        allUserBookings.forEach(async (userBooking) => {
+          const sitterInfo = await User.findByPk(userBooking.sitter.userId);
+
+          combinedData.push({ ...userBooking.dataValues, sitterInfo });
+          // console.log(combinedData);
+        });
+
+        // console.log(combinedData);
+        res.status(200).send(combinedData);
+      }
     } else {
       res
         .status(403)

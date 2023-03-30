@@ -3,12 +3,12 @@ import { Link, useLocation } from 'react-router-dom';
 
 const BookingCard = (props) => {
   const { booking, role } = props;
+  console.log(booking);
   const bookingId = booking.id;
   const bookingPets = booking.pets;
   const client = booking.user;
+  // const bookingSitter = booking.
   const location = useLocation();
-
-  console.log(role);
 
   const labelClass = 'text-xs font-rubikmono';
 
