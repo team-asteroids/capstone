@@ -680,21 +680,6 @@ router.get('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
   }
 });
 
-// router.get(
-//   '/:id/bookings/:bookingId/access',
-//   requireToken,
-//   async (req, res, next) => {
-//     const id = +req.params.id;
-//     const { userId } = +req.body;
-
-//     try {
-//     } catch (err) {
-//       console.log('BACKED ISSUE FETCHING BOOKING ACCESS');
-//       next(err);
-//     }
-//   }
-// );
-
 // edit booking from pending to complete (sitter)
 router.put('/:id/bookings/:bookingId', requireToken, async (req, res, next) => {
   // if user is trying to change someone else's info and they are NOT an admin, fail w/403
