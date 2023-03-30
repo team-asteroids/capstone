@@ -177,7 +177,7 @@ function UserAccount() {
               element={<SitterBookings sitter={singleSitter} />}
             ></Route>
             <Route
-              path="/sitter/bookings/:bookingId/"
+              path="/sitter/bookings/:bookingId"
               element={<BookingDetailsCard sitter={singleSitter} />}
             />
             <Route

@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const volleyball = require('volleyball');
-// const dotenv = require('dotenv').config();
-// const config = require('config');
+const dotenv = require('dotenv').config();
+const config = require('config');
 const PORT = process.env.PORT_NUMBER || 8080;
 
 // Static middleware

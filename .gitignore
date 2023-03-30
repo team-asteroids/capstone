@@ -25,3 +25,6 @@ tailwind.css
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+bundle.js
+bundle.js.map

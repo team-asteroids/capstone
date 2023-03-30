@@ -360,9 +360,9 @@ const EditPetDetails = (props) => {
 
   return (
     <div className="font-rubik flex flex-col gap-5">
-      <button className="text-left text-xs font-semibold" onClick={goBack}>
+      {/* <button className="text-left text-xs font-semibold" onClick={goBack}>
         BACK
-      </button>
+      </button> */}
       {formDisabled ? (
         <div className="flex flex-row gap-3 align-baseline">
           <p className="font-rubikmono">{singlePet.name} Profile</p>

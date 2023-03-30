@@ -9,7 +9,7 @@ const { User } = require('../db');
 const requireToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    console.log('auth middleware token --> ', token);
+    // console.log('auth middleware token --> ', token);
     if (!token) {
       console.log('auth failed');
       return res.status(403).send('must be logged in to access!');
