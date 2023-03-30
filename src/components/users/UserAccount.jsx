@@ -20,10 +20,8 @@ import {
   EditSitterProfile,
   EditUserPets,
   UserOverview,
-  EditSitterPetPrefs,
   SitterOverview,
   SitterBookings,
-  UserPetDetails,
   EditPetDetails,
   AddNewPet,
   SitterClients,
@@ -170,10 +168,6 @@ function UserAccount() {
             <Route
               path="/sitter/editprofile"
               element={<EditSitterProfile sitter={singleSitter} />}
-            ></Route>
-            <Route
-              path="/sitter/updatepetprefs"
-              element={<EditSitterPetPrefs sitter={singleSitter} />}
             ></Route>
             <Route
               path="/sitter/bookings"
