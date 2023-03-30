@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Routes, Route, useParams } from 'react-router-dom';
 // import { selectAuth } from '../../slices/authSlice';
 import defaultImg from '../../img/default-dog.jpg';
+import { fetchSingleSitter } from '../../slices/sittersSlice';
 import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
 import { SitterProfile, UserSocialView } from '../index';
 
@@ -26,8 +27,8 @@ const UserProfile = () => {
 
   const toggleSitter = () => {
     if (location['*'].includes('sitter')) {
-      navigate('/account');
-    } else navigate('/account/sitter');
+      navigate(`/profile/${id}`);
+    } else navigate(`/profile/${id}/sitter/${singleUser.sitter.id}`);
   };
 
   if (!singleUser.firstName)
@@ -52,6 +53,7 @@ const UserProfile = () => {
                       type="checkbox"
                       className="sr-only peer"
                       onClick={toggleSitter}
+                      checked={location['*'].includes('sitter') ? true : false}
                     />
                     <div className={toggleClass}></div>
                     <span className="ml-3 text-sm font-medium text-gray-900">
@@ -100,7 +102,10 @@ const UserProfile = () => {
         <div className="w-4/5 font-rubikmono overflow-auto gap-5">
           <Routes>
             <Route path="/*" element={<UserSocialView user={singleUser} />} />
-            <Route path="/sitter/*" element={<SitterProfile />} />
+            <Route
+              path="/sitter/*"
+              element={<SitterProfile sitter={singleUser.sitter} />}
+            />
           </Routes>
         </div>
       </div>
