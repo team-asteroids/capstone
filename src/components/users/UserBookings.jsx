@@ -6,42 +6,13 @@ import {
   resetBookingStatus,
   selectBookings,
 } from '../../slices/bookingsSlice';
+import { BookingCard } from '../index';
+import { Divider } from '@mui/material';
 
 function UserBookings() {
   const dispatch = useDispatch();
   const { userAuth, token } = useSelector(selectAuth);
-  const [bookingFilter, setBookingFilter] = useState('');
-
-  const { status, allBookings } = useSelector(selectBookings);
-
-  let bookingArr = allBookings;
-
-  if (bookingFilter === 'approved') {
-    const approvedBookings = allBookings.filter(
-      (booking) => booking.status === 'approved'
-    );
-    bookingArr = approvedBookings;
-  }
-
-  if (bookingFilter === 'pending') {
-    const approvedBookings = allBookings.filter(
-      (booking) => booking.status === 'pending'
-    );
-    bookingArr = approvedBookings;
-  }
-  if (bookingFilter === 'completed') {
-    const approvedBookings = allBookings.filter(
-      (booking) => booking.status === 'completed'
-    );
-    bookingArr = approvedBookings;
-  }
-
-  if (bookingFilter === 'cancelled') {
-    const approvedBookings = allBookings.filter((booking) =>
-      ['cancelled', 'withdrawn', 'declined'].includes(booking.status)
-    );
-    bookingArr = approvedBookings;
-  }
+  // const [bookingFilter, setBookingFilter] = useState('');
 
   useEffect(() => {
     dispatch(attemptTokenLogin());
@@ -53,12 +24,62 @@ function UserBookings() {
       dispatch(fetchAllBookings({ id, token }));
     }
 
-    // setUserBookings(allBookings);
-
     return () => {
       dispatch(resetBookingStatus());
     };
   }, [userAuth]);
+
+  const { allBookings } = useSelector(selectBookings);
+  let pending = [];
+  let approved = [];
+  let completed = [];
+  let cancelled = [];
+
+  if (allBookings && allBookings.length) {
+    allBookings.forEach((booking) => {
+      if (booking.status === 'pending' && !pending.includes(booking))
+        pending.push(booking);
+
+      if (booking.status === 'approved' && !approved.includes(booking))
+        approved.push(booking);
+
+      if (booking.status === 'complete' && !completed.includes(booking))
+        completed.push(booking);
+
+      if (
+        ['cancelled', 'withdrawn', 'declined'].includes(booking.status) &&
+        !cancelled.includes(booking)
+      )
+        cancelled.push(booking);
+    });
+  }
+
+  // if (bookingFilter === 'approved') {
+  //   const approvedBookings = allBookings.filter(
+  //     (booking) => booking.status === 'approved'
+  //   );
+  //   bookingArr = approvedBookings;
+  // }
+
+  // if (bookingFilter === 'pending') {
+  //   const approvedBookings = allBookings.filter(
+  //     (booking) => booking.status === 'pending'
+  //   );
+  //   bookingArr = approvedBookings;
+  // }
+  // if (bookingFilter === 'completed') {
+  //   const approvedBookings = allBookings.filter(
+  //     (booking) => booking.status === 'completed'
+  //   );
+  //   bookingArr = approvedBookings;
+  // }
+
+  // if (bookingFilter === 'cancelled') {
+  //   const approvedBookings = allBookings.filter((booking) =>
+  //     ['cancelled', 'withdrawn', 'declined'].includes(booking.status)
+  //   );
+  //   bookingArr = approvedBookings;
+  // }
 
   if (!userAuth && !userAuth.firstName)
     return <div className="font-rubikmono">Fetching good things...</div>;
@@ -67,7 +88,7 @@ function UserBookings() {
     <div className="flex flex-col gap-5 font-rubik">
       <div id="filter" className="flex flex-row justify-between">
         <h2 className="font-rubikmono">Manage Sitter Bookings</h2>
-        <div>
+        {/* <div>
           <select
             id="filter"
             className="bg-white-smoke border border-white-smoke text-gray-900 text-sm rounded-lg focus:ring-pale-blue focus:border-pale-blue block p-1.5 px-3 drop-shadow-sm"
@@ -82,54 +103,75 @@ function UserBookings() {
             <option value="completed">completed</option>
             <option value="cancelled">cancelled</option>
           </select>
-        </div>
+        </div> */}
       </div>
-      <div className="h-[calc(100vh_-_20rem)] overflow-auto flex flex-col">
-        <div id="bookings" className="flex gap-5 flex-col w-full">
-          <div className="">
-            {status === 'success' && bookingArr.length > 0 ? (
-              bookingArr.map((booking) => {
-                return (
-                  <div
-                    className="bg-white-smoke flex flex-row justify-between drop-shadow-sm p-5 rounded-xl"
-                    key={booking.id}
-                  >
-                    <div>
-                      <div>
-                        <div>
-                          <h2>{booking.status}</h2>
-                          <p>
-                            {booking.startDate} - {booking.endDate}
-                          </p>
-                        </div>
-                        <div>
-                          <p>Sitter Details Placeholder</p>
-                          <p>${booking.rate}</p>
-                        </div>
-                        <div>
-                          <p>Pets Placeholder</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="flex flex-col content-between gap-12">
-                        <button
-                          className="bg-bold-purple border border-bold-purple ease-in duration-300 hover:bg-pale-purple hover:border-pale-purple
-                           text-white py-2 px-4 rounded-lg"
-                        >
-                          Message Sitter
-                        </button>
-                        <button className="text-red-600 self-end hover:text-red-800">
-                          Cancel
-                        </button>
-                      </div>
+      <div className="h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
+        <div>
+          <p className="font-rubikmono text-lg pb-2">
+            Pending Requests ({pending.length})
+          </p>
+          <div className="flex flex-col gap-5">
+            {pending && pending.length
+              ? pending.map((booking) => (
+                  <div key={booking.id}>
+                    <BookingCard booking={booking} role={'user'} />
+                    <div className="pt-5">
+                      <Divider />
                     </div>
                   </div>
-                );
-              })
-            ) : (
-              <div className="font-rubikmono">No {bookingFilter} Bookings!</div>
-            )}
+                ))
+              : 'no upcoming bookings!'}
+          </div>
+        </div>
+        <div>
+          <p className="font-rubikmono text-lg pb-2">
+            Upcoming ({approved.length})
+          </p>
+          <div className="flex flex-col gap-5">
+            {approved && approved.length
+              ? approved.map((booking) => (
+                  <div key={booking.id}>
+                    <BookingCard booking={booking} role={'user'} />
+                    <div className="pt-5">
+                      <Divider />
+                    </div>
+                  </div>
+                ))
+              : 'no upcoming bookings!'}
+          </div>
+        </div>
+        <div>
+          <p className="font-rubikmono text-lg pb-2">
+            Completed ({completed.length})
+          </p>
+          <div className="flex flex-col gap-5">
+            {completed && completed.length
+              ? completed.map((booking) => (
+                  <div key={booking.id}>
+                    <BookingCard booking={booking} role={'user'} />
+                    <div className="pt-5">
+                      <Divider />
+                    </div>
+                  </div>
+                ))
+              : 'no past bookings!'}
+          </div>
+        </div>
+        <div>
+          <p className="font-rubikmono text-lg pb-2">
+            Cancelled ({cancelled.length})
+          </p>
+          <div className="flex flex-col gap-5">
+            {cancelled && cancelled.length
+              ? cancelled.map((booking) => (
+                  <div key={booking.id}>
+                    <BookingCard booking={booking} role={'user'} />
+                    <div className="pt-5">
+                      <Divider />
+                    </div>
+                  </div>
+                ))
+              : 'no cancelled bookings!'}
           </div>
         </div>
       </div>

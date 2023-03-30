@@ -27,6 +27,7 @@ import {
   SitterClients,
   SitterOnboarding,
   EditUser,
+  UserBookingCardDetails,
 } from '../index';
 import BookingDetailsCard from './sitters/BookingDetailsCard';
 
@@ -145,8 +146,6 @@ function UserAccount() {
               )}
             </div>
 
-            {!sitterToggle ? <UserAccountSidebar /> : <SitterAccountSidebar />}
-
             {!location['*'].includes('sitter') ? (
               <UserAccountSidebar />
             ) : (
@@ -170,6 +169,10 @@ function UserAccount() {
             <Route path="/" element={<UserOverview />}></Route>
 
             <Route path="/bookings" element={<UserBookings />}></Route>
+            <Route
+              path="/bookings/:bookingId"
+              element={<UserBookingCardDetails user={userAuth} />}
+            />
             <Route path="/pets" element={<EditUserPets />}></Route>
             <Route
               path="/editprofile"

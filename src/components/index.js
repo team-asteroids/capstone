@@ -46,5 +46,6 @@ export { default as AddNewPet } from './users/AddNewPet.jsx';
 export { default as BookingCard } from './users/sitters/BookingCard.jsx';
 export { default as SitterClients } from './users/sitters/SitterClients.jsx';
 export { default as EditEvent } from './events/EditEvent.jsx';
+export { default as UserBookingCardDetails } from './users/UserBookingCardDetails.jsx';
 export { default as SitterOnboarding } from './sitters/SitterOnboarding.jsx';
 export { default as SitterSubmitted } from './sitters/SitterSubmitted.jsx';

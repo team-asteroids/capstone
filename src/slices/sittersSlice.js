@@ -228,6 +228,9 @@ export const sittersSlice = createSlice({
     resetSingleBooking: (state) => {
       state.sitterBooking = {};
     },
+    resetSingleSitter: (state) => {
+      state.singleSitter = {};
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -403,7 +406,8 @@ export const sittersSlice = createSlice({
   },
 });
 
-export const { resetSitterStatus, resetSingleBooking } = sittersSlice.actions;
+export const { resetSitterStatus, resetSingleBooking, resetSingleSitter } =
+  sittersSlice.actions;
 
 export const selectSitters = (state) => state.sitters;
 export const selectSingleSitter = (state) => state.sitters.singleSitter;

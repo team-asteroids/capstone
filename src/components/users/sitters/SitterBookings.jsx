@@ -68,7 +68,7 @@ const SitterBookings = (props) => {
             {pending && pending.length
               ? pending.map((booking) => (
                   <div key={booking.id}>
-                    <BookingCard booking={booking} />
+                    <BookingCard booking={booking} role={'sitter'} />
                     <div className="pt-5">
                       <Divider />
                     </div>
@@ -85,7 +85,7 @@ const SitterBookings = (props) => {
             {approved && approved.length
               ? approved.map((booking) => (
                   <div key={booking.id}>
-                    <BookingCard booking={booking} />
+                    <BookingCard booking={booking} role={'sitter'} />
                     <div className="pt-5">
                       <Divider />
                     </div>
@@ -102,7 +102,7 @@ const SitterBookings = (props) => {
             {completed && completed.length
               ? completed.map((booking) => (
                   <div key={booking.id}>
-                    <BookingCard booking={booking} />
+                    <BookingCard booking={booking} role={'sitter'} />
                     <div className="pt-5">
                       <Divider />
                     </div>
@@ -119,7 +119,7 @@ const SitterBookings = (props) => {
             {cancelled && cancelled.length
               ? cancelled.map((booking) => (
                   <div key={booking.id}>
-                    <BookingCard booking={booking} />
+                    <BookingCard booking={booking} role={'sitter'} />
                     <div className="pt-5">
                       <Divider />
                     </div>

@@ -29,6 +29,12 @@ function UserAccountSidebar() {
     }
   }, [location]);
 
+  useEffect(() => {
+    if (location['*'].includes('bookings')) {
+      setSelectedSidebar('bookings');
+    }
+  }, [location]);
+
   return (
     <div className="flex flex-col gap-5">
       <div>

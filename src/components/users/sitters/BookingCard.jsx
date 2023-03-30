@@ -2,10 +2,12 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const BookingCard = (props) => {
-  const { booking } = props;
+  const { booking, role } = props;
+
   const bookingId = booking.id;
   const bookingPets = booking.pets;
   const client = booking.user;
+  // const bookingSitter = booking.
   const location = useLocation();
 
   const labelClass = 'text-xs font-rubikmono';
@@ -25,10 +27,17 @@ const BookingCard = (props) => {
               <p className="font-rubikmono text-sm pb-1">Booking Id:</p>
               <p>{bookingId}</p>
             </div>
-            <div>
-              <p className="font-rubikmono text-sm py-1">Client:</p>
-              <p>{client.fullName}</p>
-            </div>
+            {role === 'sitter' ? (
+              <div>
+                <p className="font-rubikmono text-sm py-1">Client:</p>
+                <p>{client.fullName}</p>
+              </div>
+            ) : (
+              <div>
+                <p className="font-rubikmono text-sm py-1">Sitter:</p>
+                <p>{booking.sitterInfo.fullName}</p>
+              </div>
+            )}
             <div>
               <p className="font-rubikmono text-sm py-1">Pets:</p>
 
@@ -38,7 +47,9 @@ const BookingCard = (props) => {
                       <p>{pet.name}</p>
                     </div>
                   ))
-                : 'client did not add any pets!'}
+                : role === 'sitter'
+                ? 'client did not add any pets!'
+                : 'you forgot to add pets!'}
             </div>
           </div>
           <div>
