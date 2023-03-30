@@ -32,18 +32,29 @@ router.get('/', requireToken, async (req, res, next) => {
           Pet,
         ],
       });
+
       if (!allUserBookings) {
         return res.status(404).send('no user bookings!');
-      } else {
-        const combinedData = [];
-        allUserBookings.forEach(async (userBooking) => {
-          const sitterInfo = await User.findByPk(userBooking.sitter.userId);
+      } else if (allUserBookings) {
+        // let combinedData = [];
 
-          combinedData.push({ ...userBooking.dataValues, sitterInfo });
-          // console.log(combinedData);
-        });
+        let combinedData = await Promise.all(
+          allUserBookings.map(async (userBooking) => {
+            // let combinedUserData = {};
+            const sitterUserId = userBooking.sitter.userId;
 
-        // console.log(combinedData);
+            const sitterInfo = await User.findByPk(sitterUserId);
+
+            if (sitterInfo)
+              return {
+                ...userBooking.dataValues,
+                sitterInfo,
+              };
+          })
+        );
+
+        // console.log('combinedData', combinedData);
+
         res.status(200).send(combinedData);
       }
     } else {
