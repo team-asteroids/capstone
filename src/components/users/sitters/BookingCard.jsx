@@ -2,11 +2,13 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const BookingCard = (props) => {
-  const { booking } = props;
+  const { booking, role } = props;
   const bookingId = booking.id;
   const bookingPets = booking.pets;
   const client = booking.user;
   const location = useLocation();
+
+  console.log(role);
 
   const labelClass = 'text-xs font-rubikmono';
 
