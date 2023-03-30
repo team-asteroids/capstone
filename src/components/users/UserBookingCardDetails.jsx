@@ -60,16 +60,16 @@ const UserBookingCardDetails = (props) => {
     setClientSitterStatus(singleBooking.status);
 
     return () => {
-      // dispatch(resetBookingStatus());
-      // dispatch(resetSitterStatus());
+      dispatch(resetBookingStatus());
+      dispatch(resetSitterStatus());
       // dispatch(resetSingleSitter());
     };
   }, [singleBooking]);
 
   const goBack = () => {
-    // dispatch(resetBookingStatus());
-    // dispatch(resetSitterStatus());
-    // dispatch(resetSingleSitter());
+    dispatch(resetBookingStatus());
+    dispatch(resetSitterStatus());
+    dispatch(resetSingleSitter());
 
     navigate(-1);
   };
