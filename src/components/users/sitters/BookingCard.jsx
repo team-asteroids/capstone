@@ -74,21 +74,33 @@ const BookingCard = (props) => {
                 </div>
                 <div className="w-1/3 flex flex-col pr-6">
                   <label className={labelClass}>Start</label>
-                  <input className={validClass} value={booking.startDate} />
+                  <input
+                    className={validClass}
+                    defaultValue={booking.startDate}
+                  />
                 </div>
                 <div className="w-1/3 flex flex-col">
                   <label className={labelClass}>End</label>
-                  <input className={validClass} value={booking.endDate} />
+                  <input
+                    className={validClass}
+                    defaultValue={booking.endDate}
+                  />
                 </div>
               </div>
               <div className="flex flex-wrap mb-3">
                 <div className="w-1/4 flex flex-col pr-6">
                   <label className={labelClass}>Location</label>
-                  <input className={validClass} value={booking.location} />
+                  <input
+                    className={validClass}
+                    defaultValue={booking.location}
+                  />
                 </div>
                 <div className="w-1/4 flex flex-col pr-6">
                   <label className={labelClass}>Total Days</label>
-                  <input className={validClass} value={booking.totalDays} />
+                  <input
+                    className={validClass}
+                    defaultValue={booking.totalDays}
+                  />
                 </div>
                 <div className="w-1/4 flex flex-col pr-6">
                   <label className={labelClass}>Rate</label>

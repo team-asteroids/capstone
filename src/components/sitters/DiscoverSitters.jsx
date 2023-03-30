@@ -12,10 +12,12 @@ const DiscoverSitters = () => {
   const { sitters } = useSelector(selectSitters);
 
   const [search, setSearch] = useState('');
+
   const [searchAlert, setSearchAlert] = useState('');
 
   const [rating, setRating] = useState('');
   const [price, setPrice] = useState('');
+  const [zip, setZip] = useState('');
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -136,6 +138,5 @@ const DiscoverSitters = () => {
     </div>
   );
 };
-// };
 
 export default DiscoverSitters;

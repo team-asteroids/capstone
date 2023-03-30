@@ -36,11 +36,11 @@ router.get('/my-events', requireToken, async (req, res, next) => {
 });
 
 // this sends back all events a logged in user has RSVP'd to
-router.get('/attending', requireToken, async (req, res, next) => {
+router.get('/attending/:id', requireToken, async (req, res, next) => {
   try {
     const myEvents = await Event_RSVP.findAll({
       where: {
-        userId: req.user.id,
+        userId: req.params.id,
       },
     });
     res.json(myEvents);
@@ -168,7 +168,7 @@ router.delete('/:id', requireToken, async (req, res, next) => {
 
 router.post('/name', async (req, res, next) => {
   try {
-    const { topic } = req.body.params.topic;
+    topic = req.body.params.topic;
     const searchedEvents = await Event.findAll({
       where: {
         topic: {

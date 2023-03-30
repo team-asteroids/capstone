@@ -17,6 +17,12 @@ function SitterAccountSidebar() {
     } else setSelectedSidebar(location['*']);
   }, [location]);
 
+  useEffect(() => {
+    if (location['*'].includes('sitter/bookings')) {
+      setSelectedSidebar('sitter/bookings');
+    }
+  }, [location]);
+
   const sidebarFontClass =
     'font-regular duration-200 hover:tracking-wide hover:font-bold hover:text-bold-purple';
 
@@ -54,21 +60,6 @@ function SitterAccountSidebar() {
           }}
         >
           Edit Sitter Profile
-        </Link>
-      </div>
-      <div>
-        <Link
-          to="/account/sitter/updatepetprefs"
-          className={
-            selectedSidebar === 'sitter/updatepetprefs'
-              ? selectedSidebarFontClass
-              : sidebarFontClass
-          }
-          onClick={() => {
-            setSelectedSidebar('sitter/updatepetprefs');
-          }}
-        >
-          Update Pet Prefs
         </Link>
       </div>
       <div>

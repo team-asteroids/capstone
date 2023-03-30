@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link, Routes, Route, useParams } from 'react-router-dom';
-import { logOut, selectAuth } from '../../slices/authSlice';
+import { logOut, selectAuth, getAccessData } from '../../slices/authSlice';
 import {
   selectSitters,
   resetSitterStatus,
@@ -18,17 +18,15 @@ import {
   UserAccountSidebar,
   SitterAccountSidebar,
   EditSitterProfile,
-  EditUserProfile,
   EditUserPets,
   UserOverview,
-  EditSitterPetPrefs,
   SitterOverview,
   SitterBookings,
-  EditUserAccess,
-  UserPetDetails,
   EditPetDetails,
   AddNewPet,
   SitterClients,
+  SitterOnboarding,
+  EditUser,
 } from '../index';
 import BookingDetailsCard from './sitters/BookingDetailsCard';
 
@@ -36,14 +34,9 @@ function UserAccount() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useParams();
+  const { id } = useParams();
 
-  const [sitterToggle, setSitterToggle] = useState(false);
-
-  useEffect(() => {
-    if (location['*'] === 'sitter') navigate('/account');
-  }, []);
-
-  const { userAuth } = useSelector(selectAuth);
+  const { userAuth, accessData } = useSelector(selectAuth);
   const { singleUser } = useSelector(selectUser);
   const { singleSitter } = useSelector(selectSitters);
 
@@ -51,6 +44,7 @@ function UserAccount() {
     if (userAuth && userAuth.id) {
       const id = userAuth.id;
       dispatch(fetchSingleUser(id));
+      dispatch(getAccessData(id));
     }
     return () => {
       dispatch(resetUserStatus());
@@ -76,11 +70,9 @@ function UserAccount() {
   };
 
   const toggleSitter = () => {
-    setSitterToggle(!sitterToggle);
-    if (!sitterToggle) navigate('/account/sitter');
-    else if (sitterToggle) {
+    if (location['*'].includes('sitter')) {
       navigate('/account');
-    }
+    } else navigate('/account/sitter');
   };
 
   if (!userAuth.firstName)
@@ -105,12 +97,31 @@ function UserAccount() {
                       type="checkbox"
                       className="sr-only peer"
                       onClick={toggleSitter}
+                      checked={location['*'].includes('sitter') ? true : false}
                     />
                     <div className={toggleClass}></div>
                     <span className="ml-3 text-sm font-medium text-gray-900">
                       Sitter Profile
                     </span>
                   </label>
+                </div>
+              ) : userAuth.id === singleUser.id ? (
+                <div className="group" type="tooltip">
+                  <div>
+                    <label className="relative inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        className="sr-only peer"
+                        disabled
+                      />
+                      <div className={toggleClass}></div>
+                      <Link to="/onboarding">
+                        <button className="bg-bold-purple font-bold ease-in duration-300 hover:bg-pale-purple px-2 py-1.5 text-white rounded-lg">
+                          Become a Sitter
+                        </button>
+                      </Link>
+                    </label>
+                  </div>
                 </div>
               ) : (
                 <div className="group" type="tooltip">
@@ -133,7 +144,14 @@ function UserAccount() {
                 </div>
               )}
             </div>
+
             {!sitterToggle ? <UserAccountSidebar /> : <SitterAccountSidebar />}
+
+            {!location['*'].includes('sitter') ? (
+              <UserAccountSidebar />
+            ) : (
+              <SitterAccountSidebar />
+            )}
 
             <div className="align-baseline">
               <button
@@ -150,15 +168,19 @@ function UserAccount() {
         <div className="w-4/5 font-rubikmono overflow-auto gap-5">
           <Routes>
             <Route path="/" element={<UserOverview />}></Route>
-            <Route path="/editprofile" element={<EditUserProfile />}></Route>
+
             <Route path="/bookings" element={<UserBookings />}></Route>
             <Route path="/pets" element={<EditUserPets />}></Route>
-            <Route path="/access" element={<EditUserAccess />}></Route>
+            <Route
+              path="/editprofile"
+              element={<EditUser user={userAuth} access={accessData} />}
+            ></Route>
             <Route
               path="/pets/:petId/*"
               element={<EditPetDetails user={userAuth} />}
             />
             <Route path="/addpet" element={<AddNewPet user={userAuth} />} />
+
             {/* SITTER ROUTES */}
             <Route
               path="/sitter"
@@ -169,15 +191,11 @@ function UserAccount() {
               element={<EditSitterProfile sitter={singleSitter} />}
             ></Route>
             <Route
-              path="/sitter/updatepetprefs"
-              element={<EditSitterPetPrefs sitter={singleSitter} />}
-            ></Route>
-            <Route
               path="/sitter/bookings"
               element={<SitterBookings sitter={singleSitter} />}
             ></Route>
             <Route
-              path="/sitter/bookings/:bookingId/"
+              path="/sitter/bookings/:bookingId"
               element={<BookingDetailsCard sitter={singleSitter} />}
             />
             <Route

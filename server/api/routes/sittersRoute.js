@@ -50,6 +50,16 @@ router.get('/', async (req, res, next) => {
       ratingMap[rating.sitterId] = rating.dataValues.averageRating;
     });
 
+    // Fetch zip from accesses table for each sitter
+    const sitterAccesses = await Access.findAll({
+      attributes: ['userId', 'zip'],
+    });
+
+    const accessMap = {};
+    sitterAccesses.forEach((access) => {
+      accessMap[access.userId] = access.zip;
+    });
+
     // count sitter reviews
     const sitterReviewCount = await Sitter_Review.findAll({
       attributes: ['sitterId', [sequelize.fn('COUNT', 'sitterId'), 'count']],
@@ -69,11 +79,13 @@ router.get('/', async (req, res, next) => {
       );
       const sitterRating = ratingMap[sitter.id] || 0;
       const sitterReviewCount = reviewCountMap[sitter.id] || 0;
+      const sitterZip = accessMap[sitter.userId] || 0;
       combinedData.push({
         ...userData.dataValues,
         ...sitter.dataValues,
         sitterRating,
         sitterReviewCount,
+        sitterZip,
       });
     });
 
@@ -90,13 +102,12 @@ router.get(
   async (req, res, next) => {
     try {
       const sitterObject = await Sitter.findByPk(+req.params.id);
-      console.log(sitterObject);
+
       if (+req.user.id === +sitterObject.userId || req.user.role === 'admin') {
         const clientStatus = await Sitter_Client.findOne({
           where: { sitterId: +req.params.id, userId: +req.params.userId },
         });
 
-        console.log(clientStatus);
         if (!clientStatus) {
           return res.status(404).send('no client data!');
         } else if (clientStatus.status) {
@@ -841,7 +852,11 @@ router.put('/:id/prefs', requireToken, async (req, res, next) => {
 
       const updatedSitterPrefs = await sitterPrefs.update(req.body);
 
-      res.status(200).send(updatedSitterPrefs);
+      const updatedSitter = await Sitter.findByPk(id, {
+        include: Sitter_Pref,
+      });
+
+      res.status(200).send(updatedSitter);
     } else {
       return res
         .status(403)

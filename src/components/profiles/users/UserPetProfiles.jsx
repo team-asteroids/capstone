@@ -46,14 +46,14 @@ const UserPetProfiles = (props) => {
                       }
                     >
                       <img
-                        className="h-24 w-24 object-cover rounded-full drop-shadow-md"
+                        className="h-24 w-24 object-cover rounded-full drop-shadow-md hover:opacity-50 ease-in-out duration-500"
                         alt={'pet-pic'}
                         src={defaultImg}
                       />
                     </Link>
                   </div>
                   <div>
-                    <p>{pet.name}</p>
+                    <p className="text-xs font-rubikmono">{pet.name}</p>
                     <p>{pet.breed}</p>
                     <p>
                       {'age: '}
