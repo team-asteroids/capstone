@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import {
+  updateSitter,
+  updateSitterPrefs,
+  resetSitterStatus,
+  selectSitters,
+} from '../../../slices/sittersSlice';
 
 const EditSitterProfile = (props) => {
   const navigate = useNavigate();
@@ -9,6 +15,10 @@ const EditSitterProfile = (props) => {
 
   const { sitter } = props;
   const { sitterPrefs } = props.sitter;
+
+  const token = window.localStorage.getItem('token');
+
+  const { singleSitter } = useSelector(selectSitters);
 
   const [saveSuccess, setSaveSuccess] = useState(false);
 
@@ -59,14 +69,20 @@ const EditSitterProfile = (props) => {
   const disabledButtonClass =
     'font-rubikmono bg-bold-blue disabled:opacity-25 w-full text-white py-3 rounded-xl mx-auto block text-xl mt-3';
 
-  const submitSitterUpdates = (evt) => {
+  const submitSitterUpdates = async (evt) => {
     evt.preventDefault();
-    console.log('submitting updates:', formData);
+
+    const id = sitter.id;
+    const res = await dispatch(updateSitter({ id, token, formData }));
+    console.log(res);
   };
 
-  const submitSitterPrefsUpdate = (evt) => {
+  const submitSitterPrefsUpdate = async (evt) => {
     evt.preventDefault();
-    console.log('submitting pref updates:', prefsData);
+
+    const id = sitter.id;
+    const res = await dispatch(updateSitterPrefs({ id, token, prefsData }));
+    console.log(res);
   };
 
   return (
