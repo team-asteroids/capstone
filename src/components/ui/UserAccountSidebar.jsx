@@ -24,7 +24,7 @@ function UserAccountSidebar() {
 
   // if (location.includes('pets')) console.log(true);
   useEffect(() => {
-    if (location['*'].includes('pets')) {
+    if (location['*'].includes('pets') || location['*'].includes('addpet')) {
       setSelectedSidebar('pets');
     }
   }, [location]);
