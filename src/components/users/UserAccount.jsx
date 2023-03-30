@@ -25,6 +25,7 @@ import {
   EditPetDetails,
   AddNewPet,
   SitterClients,
+  SitterOnboarding,
   EditUser,
 } from '../index';
 import BookingDetailsCard from './sitters/BookingDetailsCard';
@@ -33,6 +34,7 @@ function UserAccount() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useParams();
+  const { id } = useParams();
 
   const { userAuth, accessData } = useSelector(selectAuth);
   const { singleUser } = useSelector(selectUser);
@@ -103,6 +105,24 @@ function UserAccount() {
                     </span>
                   </label>
                 </div>
+              ) : userAuth.id === singleUser.id ? (
+                <div className="group" type="tooltip">
+                  <div>
+                    <label className="relative inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        className="sr-only peer"
+                        disabled
+                      />
+                      <div className={toggleClass}></div>
+                      <Link to="/onboarding">
+                        <button className="bg-bold-purple font-bold ease-in duration-300 hover:bg-pale-purple px-2 py-1.5 text-white rounded-lg">
+                          Become a Sitter
+                        </button>
+                      </Link>
+                    </label>
+                  </div>
+                </div>
               ) : (
                 <div className="group" type="tooltip">
                   <div>
@@ -124,6 +144,9 @@ function UserAccount() {
                 </div>
               )}
             </div>
+
+            {!sitterToggle ? <UserAccountSidebar /> : <SitterAccountSidebar />}
+
             {!location['*'].includes('sitter') ? (
               <UserAccountSidebar />
             ) : (
@@ -157,6 +180,7 @@ function UserAccount() {
               element={<EditPetDetails user={userAuth} />}
             />
             <Route path="/addpet" element={<AddNewPet user={userAuth} />} />
+
             {/* SITTER ROUTES */}
             <Route
               path="/sitter"
