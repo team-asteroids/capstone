@@ -29,6 +29,7 @@ import {
   EditPetDetails,
   AddNewPet,
   SitterClients,
+  SitterOnboarding,
 } from '../index';
 import BookingDetailsCard from './sitters/BookingDetailsCard';
 
@@ -36,6 +37,7 @@ function UserAccount() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useParams();
+  const { id } = useParams();
 
   const [sitterToggle, setSitterToggle] = useState(false);
 
@@ -112,6 +114,24 @@ function UserAccount() {
                     </span>
                   </label>
                 </div>
+              ) : userAuth.id === singleUser.id ? (
+                <div className="group" type="tooltip">
+                  <div>
+                    <label className="relative inline-flex items-center">
+                      <input
+                        type="checkbox"
+                        className="sr-only peer"
+                        disabled
+                      />
+                      <div className={toggleClass}></div>
+                      <Link to="/onboarding">
+                        <button className="bg-bold-purple font-bold ease-in duration-300 hover:bg-pale-purple px-2 py-1.5 text-white rounded-lg">
+                          Become a Sitter
+                        </button>
+                      </Link>
+                    </label>
+                  </div>
+                </div>
               ) : (
                 <div className="group" type="tooltip">
                   <div>
@@ -134,7 +154,6 @@ function UserAccount() {
               )}
             </div>
             {!sitterToggle ? <UserAccountSidebar /> : <SitterAccountSidebar />}
-
             <div className="align-baseline">
               <button
                 className="font-rubikmono text-left"
@@ -159,6 +178,7 @@ function UserAccount() {
               element={<EditPetDetails user={userAuth} />}
             />
             <Route path="/addpet" element={<AddNewPet user={userAuth} />} />
+
             {/* SITTER ROUTES */}
             <Route
               path="/sitter"

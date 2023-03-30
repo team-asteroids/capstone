@@ -26,6 +26,8 @@ import {
   CreateEvent,
   AllHowls,
   EditEvent,
+  SitterOnboarding,
+  SitterSubmitted,
 } from './index';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -52,6 +54,7 @@ const App = () => {
           <Route path="/events/create" element={<CreateEvent />} />
           <Route path="/events/:id/edit" element={<EditEvent />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/onboarding" element={<SitterOnboarding />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/groups" element={<BrowseGroups />} />
           <Route path="/groups/create" element={<CreateGroup />} />
@@ -70,6 +73,7 @@ const App = () => {
             element={<BookingSuccess />}
           />{' '}
           <Route path="/howls" element={<AllHowls />} />
+          <Route path="/onboardsuccess" element={<SitterSubmitted />} />
         </Routes>
 
         <Footer />
