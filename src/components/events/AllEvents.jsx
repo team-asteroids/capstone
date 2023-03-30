@@ -14,6 +14,18 @@ const AllEvents = () => {
   const { events } = useSelector(selectEvents);
   const [search, setSearch] = useState('');
 
+  const sortedEvents = events.slice(0).sort((a, b) => {
+    const timeA = a.event_start;
+    const timeB = b.event_start;
+    if (timeA < timeB) {
+      return -1;
+    }
+    if (timeA > timeB) {
+      return 1;
+    }
+    return 0;
+  });
+
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
@@ -21,8 +33,8 @@ const AllEvents = () => {
   // Pagination -- get current posts
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = events.slice(indexOfFirstItem, indexOfLastItem);
-  const nPages = Math.ceil(events.length / itemsPerPage);
+  const currentItems = sortedEvents.slice(indexOfFirstItem, indexOfLastItem);
+  const nPages = Math.ceil(sortedEvents.length / itemsPerPage);
 
   useEffect(() => {
     dispatch(fetchAllEvents());
@@ -36,16 +48,17 @@ const AllEvents = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Search events"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        <button type="submit">Search</button>
-      </form>
+      <div className="bg-white-smoke border rounded-lg shadow-lg">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Search events"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button type="submit">Search</button>
+        </form>
+      </div>
 
       <div className="bg-gradient-to-r from-bold-blue via-bold-purple to-white-smoke">
         <Link to="/events/create">

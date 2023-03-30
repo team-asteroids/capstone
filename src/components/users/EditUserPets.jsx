@@ -6,6 +6,9 @@ import { UserPetProfiles } from '../index';
 
 function EditUserPets() {
   const { userAuth } = useSelector(selectAuth);
+  const buttonClass =
+    'w-1/4 font-semibold bg-bold-purple text-white rounded px-5 py-3 ease-in-out duration-200 hover:bg-pale-purple';
+
   return (
     <div className="font-rubik flex flex-col gap-5">
       <div>
@@ -16,8 +19,10 @@ function EditUserPets() {
           <UserPetProfiles user={userAuth} />
         </div>
         <div>
-          <p className="font-rubikmono mt-5 hover:text-bold-purple">
-            <Link to="/account/addpet">Add new pet</Link>
+          <p className="mt-10">
+            <Link to="/account/addpet" className={buttonClass}>
+              ADD NEW PET
+            </Link>
           </p>
         </div>
       </div>

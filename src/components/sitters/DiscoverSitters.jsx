@@ -13,9 +13,9 @@ const DiscoverSitters = () => {
   const dispatch = useDispatch();
   const { sitters } = useSelector(selectSitters);
   const [search, setSearch] = useState('');
-
   const [rating, setRating] = useState('');
   const [price, setPrice] = useState('');
+  const [zip, setZip] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -83,6 +83,15 @@ const DiscoverSitters = () => {
         <div className="flex flex-row">
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-5">
+              <h2 className="font-rubikmono">Filter by Zip Code</h2>
+              <input
+                type="text"
+                placeholder="Search for a sitter"
+                value={zip}
+                onChange={(e) => setZip(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col gap-5">
               <h2 className="font-rubikmono">Filter by Rating</h2>
               <select
                 value={rating}
@@ -119,6 +128,15 @@ const DiscoverSitters = () => {
                 }
               })
               .filter((sitter) => {
+                if (zip === '') {
+                  return sitter;
+                } else if (
+                  sitter.sitterZip.toString().includes(zip.toString())
+                ) {
+                  return sitter;
+                }
+              })
+              .filter((sitter) => {
                 if (rating === '') {
                   return sitter;
                 } else if (sitter.sitterRating >= rating) {
@@ -142,6 +160,7 @@ const DiscoverSitters = () => {
                   reviews={sitter.sitterReviewCount}
                   bio={sitter.bio}
                   userId={sitter.userId}
+                  zip={sitter.sitterZip}
                 />
               ))}
           </div>

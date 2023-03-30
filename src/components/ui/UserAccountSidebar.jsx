@@ -22,6 +22,13 @@ function UserAccountSidebar() {
 
   const selectedSidebarFontClass = 'tracking-wide font-bold text-bold-purple';
 
+  // if (location.includes('pets')) console.log(true);
+  useEffect(() => {
+    if (location['*'].includes('pets') || location['*'].includes('addpet')) {
+      setSelectedSidebar('pets');
+    }
+  }, [location]);
+
   return (
     <div className="flex flex-col gap-5">
       <div>
@@ -83,21 +90,6 @@ function UserAccountSidebar() {
           }}
         >
           Bookings
-        </Link>
-      </div>
-      <div>
-        <Link
-          to="/account/access"
-          className={
-            selectedSidebar === 'access'
-              ? selectedSidebarFontClass
-              : sidebarFontClass
-          }
-          onClick={() => {
-            setSelectedSidebar('access');
-          }}
-        >
-          Access
         </Link>
       </div>
     </div>

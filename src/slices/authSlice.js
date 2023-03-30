@@ -98,11 +98,11 @@ export const editSingleUser = createAsyncThunk(
 
 export const updateAccessData = createAsyncThunk(
   'updateAccessData',
-  async ({ id, token, formData }, { rejectWithValue }) => {
+  async ({ id, token, formAccessData }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
         `/api/users/${id}/access/${id}`,
-        formData,
+        formAccessData,
         {
           headers: {
             authorization: token,

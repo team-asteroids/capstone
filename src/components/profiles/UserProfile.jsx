@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Routes, Route, useParams } from 'react-router-dom';
+import { useNavigate, Routes, Route, useParams, Link } from 'react-router-dom';
 // import { selectAuth } from '../../slices/authSlice';
 import defaultImg from '../../img/default-dog.jpg';
+import { fetchSingleSitter } from '../../slices/sittersSlice';
 import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
 import { SitterProfile, UserSocialView } from '../index';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const [sitterToggle, setSitterToggle] = useState(false);
+  const location = useParams();
 
   const { singleUser } = useSelector(selectUser);
 
@@ -26,12 +26,9 @@ const UserProfile = () => {
     "checked w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink";
 
   const toggleSitter = () => {
-    setSitterToggle(!sitterToggle);
-    if (!sitterToggle)
-      navigate(`/profile/${id}/sitter/${singleUser.sitter.id}`);
-    else if (sitterToggle) {
+    if (location['*'].includes('sitter')) {
       navigate(`/profile/${id}`);
-    }
+    } else navigate(`/profile/${id}/sitter/${singleUser.sitter.id}`);
   };
 
   if (!singleUser.firstName)
@@ -56,6 +53,7 @@ const UserProfile = () => {
                       type="checkbox"
                       className="sr-only peer"
                       onClick={toggleSitter}
+                      checked={location['*'].includes('sitter') ? true : false}
                     />
                     <div className={toggleClass}></div>
                     <span className="ml-3 text-sm font-medium text-gray-900">
@@ -96,15 +94,20 @@ const UserProfile = () => {
             <p>{singleUser.canFoster ? 'yes!' : 'not right now'}</p>
           </div>
           <div className="w-1/4">
-            <button className="bg-bold-purple font-bold ease-in duration-300 hover:bg-pale-purple px-5 py-2.5 text-white rounded-lg">
-              MESSAGE
-            </button>
+            <Link to={`/chat/`}>
+              <button className="bg-bold-purple font-bold ease-in duration-300 hover:bg-pale-purple px-5 py-2.5 text-white rounded-lg">
+                MESSAGE
+              </button>
+            </Link>
           </div>
         </div>
         <div className="w-4/5 font-rubikmono overflow-auto gap-5">
           <Routes>
             <Route path="/*" element={<UserSocialView user={singleUser} />} />
-            <Route path="/sitter/*" element={<SitterProfile />} />
+            <Route
+              path="/sitter/*"
+              element={<SitterProfile sitter={singleUser.sitter} />}
+            />
           </Routes>
         </div>
       </div>
