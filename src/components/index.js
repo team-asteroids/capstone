@@ -46,3 +46,4 @@ export { default as AddNewPet } from './users/AddNewPet.jsx';
 export { default as BookingCard } from './users/sitters/BookingCard.jsx';
 export { default as SitterClients } from './users/sitters/SitterClients.jsx';
 export { default as EditEvent } from './events/EditEvent.jsx';
+export { default as UserBookingCardDetails } from './users/UserBookingCardDetails.jsx';
