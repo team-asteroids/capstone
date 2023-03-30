@@ -14,7 +14,7 @@ import {
 
 const BookingDetailsCard = (props) => {
   const { sitter } = props;
-  const [saveSuccess, setSaveSuccess] = useState('false');
+  const [saveSuccess, setSaveSuccess] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const BookingDetailsCard = (props) => {
   });
 
   useEffect(() => {
-    setSaveSuccess(false);
+    // setSaveSuccess(false);
     dispatch(resetSingleBooking());
     if (sitter && sitter.id) {
       const id = +sitter.id;
