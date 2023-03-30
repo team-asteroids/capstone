@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchGroupPosts, fetchGroupLikes } from '../../slices/groupsSlice';
+import { fetchAllCommentLikes } from '../../slices/postsSlice';
 import PostComment from './PostComment';
 
 const CommentView = (props) => {
@@ -10,12 +10,16 @@ const CommentView = (props) => {
   const { groupId } = useParams();
 
   //   const posts = useSelector((state) => state.posts.allComments);
-  //   const likes = useSelector((state) => state.groups.likes);
+  const likes = useSelector((state) => state.posts.commentLikes);
+  // console.log('likes-->', likes);
 
-  //   useEffect(() => {
-  //     dispatch(fetchGroupPosts(groupId));
-  //     dispatch(fetchGroupLikes(groupId));
-  //   }, [dispatch]);
+  useEffect(() => {
+    // dispatch(fetchGroupPosts(groupId));
+    const fetchData = async () => {
+      await dispatch(fetchAllCommentLikes());
+    };
+    fetchData();
+  }, [dispatch]);
 
   return (
     <>
@@ -25,7 +29,13 @@ const CommentView = (props) => {
             <div>
               {comments.map((comment) => (
                 <div key={comment.id}>
-                  <PostComment key={comment.id} comment={comment} />
+                  <PostComment
+                    key={comment.id}
+                    comment={comment}
+                    likes={likes.filter(
+                      (like) => like.postCommentId === comment.id
+                    )}
+                  />
                 </div>
               ))}
             </div>

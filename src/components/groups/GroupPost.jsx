@@ -6,10 +6,12 @@ import { fetchGroupPostLikes, deleteGroupPost } from '../../slices/groupsSlice';
 import LikeUnlike from './LikeUnlike';
 
 const GroupPost = (props) => {
-  const { post, likes, memberIds } = props;
+  const { post, likes, memberIds, user } = props;
 
   const { groupId } = useParams();
   const dispatch = useDispatch();
+  // console.log('post-->', post);
+  // console.log('user-->', user);
 
   // const likes = useSelector((state) => state.groups.likes);
   const { userAuth } = useSelector(selectAuth);
@@ -38,7 +40,7 @@ const GroupPost = (props) => {
       <div className="p-2">
         <div>
           <p>Content: {post.content}</p>
-          <p>Posted by: {post.user.fullName}</p>
+          <p>Posted by: {user.fullName}</p>
           <p>
             Posted at: {formattedTime} on {formattedDate}
           </p>

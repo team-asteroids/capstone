@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { useParams, useNavigate } from 'react-router-dom';
-import { editSingleGroup } from '../../slices/groupsSlice';
+import { fetchSingleGroup, editSingleGroup } from '../../slices/groupsSlice';
+import BookingSuccess from '../ui/BookingSuccess';
 
 const EditGroup = () => {
   const { groupId } = useParams();
   const { userAuth } = useSelector(selectAuth);
-  const group = useSelector((state) => state.groups.singleGroup);
-  const singleGroup = group.singleGroup;
+  const singleGroup = useSelector((state) => state.groups.singleGroup);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,6 +20,13 @@ const EditGroup = () => {
 
   const [edited, setEdited] = useState(false);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(fetchSingleGroup(groupId));
+    };
+    fetchData();
+  }, [dispatch]);
+
   const editGroup = async (e) => {
     e.preventDefault();
     await dispatch(
@@ -27,7 +34,7 @@ const EditGroup = () => {
     );
     setEdited(true);
     // console.log('singleGroup state in EDITGROUP-->', singleGroup);
-    navigate(`/groups/${groupId}`);
+    // navigate(`/groups/${groupId}`);
   };
 
   return (
@@ -86,13 +93,14 @@ const EditGroup = () => {
                 />
               </div>
               <div>
-                <button type="submit">Submit Post!</button>
+                <button type="submit">Submit Edits!</button>
               </div>
             </form>
           </div>
         ) : (
           <div>
-            <p>{`Success! ${singleGroup.name} has been edited.`}</p>
+            {/* <p>{`${singleGroup.name} has been edited!`}</p> */}
+            <BookingSuccess />
           </div>
         )}
       </div>

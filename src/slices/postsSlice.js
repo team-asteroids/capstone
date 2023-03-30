@@ -124,6 +124,61 @@ export const deletePostComment = createAsyncThunk(
   }
 );
 
+// export const fetchAllCommentLikes = createAsyncThunk(
+//   '/allCommentLikes',
+//   async ({ postId, commentId }) => {
+//     const { data } = await axios.get(`/${postId}/comments/${commentId}/likes`);
+//     return data;
+//   }
+// );
+
+export const fetchAllCommentLikes = createAsyncThunk(
+  '/allCommentLikes',
+  async () => {
+    const token = localStorage.getItem('token');
+    const { data } = await axios.get(`/api/posts/comment-likes`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    // console.log('data-->', data);
+    return data;
+  }
+);
+
+export const likeComment = createAsyncThunk(
+  '/likeComment',
+  async ({ postCommentId }) => {
+    const token = localStorage.getItem('token');
+    const { data } = await axios.post(
+      `/api/posts/comments/${postCommentId}/likes`,
+      { postCommentId },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    return data;
+  }
+);
+
+export const unlikeComment = createAsyncThunk(
+  '/unlikeComment',
+  async ({ postCommentId }) => {
+    const token = localStorage.getItem('token');
+    const { data } = await axios.delete(
+      `/api/posts/comments/${postCommentId}/likes`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    return data;
+  }
+);
+
 export const postsSlice = createSlice({
   name: 'posts',
   initialState: {
@@ -131,6 +186,7 @@ export const postsSlice = createSlice({
     allComments: [],
     singlePostComments: [],
     postLikes: [],
+    commentLikes: [],
     error: '',
     status: '',
   },
@@ -278,7 +334,7 @@ export const postsSlice = createSlice({
       .addCase(deletePostComment.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
-        console.log('deleted post id--> ', payload.id);
+        // console.log('deleted post id--> ', payload.id);
         state.allComments = state.allComments.filter(
           (comment) => comment.id !== payload.id
         );
@@ -292,6 +348,60 @@ export const postsSlice = createSlice({
       .addCase(deletePostComment.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload;
+      })
+      .addCase(fetchAllCommentLikes.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.commentLikes = payload;
+        // console.log('commentLIkes state-->', state.commentLikes);
+      })
+      .addCase(fetchAllCommentLikes.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchAllCommentLikes.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+      })
+      .addCase(likeComment.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        // state.likedStatus = true;
+        state.commentLikes.push(payload);
+        // what should we do with payload?
+      })
+      .addCase(likeComment.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(likeComment.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        // state.likedStatus = true; // or dont change at all?
+        state.error = payload;
+        // check on this
+      })
+      .addCase(unlikeComment.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        // state.likedStatus = false;
+        state.commentLikes = state.commentLikes.filter(
+          (like) =>
+            !(
+              like.postCommentId === payload.postCommentId &&
+              like.userId === payload.userId
+            )
+        );
+        // what should we do with payload?
+      })
+      .addCase(unlikeComment.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(unlikeComment.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        // state.likedStatus = true; // or dont change at all?
+        state.error = payload;
+        // check on this
       });
   },
 });
