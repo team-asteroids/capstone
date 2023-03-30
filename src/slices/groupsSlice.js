@@ -18,6 +18,20 @@ export const fetchSingleGroup = createAsyncThunk(
     return data;
   }
 );
+
+export const fetchMemberships = createAsyncThunk(
+  '/getMemberships',
+  async (id) => {
+    const token = window.localStorage.getItem('token');
+    const { data } = await axios.get(`/api/groups/memberships/${id}`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    return data;
+  }
+);
+
 export const editSingleGroup = createAsyncThunk(
   '/editSingleGroup',
   async ({ groupId, name, topic, description, imageSrc }) => {
@@ -263,6 +277,7 @@ export const groupSlice = createSlice({
   initialState: {
     allGroups: [],
     singleGroup: {},
+    memberships: [],
     members: [],
     member: {},
     posts: [],
@@ -285,6 +300,19 @@ export const groupSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchAllGroups.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+      })
+      .addCase(fetchMemberships.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        state.memberships = payload;
+      })
+      .addCase(fetchMemberships.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchMemberships.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload;
       })

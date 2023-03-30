@@ -155,7 +155,7 @@ router.delete('/:groupId', requireToken, async (req, res, next) => {
 
 // get all groups a user is a member of
 // must be logged in
-router.get('/memberships', requireToken, async (req, res, next) => {
+router.get('/memberships/:id', requireToken, async (req, res, next) => {
   try {
     const memberships = await Group_Member.findAll({
       where: { userId: req.params.id },
