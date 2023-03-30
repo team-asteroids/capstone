@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { selectAuth } from '../../slices/authSlice';
-import { format } from 'date-fns';
+import { selectAuth, updateClientSitterStatus } from '../../slices/authSlice';
+// import { format } from 'date-fns';
 import {
   selectBookings,
   fetchSingleBooking,
@@ -10,6 +10,10 @@ import {
   updateBooking,
   resetBookingStatus,
 } from '../../slices/bookingsSlice';
+import {
+  resetSitterStatus,
+  resetSingleSitter,
+} from '../../slices/sittersSlice';
 
 const UserBookingCardDetails = (props) => {
   const { user } = props;
@@ -22,8 +26,12 @@ const UserBookingCardDetails = (props) => {
 
   const bookingId = +params.bookingId;
 
-  const { token } = useSelector(selectAuth);
+  const { token, accessPermissions } = useSelector(selectAuth);
   const { singleBooking } = useSelector(selectBookings);
+
+  const [clientSitterStatus, setClientSitterStatus] = useState(
+    singleBooking.status
+  );
 
   const [bookingForm, setBookingForm] = useState({});
 
@@ -32,7 +40,13 @@ const UserBookingCardDetails = (props) => {
       const id = user.id;
       dispatch(fetchSingleBooking({ id, token, bookingId }));
     }
-  }, [user]);
+    return () => {
+      dispatch(resetBookingStatus());
+      dispatch(resetSitterStatus());
+    };
+  }, [user, bookingId]);
+
+  // console.log(clientSitterStatus);
 
   useEffect(() => {
     setBookingForm({
@@ -42,9 +56,21 @@ const UserBookingCardDetails = (props) => {
       location: singleBooking.location,
       totalDays: singleBooking.totalDays,
     });
+
+    setClientSitterStatus(singleBooking.status);
+
+    return () => {
+      // dispatch(resetBookingStatus());
+      // dispatch(resetSitterStatus());
+      // dispatch(resetSingleSitter());
+    };
   }, [singleBooking]);
 
   const goBack = () => {
+    // dispatch(resetBookingStatus());
+    // dispatch(resetSitterStatus());
+    // dispatch(resetSingleSitter());
+
     navigate(-1);
   };
 
@@ -56,7 +82,22 @@ const UserBookingCardDetails = (props) => {
   const validLinkClass =
     'cursor-pointer appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
+  const toggleClass =
+    "checked w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink";
+
   const submitBookingUpdate = () => {};
+
+  const updatePermissions = async (accessStatus) => {
+    const id = user.id;
+    const sitterId = singleBooking.sitterId;
+    const token = window.localStorage.getItem('token');
+
+    console.log({ id, sitterId, token, accessStatus });
+    const res = await dispatch(
+      updateClientSitterStatus({ id, sitterId, token, accessStatus })
+    );
+    console.log(res);
+  };
 
   return (
     <div className="font-rubik flex flex-col gap-5">
@@ -239,168 +280,79 @@ const UserBookingCardDetails = (props) => {
             </div>
           </div>
           <div>
-            <h2 className="font-rubikmono pb-3">Client & Pets</h2>
-            {singleBooking && singleBooking.user ? (
+            <h2 className="font-rubikmono pb-3">Sitter & Pets</h2>
+            {singleBooking && singleBooking.sitterId ? (
               <section>
                 <form>
                   <div className="flex flex-wrap mb-5">
                     <div className="w-full mb-5">
-                      <label className={labelClass}>Client</label>
-                      <Link to={`/profile/${singleBooking.user.id}`}>
+                      <label className={labelClass}>Sitter</label>
+                      <Link
+                        to={`/profile/${singleBooking.sitterInfo.id}/sitter/${singleBooking.sitter.id}`}
+                      >
                         <input
                           className={validLinkClass}
-                          defaultValue={singleBooking.user.fullName}
+                          defaultValue={singleBooking.sitterInfo.fullName}
                           disabled
                         />
                       </Link>
                     </div>
-                    <label className={labelClass}>Pets</label>
-                    {singleBooking.pets.map((pet) => (
-                      <div className="w-full" key={pet.id}>
-                        <Link
-                          to={`/profile/${singleBooking.user.id}/pets/${pet.id}`}
-                        >
-                          <input
-                            key={pet.id}
-                            defaultValue={pet.name}
-                            className={validLinkClass}
-                            disabled
-                          />
-                        </Link>
-                      </div>
-                    ))}
+                    <div className="w-full">
+                      <label className={labelClass}>Pets</label>
+                      {singleBooking.pets.length ? (
+                        singleBooking.pets.map((pet) => (
+                          <div className="w-full" key={pet.id}>
+                            <Link to={`/account/pets/${pet.id}`}>
+                              <input
+                                key={pet.id}
+                                defaultValue={pet.name}
+                                className={validLinkClass}
+                                disabled
+                              />
+                            </Link>
+                          </div>
+                        ))
+                      ) : (
+                        <div>
+                          <p>no pets!</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </form>
               </section>
             ) : null}
           </div>
           <div>
-            <h2 className="font-rubikmono pb-3">Client Personal Info</h2>
-            {/* {clientAccess && clientAccess.id ? (
-              <section>
-                <form>
-                  <div className="flex flex-wrap mb-5">
-                    <div className="w-full flex flex-col">
-                      <label className={labelClass}>Phone</label>
-                      <input
-                        className={validClass}
-                        id="phone"
-                        name="phone"
-                        type="text"
-                        defaultValue={clientAccess.phone}
-                        disabled
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap mb-5">
-                    <div className="w-1/2 pr-6">
-                      <label className={labelClass}>Address Line 1</label>
-                      <input
-                        className={validClass}
-                        id="address1"
-                        name="address1"
-                        type="text"
-                        defaultValue={clientAccess.address1}
-                        disabled
-                      />
-                    </div>
-                    <div className="w-1/2">
-                      <label className={labelClass}>Address Line 2</label>
-                      <input
-                        className={validClass}
-                        id="address2"
-                        name="address2"
-                        type="text"
-                        defaultValue={clientAccess.address2}
-                        disabled
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap mb-5">
-                    <div className="w-1/3 pr-6">
-                      <label className={labelClass}>City</label>
-                      <input
-                        className={validClass}
-                        id="city"
-                        name="city"
-                        defaultValue={clientAccess.city}
-                        disabled
-                      />
-                    </div>
-
-                    <div className="w-1/3 pr-6">
-                      <label className={labelClass}>State</label>
-                      <input
-                        className={validClass}
-                        id="state"
-                        name="state"
-                        defaultValue={clientAccess.state}
-                        disabled
-                      />
-                    </div>
-
-                    <div className="w-1/3">
-                      <label className={labelClass}>Zip Code</label>
-                      <input
-                        className={validClass}
-                        type="text"
-                        id="zip"
-                        name="zip"
-                        defaultValue={clientAccess.zip}
-                        disabled
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap mb-5">
-                    <div className="w-1/2 text-left pr-6">
-                      <label className={labelClass}>
-                        Emergency Contact Name
-                      </label>
-                      <input
-                        className={validClass}
-                        id="emergencyContactName"
-                        name="emergencyContactName"
-                        type="text"
-                        defaultValue={clientAccess.emergencyContactName}
-                        disabled
-                      />
-                    </div>
-                    <div className="w-1/2 text-left">
-                      <label className={labelClass}>
-                        Emergency Contact Phone
-                      </label>
-                      <input
-                        className={validClass}
-                        id="emergencyContactPhone"
-                        name="emergencyContactPhone"
-                        type="tel"
-                        defaultValue={clientAccess.emergencyContactPhone}
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap mb-5">
-                    <div className="w-full text-left">
-                      <label className={labelClass}>Additional Notes</label>
-                      <textarea
-                        className={validClass}
-                        id="additionalNotes"
-                        name="additionalNotes"
-                        type="text"
-                        rows={6}
-                        defaultValue={clientAccess.additionalNotes}
-                        disabled
-                      />
-                    </div>
-                  </div>
-                </form>
-              </section>
-            ) : (
-              'this information is not available, please contact owner!'
-            )} */}
+            <h2 className="font-rubikmono pb-3">Send Sitter Personal Info</h2>
+            <p className="mb-2">
+              To review / edit your personal info, please see Edit Profile
+            </p>
+            <div className="pl-2">
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="sr-only peer"
+                  checked={clientSitterStatus ? true : false}
+                  onChange={() => {
+                    // console.log('before:', clientSitterStatus);
+                    setClientSitterStatus(!clientSitterStatus);
+                    // console.log('after:', clientSitterStatus);
+                    updatePermissions(!clientSitterStatus);
+                  }}
+                />
+                <div className={toggleClass}></div>
+                {clientSitterStatus ? (
+                  <span className="ml-3 text-sm font-medium text-bold-pink">
+                    Active
+                  </span>
+                ) : (
+                  <span className="ml-3 text-sm font-medium text-gray-900">
+                    Inactive
+                  </span>
+                )}
+              </label>
+            </div>
           </div>
         </div>
       </div>
