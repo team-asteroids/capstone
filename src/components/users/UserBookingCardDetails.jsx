@@ -9,6 +9,7 @@ import {
   addPetsToBooking,
   updateBooking,
   resetBookingStatus,
+  resetSingleBooking,
 } from '../../slices/bookingsSlice';
 import {
   resetSitterStatus,
@@ -17,17 +18,16 @@ import {
 
 const UserBookingCardDetails = (props) => {
   const { user } = props;
-
-  const [saveSuccess, setSaveSuccess] = useState(false);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
+  const { singleBooking } = useSelector(selectBookings);
 
   const bookingId = +params.bookingId;
+  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [saveAccessSuccess, setSaveAccessSuccess] = useState(false);
 
   const { token, accessPermissions } = useSelector(selectAuth);
-  const { singleBooking } = useSelector(selectBookings);
 
   const [clientSitterStatus, setClientSitterStatus] = useState(
     singleBooking.status
@@ -46,8 +46,6 @@ const UserBookingCardDetails = (props) => {
     };
   }, [user, bookingId]);
 
-  // console.log(clientSitterStatus);
-
   useEffect(() => {
     setBookingForm({
       status: singleBooking.status,
@@ -62,7 +60,7 @@ const UserBookingCardDetails = (props) => {
     return () => {
       dispatch(resetBookingStatus());
       dispatch(resetSitterStatus());
-      // dispatch(resetSingleSitter());
+      dispatch(resetSingleSitter());
     };
   }, [singleBooking]);
 
@@ -70,6 +68,7 @@ const UserBookingCardDetails = (props) => {
     dispatch(resetBookingStatus());
     dispatch(resetSitterStatus());
     dispatch(resetSingleSitter());
+    dispatch(resetSingleBooking());
 
     navigate(-1);
   };
@@ -92,11 +91,14 @@ const UserBookingCardDetails = (props) => {
     const sitterId = singleBooking.sitterId;
     const token = window.localStorage.getItem('token');
 
-    console.log({ id, sitterId, token, accessStatus });
     const res = await dispatch(
       updateClientSitterStatus({ id, sitterId, token, accessStatus })
     );
     console.log(res);
+
+    if (res.type === 'updatePermissions/fulfilled') {
+      setSaveAccessSuccess(true);
+    } else setSaveAccessSuccess(false);
   };
 
   return (
@@ -339,6 +341,7 @@ const UserBookingCardDetails = (props) => {
                     setClientSitterStatus(!clientSitterStatus);
                     // console.log('after:', clientSitterStatus);
                     updatePermissions(!clientSitterStatus);
+                    setSaveAccessSuccess(false);
                   }}
                 />
                 <div className={toggleClass}></div>
@@ -353,6 +356,26 @@ const UserBookingCardDetails = (props) => {
                 )}
               </label>
             </div>
+            <p
+              className={
+                saveAccessSuccess
+                  ? 'text-center font-rubik font-semibold text-bold-blue text-xs'
+                  : 'font-rubik text-xs collapse'
+              }
+            >
+              SAVE SUCCESSFUL!
+              {clientSitterStatus ? (
+                <p className="pt-1">
+                  sitter <span className="text-semibold">CAN</span> see your
+                  personal info
+                </p>
+              ) : (
+                <p className="pt-1">
+                  sitter <span className="text-red-600">CANNOT</span> see your
+                  personal info
+                </p>
+              )}
+            </p>
           </div>
         </div>
       </div>

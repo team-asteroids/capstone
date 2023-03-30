@@ -117,7 +117,7 @@ export const updateAccessData = createAsyncThunk(
 );
 
 export const updateClientSitterStatus = createAsyncThunk(
-  'updateStatus',
+  'updatePermissions',
   async ({ id, token, sitterId, accessStatus }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
