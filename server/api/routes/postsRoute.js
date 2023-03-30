@@ -122,7 +122,7 @@ router.post('/', requireToken, async (req, res, next) => {
 
     const postWithUser = await Post.findOne({
       where: { content: req.body.content, creatorId: req.user.id },
-      include: { model: User },
+      include: [{ model: User }, { model: Post_Comment }],
     });
     res.status(201).json(postWithUser);
   } catch (e) {
