@@ -431,5 +431,3 @@ const BookingDetailsCard = (props) => {
 };
 
 export default BookingDetailsCard;
-
-// 11, 18, 19, 20, 26, 30, 44, 45, 49, 50
