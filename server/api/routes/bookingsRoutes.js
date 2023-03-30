@@ -1,6 +1,6 @@
 // can come from USER or SITTER routes (or just straight admin)
 const router = require('express').Router({ mergeParams: true });
-const { Booking, User, Sitter, Pet } = require('../../db');
+const { Booking, User, Sitter, Pet, Sitter_Client } = require('../../db');
 const { requireToken, isAdmin } = require('../authMiddleware');
 
 // issues: not hitting some error paths
@@ -67,8 +67,29 @@ router.get('/:bookingId', requireToken, async (req, res, next) => {
       (req.user.id === id && booking.userId === id) ||
       req.user.role === 'admin'
     ) {
+      const sitterUserId = booking.sitter.userId;
+      const sitterInfo = await User.findByPk(sitterUserId);
+
+      const sitterClient = await Sitter_Client.findOne({
+        where: {
+          sitterId: booking.sitter.id,
+          userId: id,
+        },
+      });
+
+      let status;
+
+      if (!sitterClient) {
+        status = false;
+      } else status = sitterClient.dataValues.status;
+
+      const bookingDetails = {
+        ...booking.dataValues,
+        sitterInfo,
+        status,
+      };
       if (!booking) return res.status(404).send('booking does not exist!');
-      res.status(200).send(booking);
+      res.status(200).send(bookingDetails);
     } else {
       res
         .status(403)

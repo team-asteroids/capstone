@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Pet, Access, Sitter } = require('../../db');
+const { User, Pet, Access, Sitter, Sitter_Client } = require('../../db');
 const { requireToken } = require('../authMiddleware');
 
 router.use('/:id/posts', require('./postsRoute'));
@@ -121,6 +121,59 @@ router.put('/:id', requireToken, async (req, res, next) => {
     next(e);
   }
 });
+
+// update access permission between sitters and clients
+router.put(
+  '/:id/sitter/:sitterId/access',
+  requireToken,
+  async (req, res, next) => {
+    try {
+      const id = +req.params.id;
+      const sitterId = +req.params.sitterId;
+
+      if (id === req.user.id || req.user.role === 'admin') {
+        const clientStatus = await Sitter_Client.findOne({
+          where: {
+            userId: id,
+            sitterId: sitterId,
+          },
+        });
+
+        let newStatus;
+
+        if (!clientStatus) {
+          newStatus = await Sitter_Client.create({
+            status: req.body.status,
+            userId: id,
+            sitterId: sitterId,
+          });
+        } else {
+          await clientStatus.update({
+            status: req.body.status,
+          });
+        }
+
+        const updatedStatus = await Sitter_Client.findOne({
+          where: {
+            userId: id,
+            sitterId: sitterId,
+          },
+        });
+
+        return res.status(200).send(updatedStatus);
+      } else {
+        return res
+          .status(403)
+          .send(
+            'inadequate access rights / requested user does not match logged in user'
+          );
+      }
+    } catch (err) {
+      console.error('BACKEND ISSUE UPDATING ACCESS PERMISSIONS');
+      next(err);
+    }
+  }
+);
 
 // Delete single user
 router.delete('/:id', requireToken, async (req, res, next) => {
