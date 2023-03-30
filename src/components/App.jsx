@@ -29,6 +29,7 @@ import {
 } from './index';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import Sort from './ui/Sort';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -70,6 +71,7 @@ const App = () => {
             element={<BookingSuccess />}
           />{' '}
           <Route path="/howls" element={<AllHowls />} />
+          <Route path="/sort" element={<Sort />} />
         </Routes>
 
         <Footer />

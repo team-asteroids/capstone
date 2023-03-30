@@ -37,6 +37,8 @@ const Howl = (props) => {
     await dispatch(deletePost(postId));
   };
 
+  console.log(post);
+
   return (
     <div className="bg-white-smoke border rounded-lg shadow-lg font-rubik">
       <div className="p-2">

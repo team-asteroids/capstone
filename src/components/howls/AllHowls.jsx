@@ -13,22 +13,37 @@ import AddHowl from './AddHowl';
 
 const AllHowls = () => {
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts.allPosts);
+  const postsData = useSelector((state) => state.posts.allPosts);
   const likes = useSelector((state) => state.posts.postLikes);
   const allComments = useSelector((state) => state.posts.allComments);
   const [search, setSearch] = useState('');
   // const likes = useSelector((state) => state.posts.postLikes);
-  //   console.log('posts --> ', posts[0]);
+  // console.log('posts --> ', posts);
   // console.log('likes --> ', likes);
 
   const { userAuth } = useSelector(selectAuth);
 
+  const posts = postsData.slice(0).sort((a, b) => {
+    const timeA = a.createdAt;
+    const timeB = b.createdAt;
+    if (timeA < timeB) {
+      return 1;
+    }
+    if (timeA > timeB) {
+      return -1;
+    }
+    return 0;
+  });
+
+  // console.log('sorted --> ', sorted);
+
   // console.log('userAuth -->', userAuth);
 
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
-  // Get current posts
+  // Pagination -get current posts
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = posts.slice(indexOfFirstItem, indexOfLastItem);
