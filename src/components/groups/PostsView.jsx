@@ -25,13 +25,17 @@ const PostsView = () => {
   });
 
   const [loading, setLoading] = useState(true);
-  console.log(memberIds);
+  console.log(members);
+
+  useEffect(() => {
+    dispatch(fetchGroupMembers(groupId));
+  }, [dispatch]);
 
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(fetchGroupPosts(groupId));
       await dispatch(fetchGroupLikes(groupId));
-      await dispatch(fetchGroupMembers(groupId));
+      // await dispatch(fetchGroupMembers(groupId));
     };
     fetchData();
     setLoading(false);
@@ -54,6 +58,7 @@ const PostsView = () => {
                       <GroupPost
                         key={post.id}
                         post={post}
+                        user={post.user}
                         members={members}
                         memberIds={memberIds}
                         userAuth={userAuth}
