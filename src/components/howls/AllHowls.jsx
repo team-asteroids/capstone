@@ -44,7 +44,7 @@ const AllHowls = () => {
     return 0;
   });
 
-  const handleSubmit = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     dispatch(fetchPostsThroughSearch(search));
     setSearch('');
@@ -60,8 +60,8 @@ const AllHowls = () => {
 
   return (
     <>
-      <div className="bg-white-smoke border rounded-lg shadow-lg">
-        <form onSubmit={handleSubmit}>
+      <div className="bg-white-smoke border rounded-lg shadow-lg p-3">
+        <form onSubmit={handleSearch}>
           <input
             type="text"
             placeholder="Search howls"

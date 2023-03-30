@@ -178,6 +178,13 @@ const CreateGroup = () => {
           </div>
         </div>
       )}
+      <div className="p-4">
+        <Link to="/groups">
+          <button className="p-1 rounded-lg bg-[#cbd5e1] font-mono">
+            Back to Browse Groups
+          </button>
+        </Link>
+      </div>
     </>
   );
 };

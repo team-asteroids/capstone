@@ -18,6 +18,8 @@ const PostsView = () => {
   const likes = useSelector((state) => state.groups.likes);
   const members = useSelector((state) => state.groups.members);
 
+  const member = useSelector((state) => state.groups.member);
+
   const { userAuth } = useSelector(selectAuth);
 
   const memberIds = members.map((mem) => {
@@ -29,7 +31,7 @@ const PostsView = () => {
 
   useEffect(() => {
     dispatch(fetchGroupMembers(groupId));
-  }, [dispatch]);
+  }, [dispatch, member]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,13 +74,6 @@ const PostsView = () => {
                       ))}
                     </div>
                   </div>
-                </div>
-                <div className="p-4">
-                  <Link to="/groups">
-                    <button className="p-1 rounded-lg bg-[#cbd5e1] font-mono">
-                      Back to Browse Groups
-                    </button>
-                  </Link>
                 </div>
               </>
             ) : (

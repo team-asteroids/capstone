@@ -399,6 +399,7 @@ export const groupSlice = createSlice({
       .addCase(deleteGroupMember.fulfilled, (state, { payload }) => {
         state.status = 'fulfilled';
         state.error = '';
+        state.member = {};
         state.members = state.members.filter((mem) => mem.id !== payload.id);
         // what should we do with payload?
       })
