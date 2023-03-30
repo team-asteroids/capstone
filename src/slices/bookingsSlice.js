@@ -17,6 +17,25 @@ export const fetchAllBookings = createAsyncThunk(
   }
 );
 
+export const fetchSingleBooking = createAsyncThunk(
+  'singleBooking',
+  async ({ id, token, bookingId }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        `/api/users/${id}/bookings/${bookingId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const createNewBooking = createAsyncThunk(
   'newBooking',
   async ({ id, bookingDetails, token }, { rejectWithValue }) => {
@@ -84,8 +103,6 @@ const bookingsSlice = createSlice({
     allBookings: [],
     singleBooking: {},
     newBooking: {},
-    // allSitters: [],
-    // singleSitter: {},
     status: '',
     error: '',
   },
@@ -107,6 +124,19 @@ const bookingsSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchAllBookings.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(fetchSingleBooking.fulfilled, (state, { payload }) => {
+        state.singleBooking = payload || {};
+        state.status = 'success';
+        state.error = '';
+      })
+      .addCase(fetchSingleBooking.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchSingleBooking.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       })
