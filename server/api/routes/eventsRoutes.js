@@ -168,7 +168,7 @@ router.delete('/:id', requireToken, async (req, res, next) => {
 
 router.post('/name', async (req, res, next) => {
   try {
-    const { topic } = req.body.params.topic;
+    topic = req.body.params.topic;
     const searchedEvents = await Event.findAll({
       where: {
         topic: {
