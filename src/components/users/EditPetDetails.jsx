@@ -358,9 +358,11 @@ const EditPetDetails = (props) => {
     'English Foxhounds',
   ];
 
+  console.log(location, params);
+
   return (
     <div className="font-rubik flex flex-col gap-5">
-      {!params['*'] ? (
+      {location.pathname.includes('account') ? (
         <button className="text-left text-xs font-semibold" onClick={goBack}>
           BACK
         </button>
