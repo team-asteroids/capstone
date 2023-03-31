@@ -361,7 +361,10 @@ const EditPetDetails = (props) => {
   return (
     <div className="font-rubik flex flex-col gap-5">
       {location.pathname.includes('account') ? (
-        <button className="text-left text-xs font-semibold" onClick={goBack}>
+        <button
+          className="text-left max-w-fit text-xs font-semibold hover:text-bold-purple ease-in-out duration-100"
+          onClick={goBack}
+        >
           BACK
         </button>
       ) : null}

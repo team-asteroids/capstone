@@ -282,7 +282,10 @@ const AddNewPet = (props) => {
 
   return (
     <div className="font-rubik flex flex-col gap-5">
-      <button className="text-left text-xs font-semibold" onClick={goBack}>
+      <button
+        className="text-left text-xs max-w-fit font-semibold hover:text-bold-purple ease-in-out duration-100"
+        onClick={goBack}
+      >
         BACK
       </button>
       <h2 className="font-rubikmono">Add New Pet</h2>
