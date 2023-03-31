@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import {
   addRsvpAsync,
   fetchSingleEvent,
@@ -8,6 +8,7 @@ import {
   getMyRsvpsAsync,
   selectMyRsvps,
   removeRsvpAsync,
+  deleteEventAsync,
 } from '../../slices/eventsSlice';
 import { selectAuth } from '../../slices/authSlice';
 import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
@@ -16,6 +17,7 @@ import Map from '../maps/Map';
 const EventDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const navigate = useNavigate();
   const event = useSelector(selectSingleEvent);
   const user = useSelector(selectUser);
   const auth = useSelector(selectAuth);
@@ -41,6 +43,12 @@ const EventDetails = () => {
     fetchData();
   }, [dispatch, id, event]);
   const alreadyRSVPd = myRsvps.filter((rsvp) => rsvp.eventId === event.id);
+
+  const deleteEvent = async (e) => {
+    e.preventDefault();
+    await dispatch(deleteEventAsync(id));
+    navigate(-1);
+  };
 
   if (!auth.userAuth) {
     return (
@@ -72,11 +80,7 @@ const EventDetails = () => {
               <img className="w-100 " src={defaultImg} alt="puppy event" />
               <div className="p-1">Topic: {event.topic}</div>
 
-              <div className="p-1 ">
-                Description: {event.description}
-                {event.description}
-                {event.description}
-              </div>
+              <div className="p-1 ">Description: {event.description}</div>
               <button className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3">
                 <Link to={'/login'}>Login to RSVP</Link>
               </button>
@@ -112,9 +116,12 @@ const EventDetails = () => {
               </span>
               <span>Event Details</span>
               {auth.userAuth.id === event.creatorId ? (
-                <Link to={`/events/${id}/edit`}>
-                  <div className="pl-5">Edit</div>
-                </Link>
+                <>
+                  <div className="pl-5 flex space-x-4">
+                    <Link to={`/events/${id}/edit`}>Edit </Link>
+                    <button onClick={deleteEvent}>Delete</button>
+                  </div>
+                </>
               ) : (
                 <></>
               )}
