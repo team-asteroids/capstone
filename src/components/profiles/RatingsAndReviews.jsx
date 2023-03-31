@@ -1,13 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RatingsAndReviews = (props) => {
   const { user, sitter } = props;
+  const navigate = useNavigate();
   // console.log({ user: user, sitter: sitter });
+
+  const goBack = () => {
+    navigate(-1);
+  };
 
   const submitRatingAndReview = () => {};
 
   return (
     <div className="font-rubik flex flex-col gap-5">
+      <button
+        className="text-left text-xs font-semibold hover:text-bold-purple ease-in-out duration-100"
+        onClick={goBack}
+      >
+        BACK
+      </button>
       <h2 className="font-rubikmono">Throw A Dog A Bone</h2>
       <section className="w-2/3">
         <form onSubmit={submitRatingAndReview}>

@@ -16,6 +16,7 @@ const EditPetDetails = (props) => {
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
+  console.log(params);
 
   const [formDisabled, setFormDisabled] = useState(false);
 
@@ -360,9 +361,11 @@ const EditPetDetails = (props) => {
 
   return (
     <div className="font-rubik flex flex-col gap-5">
-      {/* <button className="text-left text-xs font-semibold" onClick={goBack}>
-        BACK
-      </button> */}
+      {!params['*'] ? (
+        <button className="text-left text-xs font-semibold" onClick={goBack}>
+          BACK
+        </button>
+      ) : null}
       {formDisabled ? (
         <div className="flex flex-row gap-3 align-baseline">
           <p className="font-rubikmono">{singlePet.name} Profile</p>
