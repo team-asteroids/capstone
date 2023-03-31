@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"node server/server.js\" \"react-scripts start\" ",
-    "build": "react-scripts build",
+    "build": "concurrently \"react-scripts build\" \"npx tailwindcss -i ./src/index.css -o ./public/tailwind.css\" ",
     "api": "nodemon server/server.js",
     "test": "react-scripts test",
     "seed": "node seed.js",
