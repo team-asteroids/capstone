@@ -22,7 +22,7 @@ const SitterBookings = (props) => {
   let completed = [];
   let cancelled = [];
 
-  console.log(sitter, sitterBookings, singleSitter);
+  // console.log(sitter, sitterBookings, singleSitter);
 
   useEffect(() => {
     if (sitter && sitter.id) {
