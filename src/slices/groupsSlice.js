@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchAllGroups = createAsyncThunk('/allGroups', async () => {
   const { data } = await axios.get('https://howlr2-0.onrender.com/api/groups');
+  console.log('backend data --> ', data);
   return data;
 });
 export const fetchSingleGroup = createAsyncThunk(
