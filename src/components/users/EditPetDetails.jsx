@@ -358,8 +358,6 @@ const EditPetDetails = (props) => {
     'English Foxhounds',
   ];
 
-  console.log(location, params);
-
   return (
     <div className="font-rubik flex flex-col gap-5">
       {location.pathname.includes('account') ? (
