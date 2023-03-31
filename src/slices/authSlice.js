@@ -146,7 +146,7 @@ const authSlice = createSlice({
     userAuthSitterClients: [],
     userAuthSitterClient: {},
     sittersOfUserAuth: [],
-    sitterOfUserAuth: [],
+    sitterOfUserAuth: {},
     accessPermissions: {},
     error: '',
     status: '',
