@@ -15,6 +15,7 @@ function Navbar(props) {
           <h1 className="text-bold-blue text-5xl">Howlr</h1>
         </Link>
       </div>
+
       <ul className="flex text-2xl gap-10">
         <Dropdown label="Social" inline={true}>
           <Dropdown.Item icon={EventIcon}>
@@ -28,7 +29,6 @@ function Navbar(props) {
           </Dropdown.Item>
         </Dropdown>
         <li>
-          {' '}
           <Link to={`/sitters`}>Sitters</Link>
         </li>
         {userAuth && userAuth.firstName ? (
@@ -37,8 +37,13 @@ function Navbar(props) {
               <li>Chat</li>
             </Link>
             <Link to={'/account'}>
-              <div className="flex flex-row gap-2">
-                <Avatar img={userAuth.imgSrc} rounded={true} />
+              <div className="flex flex-row gap-5 justify-center items-center">
+                <div></div>
+                <Avatar
+                  className="w-2 h-2 align-middle pr-5"
+                  img={userAuth.imgSrc}
+                  rounded={true}
+                />
                 <li>Hi, {userAuth.firstName}</li>
               </div>
             </Link>

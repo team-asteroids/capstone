@@ -473,6 +473,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Image Url</label>
                   <input
                     id="size"
+                    type="text"
                     name="size"
                     className={validClass}
                     value={petInfo.imageSrc}
