@@ -5,16 +5,32 @@ import {
   selectEvents,
   fetchEventNames,
 } from '../../slices/eventsSlice';
-import { Link } from 'react-router-dom';
-import Pagination from '../ui/Pagination';
-import EventList from './EventList';
+import { selectAuth } from '../../slices/authSlice';
+import EventsView from './EventsView';
 
 const AllEvents = () => {
   const dispatch = useDispatch();
   const { events } = useSelector(selectEvents);
-  const [search, setSearch] = useState('');
 
-  const sortedEvents = events.slice(0).sort((a, b) => {
+  const [search, setSearch] = useState('');
+  const [searchAlert, setSearchAlert] = useState('');
+
+  const { userAuth } = useSelector(selectAuth);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    dispatch(fetchEventNames(search));
+    setSearchAlert(search);
+    setSearch('');
+  };
+
+  const viewAll = (e) => {
+    e.preventDefault();
+    dispatch(fetchAllEvents());
+    setSearchAlert('');
+  };
+
+  const eventsSorted = events.slice(0).sort((a, b) => {
     const timeA = a.event_start;
     const timeB = b.event_start;
     if (timeA < timeB) {
@@ -26,64 +42,60 @@ const AllEvents = () => {
     return 0;
   });
 
-  // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
-
-  // Pagination -- get current posts
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = sortedEvents.slice(indexOfFirstItem, indexOfLastItem);
-  const nPages = Math.ceil(sortedEvents.length / itemsPerPage);
+  // zip code
 
   useEffect(() => {
     dispatch(fetchAllEvents());
   }, [dispatch]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(fetchEventNames(search));
-    setSearch('');
-  };
-
   return (
     <>
       <div className="bg-white-smoke border rounded-lg shadow-lg">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Search events"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <button type="submit">Search</button>
-        </form>
-      </div>
-
-      <div className="bg-gradient-to-r from-bold-blue via-bold-purple to-white-smoke">
-        <Link to="/events/create">
-          <div>Create Event</div>
-        </Link>
-        <div className="container mx-auto ">
-          {currentItems.map((event) => (
-            <EventList
-              key={event.id}
-              eventId={event.id}
-              creatorId={event.creatorId}
-              topic={event.topic}
-              description={event.description}
-              date={event.event_start}
-              zip={event.zip_code}
-            />
-          ))}
+        <div className="p-4 flex flex-row justify-between">
+          <div className="basis-1/3 ">
+            <form onSubmit={handleSearch}>
+              <input
+                type="text"
+                placeholder="Search events"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <button
+                type="submit"
+                className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+              >
+                Search
+              </button>
+            </form>
+            <button
+              onClick={viewAll}
+              className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+            >
+              View All
+            </button>
+          </div>
+          {searchAlert && (
+            <div className="basis-2/3 ">
+              <div className="font-mono">
+                Viewing search results for: {searchAlert}
+              </div>
+            </div>
+          )}
         </div>
-        <br></br>
-        <Pagination
-          nPages={nPages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
       </div>
+      {eventsSorted.length === 0 ? (
+        <div className="bg-gradient-to-r from-yellow-400 to-blue-300">
+          <div className="container mx-auto">
+            <h1 className="text-4xl font-bold text-center text-white">
+              No results found
+            </h1>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <EventsView events={eventsSorted} userAuth={userAuth} />
+        </div>
+      )}
     </>
   );
 };
