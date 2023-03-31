@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAuth, fetchAllUserAuthSitters } from '../../slices/authSlice';
+import { selectAuth } from '../../slices/authSlice';
 import {
   selectBookings,
   fetchAllBookings,
@@ -82,6 +82,13 @@ const RatingsAndReviews = (props) => {
     } else {
       setInvalidRating(true);
       setInvalidReview(true);
+    }
+
+    if (
+      ratingRes.type === 'submitRating/fulfilled' &&
+      reviewRes.type === 'submitReview/fulfilled'
+    ) {
+      goBack();
     }
   };
 
