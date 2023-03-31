@@ -8,6 +8,8 @@ const cors = require('cors');
 
 const PORT = process.env.PORT_NUMBER || 8080;
 
+app.use(cors());
+
 // Static middleware
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
@@ -16,8 +18,6 @@ app.use(volleyball);
 // if (config.util.getEnv('NODE_ENV') !== 'test') {
 //   app.use(volleyball);
 // }
-
-app.use(cors());
 
 // Body parsing middleware
 app.use(express.json());
