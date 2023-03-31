@@ -21,7 +21,7 @@ const options = {
 };
 function Map(props) {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
     libraries,
   });
   if (loadError) return 'Error loading maps';
