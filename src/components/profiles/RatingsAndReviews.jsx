@@ -72,10 +72,10 @@ const RatingsAndReviews = (props) => {
                 <label className={labelClass}>Select Sitting</label>
                 <select className={validClass}>
                   {relevantBookings.map((booking) => (
-                    <option key={booking.id}>{`Id: ${booking.id} - ${format(
+                    <option key={booking.id}>{`id: ${booking.id}: ${format(
                       new Date(booking.startDate),
                       'MMM yyyy'
-                    )}`}</option>
+                    )} (${booking.status})`}</option>
                   ))}
                 </select>
               </div>
