@@ -45,6 +45,44 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+// get all user's sitters
+router.get('/:id/sitters', requireToken, async (req, res, next) => {
+  try {
+    const allSitters = await Sitter_Client.findAll({
+      where: { userId: +req.params.id },
+    });
+
+    const userIdsOfSitters = allSitters.map((sitter) => sitter.userId);
+
+    const userDataOfSitters = await Promise.all(
+      userIdsOfSitters.map((userId) =>
+        User.findByPk(userId, {
+          attributes: {
+            exclude: ['password'],
+          },
+        })
+      )
+    );
+
+    const combinedData = [];
+
+    allSitters.forEach((sitter) => {
+      const userData = userDataOfSitters.find(
+        (user) => user.id === sitter.userId
+      );
+      combinedData.push({
+        ...userData.dataValues,
+        ...sitter.dataValues,
+      });
+    });
+
+    res.status(200).json(combinedData);
+  } catch (err) {
+    console.error('BACKEND ISSUE FETCHING USERS SITTERS');
+    next(err);
+  }
+});
+
 // Get pet details of a user's pets
 
 // Add single user
