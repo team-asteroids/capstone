@@ -136,6 +136,62 @@ export const updateClientSitterStatus = createAsyncThunk(
   }
 );
 
+export const fetchAllSitterAuthClients = createAsyncThunk(
+  'fetchUserClients',
+  async ({ id, token }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/sitters/${id}/clients`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const fetchSingleSitterAuthClient = createAsyncThunk(
+  'fetchClient',
+  async ({ id, token, userId }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/sitters/${id}/clients/${userId}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const fetchAllUserAuthSitters = createAsyncThunk(
+  'fetchUsersSitters',
+  async ({ id, token }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/users/${id}/sitters`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      console.log('axios:', data);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const fetchSingleUsersSitter = createAsyncThunk();
+
+export const fetchAllUserSitterBookings = createAsyncThunk({});
+
+export const fetchSingleUserSitterBooking = createAsyncThunk();
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -279,6 +335,45 @@ const authSlice = createSlice({
         state.error = '';
       })
       .addCase(updateClientSitterStatus.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(fetchAllSitterAuthClients.fulfilled, (state, { payload }) => {
+        state.userAuthSitterClients = payload.clientsAndStatus;
+        state.status = 'fulfilled';
+        state.error = '';
+      })
+      .addCase(fetchAllSitterAuthClients.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchAllSitterAuthClients.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(fetchSingleSitterAuthClient.fulfilled, (state, { payload }) => {
+        state.userAuthSitterClient = payload;
+        state.status = 'fulfilled';
+        state.error = '';
+      })
+      .addCase(fetchSingleSitterAuthClient.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchSingleSitterAuthClient.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(fetchAllUserAuthSitters.fulfilled, (state, { payload }) => {
+        state.sittersOfUserAuth = payload;
+        state.status = 'fulfilled';
+        state.error = '';
+      })
+      .addCase(fetchAllUserAuthSitters.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchAllUserAuthSitters.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
