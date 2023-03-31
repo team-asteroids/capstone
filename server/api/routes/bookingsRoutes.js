@@ -94,16 +94,16 @@ router.get('/:bookingId', requireToken, async (req, res, next) => {
         },
       });
 
-      let status;
+      let clientStatus;
 
       if (!sitterClient) {
-        status = false;
-      } else status = sitterClient.dataValues.status;
+        clientStatus = false;
+      } else clientStatus = sitterClient.dataValues.status;
 
       const bookingDetails = {
         ...booking.dataValues,
         sitterInfo,
-        status,
+        clientStatus,
       };
       if (!booking) return res.status(404).send('booking does not exist!');
       res.status(200).send(bookingDetails);

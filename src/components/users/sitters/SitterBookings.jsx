@@ -15,12 +15,14 @@ const SitterBookings = (props) => {
 
   const dispatch = useDispatch();
   const { token } = useSelector(selectAuth);
-  const { sitterBookings } = useSelector(selectSitters);
+  const { singleSitter, sitterBookings } = useSelector(selectSitters);
 
   let pending = [];
   let approved = [];
   let completed = [];
   let cancelled = [];
+
+  console.log(sitter, sitterBookings, singleSitter);
 
   useEffect(() => {
     if (sitter && sitter.id) {
@@ -31,7 +33,7 @@ const SitterBookings = (props) => {
       dispatch(resetSitterStatus());
       dispatch(resetSingleBooking());
     };
-  }, [sitter]);
+  }, [sitter, sitter.id]);
 
   if (sitterBookings && sitterBookings.length) {
     sitterBookings.forEach((booking) => {
@@ -52,7 +54,7 @@ const SitterBookings = (props) => {
     });
   }
 
-  if (!sitterBookings.length) return <div>Loading...</div>;
+  // if (!sitterBookings.length) return <div>Loading...</div>;
 
   return (
     <div className="font-rubik flex flex-col gap-5">
