@@ -136,6 +136,7 @@ export const updateClientSitterStatus = createAsyncThunk(
   }
 );
 
+// get all logged in user sitter's clients
 export const fetchAllSitterAuthClients = createAsyncThunk(
   'fetchUserClients',
   async ({ id, token }, { rejectWithValue }) => {
@@ -152,6 +153,7 @@ export const fetchAllSitterAuthClients = createAsyncThunk(
   }
 );
 
+// get single logged in user sitter's clients
 export const fetchSingleSitterAuthClient = createAsyncThunk(
   'fetchClient',
   async ({ id, token, userId }, { rejectWithValue }) => {
@@ -169,6 +171,7 @@ export const fetchSingleSitterAuthClient = createAsyncThunk(
   }
 );
 
+// get all logged in user's sitters
 export const fetchAllUserAuthSitters = createAsyncThunk(
   'fetchUsersSitters',
   async ({ id, token }, { rejectWithValue }) => {
@@ -178,7 +181,6 @@ export const fetchAllUserAuthSitters = createAsyncThunk(
           authorization: token,
         },
       });
-      console.log('axios:', data);
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -186,11 +188,14 @@ export const fetchAllUserAuthSitters = createAsyncThunk(
   }
 );
 
-export const fetchSingleUsersSitter = createAsyncThunk();
+// get single logged in user's sitter
+export const fetchSingleUserAuthSitter = createAsyncThunk();
 
-export const fetchAllUserSitterBookings = createAsyncThunk({});
+// get all bookings of logged in user sitter
+export const fetchAllSitterAuthBookings = createAsyncThunk();
 
-export const fetchSingleUserSitterBooking = createAsyncThunk();
+// get single booking of logged in user sitter
+export const fetchSingleSitterAuthBooking = createAsyncThunk();
 
 const authSlice = createSlice({
   name: 'auth',
