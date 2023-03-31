@@ -142,11 +142,13 @@ const authSlice = createSlice({
     token: '',
     userAuth: {},
     accessData: {},
-    userAuthSitter: {},
+    userAuthSitter: {}, // sitter obj
     userAuthSitterClients: [],
     userAuthSitterClient: {},
     sittersOfUserAuth: [],
     sitterOfUserAuth: {},
+    authBookings: [],
+    authBooking: {},
     accessPermissions: {},
     error: '',
     status: '',
@@ -161,6 +163,14 @@ const authSlice = createSlice({
       state.token = '';
       state.status = '';
       state.accessData = {};
+      state.userAuthSitter = {};
+      state.userAuthSitterClients = [];
+      state.userAuthSitterClient = {};
+      state.sittersOfUserAuth = [];
+      state.sitterOfUserAuth = {};
+      state.authBookings = [];
+      state.authBooking = {};
+      state.accessPermissions = {};
       localStorage.clear();
     },
   },
@@ -181,6 +191,7 @@ const authSlice = createSlice({
       })
       .addCase(attemptTokenLogin.fulfilled, (state, { payload }) => {
         state.userAuth = payload.data;
+        state.userAuthSitter = payload.data.userSitter;
         state.status = 'success';
         state.error = '';
         state.token = payload.token;
