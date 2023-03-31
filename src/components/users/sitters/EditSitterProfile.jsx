@@ -4,8 +4,8 @@ import {
   updateSitter,
   updateSitterPrefs,
   resetSitterStatus,
-  selectSitters,
 } from '../../../slices/sittersSlice';
+import { selectAuth } from '../../../slices/authSlice';
 
 const EditSitterProfile = (props) => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const EditSitterProfile = (props) => {
 
   const token = window.localStorage.getItem('token');
 
-  const { singleSitter } = useSelector(selectSitters);
+  const { singleAuthSitter } = useSelector(selectAuth);
 
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [savePrefsSuccess, setSavePrefsSuccess] = useState(false);
@@ -52,7 +52,7 @@ const EditSitterProfile = (props) => {
     return () => {
       dispatch(resetSitterStatus());
     };
-  }, [sitter, sitterPrefs]);
+  }, [sitter, sitterPrefs, singleAuthSitter]);
 
   const labelClass = 'text-xs font-rubikmono';
 

@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link, Routes, Route, useParams } from 'react-router-dom';
-import { logOut, selectAuth, getAccessData } from '../../slices/authSlice';
+import {
+  logOut,
+  selectAuth,
+  getAccessData,
+  fetchSingleAuthSitter,
+} from '../../slices/authSlice';
 import {
   selectSitters,
   resetSitterStatus,
@@ -28,6 +33,7 @@ import {
   SitterOnboarding,
   EditUser,
   UserBookingCardDetails,
+  UserSitters,
 } from '../index';
 import BookingDetailsCard from './sitters/BookingDetailsCard';
 
@@ -37,9 +43,11 @@ function UserAccount() {
   const location = useParams();
   const { id } = useParams();
 
-  const { userAuth, accessData } = useSelector(selectAuth);
+  const { userAuth, accessData, singleAuthSitter } = useSelector(selectAuth);
   const { singleUser } = useSelector(selectUser);
-  const { singleSitter } = useSelector(selectSitters);
+  // const { singleSitter } = useSelector(selectSitters);
+
+  // console.log(singleSitter);
 
   useEffect(() => {
     if (userAuth && userAuth.id) {
@@ -53,6 +61,13 @@ function UserAccount() {
   }, [userAuth]);
 
   useEffect(() => {
+    if (userAuth.userSitter && userAuth.userSitter.id) {
+      const id = userAuth.userSitter.id;
+      dispatch(fetchSingleAuthSitter(id));
+    }
+  }, [userAuth]);
+
+  useEffect(() => {
     if (singleUser && singleUser.sitter) {
       const id = singleUser.sitter.id;
       dispatch(fetchSingleSitter(id));
@@ -61,6 +76,8 @@ function UserAccount() {
       dispatch(resetSitterStatus());
     };
   }, [singleUser.id]);
+
+  // console.log('singleAuthSitter', singleAuthSitter);
 
   const toggleClass =
     "checked w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink";
@@ -76,6 +93,8 @@ function UserAccount() {
     } else navigate('/account/sitter');
   };
 
+  // console.log(userAuth);
+
   if (!userAuth.firstName)
     return <div className="font-rubikmono">Fetching good things...</div>;
 
@@ -90,7 +109,7 @@ function UserAccount() {
                 src={defaultImg}
                 alt="alt"
               ></img>
-              <div className="font-rubikmono">{userAuth.fullName}</div>
+              <div className="font-rubikmono">{singleUser.fullName}</div>
               {userAuth.role === 'sitter' ? (
                 <div>
                   <label className="relative inline-flex items-center cursor-pointer">
@@ -183,27 +202,31 @@ function UserAccount() {
               element={<EditPetDetails user={userAuth} />}
             />
             <Route path="/addpet" element={<AddNewPet user={userAuth} />} />
+            <Route
+              path="/myhistory"
+              element={<UserSitters user={userAuth} />}
+            />
 
             {/* SITTER ROUTES */}
             <Route
               path="/sitter"
-              element={<SitterOverview sitter={singleSitter} />}
+              element={<SitterOverview sitter={singleAuthSitter} />}
             ></Route>
             <Route
               path="/sitter/editprofile"
-              element={<EditSitterProfile sitter={singleSitter} />}
+              element={<EditSitterProfile sitter={singleAuthSitter} />}
             ></Route>
             <Route
               path="/sitter/bookings"
-              element={<SitterBookings sitter={singleSitter} />}
+              element={<SitterBookings sitter={singleAuthSitter} />}
             ></Route>
             <Route
               path="/sitter/bookings/:bookingId"
-              element={<BookingDetailsCard sitter={singleSitter} />}
+              element={<BookingDetailsCard sitter={singleAuthSitter} />}
             />
             <Route
               path="/sitter/clients"
-              element={<SitterClients sitter={singleSitter} />}
+              element={<SitterClients sitter={singleAuthSitter} />}
             />
           </Routes>
         </div>
