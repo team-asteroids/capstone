@@ -171,6 +171,18 @@ export const fetchSingleSitterAuthClient = createAsyncThunk(
   }
 );
 
+export const fetchSingleAuthSitter = createAsyncThunk(
+  'singleAuthSitter',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/sitters/${id}`);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 // get all logged in user's sitters
 export const fetchAllUserAuthSitters = createAsyncThunk(
   'fetchUsersSitters',
@@ -204,6 +216,7 @@ const authSlice = createSlice({
     userAuth: {},
     accessData: {},
     userAuthSitter: {}, // sitter obj
+    singleAuthSitter: {},
     userAuthSitterClients: [],
     userAuthSitterClient: {},
     sittersOfUserAuth: [],
@@ -225,6 +238,7 @@ const authSlice = createSlice({
       state.status = '';
       state.accessData = {};
       state.userAuthSitter = {};
+      state.userAuthSingleSitter = {};
       state.userAuthSitterClients = [];
       state.userAuthSitterClient = {};
       state.sittersOfUserAuth = [];
@@ -379,6 +393,19 @@ const authSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchAllUserAuthSitters.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload.message;
+      })
+      .addCase(fetchSingleAuthSitter.fulfilled, (state, { payload }) => {
+        state.singleAuthSitter = payload || {};
+        state.status = 'fulfilled';
+        state.error = '';
+      })
+      .addCase(fetchSingleAuthSitter.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(fetchSingleAuthSitter.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
       });
