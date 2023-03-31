@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Dropdown } from 'flowbite-react';
+import { Dropdown, Avatar } from 'flowbite-react';
 import EventIcon from '@mui/icons-material/Event';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PetsIcon from '@mui/icons-material/Pets';
@@ -37,7 +37,10 @@ function Navbar(props) {
               <li>Chat</li>
             </Link>
             <Link to={'/account'}>
-              <li>Hi, {userAuth.firstName}</li>
+              <div className="flex flex-row gap-2">
+                <Avatar img={userAuth.imgSrc} rounded={true} />
+                <li>Hi, {userAuth.firstName}</li>
+              </div>
             </Link>
           </>
         ) : (
