@@ -14,6 +14,8 @@ function UserBookings() {
   const { userAuth, token } = useSelector(selectAuth);
   // const [bookingFilter, setBookingFilter] = useState('');
 
+  const { allBookings } = useSelector(selectBookings);
+
   useEffect(() => {
     dispatch(attemptTokenLogin());
   }, [dispatch]);
@@ -29,7 +31,6 @@ function UserBookings() {
     };
   }, [userAuth]);
 
-  const { allBookings } = useSelector(selectBookings);
   let pending = [];
   let approved = [];
   let completed = [];
@@ -53,6 +54,8 @@ function UserBookings() {
         cancelled.push(booking);
     });
   }
+
+  // console.log({userAuth, allBookings});
 
   // if (bookingFilter === 'approved') {
   //   const approvedBookings = allBookings.filter(
