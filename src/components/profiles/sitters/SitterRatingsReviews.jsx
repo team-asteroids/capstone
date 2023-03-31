@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import { format, setMonth, getMonth } from 'date-fns';
 import { Divider } from '@mui/material';
+import { useLocation, Link } from 'react-router-dom';
 
 const SitterRatingsReviews = (props) => {
+  const location = useLocation();
+
   const { reviews, ratings, avgRating } = props;
   useEffect(() => {}, [ratings]);
 
@@ -17,6 +20,12 @@ const SitterRatingsReviews = (props) => {
   return (
     <div>
       <div>
+        <div className="text-left pb-3">
+          <p>Throw a dog a bone!</p>
+          <p>
+            <Link to={`${location.pathname}/reviews`}>Leave a review</Link>
+          </p>
+        </div>
         <div className="pb-3">
           <h3 className="font-rubikmono text-sm pb-3">Ratings</h3>
           <div>
