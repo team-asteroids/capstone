@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchAllEvents = createAsyncThunk('/getAllEvents', async () => {
-  const { data } = await axios.get('/api/events');
+  const { data } = await axios.get('https://howlr2-0.onrender.com/api/events');
 
   return data;
 });
@@ -10,7 +10,9 @@ export const fetchAllEvents = createAsyncThunk('/getAllEvents', async () => {
 export const fetchSingleEvent = createAsyncThunk(
   '/getEvent',
   async (eventId) => {
-    const { data } = await axios.get(`/api/events/${eventId}`);
+    const { data } = await axios.get(
+      `https://howlr2-0.onrender.com/api/events/${eventId}`
+    );
 
     return data;
   }
@@ -21,7 +23,7 @@ export const createEventAsync = createAsyncThunk(
   async ({ eventStart, eventEnd, topic, description, zipCode }) => {
     const token = window.localStorage.getItem('token');
     const { data } = await axios.post(
-      '/api/events',
+      'https://howlr2-0.onrender.com/api/events',
       {
         event_start: eventStart,
         event_end: eventEnd,
@@ -44,7 +46,7 @@ export const editEventAsync = createAsyncThunk(
   async ({ id, formData }) => {
     const token = window.localStorage.getItem('token');
     const { data } = await axios.put(
-      `/api/events/${id}`,
+      `https://howlr2-0.onrender.com/api/events/${id}`,
       {
         event_start: formData.eventStart,
         event_end: formData.eventEnd,
@@ -64,18 +66,21 @@ export const editEventAsync = createAsyncThunk(
 
 export const getMyRsvpsAsync = createAsyncThunk('/getRSVPs', async (id) => {
   const token = window.localStorage.getItem('token');
-  const { data } = await axios.get(`/api/events/attending/${id}`, {
-    headers: {
-      authorization: token,
-    },
-  });
+  const { data } = await axios.get(
+    `https://howlr2-0.onrender.com/api/events/attending/${id}`,
+    {
+      headers: {
+        authorization: token,
+      },
+    }
+  );
   return data;
 });
 
 export const addRsvpAsync = createAsyncThunk('/addRSVP', async (eventId) => {
   const token = window.localStorage.getItem('token');
   const { data } = await axios.post(
-    '/api/events/attending',
+    'https://howlr2-0.onrender.com/api/events/attending',
     { eventId: eventId },
     {
       headers: {
@@ -88,11 +93,14 @@ export const addRsvpAsync = createAsyncThunk('/addRSVP', async (eventId) => {
 
 export const removeRsvpAsync = createAsyncThunk('/removeRSVP', async (id) => {
   const token = window.localStorage.getItem('token');
-  const { data } = await axios.delete(`/api/events/attending/${id}`, {
-    headers: {
-      authorization: token,
-    },
-  });
+  const { data } = await axios.delete(
+    `https://howlr2-0.onrender.com/api/events/attending/${id}`,
+    {
+      headers: {
+        authorization: token,
+      },
+    }
+  );
   console.log('inside thunk', data);
   return data;
 });
@@ -101,11 +109,14 @@ export const fetchEventNames = createAsyncThunk(
   'fetch/searchEvents',
   async (term, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/api/events/name', {
-        params: {
-          search: term,
-        },
-      });
+      const { data } = await axios.post(
+        'https://howlr2-0.onrender.com/api/events/name',
+        {
+          params: {
+            search: term,
+          },
+        }
+      );
       return data;
     } catch (err) {
       return rejectWithValue(err);

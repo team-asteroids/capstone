@@ -10,11 +10,14 @@ export const fetchSingleGroup = createAsyncThunk(
   '/singleGroup',
   async (groupId) => {
     const token = localStorage.getItem('token');
-    const { data } = await axios.get(`/api/groups/${groupId}`, {
-      headers: {
-        authorization: token,
-      },
-    });
+    const { data } = await axios.get(
+      `https://howlr2-0.onrender.com/api/groups/${groupId}`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     // console.log('data--> ', data);
     return data;
   }
@@ -24,11 +27,14 @@ export const fetchMemberships = createAsyncThunk(
   '/getMemberships',
   async (id) => {
     const token = window.localStorage.getItem('token');
-    const { data } = await axios.get(`/api/groups/memberships/${id}`, {
-      headers: {
-        authorization: token,
-      },
-    });
+    const { data } = await axios.get(
+      `https://howlr2-0.onrender.com/api/groups/memberships/${id}`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     return data;
   }
 );
@@ -38,7 +44,7 @@ export const editSingleGroup = createAsyncThunk(
   async ({ groupId, name, topic, description, imageSrc }) => {
     const token = localStorage.getItem('token');
     const { data } = await axios.put(
-      `/api/groups/${groupId}`,
+      `https://howlr2-0.onrender.com/api/groups/${groupId}`,
       {
         name,
         topic,
@@ -58,11 +64,14 @@ export const deleteSingleGroup = createAsyncThunk(
   '/deleteSingleGroup',
   async (groupId) => {
     const token = localStorage.getItem('token');
-    const { data } = await axios.delete(`/api/groups/${groupId}`, {
-      headers: {
-        authorization: token,
-      },
-    });
+    const { data } = await axios.delete(
+      `https://howlr2-0.onrender.com/api/groups/${groupId}`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     return data;
   }
 );
@@ -71,7 +80,7 @@ export const addSingleGroup = createAsyncThunk(
   async ({ name, topic, description, imageSrc }) => {
     const token = localStorage.getItem('token');
     const { data } = await axios.post(
-      '/api/groups',
+      'https://howlr2-0.onrender.com/api/groups',
       { name, topic, description, imageSrc },
       {
         headers: {
@@ -86,11 +95,14 @@ export const fetchGroupMembers = createAsyncThunk(
   '/groupMembers',
   async (groupId) => {
     const token = localStorage.getItem('token');
-    const { data } = await axios.get(`/api/groups/${groupId}/members`, {
-      headers: {
-        authorization: token,
-      },
-    });
+    const { data } = await axios.get(
+      `https://howlr2-0.onrender.com/api/groups/${groupId}/members`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     return data;
   }
 );
