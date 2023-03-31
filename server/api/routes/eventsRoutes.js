@@ -168,12 +168,21 @@ router.delete('/:id', requireToken, async (req, res, next) => {
 
 router.post('/name', async (req, res, next) => {
   try {
-    topic = req.body.params.topic;
+    const search = req.body.params.search;
     const searchedEvents = await Event.findAll({
       where: {
-        topic: {
-          [sequelize.Op.iLike]: `%${topic}%`,
-        },
+        [sequelize.Op.or]: [
+          {
+            topic: {
+              [sequelize.Op.iLike]: `%${search}%`,
+            },
+          },
+          {
+            description: {
+              [sequelize.Op.iLike]: `%${search}%`,
+            },
+          },
+        ],
       },
     });
     res.status(200).json(searchedEvents);

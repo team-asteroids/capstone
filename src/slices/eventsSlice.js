@@ -99,11 +99,11 @@ export const removeRsvpAsync = createAsyncThunk('/removeRSVP', async (id) => {
 
 export const fetchEventNames = createAsyncThunk(
   'fetch/searchEvents',
-  async (name, { rejectWithValue }) => {
+  async (term, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('/api/events/name', {
         params: {
-          topic: name,
+          search: term,
         },
       });
       return data;
