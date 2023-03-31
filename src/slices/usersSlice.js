@@ -5,7 +5,7 @@ export const fetchAllUsers = createAsyncThunk(
   'allUsers',
   async (x, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get('/api/users');
+      const { data } = await axios.get('https://howlr2-0.onrender.com/api/users');
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -17,7 +17,7 @@ export const fetchSingleUser = createAsyncThunk(
   'singleUser',
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/users/${id}`);
+      const { data } = await axios.get(`https://howlr2-0.onrender.com/api/users/${id}`);
       return data;
     } catch (err) {
       return rejectWithValue(err);
