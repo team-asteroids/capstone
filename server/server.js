@@ -4,6 +4,8 @@ const path = require('path');
 const volleyball = require('volleyball');
 const dotenv = require('dotenv').config();
 const config = require('config');
+const cors = require('cors');
+
 const PORT = process.env.PORT_NUMBER || 8080;
 
 // Static middleware
@@ -14,6 +16,8 @@ app.use(volleyball);
 // if (config.util.getEnv('NODE_ENV') !== 'test') {
 //   app.use(volleyball);
 // }
+
+app.use(cors());
 
 // Body parsing middleware
 app.use(express.json());
