@@ -5,7 +5,7 @@ export const logIn = createAsyncThunk(
   'login',
   async (credentials, { rejectWithValue }) => {
     try {
-      let { data } = await axios.post('/api/auth/login', credentials);
+      let { data } = await axios.post('https://howlr2-0.onrender.com/api/auth/login', credentials);
       localStorage.setItem('token', data.token);
       return data;
     } catch (err) {
@@ -20,7 +20,7 @@ export const attemptTokenLogin = createAsyncThunk(
     try {
       const token = window.localStorage.getItem('token');
       if (!token) return {};
-      const { data } = await axios.get(`/api/auth`, {
+      const { data } = await axios.get(`https://howlr2-0.onrender.com/api/auth`, {
         headers: {
           authorization: token,
         },
@@ -36,7 +36,7 @@ export const signUp = createAsyncThunk(
   'signup',
   async (userData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/api/users', userData);
+      const { data } = await axios.post('https://howlr2-0.onrender.com/api/users', userData);
       localStorage.setItem('token', data.token);
       return data;
     } catch (err) {
@@ -50,7 +50,7 @@ export const createAccessData = createAsyncThunk(
   async ({ id, zip, token }, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        `/api/users/${id}/access`,
+        `https://howlr2-0.onrender.com/api/users/${id}/access`,
         { zip: zip },
         {
           headers: {
@@ -68,7 +68,7 @@ export const createAccessData = createAsyncThunk(
 
 export const getAccessData = createAsyncThunk('getAccessData', async (id) => {
   const token = window.localStorage.getItem('token');
-  const { data } = await axios.get(`/api/users/${id}/access/${id}`, {
+  const { data } = await axios.get(`https://howlr2-0.onrender.com/api/users/${id}/access/${id}`, {
     headers: {
       authorization: token,
     },
@@ -83,7 +83,7 @@ export const editSingleUser = createAsyncThunk(
     try {
       const token = window.localStorage.getItem('token');
       if (!token) return {};
-      const { data } = await axios.put(`/api/users/${id}`, formData, {
+      const { data } = await axios.put(`https://howlr2-0.onrender.com/api/users/${id}`, formData, {
         headers: {
           authorization: token,
         },
@@ -101,7 +101,7 @@ export const updateAccessData = createAsyncThunk(
   async ({ id, token, formAccessData }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
-        `/api/users/${id}/access/${id}`,
+        `https://howlr2-0.onrender.com/api/users/${id}/access/${id}`,
         formAccessData,
         {
           headers: {
@@ -121,7 +121,7 @@ export const updateClientSitterStatus = createAsyncThunk(
   async ({ id, token, sitterId, accessStatus }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
-        `/api/users/${id}/sitter/${sitterId}/access`,
+        `https://howlr2-0.onrender.com/api/users/${id}/sitter/${sitterId}/access`,
         { status: accessStatus },
         {
           headers: {
