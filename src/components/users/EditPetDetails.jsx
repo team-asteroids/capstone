@@ -16,7 +16,6 @@ const EditPetDetails = (props) => {
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
-  console.log(params);
 
   const [formDisabled, setFormDisabled] = useState(false);
 
