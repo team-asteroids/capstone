@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { format, setMonth, getMonth } from 'date-fns';
+import { Divider } from '@mui/material';
 
 const SitterRatingsReviews = (props) => {
   const { reviews, ratings, avgRating } = props;
@@ -9,6 +10,9 @@ const SitterRatingsReviews = (props) => {
     const formattedDate = new Date(date);
     return format(formattedDate, 'MMMM d, yyyy');
   };
+
+  const validClass =
+    'appearance-none block w-full bg-white-200 border rounded py-3 px-6 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-1 font-rubik';
 
   return (
     <div>
@@ -23,15 +27,39 @@ const SitterRatingsReviews = (props) => {
         </div>
         <div>
           <h3 className="font-rubikmono text-sm pb-3">Reviews</h3>
-          {reviews.length > 0
-            ? reviews.map((review) => (
-                <div key={review.id} className="pb-3">
-                  <p>{dateFormatter(review.createdAt)}</p>
-                  <p>{review.context}</p>
-                  <p>{review.user.fullName}</p>
-                </div>
-              ))
-            : 'no reviews!'}
+          <div className="flex flex-col gap-5">
+            {reviews.length > 0
+              ? reviews.map((review) => (
+                  <div key={review.id} className="flex flex-col w-full pb-3">
+                    <div className="w-full flex flex-row mb-5 gap-5">
+                      <div className="w-1/2 flex flex-col">
+                        <input
+                          disabled
+                          className={validClass}
+                          defaultValue={dateFormatter(review.createdAt)}
+                        />
+                      </div>
+                      <div className="w-1/2 flex flex-col">
+                        <input
+                          disabled
+                          className={validClass}
+                          defaultValue={review.user.fullName}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <textarea
+                        className={validClass}
+                        rows={4}
+                        disabled
+                        defaultValue={review.context}
+                      />
+                    </div>
+                    <Divider className="py-5" />
+                  </div>
+                ))
+              : 'no reviews!'}
+          </div>
         </div>
       </div>
     </div>
