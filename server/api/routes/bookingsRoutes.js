@@ -36,11 +36,8 @@ router.get('/', requireToken, async (req, res, next) => {
       if (!allUserBookings) {
         return res.status(404).send('no user bookings!');
       } else if (allUserBookings) {
-        // let combinedData = [];
-
         let combinedData = await Promise.all(
           allUserBookings.map(async (userBooking) => {
-            // let combinedUserData = {};
             const sitterUserId = userBooking.sitter.userId;
 
             const sitterInfo = await User.findByPk(sitterUserId);
@@ -52,8 +49,6 @@ router.get('/', requireToken, async (req, res, next) => {
               };
           })
         );
-
-        // console.log('combinedData', combinedData);
 
         res.status(200).send(combinedData);
       }
@@ -99,16 +94,16 @@ router.get('/:bookingId', requireToken, async (req, res, next) => {
         },
       });
 
-      let status;
+      let clientStatus;
 
       if (!sitterClient) {
-        status = false;
-      } else status = sitterClient.dataValues.status;
+        clientStatus = false;
+      } else clientStatus = sitterClient.dataValues.status;
 
       const bookingDetails = {
         ...booking.dataValues,
         sitterInfo,
-        status,
+        clientStatus,
       };
       if (!booking) return res.status(404).send('booking does not exist!');
       res.status(200).send(bookingDetails);
