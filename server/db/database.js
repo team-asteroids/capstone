@@ -4,19 +4,13 @@ const Sequelize = require('sequelize');
 const dotenv = require('dotenv').config();
 const config = require('config');
 
-// const database_url =
-//   process.env.DATABASE_URL || `postgres://localhost:5432/howlr`;
+const database = process.env.REACT_APP_DATABASE_URL;
 
-// console.log('Using database url ', database_url);
+console.log('database url wooo --> ', process.env.REACT_APP_DATABASE_URL);
 
-// const connectionString = process.env.DATABASE_URL;
-
-console.log('database url wooo --> ', process.env.DATABASE_URL);
-// console.log('database url --> ', REACT_APP_CHAT_ENGINE_PRIVATE_KEY)
-
-const db = new Sequelize(
-  'postgresql://nicaemma:v2_42bs7_uQVDEKvdrCGDvE7Wni7fPXB@db.bit.io:5432/nicaemma~Howlr?sslmode=require'
-);
+const db = new Sequelize(database, {
+  logging: false,
+});
 
 const main = async () => {
   try {
