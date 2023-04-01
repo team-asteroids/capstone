@@ -18,26 +18,29 @@ const EventsView = (props) => {
 
   return (
     <div className="h-[calc(100vh_-_5rem)]">
-      <div>
-        <div className="container mx-auto ">
+      <div className="justify-center">
+        <div className="container px-10 m-auto grid grid-cols-3 gap-10 flex-none">
           {currentItems.map((event) => (
-            <EventList
-              key={event.id}
-              eventId={event.id}
-              creatorId={event.creatorId}
-              topic={event.topic}
-              description={event.description}
-              date={event.event_start}
-              zip={event.zip_code}
-            />
+            <div className="w-full">
+              <EventList
+                key={event.id}
+                eventId={event.id}
+                creatorId={event.creatorId}
+                topic={event.topic}
+                description={event.description}
+                date={event.event_start}
+                zip={event.zip_code}
+              />
+            </div>
           ))}
         </div>
-        <br></br>
-        <Pagination
-          nPages={nPages}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        <div className="p-10">
+          <Pagination
+            nPages={nPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
       </div>
     </div>
   );
