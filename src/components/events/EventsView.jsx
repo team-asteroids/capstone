@@ -17,7 +17,7 @@ const EventsView = (props) => {
   const nPages = Math.ceil(events.length / itemsPerPage);
 
   return (
-    <div className="h-[calc(100vh_-_5rem)]">
+    <div className="flex flex-col gap-5 overflow-auto h-[calc(100vh_-_20rem)]">
       <div className="justify-center">
         <div className="container px-10 m-auto grid grid-cols-3 gap-10 flex-none">
           {currentItems.map((event) => (
@@ -34,7 +34,7 @@ const EventsView = (props) => {
             </div>
           ))}
         </div>
-        <div className="p-10">
+        <div className="p-10 absolute">
           <Pagination
             nPages={nPages}
             currentPage={currentPage}

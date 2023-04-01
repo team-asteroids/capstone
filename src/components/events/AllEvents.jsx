@@ -62,7 +62,7 @@ const AllEvents = () => {
     'my-3 py-3 px-4 rounded bg-opacity-25 bg-bold-purple text-bright-white font-rubik font-semibold text-sm';
 
   return (
-    <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-[calc(100vh_-_5rem)]">
+    <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-[calc(100vh_-_10rem)]">
       <div className="px-10 pt-5 flex flex-row justify-between gap-5">
         <div>
           <div className="flex flex-col gap-3">
@@ -116,7 +116,7 @@ const AllEvents = () => {
           </Link>
         </div>
       </div>
-      <div className="h-[calc(100vh_-_16rem)] overflow-auto flex flex-col gap-5">
+      <div className="overflow-auto flex flex-col gap-5">
         {eventsSorted.length === 0 ? (
           <div className="">
             <div className="m-auto">
@@ -126,7 +126,7 @@ const AllEvents = () => {
             </div>
           </div>
         ) : (
-          <div>
+          <div className="overflow-auto">
             <EventsView events={eventsSorted} userAuth={userAuth} />
           </div>
         )}
