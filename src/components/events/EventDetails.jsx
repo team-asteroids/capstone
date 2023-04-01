@@ -50,7 +50,7 @@ const EventDetails = () => {
     navigate(-1);
   };
 
-  if (!auth.userAuth.id) {
+  if (!auth.userAuth) {
     return (
       <>
         {loading ? (
