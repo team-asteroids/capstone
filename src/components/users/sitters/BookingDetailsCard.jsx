@@ -26,7 +26,8 @@ const BookingDetailsCard = (props) => {
 
   const { token } = useSelector(selectAuth);
 
-  const { sitterBooking, client, clientAccess } = useSelector(selectSitters);
+  const { sitterBooking, client, clientAccess, accessStatus } =
+    useSelector(selectSitters);
 
   const [bookingForm, setBookingForm] = useState({
     status: sitterBooking.status,
@@ -38,11 +39,12 @@ const BookingDetailsCard = (props) => {
     // setSaveSuccess(false);
     dispatch(resetSingleBooking());
     dispatch(resetClientAccess());
+
     if (sitter && sitter.id) {
       const id = +sitter.id;
-
       dispatch(fetchSingleSitterBooking({ id, bookingId, token }));
     }
+
     return () => {
       dispatch(resetSitterStatus());
     };
@@ -54,17 +56,13 @@ const BookingDetailsCard = (props) => {
       rate: sitterBooking.rate,
       totalAmount: sitterBooking.totalAmount,
     });
-    let res;
-    const fetchClients = async () => {
+
+    if (sitterBooking && sitterBooking.user && token) {
       const id = +sitter.id;
       const userId = +sitterBooking.user.id;
 
-      res = await dispatch(fetchSingleClient({ id, token, userId }));
-    };
-
-    if (sitterBooking && sitterBooking.user && token) fetchClients();
-    if (res === 'fetchClient/rejected') setAccessConsent(false);
-    else setAccessConsent(true);
+      dispatch(fetchSingleClient({ id, token, userId }));
+    }
 
     return () => {
       // dispatch(resetSingleBooking());
@@ -81,7 +79,7 @@ const BookingDetailsCard = (props) => {
   }, [client]);
 
   const goBack = () => {
-    // dispatch(resetSingleBooking());
+    dispatch(resetSingleBooking());
     dispatch(resetClientAccess());
     navigate(-1);
   };

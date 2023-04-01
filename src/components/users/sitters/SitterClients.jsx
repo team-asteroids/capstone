@@ -5,12 +5,7 @@ import {
   fetchAllSitterAuthClients,
   resetSitterAuthClients,
 } from '../../../slices/authSlice';
-import { useNavigate, useParams, Link } from 'react-router-dom';
-import {
-  fetchSitterClients,
-  selectSitters,
-  resetSitterStatus,
-} from '../../../slices/sittersSlice';
+import { Link } from 'react-router-dom';
 
 const SitterClients = (props) => {
   const dispatch = useDispatch();
