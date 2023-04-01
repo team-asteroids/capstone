@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const API = process.env.REACT_APP_API_URL;
+
 export const logIn = createAsyncThunk(
   'login',
   async (credentials, { rejectWithValue }) => {
     try {
-      let { data } = await axios.post('/api/auth/login', credentials);
+      let { data } = await axios.post(API + '/api/auth/login', credentials);
       localStorage.setItem('token', data.token);
       return data;
     } catch (err) {
@@ -20,7 +22,7 @@ export const attemptTokenLogin = createAsyncThunk(
     try {
       const token = window.localStorage.getItem('token');
       if (!token) return {};
-      const { data } = await axios.get(`/api/auth`, {
+      const { data } = await axios.get(API + `/api/auth`, {
         headers: {
           authorization: token,
         },
@@ -36,7 +38,7 @@ export const signUp = createAsyncThunk(
   'signup',
   async (userData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/api/users', userData);
+      const { data } = await axios.post(API + '/api/users', userData);
       localStorage.setItem('token', data.token);
       return data;
     } catch (err) {
@@ -50,7 +52,7 @@ export const createAccessData = createAsyncThunk(
   async ({ id, zip, token }, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        `/api/users/${id}/access`,
+        API + `/api/users/${id}/access`,
         { zip: zip },
         {
           headers: {
@@ -68,7 +70,7 @@ export const createAccessData = createAsyncThunk(
 
 export const getAccessData = createAsyncThunk('getAccessData', async (id) => {
   const token = window.localStorage.getItem('token');
-  const { data } = await axios.get(`/api/users/${id}/access/${id}`, {
+  const { data } = await axios.get(API + `/api/users/${id}/access/${id}`, {
     headers: {
       authorization: token,
     },
@@ -83,7 +85,7 @@ export const editSingleUser = createAsyncThunk(
     try {
       const token = window.localStorage.getItem('token');
       if (!token) return {};
-      const { data } = await axios.put(`/api/users/${id}`, formData, {
+      const { data } = await axios.put(API + `/api/users/${id}`, formData, {
         headers: {
           authorization: token,
         },
@@ -101,7 +103,7 @@ export const updateAccessData = createAsyncThunk(
   async ({ id, token, formAccessData }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
-        `/api/users/${id}/access/${id}`,
+        API + `/api/users/${id}/access/${id}`,
         formAccessData,
         {
           headers: {
@@ -121,7 +123,7 @@ export const updateClientSitterStatus = createAsyncThunk(
   async ({ id, token, sitterId, accessStatus }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
-        `/api/users/${id}/sitter/${sitterId}/access`,
+        API + `/api/users/${id}/sitter/${sitterId}/access`,
         { status: accessStatus },
         {
           headers: {
@@ -141,7 +143,7 @@ export const fetchAllUserAuthSitters = createAsyncThunk(
   'fetchUsersSitters',
   async ({ id, token }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/users/${id}/sitters`, {
+      const { data } = await axios.get(API + `/api/users/${id}/sitters`, {
         headers: {
           authorization: token,
         },
