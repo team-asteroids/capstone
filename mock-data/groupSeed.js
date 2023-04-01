@@ -1,163 +1,123 @@
 const groups = [
   {
-    name: 'Blacksmith plover',
+    name: 'NYC Dog Owners Group',
     topic: 'recommendations',
     description:
-      'maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem',
-    imageSrc: 'http://dummyimage.com/201x100.png/ff4444/ffffff',
+      'This group is dedicated to advocating for dog owners in NYC and promoting responsible dog ownership. They host events and meetups throughout the city, and provide resources for dog owners on topics such as training, health, and legal issues.',
+    imageSrc: '',
     creatorId: 12,
   },
   {
-    name: 'Kookaburra, laughing',
+    name: 'Big Apple Greyhound Adoption',
     topic: 'playdates',
     description:
-      'aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia',
-    imageSrc: 'http://dummyimage.com/233x100.png/5fa2dd/ffffff',
+      'This organization rescues retired racing greyhounds and finds them loving homes in the NYC area. They also provide education and support for adopters, and host events to raise awareness about the breed.',
+    imageSrc: '',
     creatorId: 1,
   },
   {
-    name: 'Pine squirrel',
+    name: 'Pit Bull Rescue Central',
     topic: 'playdates',
     description:
-      'amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non quam nec dui luctus',
-    imageSrc: 'http://dummyimage.com/175x100.png/ff4444/ffffff',
-    creatorId: 20,
+      'This group is dedicated to rescuing and rehabilitating pit bulls and finding them permanent homes. They provide education and resources for owners and advocates, and work to combat stereotypes about the breed.',
+    imageSrc: '',
+    creatorId: 19,
   },
   {
-    name: 'Prairie falcon',
+    name: 'New York City Shiba Inu Meetup Group',
     topic: 'exotic pets',
     description:
-      'justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat',
-    imageSrc: 'http://dummyimage.com/158x100.png/dddddd/000000',
+      'This group brings together owners of Shiba Inus, a popular breed in NYC, for playdates and socialization. They also provide resources and support for owners on topics such as training and health.',
+    imageSrc: '',
     creatorId: 16,
   },
   {
-    name: 'Catfish, blue',
+    name: 'NYC Dachshund Meetup Group',
     topic: 'neighborhood',
     description:
-      'sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend pede libero quis orci nullam molestie nibh in lectus pellentesque at nulla',
-    imageSrc: 'http://dummyimage.com/171x100.png/dddddd/000000',
+      'This group is for owners of Dachshunds and Dachshund mixes in NYC. They host meetups and events throughout the city, and provide resources and support for owners on topics such as training and health.',
+    imageSrc: '',
     creatorId: 5,
   },
   {
-    name: 'Camel, dromedary',
+    name: 'Animal Haven',
     topic: 'neighborhood',
     description:
-      'tempus vivamus in felis eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula',
-    imageSrc: 'http://dummyimage.com/123x100.png/ff4444/ffffff',
-    creatorId: 44,
+      'This animal rescue organization works to find homes for dogs (and cats) who are in need. They also provide support and resources for pet owners in the community, including training and behavior advice.',
+    imageSrc: '',
+    creatorId: 4,
   },
   {
-    name: "Denham's bustard",
+    name: 'NYC Pug Meetup Group',
     topic: 'exotic pets',
     description:
-      'donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies',
-    imageSrc: 'http://dummyimage.com/222x100.png/ff4444/ffffff',
+      'This group is for owners of Pugs in NYC. They host regular meetups and events where Pug owners can socialize and share tips on raising and caring for their dogs.',
+    imageSrc: '',
     creatorId: 5,
   },
   {
-    name: 'Red-legged pademelon',
+    name: 'Badass Brooklyn Animal Rescue',
     topic: 'exotic pets',
     description:
-      'sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis',
-    imageSrc: 'http://dummyimage.com/190x100.png/5fa2dd/ffffff',
+      'This rescue organization specializes in rescuing dogs from high-kill shelters in the South and bringing them to loving homes in the Northeast. They also provide education and resources for pet owners, and advocate for animal welfare.',
+    imageSrc: '',
     creatorId: 12,
   },
   {
-    name: 'Racer snake',
+    name: 'NYC Schnauzers & Friends Meetup Group',
     topic: 'neighborhood',
     description:
-      'cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non',
-    imageSrc: 'http://dummyimage.com/101x100.png/5fa2dd/ffffff',
-    creatorId: 33,
+      'This group is for owners of Schnauzers and other small breeds in NYC. They host regular meetups and events where owners can socialize and share tips on raising and caring for their dogs.',
+    imageSrc: '',
+    creatorId: 13,
   },
   {
-    name: 'Goliath heron',
+    name: 'NYC Cocker Spaniel Meetup Group',
     topic: 'neighborhood',
     description:
-      'in libero ut massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit',
-    imageSrc: 'http://dummyimage.com/180x100.png/ff4444/ffffff',
-    creatorId: 40,
-  },
-  {
-    name: "Verreaux's sifaka",
-    topic: 'neighborhood',
-    description:
-      'odio curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor morbi vel lectus in quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum sit',
-    imageSrc: 'http://dummyimage.com/119x100.png/ff4444/ffffff',
-    creatorId: 35,
-  },
-  {
-    name: 'Heron, black-crowned night',
-    topic: 'recommendations',
-    description:
-      'vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus',
-    imageSrc: 'http://dummyimage.com/112x100.png/ff4444/ffffff',
-    creatorId: 49,
-  },
-  {
-    name: 'Cormorant, pied',
-    topic: 'playdates',
-    description:
-      'quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam convallis nunc',
-    imageSrc: 'http://dummyimage.com/237x100.png/cc0000/ffffff',
-    creatorId: 3,
-  },
-  {
-    name: 'Blackish oystercatcher',
-    topic: 'recommendations',
-    description:
-      'nibh ligula nec sem duis aliquam convallis nunc proin at turpis a pede',
-    imageSrc: 'http://dummyimage.com/113x100.png/5fa2dd/ffffff',
-    creatorId: 23,
-  },
-  {
-    name: 'Nubian bee-eater',
-    topic: 'recommendations',
-    description:
-      'dapibus augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer',
-    imageSrc: 'http://dummyimage.com/203x100.png/5fa2dd/ffffff',
-    creatorId: 9,
-  },
-  {
-    name: 'Wagtail, african pied',
-    topic: 'playdates',
-    description:
-      'praesent blandit lacinia erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus vel',
-    imageSrc: 'http://dummyimage.com/154x100.png/ff4444/ffffff',
+      'This group is for owners of Cocker Spaniels in NYC. They host regular meetups and events where owners can socialize and share tips on raising and caring for their dogs.',
+    imageSrc: '',
     creatorId: 17,
   },
   {
-    name: 'White-throated toucan',
+    name: 'New York City Shiba Inu Meetup Group',
+    topic: 'neighborhood',
+    description:
+      'odio curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor morbi vel lectus in quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum sit',
+    imageSrc: '',
+    creatorId: 5,
+  },
+  {
+    name: 'Paws and Pals',
     topic: 'recommendations',
     description:
-      'nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum',
-    imageSrc: 'http://dummyimage.com/234x100.png/dddddd/000000',
+      'This organization provides pet therapy services to hospitals, nursing homes, and other healthcare facilities. They also offer obedience training and other resources for pet owners',
+    imageSrc: '',
+    creatorId: 9,
+  },
+  {
+    name: 'NYC Dachshund Meetup Group',
+    topic: 'playdates',
+    description:
+      'This group is for owners of Dachshunds in NYC. They host regular meetups and events where owners can socialize and share tips on raising and caring for their dogs.',
+    imageSrc: '',
     creatorId: 3,
   },
   {
-    name: 'Creeper, black-tailed tree',
-    topic: 'exotic pets',
+    name: 'The Good Dog Foundation',
+    topic: 'recommendations',
     description:
-      'luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus',
-    imageSrc: 'http://dummyimage.com/141x100.png/5fa2dd/ffffff',
-    creatorId: 8,
+      'This organization provides animal-assisted therapy services to those in need, including hospitals, schools, and disaster relief efforts. They also offer training and certification programs for dogs and their owners.',
+    imageSrc: '',
+    creatorId: 12,
   },
   {
-    name: 'Marshbird, brown and yellow',
-    topic: 'playdates',
+    name: 'NYC Pit Bull Meetup Group',
+    topic: 'recommendations',
     description:
-      'quis lectus suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt',
-    imageSrc: 'http://dummyimage.com/189x100.png/cc0000/ffffff',
-    creatorId: 28,
-  },
-  {
-    name: 'Phalarope, red',
-    topic: 'playdates',
-    description:
-      'vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor',
-    imageSrc: 'http://dummyimage.com/210x100.png/cc0000/ffffff',
-    creatorId: 21,
+      'This group is for owners of Pit Bulls in NYC. They host regular meetups and events where owners can socialize and share tips on raising and caring for their dogs.',
+    imageSrc: '',
+    creatorId: 9,
   },
 ];
 
