@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  updateSitter,
-  updateSitterPrefs,
-  resetSitterStatus,
-} from '../../../slices/sittersSlice';
+
 import {
   selectAuth,
   updateSitterAuthPrefs,

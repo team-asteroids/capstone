@@ -16,10 +16,7 @@ const BookingCard = (props) => {
     'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
   const disabledClass =
-    'appearance-none block border-slate-400 w-full bg-slate-200/40 border rounded py-3 px-4 leading-tight mt-3 font-rubik';
-
-  // const invalidClass =
-  //   'appearance-none block w-full border border-red-500 bg-white-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+    'appearance-none block border-slate-400 w-full bg-slate-200/30 border rounded py-3 px-4 leading-tight mt-3 font-rubik';
 
   return (
     <div className="pt-3 px-5 bg-bright-white bg-opacity-20 border rounded-lg">
@@ -43,7 +40,6 @@ const BookingCard = (props) => {
             )}
             <div>
               <p className="font-rubikmono text-sm py-1">Pets:</p>
-
               {bookingPets && bookingPets.length
                 ? bookingPets.map((pet) => (
                     <div key={pet.id}>

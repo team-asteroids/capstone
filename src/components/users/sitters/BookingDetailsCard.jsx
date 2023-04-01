@@ -10,11 +10,13 @@ import {
   resetSingleBooking,
   fetchSingleClient,
   fetchClientAccessData,
+  resetClientAccess,
 } from '../../../slices/sittersSlice';
 
 const BookingDetailsCard = (props) => {
   const { sitter } = props;
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [accessConsent, setAccessConsent] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,6 +25,7 @@ const BookingDetailsCard = (props) => {
   const bookingId = +params.bookingId;
 
   const { token } = useSelector(selectAuth);
+
   const { sitterBooking, client, clientAccess } = useSelector(selectSitters);
 
   const [bookingForm, setBookingForm] = useState({
@@ -34,6 +37,7 @@ const BookingDetailsCard = (props) => {
   useEffect(() => {
     // setSaveSuccess(false);
     dispatch(resetSingleBooking());
+    dispatch(resetClientAccess());
     if (sitter && sitter.id) {
       const id = +sitter.id;
 
@@ -50,14 +54,21 @@ const BookingDetailsCard = (props) => {
       rate: sitterBooking.rate,
       totalAmount: sitterBooking.totalAmount,
     });
-
-    if (sitterBooking && sitterBooking.user && token) {
+    let res;
+    const fetchClients = async () => {
       const id = +sitter.id;
       const userId = +sitterBooking.user.id;
-      dispatch(fetchSingleClient({ id, token, userId }));
-    }
+
+      res = await dispatch(fetchSingleClient({ id, token, userId }));
+    };
+
+    if (sitterBooking && sitterBooking.user && token) fetchClients();
+    if (res === 'fetchClient/rejected') setAccessConsent(false);
+    else setAccessConsent(true);
+
     return () => {
-      resetSingleBooking();
+      // dispatch(resetSingleBooking());
+      dispatch(resetClientAccess());
     };
   }, [bookingId, sitterBooking, sitterBooking.id]);
 
@@ -70,6 +81,8 @@ const BookingDetailsCard = (props) => {
   }, [client]);
 
   const goBack = () => {
+    // dispatch(resetSingleBooking());
+    dispatch(resetClientAccess());
     navigate(-1);
   };
 
@@ -132,7 +145,13 @@ const BookingDetailsCard = (props) => {
                       <div className="w-1/3 flex flex-col pr-6">
                         <label className={labelClass}>Status</label>
                         <select
-                          className={validClass}
+                          className={
+                            ['pending', 'approved'].includes(
+                              sitterBooking.status
+                            )
+                              ? validClass
+                              : disabledClass
+                          }
                           value={bookingForm.status}
                           disabled={
                             ['pending', 'approved'].includes(
@@ -214,7 +233,13 @@ const BookingDetailsCard = (props) => {
                       <div className="w-1/4 flex flex-col pr-6">
                         <label className={labelClass}>Rate</label>
                         <input
-                          className={validClass}
+                          className={
+                            ['pending', 'approved'].includes(
+                              sitterBooking.status
+                            )
+                              ? validClass
+                              : disabledClass
+                          }
                           type="number"
                           min={0}
                           max={100}

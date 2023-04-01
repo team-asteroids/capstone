@@ -21,18 +21,19 @@ const UserBookingCardDetails = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
+
   const { singleBooking } = useSelector(selectBookings);
 
   const bookingId = +params.bookingId;
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveAccessSuccess, setSaveAccessSuccess] = useState(false);
-  console.log('singleBooking', singleBooking);
+
   const { token, accessPermissions } = useSelector(selectAuth);
 
   const [clientSitterStatus, setClientSitterStatus] = useState(
     singleBooking.clientStatus
   );
-  console.log(singleBooking.clientStatus);
+
   const [bookingForm, setBookingForm] = useState({});
 
   useEffect(() => {
@@ -77,6 +78,9 @@ const UserBookingCardDetails = (props) => {
 
   const validClass =
     'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+
+  const disabledClass =
+    'appearance-none block border-slate-400 w-full bg-slate-200/30 border rounded py-3 px-4 leading-tight mt-3 font-rubik';
 
   const validLinkClass =
     'cursor-pointer appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
@@ -134,7 +138,13 @@ const UserBookingCardDetails = (props) => {
                       <div className="w-1/3 flex flex-col pr-6">
                         <label className={labelClass}>Status</label>
                         <select
-                          className={validClass}
+                          className={
+                            ['cancelled', 'withdrawn', 'declined'].includes(
+                              singleBooking.status
+                            )
+                              ? disabledClass
+                              : validClass
+                          }
                           value={bookingForm.status}
                           disabled={
                             ['cancelled', 'withdrawn', 'declined'].includes(
@@ -240,15 +250,16 @@ const UserBookingCardDetails = (props) => {
                       <div className="w-1/4 flex flex-col pr-6">
                         <label className={labelClass}>Total Days</label>
                         <input
-                          className={validClass}
+                          className={disabledClass}
                           value={bookingForm.totalDays}
+                          type="number"
                           disabled={true}
                         />
                       </div>
                       <div className="w-1/4 flex flex-col pr-6">
                         <label className={labelClass}>Rate</label>
                         <input
-                          className={validClass}
+                          className={disabledClass}
                           type="number"
                           min={0}
                           max={100}
@@ -260,7 +271,8 @@ const UserBookingCardDetails = (props) => {
                       <div className="w-1/4 flex flex-col">
                         <label className={labelClass}>Total Amount</label>
                         <input
-                          className={validClass}
+                          className={disabledClass}
+                          type="number"
                           value={singleBooking.totalAmount}
                           disabled={true}
                         />
@@ -294,6 +306,7 @@ const UserBookingCardDetails = (props) => {
                       >
                         <input
                           className={validLinkClass}
+                          type="text"
                           defaultValue={singleBooking.sitterInfo.fullName}
                           disabled
                         />
@@ -307,6 +320,7 @@ const UserBookingCardDetails = (props) => {
                             <Link to={`/account/pets/${pet.id}`}>
                               <input
                                 key={pet.id}
+                                type="text"
                                 defaultValue={pet.name}
                                 className={validLinkClass}
                                 disabled
