@@ -49,3 +49,4 @@ export { default as EditEvent } from './events/EditEvent.jsx';
 export { default as UserBookingCardDetails } from './users/UserBookingCardDetails.jsx';
 export { default as SitterOnboarding } from './sitters/SitterOnboarding.jsx';
 export { default as SitterSubmitted } from './sitters/SitterSubmitted.jsx';
+export { default as RatingsAndReviews } from './profiles/RatingsAndReviews.jsx';

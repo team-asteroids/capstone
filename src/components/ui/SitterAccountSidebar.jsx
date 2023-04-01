@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link, useParams } from 'react-router-dom';
+import { selectAuth } from '../../slices/authSlice';
 
 function SitterAccountSidebar() {
   const dispatch = useDispatch();
@@ -9,7 +10,7 @@ function SitterAccountSidebar() {
 
   const [selectedSidebar, setSelectedSidebar] = useState('sitter');
 
-  // const { userAuth } = useSelector(selectAuth);
+  const { userAuth } = useSelector(selectAuth);
 
   useEffect(() => {
     if (!location) {

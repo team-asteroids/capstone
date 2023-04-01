@@ -5,7 +5,8 @@ import { useNavigate, Routes, Route, useParams, Link } from 'react-router-dom';
 import defaultImg from '../../img/default-dog.jpg';
 import { fetchSingleSitter } from '../../slices/sittersSlice';
 import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
-import { SitterProfile, UserSocialView } from '../index';
+import { RatingsAndReviews, SitterProfile, UserSocialView } from '../index';
+import { selectAuth } from '../../slices/authSlice';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const UserProfile = () => {
   const location = useParams();
 
   const { singleUser } = useSelector(selectUser);
+  const { userAuth } = useSelector(selectAuth);
 
   const { id } = useParams();
 
@@ -107,6 +109,12 @@ const UserProfile = () => {
             <Route
               path="/sitter/*"
               element={<SitterProfile sitter={singleUser.sitter} />}
+            />
+            <Route
+              path="/sitter/:sitterId/reviews/*"
+              element={
+                <RatingsAndReviews user={userAuth} sitter={singleUser.sitter} />
+              }
             />
           </Routes>
         </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 function About() {
   return (
@@ -33,10 +34,76 @@ function About() {
               Meet Our Team
             </h2>
             <ul className="list-disc text-lg text-gray-700 mb-8">
-              <li>Nica: ~photo and or quick blurb~</li>
-              <li>Allyssa: ~photo and or quick blurb~</li>
-              <li>Forhad: ~photo and or quick blurb~</li>
-              <li>Paul: ~photo and or quick blurb~</li>
+              <li className="flex items-center">
+                <span className="mr-2">Nica: ~photo and or quick blurb~</span>
+                <a
+                  href="https://www.github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaGithub />
+                </a>
+                <a
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaLinkedin />
+                </a>
+              </li>
+              <li className="flex items-center">
+                <span className="mr-2">
+                  Allyssa: ~photo and or quick blurb~
+                </span>
+                <a
+                  href="https://www.github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaGithub />
+                </a>
+                <a
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaLinkedin />
+                </a>
+              </li>
+              <li className="flex items-center">
+                <span className="mr-2">Forhad: ~photo and or quick blurb~</span>
+                <a
+                  href="https://www.github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaGithub />
+                </a>
+                <a
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaLinkedin />
+                </a>
+              </li>
+              <li className="flex items-center">
+                <span className="mr-2">Paul: ~photo and or quick blurb~</span>
+                <a
+                  href="https://www.github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaGithub />
+                </a>
+                <a
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaLinkedin />
+                </a>
+              </li>
             </ul>
           </div>
         </div>

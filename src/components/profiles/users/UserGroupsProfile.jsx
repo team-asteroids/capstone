@@ -13,7 +13,7 @@ const UserGroupsProfile = (props) => {
     dispatch(fetchMemberships(id));
   }, [dispatch]);
 
-  console.log(memberships);
+  // console.log(memberships);
   return (
     <div>
       <h2 className="font-semibold text-sm">MY GROUPS</h2>
