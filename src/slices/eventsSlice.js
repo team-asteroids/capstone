@@ -62,6 +62,16 @@ export const editEventAsync = createAsyncThunk(
   }
 );
 
+export const deleteEventAsync = createAsyncThunk('/deleteEvent', async (id) => {
+  const token = window.localStorage.getItem('token');
+  const { data } = await axios.delete(`/api/events/${id}`, {
+    headers: {
+      authorization: token,
+    },
+  });
+  return data;
+});
+
 export const getMyRsvpsAsync = createAsyncThunk('/getRSVPs', async (id) => {
   const token = window.localStorage.getItem('token');
   const { data } = await axios.get(`/api/events/attending/${id}`, {
@@ -161,6 +171,19 @@ export const eventsSlice = createSlice({
         state.error = '';
       })
       .addCase(editEventAsync.rejected, (state, { payload }) => {
+        state.status = 'failed';
+        state.error = payload;
+      })
+      .addCase(deleteEventAsync.fulfilled, (state, { payload }) => {
+        state.status = 'fulfilled';
+        state.error = '';
+        // what should we do with payload?
+      })
+      .addCase(deleteEventAsync.pending, (state, { payload }) => {
+        state.status = 'loading';
+        state.error = '';
+      })
+      .addCase(deleteEventAsync.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload;
       })
