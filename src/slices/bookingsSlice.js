@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const API = process.env.REACT_APP_API_URL;
+
 export const fetchAllBookings = createAsyncThunk(
   'allBookings',
   async ({ id, token }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/users/${id}/bookings`, {
+      const { data } = await axios.get(API + `/api/users/${id}/bookings`, {
         headers: {
           authorization: token,
         },
@@ -22,7 +24,7 @@ export const fetchSingleBooking = createAsyncThunk(
   async ({ id, token, bookingId }, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
-        `/api/users/${id}/bookings/${bookingId}`,
+        API + `/api/users/${id}/bookings/${bookingId}`,
         {
           headers: {
             authorization: token,
@@ -41,7 +43,7 @@ export const createNewBooking = createAsyncThunk(
   async ({ id, bookingDetails, token }, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        `/api/users/${id}/bookings`,
+        API + `/api/users/${id}/bookings`,
         bookingDetails,
         {
           headers: {
@@ -62,7 +64,7 @@ export const updateBooking = createAsyncThunk(
   async ({ id, status, token, bookingId }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
-        `/api/users/${id}/bookings/${bookingId}`,
+        API + `/api/users/${id}/bookings/${bookingId}`,
         { status: status },
         {
           headers: {
@@ -82,7 +84,7 @@ export const addPetsToBooking = createAsyncThunk(
   async ({ id, token, bookingId, petIds }, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
-        `/api/users/${id}/bookings/${bookingId}/pets`,
+        API + `/api/users/${id}/bookings/${bookingId}/pets`,
         { pets: petIds },
         {
           headers: {
