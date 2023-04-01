@@ -18,6 +18,7 @@ const AllHowls = () => {
   const allComments = useSelector((state) => state.posts.allComments);
 
   const [search, setSearch] = useState('');
+  const [searchAlert, setSearchAlert] = useState('');
   const [sorted, setSorted] = useState('recent');
 
   const recentPosts = postsData.slice(0).sort((a, b) => {
@@ -44,10 +45,19 @@ const AllHowls = () => {
     return 0;
   });
 
+  console.log('sorted -->', sorted);
+
   const handleSearch = (e) => {
     e.preventDefault();
     dispatch(fetchPostsThroughSearch(search));
+    setSearchAlert(search);
     setSearch('');
+  };
+
+  const viewAll = (e) => {
+    e.preventDefault();
+    dispatch(fetchAllPosts());
+    setSearchAlert('');
   };
 
   useEffect(() => {
@@ -75,7 +85,20 @@ const AllHowls = () => {
             Search
           </button>
         </form>
+        <button
+          onClick={viewAll}
+          className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+        >
+          View All
+        </button>
       </div>
+      {searchAlert && (
+        <div className="basis-2/3 ">
+          <div className="font-mono">
+            Viewing search results for: {searchAlert}
+          </div>
+        </div>
+      )}
       <div>
         <div className="bg-white-smoke border rounded-lg shadow-lg font-rubik">
           <div className="p-2">
