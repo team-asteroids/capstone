@@ -1,7 +1,7 @@
 const pets = [
   {
     name: 'Frank',
-    breed: 'French Bulldogs',
+    breed: 'American Eskimo Dogs',
     age: 13,
     size: 'extra-large',
     sex: 'female',
@@ -10,7 +10,7 @@ const pets = [
   },
   {
     name: 'Rufus',
-    breed: 'Samoyed',
+    breed: 'Silky Terriers',
     age: 3,
     size: 'large',
     sex: 'male',
@@ -19,7 +19,7 @@ const pets = [
   },
   {
     name: 'Buddy',
-    breed: 'Golden Retriever',
+    breed: 'Bearded Collies',
     age: 5,
     size: 'large',
     sex: 'male',
@@ -28,7 +28,7 @@ const pets = [
   },
   {
     name: 'Lola',
-    breed: 'Pug',
+    breed: 'Silky Terriers',
     age: 7,
     size: 'small',
     sex: 'female',
@@ -37,7 +37,7 @@ const pets = [
   },
   {
     name: 'Max',
-    breed: 'German Shepherd',
+    breed: 'Belgian Sheepdogs',
     age: 4,
     size: 'medium',
     sex: 'male',
@@ -46,7 +46,8 @@ const pets = [
   },
   {
     name: 'Bailey',
-    breed: 'Labrador Retriever',
+    breed: 'Parson Russell Terriers',
+
     age: 2,
     size: 'large',
     sex: 'female',
@@ -55,7 +56,7 @@ const pets = [
   },
   {
     name: 'Charlie',
-    breed: 'Boxer',
+    breed: 'Parson Russell Terriers',
     age: 6,
     size: 'extra-large',
     sex: 'male',
@@ -64,7 +65,7 @@ const pets = [
   },
   {
     name: 'Daisy',
-    breed: 'Bulldog',
+    breed: 'Silky Terriers',
     age: 1,
     size: 'small',
     sex: 'female',
@@ -73,7 +74,7 @@ const pets = [
   },
   {
     name: 'Rocky',
-    breed: 'Rottweiler',
+    breed: 'Shih Tzu',
     age: 9,
     size: 'large',
     sex: 'male',
@@ -82,7 +83,7 @@ const pets = [
   },
   {
     name: 'Maggie',
-    breed: 'Beagle',
+    breed: 'Bernese Mountain Dogs',
     age: 8,
     size: 'medium',
     sex: 'female',
@@ -91,7 +92,7 @@ const pets = [
   },
   {
     name: 'Toby',
-    breed: 'Shih Tzu',
+    breed: 'Salukis',
     age: 5,
     size: 'small',
     sex: 'male',
@@ -100,7 +101,7 @@ const pets = [
   },
   {
     name: 'Molly',
-    breed: 'Dalmatian',
+    breed: 'Pulik',
     age: 4,
     size: 'medium',
     sex: 'female',
@@ -109,7 +110,7 @@ const pets = [
   },
   {
     name: 'Jack',
-    breed: 'Chihuahua',
+    breed: 'Ibizan Hounds',
     age: 2,
     size: 'small',
     sex: 'male',
@@ -118,7 +119,7 @@ const pets = [
   },
   {
     name: 'Bella',
-    breed: 'Yorkshire Terrier',
+    breed: 'Chinooks',
     age: 1,
     size: 'small',
     sex: 'female',
@@ -127,7 +128,7 @@ const pets = [
   },
   {
     name: 'Bear',
-    breed: 'Great Dane',
+    breed: 'Canaan Dogs',
     age: 6,
     size: 'extra-large',
     sex: 'male',
@@ -136,7 +137,7 @@ const pets = [
   },
   {
     name: 'Lucy',
-    breed: 'Cocker Spaniel',
+    breed: 'Harriers',
     age: 3,
     size: 'medium',
     sex: 'female',
@@ -145,7 +146,7 @@ const pets = [
   },
   {
     name: 'Cooper',
-    breed: 'Bernese Mountain Dog',
+    breed: 'Belgian Laekenois',
     age: 5,
     size: 'extra-large',
     sex: 'male',
