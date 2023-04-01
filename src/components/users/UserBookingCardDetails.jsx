@@ -54,6 +54,7 @@ const UserBookingCardDetails = (props) => {
       endDate: singleBooking.endDate,
       location: singleBooking.location,
       totalDays: singleBooking.totalDays,
+      totalAmount: singleBooking.totalAmount,
     });
 
     setClientSitterStatus(singleBooking.clientStatus);
@@ -201,10 +202,12 @@ const UserBookingCardDetails = (props) => {
                               (new Date(bookingForm.endDate) -
                                 new Date(evt.target.value)) /
                               (1000 * 3600 * 24);
+                            const newTotal = days * singleBooking.rate;
                             setBookingForm({
                               ...bookingForm,
                               startDate: evt.target.value,
                               totalDays: days,
+                              totalAmount: newTotal,
                             });
                           }}
                         />
@@ -214,17 +217,19 @@ const UserBookingCardDetails = (props) => {
                         <input
                           className={validClass}
                           type="date"
+                          disablePast={true}
                           value={bookingForm.endDate}
                           onChange={(evt) => {
                             const days =
                               (new Date(evt.target.value) -
                                 new Date(bookingForm.startDate)) /
                               (1000 * 3600 * 24);
-
+                            const newTotal = days * singleBooking.rate;
                             setBookingForm({
                               ...bookingForm,
                               endDate: evt.target.value,
                               totalDays: days,
+                              totalAmount: newTotal,
                             });
                           }}
                         />
@@ -273,7 +278,7 @@ const UserBookingCardDetails = (props) => {
                         <input
                           className={disabledClass}
                           type="number"
-                          value={singleBooking.totalAmount}
+                          value={bookingForm.totalAmount}
                           disabled={true}
                         />
                       </div>
