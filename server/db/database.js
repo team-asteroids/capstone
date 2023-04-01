@@ -6,11 +6,9 @@ const config = require('config');
 
 const database = process.env.REACT_APP_DATABASE_URL;
 
-console.log('database url wooo --> ', process.env.REACT_APP_DATABASE_URL);
+console.log('database variable --> ', database);
 
-const db = new Sequelize(database, {
-  logging: false,
-});
+const db = new Sequelize(database);
 
 const main = async () => {
   try {
