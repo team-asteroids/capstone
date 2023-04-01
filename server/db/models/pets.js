@@ -255,12 +255,9 @@ const Pet = db.define('pet', {
   },
   imageSrc: {
     type: Sequelize.STRING,
-    defaultValue: 'default-dog.jpg',
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-      notNull: true,
-    },
+    defaultValue:
+      'https://img.freepik.com/free-photo/front-view-funny-cute-dog-concept_23-2148786532.jpg?w=900&t=st=1680385294~exp=1680385894~hmac=84361da99e6bc5323b270a64b423394f546baf292004fe2fe3205f215ab1d542',
+    allowNull: true,
   },
 });
 
