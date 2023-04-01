@@ -155,6 +155,9 @@ const EditPetDetails = (props) => {
   const invalidClass =
     'appearance-none block w-full border border-red-500 bg-white-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
+  const disabledClass =
+    'appearance-none block border-slate-400 w-full bg-slate-200/40 border rounded py-3 px-4 leading-tight mt-3 font-rubik';
+
   const breedList = [
     'Mixed',
     'French Bulldogs',
@@ -390,7 +393,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Name</label>
                   <input
                     type="text"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     id="name"
                     name="name"
                     value={petInfo.name}
@@ -403,7 +406,7 @@ const EditPetDetails = (props) => {
                 <div className="w-1/2 flex flex-col">
                   <label className={labelClass}>Breed</label>
                   <select
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petInfo.breed}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -428,7 +431,7 @@ const EditPetDetails = (props) => {
                     min={0}
                     max={30}
                     step={1}
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petInfo.age}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -439,7 +442,7 @@ const EditPetDetails = (props) => {
                 <div className="w-1/4 flex flex-col pr-6">
                   <label className={labelClass}>Gender</label>
                   <select
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petInfo.sex}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -456,7 +459,7 @@ const EditPetDetails = (props) => {
                   <select
                     id="size"
                     name="size"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petInfo.size}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -475,7 +478,7 @@ const EditPetDetails = (props) => {
                     id="size"
                     type="text"
                     name="size"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petInfo.imageSrc}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -490,7 +493,7 @@ const EditPetDetails = (props) => {
                 <textarea
                   rows={3}
                   type="text"
-                  className={validClass}
+                  className={formDisabled ? disabledClass : validClass}
                   value={petDetailsData.about}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
@@ -507,7 +510,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Microchipped</label>
                   <select
                     name="microchipped"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.microchipped}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -525,7 +528,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Housetrained</label>
                   <select
                     name="houstrained"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.housetrained}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -543,7 +546,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Cratetrained</label>
                   <select
                     name="cratetrained"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.cratetrained}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -562,7 +565,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Spayed / Neutered</label>
                   <select
                     name="fixed"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.spayedOrNeutered}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -584,7 +587,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Friendly with Dogs</label>
                   <select
                     name="otherDogs"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.friendlyWithDogs}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -604,7 +607,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Friendly with Cats</label>
                   <select
                     name="cats"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.friendlyWithCats}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -624,7 +627,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Friendly with Kids</label>
                   <select
                     name="kids"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.friendlyWithChildren}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -646,7 +649,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Energy Level</label>
                   <select
                     name="energy"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.energyLevels}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -665,7 +668,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Max Time Left Alone</label>
                   <select
                     name="alone"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.canBeLeftAlone}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -687,7 +690,7 @@ const EditPetDetails = (props) => {
                   <textarea
                     rows={3}
                     type="text"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.reactivity}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -703,7 +706,7 @@ const EditPetDetails = (props) => {
                   <textarea
                     rows={3}
                     type="text"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.canBeLeftAloneDetails}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -721,7 +724,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Feedings per Day</label>
                   <select
                     name="feeding"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.feedingSchedule}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -740,7 +743,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Walks per Day</label>
                   <select
                     name="walks"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.walkSchedule}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -760,7 +763,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Walk Duration</label>
                   <select
                     name="walkDuration"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.walkDuration}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -782,7 +785,7 @@ const EditPetDetails = (props) => {
                   <textarea
                     rows={3}
                     type="text"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.foodDetails}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -798,7 +801,7 @@ const EditPetDetails = (props) => {
                   <textarea
                     rows={3}
                     type="text"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.walkDetails}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -815,7 +818,7 @@ const EditPetDetails = (props) => {
                 <label className={labelClass}>Type of Medications</label>
                 <select
                   name="meds"
-                  className={validClass}
+                  className={formDisabled ? disabledClass : validClass}
                   value={petDetailsData.medications}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
@@ -837,7 +840,7 @@ const EditPetDetails = (props) => {
                   <textarea
                     rows={3}
                     type="text"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.medicationDetails}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -853,7 +856,7 @@ const EditPetDetails = (props) => {
                   <textarea
                     rows={3}
                     type="text"
-                    className={validClass}
+                    className={formDisabled ? disabledClass : validClass}
                     value={petDetailsData.vetInfo}
                     onChange={(evt) => {
                       // setIsInvalidPhone(false);
@@ -871,7 +874,7 @@ const EditPetDetails = (props) => {
                 <textarea
                   rows={4}
                   type="text"
-                  className={validClass}
+                  className={formDisabled ? disabledClass : validClass}
                   value={petDetailsData.additionalDetails}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
