@@ -12,7 +12,7 @@ export const fetchAllEvents = createAsyncThunk('/getAllEvents', async () => {
 export const fetchSingleEvent = createAsyncThunk(
   '/getEvent',
   async (eventId) => {
-    const { data } = await axios.get(`/api/events/${eventId}`);
+    const { data } = await axios.get(API + `/api/events/${eventId}`);
 
     return data;
   }
@@ -23,7 +23,7 @@ export const createEventAsync = createAsyncThunk(
   async ({ eventStart, eventEnd, topic, description, zipCode }) => {
     const token = window.localStorage.getItem('token');
     const { data } = await axios.post(
-      '/api/events',
+      API + '/api/events',
       {
         event_start: eventStart,
         event_end: eventEnd,
@@ -46,7 +46,7 @@ export const editEventAsync = createAsyncThunk(
   async ({ id, formData }) => {
     const token = window.localStorage.getItem('token');
     const { data } = await axios.put(
-      `/api/events/${id}`,
+      API + `/api/events/${id}`,
       {
         event_start: formData.eventStart,
         event_end: formData.eventEnd,
@@ -66,7 +66,7 @@ export const editEventAsync = createAsyncThunk(
 
 export const deleteEventAsync = createAsyncThunk('/deleteEvent', async (id) => {
   const token = window.localStorage.getItem('token');
-  const { data } = await axios.delete(`/api/events/${id}`, {
+  const { data } = await axios.delete(API + `/api/events/${id}`, {
     headers: {
       authorization: token,
     },
@@ -76,7 +76,7 @@ export const deleteEventAsync = createAsyncThunk('/deleteEvent', async (id) => {
 
 export const getMyRsvpsAsync = createAsyncThunk('/getRSVPs', async (id) => {
   const token = window.localStorage.getItem('token');
-  const { data } = await axios.get(`/api/events/attending/${id}`, {
+  const { data } = await axios.get(API + `/api/events/attending/${id}`, {
     headers: {
       authorization: token,
     },
@@ -87,7 +87,7 @@ export const getMyRsvpsAsync = createAsyncThunk('/getRSVPs', async (id) => {
 export const addRsvpAsync = createAsyncThunk('/addRSVP', async (eventId) => {
   const token = window.localStorage.getItem('token');
   const { data } = await axios.post(
-    '/api/events/attending',
+    API + '/api/events/attending',
     { eventId: eventId },
     {
       headers: {
@@ -100,7 +100,7 @@ export const addRsvpAsync = createAsyncThunk('/addRSVP', async (eventId) => {
 
 export const removeRsvpAsync = createAsyncThunk('/removeRSVP', async (id) => {
   const token = window.localStorage.getItem('token');
-  const { data } = await axios.delete(`/api/events/attending/${id}`, {
+  const { data } = await axios.delete(API + `/api/events/attending/${id}`, {
     headers: {
       authorization: token,
     },
@@ -113,7 +113,7 @@ export const fetchEventNames = createAsyncThunk(
   'fetch/searchEvents',
   async (term, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/api/events/name', {
+      const { data } = await axios.post(API + '/api/events/name', {
         params: {
           search: term,
         },
