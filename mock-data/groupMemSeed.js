@@ -63,7 +63,7 @@ const groupMembers = [
   { groupId: 1, userId: 1 },
   { groupId: 3, userId: 3 },
   { groupId: 15, userId: 1 },
-  { groupId: 20, userId: 10 },
+  { groupId: 10, userId: 10 },
   { groupId: 3, userId: 4 },
   { groupId: 6, userId: 3 },
   { groupId: 14, userId: 2 },
