@@ -108,42 +108,30 @@ function UserAccount() {
                     </span>
                   </label>
                 </div>
-              ) : userAuth.id === singleUser.id ? (
-                <div className="group" type="tooltip">
-                  <div>
-                    <label className="relative inline-flex items-center">
-                      <input
-                        type="checkbox"
-                        className="sr-only peer"
-                        disabled
-                      />
-                      <div className={toggleClass}></div>
-                      <Link to="/onboarding">
-                        <button className="bg-bold-purple font-bold ease-in duration-300 hover:bg-pale-purple px-2 py-1.5 text-white rounded-lg">
-                          Become a Sitter
-                        </button>
-                      </Link>
-                    </label>
-                  </div>
-                </div>
               ) : (
-                <div className="group" type="tooltip">
-                  <div>
-                    <label className="relative inline-flex items-center">
-                      <input
-                        type="checkbox"
-                        className="sr-only peer"
-                        disabled
-                      />
-                      <div className={toggleClass}></div>
-                      <span className="ml-3 text-sm font-medium text-gray-400">
-                        Sitter Profile
-                      </span>
-                    </label>
+                <div>
+                  <div className="group" type="tooltip">
+                    <div>
+                      <label className="relative inline-flex items-center">
+                        <input
+                          type="checkbox"
+                          className="sr-only peer"
+                          disabled
+                        />
+                        <div className={toggleClass}></div>
+                        <span className="ml-3 text-sm font-medium text-gray-400">
+                          Sitter Profile
+                        </span>
+                      </label>
+                    </div>
+                    <span className="group-hover:opacity-100 transition-opacity position absolute ml-10 bg-pale-blue p-1 text-sm text-bright-white rounded px-2 opacity-0">
+                      Not a sitter!
+                    </span>
                   </div>
-                  <span className="group-hover:opacity-100 transition-opacity position absolute ml-10 bg-pale-blue p-1 text-sm text-bright-white rounded px-2 opacity-0">
-                    Not a sitter!
-                  </span>
+
+                  <button className="mt-5 ease-in-out hover:bg-pale-purple duration-200 font-semibold px-4 py-2.5 bg-bold-purple text-bright-white rounded-lg">
+                    <Link to="/onboarding">Become a Sitter!</Link>
+                  </button>
                 </div>
               )}
             </div>

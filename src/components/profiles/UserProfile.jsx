@@ -27,6 +27,15 @@ const UserProfile = () => {
   const toggleClass =
     "checked w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink";
 
+  const buttonClass =
+    'bg-bold-purple font-bold ease-in duration-300 hover:bg-pale-purple px-5 py-2.5 text-white rounded-lg';
+
+  //   const buttonClass =
+  // 'ease-in duration-300 font-rubikmono hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3';
+
+  const disabledButtonClass =
+    'bg-bold-purple disabled:opacity-25 bg-bold-purple font-bold px-5 py-2.5 text-white rounded-lg';
+
   const toggleSitter = () => {
     if (location['*'].includes('sitter')) {
       navigate(`/profile/${id}`);
@@ -97,7 +106,14 @@ const UserProfile = () => {
           </div>
           <div className="w-1/4">
             <Link to={`/chat/`}>
-              <button className="bg-bold-purple font-bold ease-in duration-300 hover:bg-pale-purple px-5 py-2.5 text-white rounded-lg">
+              <button
+                className={
+                  userAuth.id === singleUser.id
+                    ? disabledButtonClass
+                    : buttonClass
+                }
+                disabled={userAuth.id === singleUser.id ? true : false}
+              >
                 MESSAGE
               </button>
             </Link>

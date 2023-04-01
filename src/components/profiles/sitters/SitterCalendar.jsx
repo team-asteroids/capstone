@@ -79,6 +79,9 @@ const SitterCalendar = (props) => {
   const validClass =
     'appearance-none block w-full bg-white-200 border rounded py-3 px-6 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-1 font-rubik';
 
+  const disabledClass =
+    'appearance-none block border-slate-400 w-full bg-slate-200/30 border rounded py-3 px-4 leading-tight mt-3 font-rubik';
+
   const invalidClass =
     'appearance-none block border border-red-500 w-full bg-white-200 border rounded py-3 px-6 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-1 font-rubik';
 
@@ -144,7 +147,9 @@ const SitterCalendar = (props) => {
                   type="text"
                   disabled
                   defaultValue={startDate ? format(startDate, 'E M/d/yy') : ''}
-                  className={includesBlackoutDays ? invalidClass : validClass}
+                  className={
+                    includesBlackoutDays ? invalidClass : disabledClass
+                  }
                 ></input>
               </div>
 
@@ -156,7 +161,9 @@ const SitterCalendar = (props) => {
                   type="text"
                   disabled
                   defaultValue={endDate ? format(endDate, 'E M/d/yy') : ''}
-                  className={includesBlackoutDays ? invalidClass : validClass}
+                  className={
+                    includesBlackoutDays ? invalidClass : disabledClass
+                  }
                 ></input>
               </div>
             </div>
@@ -179,7 +186,7 @@ const SitterCalendar = (props) => {
                   type="number"
                   disabled
                   defaultValue={totalDays ? totalDays : ''}
-                  className={validClass}
+                  className={disabledClass}
                 ></input>
               </div>
               <div className="w-full flex flex-col md:w-1/2">
@@ -190,7 +197,7 @@ const SitterCalendar = (props) => {
                     name="total"
                     type="number"
                     defaultValue={bookingTotal ? bookingTotal : ''}
-                    className={validClass}
+                    className={disabledClass}
                     disabled
                   />
                 </div>
