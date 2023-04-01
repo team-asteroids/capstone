@@ -5,9 +5,14 @@ import {
   logOut,
   selectAuth,
   getAccessData,
-  fetchSitterAuth,
   attemptTokenLogin,
 } from '../../slices/authSlice';
+
+import {
+  sitterLogOut,
+  selectSitterAuth,
+  fetchSitterAuth,
+} from '../../slices/sitterAuthSlice';
 import { resetUserStatus, selectUser } from '../../slices/usersSlice';
 import defaultImg from '../../img/default-dog.jpg';
 import {
@@ -33,13 +38,12 @@ function UserAccount() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useParams();
-  // const { id } = useParams();
 
-  const { userAuth, accessData, sitterAuth } = useSelector(selectAuth);
+  const { userAuth, accessData } = useSelector(selectAuth);
+
+  const { sitterAuth } = useSelector(selectSitterAuth);
 
   const { singleUser } = useSelector(selectUser);
-
-  // console.log(userAuth);
 
   useEffect(() => {
     if (userAuth && userAuth.id) {
@@ -63,6 +67,7 @@ function UserAccount() {
 
   const attemptLogOut = async () => {
     await dispatch(logOut());
+    await dispatch(sitterLogOut());
     navigate('/');
   };
 

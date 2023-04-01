@@ -6,6 +6,7 @@ import { UserPetProfiles } from '../index';
 
 function EditUserPets() {
   const { userAuth } = useSelector(selectAuth);
+
   const buttonClass =
     'w-1/4 font-semibold bg-bold-purple text-white rounded px-5 py-3 ease-in-out duration-200 hover:bg-pale-purple';
 

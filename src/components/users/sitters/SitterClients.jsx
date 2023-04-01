@@ -1,22 +1,24 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectAuth,
-  fetchAllSitterAuthClients,
-  resetSitterAuthClients,
-} from '../../../slices/authSlice';
 import { Link } from 'react-router-dom';
+import { selectAuth } from '../../../slices/authSlice';
+import {
+  selectSitterAuth,
+  fetchSitterAuthClients,
+  resetSitterAuthClients,
+} from '../../../slices/sitterAuthSlice';
 
 const SitterClients = (props) => {
   const dispatch = useDispatch();
 
   const { sitter } = props;
-  const { token, sitterAuthClients } = useSelector(selectAuth);
+  const { token } = useSelector(selectAuth);
+  const { sitterAuthClients } = useSelector(selectSitterAuth);
 
   useEffect(() => {
     if (sitter && sitter.id) {
       const { id } = sitter;
-      dispatch(fetchAllSitterAuthClients({ id, token }));
+      dispatch(fetchSitterAuthClients({ id, token }));
     }
 
     return () => {

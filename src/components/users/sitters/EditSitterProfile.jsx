@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { selectAuth } from '../../../slices/authSlice';
 import {
-  selectAuth,
-  updateSitterAuthPrefs,
+  selectSitterAuth,
   updateSitterAuth,
-} from '../../../slices/authSlice';
+  updateSitterAuthPrefs,
+} from '../../../slices/sitterAuthSlice';
 
 const EditSitterProfile = (props) => {
   const dispatch = useDispatch();
 
   const { sitter } = props;
+
   const { sitterPrefs } = props.sitter;
 
   const token = window.localStorage.getItem('token');
 
-  const { singleAuthSitter, userAuth } = useSelector(selectAuth);
+  const { userAuth } = useSelector(selectAuth);
+  const { sitterAuth } = useSelector(selectSitterAuth);
 
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [savePrefsSuccess, setSavePrefsSuccess] = useState(false);
@@ -49,7 +51,7 @@ const EditSitterProfile = (props) => {
         medication: sitterPrefs[0].medication,
       });
     }
-  }, [sitter, sitterPrefs, singleAuthSitter, userAuth]);
+  }, [sitter, sitterPrefs, sitterAuth, userAuth]);
 
   const labelClass = 'text-xs font-rubikmono';
 
