@@ -1,53 +1,28 @@
 const sitterClientList = [
   {
     status: false,
-    sitterId: 6,
-    userId: 5,
-  },
-  {
-    status: true,
-    sitterId: 5,
-    userId: 40,
-  },
-  {
-    status: false,
     sitterId: 4,
-    userId: 43,
-  },
-  {
-    status: false,
-    sitterId: 3,
-    userId: 39,
+    userId: 2,
   },
   {
     status: true,
     sitterId: 8,
-    userId: 8,
-  },
-  {
-    status: false,
-    sitterId: 1,
-    userId: 18,
-  },
-  {
-    status: false,
-    sitterId: 10,
-    userId: 18,
+    userId: 3,
   },
   {
     status: true,
-    sitterId: 10,
-    userId: 23,
+    sitterId: 2,
+    userId: 10,
   },
   {
     status: false,
     sitterId: 6,
-    userId: 42,
+    userId: 1,
   },
   {
-    status: false,
+    status: true,
     sitterId: 3,
-    userId: 44,
+    userId: 6,
   },
   {
     status: false,
@@ -57,72 +32,73 @@ const sitterClientList = [
   {
     status: false,
     sitterId: 7,
-    userId: 36,
+    userId: 7,
   },
   {
     status: true,
-    sitterId: 6,
-    userId: 15,
+    sitterId: 1,
+    userId: 5,
+  },
+  {
+    status: true,
+    sitterId: 9,
+    userId: 4,
   },
   {
     status: false,
-    sitterId: 7,
-    userId: 32,
+    sitterId: 10,
+    userId: 9,
   },
   {
-    status: true,
+    status: false,
     sitterId: 2,
-    userId: 45,
-  },
-  {
-    status: true,
-    sitterId: 3,
     userId: 3,
   },
   {
     status: true,
     sitterId: 6,
-    userId: 24,
-  },
-  {
-    status: false,
-    sitterId: 5,
-    userId: 43,
+    userId: 7,
   },
   {
     status: true,
-    sitterId: 5,
-    userId: 27,
+    sitterId: 4,
+    userId: 10,
   },
   {
     status: false,
-    sitterId: 9,
-    userId: 42,
+    sitterId: 1,
+    userId: 8,
+  },
+  {
+    status: false,
+    sitterId: 8,
+    userId: 6,
   },
   {
     status: true,
     sitterId: 3,
-    userId: 23,
-  },
-  {
-    status: true,
-    sitterId: 8,
-    userId: 1,
+    userId: 2,
   },
   {
     status: false,
-    sitterId: 9,
-    userId: 49,
-  },
-  {
-    status: false,
-    sitterId: 9,
-    userId: 11,
+    sitterId: 7,
+    userId: 4,
   },
   {
     status: true,
     sitterId: 10,
-    userId: 43,
+    userId: 1,
+  },
+  {
+    status: true,
+    sitterId: 5,
+    userId: 9,
+  },
+  {
+    status: false,
+    sitterId: 9,
+    userId: 5,
   },
 ];
+
 module.exports = sitterClientList;
