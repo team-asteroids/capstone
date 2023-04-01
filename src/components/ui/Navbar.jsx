@@ -18,15 +18,15 @@ function Navbar(props) {
 
       <ul className="flex text-2xl gap-10">
         <Dropdown label="Social" inline={true}>
-          <Dropdown.Item icon={EventIcon}>
-            <Link to={`/events`}>Events</Link>
-          </Dropdown.Item>
-          <Dropdown.Item icon={GroupsIcon}>
-            <Link to={`/groups`}>Groups</Link>
-          </Dropdown.Item>
-          <Dropdown.Item icon={PetsIcon}>
-            <Link to={`/howls`}>Howls</Link>
-          </Dropdown.Item>
+          <Link to={`/events`}>
+            <Dropdown.Item icon={EventIcon}>Events</Dropdown.Item>
+          </Link>
+          <Link to={`/groups`}>
+            <Dropdown.Item icon={GroupsIcon}>Groups</Dropdown.Item>
+          </Link>
+          <Link to={`/howls`}>
+            <Dropdown.Item icon={PetsIcon}>Howls</Dropdown.Item>
+          </Link>
         </Dropdown>
         <li>
           <Link to={`/sitters`}>Sitters</Link>
