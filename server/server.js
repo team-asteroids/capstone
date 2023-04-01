@@ -6,6 +6,10 @@ const dotenv = require('dotenv').config();
 const config = require('config');
 const PORT = process.env.PORT_NUMBER || 8080;
 
+const cors = require('cors');
+
+app.use(cors());
+
 // Static middleware
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
