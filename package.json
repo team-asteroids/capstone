@@ -5,7 +5,7 @@
   "scripts": {
     "start": "concurrently \"node server/server.js\" \"react-scripts start\" ",
     "build": "concurrently \"react-scripts build\" \"npx tailwindcss -i ./src/index.css -o ./public/tailwind.css\" ",
-    "api": "node server/server.js",
+    "api": "nodemon server/server.js",
     "test": "react-scripts test",
     "seed": "node seed.js",
     "eject": "react-scripts eject",
