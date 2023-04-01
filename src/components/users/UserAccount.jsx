@@ -5,18 +5,10 @@ import {
   logOut,
   selectAuth,
   getAccessData,
-  fetchSingleAuthSitter,
+  fetchSitterAuth,
+  attemptTokenLogin,
 } from '../../slices/authSlice';
-import {
-  selectSitters,
-  resetSitterStatus,
-  fetchSingleSitter,
-} from '../../slices/sittersSlice';
-import {
-  resetUserStatus,
-  selectUser,
-  fetchSingleUser,
-} from '../../slices/usersSlice';
+import { resetUserStatus, selectUser } from '../../slices/usersSlice';
 import defaultImg from '../../img/default-dog.jpg';
 import {
   UserBookings,
@@ -41,18 +33,17 @@ function UserAccount() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useParams();
-  const { id } = useParams();
+  // const { id } = useParams();
 
-  const { userAuth, accessData, singleAuthSitter } = useSelector(selectAuth);
+  const { userAuth, accessData, sitterAuth } = useSelector(selectAuth);
+
   const { singleUser } = useSelector(selectUser);
-  // const { singleSitter } = useSelector(selectSitters);
 
-  // console.log(singleSitter);
+  // console.log(userAuth);
 
   useEffect(() => {
     if (userAuth && userAuth.id) {
       const id = userAuth.id;
-      dispatch(fetchSingleUser(id));
       dispatch(getAccessData(id));
     }
     return () => {
@@ -63,21 +54,9 @@ function UserAccount() {
   useEffect(() => {
     if (userAuth.userSitter && userAuth.userSitter.id) {
       const id = userAuth.userSitter.id;
-      dispatch(fetchSingleAuthSitter(id));
+      dispatch(fetchSitterAuth(id));
     }
   }, [userAuth]);
-
-  useEffect(() => {
-    if (singleUser && singleUser.sitter) {
-      const id = singleUser.sitter.id;
-      dispatch(fetchSingleSitter(id));
-    }
-    return () => {
-      dispatch(resetSitterStatus());
-    };
-  }, [singleUser.id]);
-
-  // console.log('singleAuthSitter', singleAuthSitter);
 
   const toggleClass =
     "checked w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink";
@@ -210,23 +189,23 @@ function UserAccount() {
             {/* SITTER ROUTES */}
             <Route
               path="/sitter"
-              element={<SitterOverview sitter={singleAuthSitter} />}
+              element={<SitterOverview sitter={sitterAuth} />}
             ></Route>
             <Route
               path="/sitter/editprofile"
-              element={<EditSitterProfile sitter={singleAuthSitter} />}
+              element={<EditSitterProfile sitter={sitterAuth} />}
             ></Route>
             <Route
               path="/sitter/bookings"
-              element={<SitterBookings sitter={singleAuthSitter} />}
+              element={<SitterBookings sitter={sitterAuth} />}
             ></Route>
             <Route
               path="/sitter/bookings/:bookingId"
-              element={<BookingDetailsCard sitter={singleAuthSitter} />}
+              element={<BookingDetailsCard sitter={sitterAuth} />}
             />
             <Route
               path="/sitter/clients"
-              element={<SitterClients sitter={singleAuthSitter} />}
+              element={<SitterClients sitter={sitterAuth} />}
             />
           </Routes>
         </div>

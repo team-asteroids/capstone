@@ -11,14 +11,13 @@ const SitterClients = (props) => {
   const dispatch = useDispatch();
 
   const { sitter } = props;
-  const { token, userAuthSitterClients } = useSelector(selectAuth);
-  // const { clients } = useSelector(selectSitters);
-
-  console.log('userAuthSitterClients', userAuthSitterClients);
+  const { token, sitterAuthClients } = useSelector(selectAuth);
 
   useEffect(() => {
-    const { id } = sitter;
-    dispatch(fetchAllSitterAuthClients({ id, token }));
+    if (sitter && sitter.id) {
+      const { id } = sitter;
+      dispatch(fetchAllSitterAuthClients({ id, token }));
+    }
 
     return () => {
       dispatch(resetSitterAuthClients());
@@ -40,8 +39,8 @@ const SitterClients = (props) => {
     <div>
       <p className="pb-5">Clients</p>
       <div>
-        {userAuthSitterClients
-          ? userAuthSitterClients.map((client) => (
+        {sitterAuthClients
+          ? sitterAuthClients.map((client) => (
               <Link to={`/profile/${client.id}`}>
                 <div key={client.id} className="font-rubik mb-10">
                   <div className="flex flex-wrap mb-3">

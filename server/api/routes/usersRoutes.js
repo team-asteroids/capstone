@@ -45,7 +45,7 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-// get all user's sitters
+// get all user's sitters (including, status)
 router.get('/:id/sitters', requireToken, async (req, res, next) => {
   try {
     const allSitters = await Sitter_Client.findAll({
@@ -59,6 +59,17 @@ router.get('/:id/sitters', requireToken, async (req, res, next) => {
         User.findByPk(userId, {
           attributes: {
             exclude: ['password'],
+          },
+        })
+      )
+    );
+
+    const sittersAndStatus = await Promise.all(
+      allSitters.map((sitter) =>
+        Sitter_Client.findOne({
+          where: {
+            sitterId: sitter.id,
+            userId: +req.params.id,
           },
         })
       )
