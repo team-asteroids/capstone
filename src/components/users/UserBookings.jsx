@@ -55,35 +55,6 @@ function UserBookings() {
     });
   }
 
-  // console.log({userAuth, allBookings});
-
-  // if (bookingFilter === 'approved') {
-  //   const approvedBookings = allBookings.filter(
-  //     (booking) => booking.status === 'approved'
-  //   );
-  //   bookingArr = approvedBookings;
-  // }
-
-  // if (bookingFilter === 'pending') {
-  //   const approvedBookings = allBookings.filter(
-  //     (booking) => booking.status === 'pending'
-  //   );
-  //   bookingArr = approvedBookings;
-  // }
-  // if (bookingFilter === 'completed') {
-  //   const approvedBookings = allBookings.filter(
-  //     (booking) => booking.status === 'completed'
-  //   );
-  //   bookingArr = approvedBookings;
-  // }
-
-  // if (bookingFilter === 'cancelled') {
-  //   const approvedBookings = allBookings.filter((booking) =>
-  //     ['cancelled', 'withdrawn', 'declined'].includes(booking.status)
-  //   );
-  //   bookingArr = approvedBookings;
-  // }
-
   if (!userAuth && !userAuth.firstName)
     return <div className="font-rubikmono">Fetching good things...</div>;
 
@@ -91,22 +62,6 @@ function UserBookings() {
     <div className="flex flex-col gap-5 font-rubik">
       <div id="filter" className="flex flex-row justify-between">
         <h2 className="font-rubikmono">Manage Sitter Bookings</h2>
-        {/* <div>
-          <select
-            id="filter"
-            className="bg-white-smoke border border-white-smoke text-gray-900 text-sm rounded-lg focus:ring-pale-blue focus:border-pale-blue block p-1.5 px-3 drop-shadow-sm"
-            onChange={(evt) => {
-              setBookingFilter(evt.target.value);
-            }}
-            defaultValue={bookingFilter}
-          >
-            <option value="">all</option>
-            <option value="pending">pending</option>
-            <option value="approved">approved</option>
-            <option value="completed">completed</option>
-            <option value="cancelled">cancelled</option>
-          </select>
-        </div> */}
       </div>
       <div className="h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
         <div>

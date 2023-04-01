@@ -1,24 +1,25 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectAuth,
-  fetchAllSitterAuthClients,
-  resetSitterAuthClients,
-} from '../../../slices/authSlice';
 import { Link } from 'react-router-dom';
+import { selectAuth } from '../../../slices/authSlice';
+import {
+  selectSitterAuth,
+  fetchSitterAuthClients,
+  resetSitterAuthClients,
+} from '../../../slices/sitterAuthSlice';
 
 const SitterClients = (props) => {
   const dispatch = useDispatch();
 
   const { sitter } = props;
-  const { token, userAuthSitterClients } = useSelector(selectAuth);
-  // const { clients } = useSelector(selectSitters);
-
-  console.log('userAuthSitterClients', userAuthSitterClients);
+  const { token } = useSelector(selectAuth);
+  const { sitterAuthClients } = useSelector(selectSitterAuth);
 
   useEffect(() => {
-    const { id } = sitter;
-    dispatch(fetchAllSitterAuthClients({ id, token }));
+    if (sitter && sitter.id) {
+      const { id } = sitter;
+      dispatch(fetchSitterAuthClients({ id, token }));
+    }
 
     return () => {
       dispatch(resetSitterAuthClients());
@@ -40,8 +41,8 @@ const SitterClients = (props) => {
     <div>
       <p className="pb-5">Clients</p>
       <div>
-        {userAuthSitterClients
-          ? userAuthSitterClients.map((client) => (
+        {sitterAuthClients
+          ? sitterAuthClients.map((client) => (
               <Link to={`/profile/${client.id}`}>
                 <div key={client.id} className="font-rubik mb-10">
                   <div className="flex flex-wrap mb-3">

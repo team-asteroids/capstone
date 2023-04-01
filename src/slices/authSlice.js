@@ -136,53 +136,6 @@ export const updateClientSitterStatus = createAsyncThunk(
   }
 );
 
-// get all logged in user sitter's clients
-export const fetchAllSitterAuthClients = createAsyncThunk(
-  'fetchUserClients',
-  async ({ id, token }, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.get(`/api/sitters/${id}/clients`, {
-        headers: {
-          authorization: token,
-        },
-      });
-      return data;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
-
-// get single logged in user sitter's clients
-export const fetchSingleSitterAuthClient = createAsyncThunk(
-  'fetchClient',
-  async ({ id, token, userId }, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.get(`/api/sitters/${id}/clients/${userId}`, {
-        headers: {
-          authorization: token,
-        },
-      });
-
-      return data;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
-
-export const fetchSingleAuthSitter = createAsyncThunk(
-  'singleAuthSitter',
-  async (id, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.get(`/api/sitters/${id}`);
-      return data;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
-
 // get all logged in user's sitters
 export const fetchAllUserAuthSitters = createAsyncThunk(
   'fetchUsersSitters',
@@ -193,6 +146,7 @@ export const fetchAllUserAuthSitters = createAsyncThunk(
           authorization: token,
         },
       });
+      console.log('axios:', data);
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -201,45 +155,7 @@ export const fetchAllUserAuthSitters = createAsyncThunk(
 );
 
 // get single logged in user's sitter
-export const fetchSingleUserAuthSitter = createAsyncThunk();
-
-// get all bookings of logged in user sitter
-export const fetchAllSitterAuthBookings = createAsyncThunk();
-
-// get single booking of logged in user sitter
-export const fetchSingleSitterAuthBooking = createAsyncThunk();
-
-export const updateSitterAuth = createAsyncThunk(
-  'updateSitter',
-  async ({ id, token, formData }, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.put(`/api/sitters/${id}`, formData, {
-        headers: {
-          authorization: token,
-        },
-      });
-      return data;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
-
-export const updateSitterAuthPrefs = createAsyncThunk(
-  'updateSitterPrefs',
-  async ({ id, token, prefsData }, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.put(`/api/sitters/${id}/prefs`, prefsData, {
-        headers: {
-          authorization: token,
-        },
-      });
-      return data;
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
+export const fetchUserAuthSitter = createAsyncThunk();
 
 const authSlice = createSlice({
   name: 'auth',
@@ -247,14 +163,9 @@ const authSlice = createSlice({
     token: '',
     userAuth: {},
     accessData: {},
-    singleAuthSitter: {},
-    userAuthSitterClients: [],
-    userAuthSitterClient: {},
-    sittersOfUserAuth: [],
-    sitterOfUserAuth: {},
-    authBookings: [],
-    authBooking: {},
     accessPermissions: {},
+    userAuthSitters: [],
+    userAuthSitter: {},
     error: '',
     status: '',
   },
@@ -264,23 +175,15 @@ const authSlice = createSlice({
       state.error = '';
     },
     logOut: (state) => {
-      state.userAuth = {};
       state.token = '';
-      state.status = '';
+      state.userAuth = {};
       state.accessData = {};
+      state.userAuthSitters = [];
       state.userAuthSitter = {};
-      state.userAuthSingleSitter = {};
-      state.userAuthSitterClients = [];
-      state.userAuthSitterClient = {};
-      state.sittersOfUserAuth = [];
-      state.sitterOfUserAuth = {};
-      state.authBookings = [];
-      state.authBooking = {};
       state.accessPermissions = {};
+      state.error = '';
+      state.status = '';
       localStorage.clear();
-    },
-    resetSitterAuthClients: (state) => {
-      state.userAuthSitterClients = [];
     },
   },
   extraReducers: (builder) => {
@@ -390,34 +293,8 @@ const authSlice = createSlice({
         state.status = 'failed';
         state.error = payload.message;
       })
-      .addCase(fetchAllSitterAuthClients.fulfilled, (state, { payload }) => {
-        state.userAuthSitterClients = payload.clientsAndStatus;
-        state.status = 'fulfilled';
-        state.error = '';
-      })
-      .addCase(fetchAllSitterAuthClients.pending, (state, { payload }) => {
-        state.status = 'loading';
-        state.error = '';
-      })
-      .addCase(fetchAllSitterAuthClients.rejected, (state, { payload }) => {
-        state.status = 'failed';
-        state.error = payload.message;
-      })
-      .addCase(fetchSingleSitterAuthClient.fulfilled, (state, { payload }) => {
-        state.userAuthSitterClient = payload;
-        state.status = 'fulfilled';
-        state.error = '';
-      })
-      .addCase(fetchSingleSitterAuthClient.pending, (state, { payload }) => {
-        state.status = 'loading';
-        state.error = '';
-      })
-      .addCase(fetchSingleSitterAuthClient.rejected, (state, { payload }) => {
-        state.status = 'failed';
-        state.error = payload.message;
-      })
       .addCase(fetchAllUserAuthSitters.fulfilled, (state, { payload }) => {
-        state.sittersOfUserAuth = payload;
+        state.userAuthSitters = payload;
         state.status = 'fulfilled';
         state.error = '';
       })
@@ -428,51 +305,11 @@ const authSlice = createSlice({
       .addCase(fetchAllUserAuthSitters.rejected, (state, { payload }) => {
         state.status = 'failed';
         state.error = payload.message;
-      })
-      .addCase(fetchSingleAuthSitter.fulfilled, (state, { payload }) => {
-        state.singleAuthSitter = payload || {};
-        state.status = 'fulfilled';
-        state.error = '';
-      })
-      .addCase(fetchSingleAuthSitter.pending, (state, { payload }) => {
-        state.status = 'loading';
-        state.error = '';
-      })
-      .addCase(fetchSingleAuthSitter.rejected, (state, { payload }) => {
-        state.status = 'failed';
-        state.error = payload.message;
-      })
-      .addCase(updateSitterAuth.fulfilled, (state, { payload }) => {
-        state.singleAuthSitter = payload;
-        state.status = 'fulfilled';
-        state.error = '';
-      })
-      .addCase(updateSitterAuth.pending, (state, { payload }) => {
-        state.status = 'loading';
-        state.error = '';
-      })
-      .addCase(updateSitterAuth.rejected, (state, { payload }) => {
-        state.status = 'failed';
-        state.error = payload.message;
-      })
-      .addCase(updateSitterAuthPrefs.fulfilled, (state, { payload }) => {
-        state.singleAuthSitter = payload;
-        state.status = 'fulfilled';
-        state.error = '';
-      })
-      .addCase(updateSitterAuthPrefs.pending, (state, { payload }) => {
-        state.status = 'loading';
-        state.error = '';
-      })
-      .addCase(updateSitterAuthPrefs.rejected, (state, { payload }) => {
-        state.status = 'failed';
-        state.error = payload.message;
       });
   },
 });
 
-export const { resetAuthStatus, resetSitterAuthClients, logOut } =
-  authSlice.actions;
+export const { resetAuthStatus, logOut } = authSlice.actions;
 
 export const selectAuth = (state) => state.auth;
 
