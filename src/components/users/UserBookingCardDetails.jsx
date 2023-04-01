@@ -295,7 +295,7 @@ const UserBookingCardDetails = (props) => {
           </div>
           <div>
             <h2 className="font-rubikmono pb-3">Sitter & Pets</h2>
-            {singleBooking && singleBooking.sitterId ? (
+            {singleBooking && singleBooking.sitterInfo ? (
               <section>
                 <form>
                   <div className="flex flex-wrap mb-5">

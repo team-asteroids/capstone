@@ -12,7 +12,6 @@ import { Divider } from '@mui/material';
 function UserBookings() {
   const dispatch = useDispatch();
   const { userAuth, token } = useSelector(selectAuth);
-  // const [bookingFilter, setBookingFilter] = useState('');
 
   const { allBookings } = useSelector(selectBookings);
 
