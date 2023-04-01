@@ -8,7 +8,7 @@ const EventsView = (props) => {
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(6);
 
   // Pagination -- get current posts
   const indexOfLastItem = currentPage * itemsPerPage;
