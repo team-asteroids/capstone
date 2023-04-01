@@ -132,5 +132,69 @@ const bookings = [
     totalAmount: 140,
   },
 ];
+
+const bookingPets = [
+  {
+    petId: 1,
+    bookingId: 1,
+  },
+  {
+    petId: 2,
+    bookingId: 2,
+  },
+  {
+    petId: 3,
+    bookingId: 3,
+  },
+  {
+    petId: 4,
+    bookingId: 4,
+  },
+  {
+    petId: 5,
+    bookingId: 5,
+  },
+  {
+    petId: 6,
+    bookingId: 6,
+  },
+  {
+    petId: 7,
+    bookingId: 7,
+  },
+  {
+    petId: 8,
+    bookingId: 8,
+  },
+  {
+    petId: 9,
+    bookingId: 9,
+  },
+  {
+    petId: 10,
+    bookingId: 10,
+  },
+  {
+    petId: 11,
+    bookingId: 11,
+  },
+  {
+    petId: 12,
+    bookingId: 12,
+  },
+  {
+    petId: 13,
+    bookingId: 13,
+  },
+  {
+    petId: 14,
+    bookingId: 14,
+  },
+  {
+    petId: 15,
+    bookingId: 15,
+  },
+];
+
 //bookingPets.length = 200
 module.exports = { bookings, bookingPets };
