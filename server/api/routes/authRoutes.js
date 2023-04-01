@@ -1,14 +1,20 @@
 const router = require('express').Router();
-const { User } = require('../../db');
+const { User, Sitter } = require('../../db');
 const { requireToken } = require('../authMiddleware');
 
 // /api/auth
 // gets a user obj if token is correct (logged in/ who they say they are)
 // must confirm the above before allowing someone to continue with process
 // e.g. get to user settings > must attempt token login by calling requireToken middleware before sending back the user obj
-router.get('/', requireToken, (req, res, next) => {
+router.get('/', requireToken, async (req, res, next) => {
   try {
-    res.send(req.user);
+    if (req.user.role === 'sitter') {
+      const userSitter = await Sitter.findOne({
+        where: { userId: +req.user.id },
+      });
+      req.user = { ...req.user.dataValues, userSitter };
+      res.send(req.user);
+    } else res.send(req.user);
   } catch (err) {
     console.log('backend issue getting user from auth');
     next(err);

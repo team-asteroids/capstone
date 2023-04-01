@@ -22,7 +22,7 @@ const UserSocialView = (props) => {
   return (
     <div className="font-rubik flex flex-col gap-5">
       <button
-        className="text-left text-xs font-semibold hover:text-bold-purple ease-in-out duration-100"
+        className="text-left max-w-fit text-xs font-semibold hover:text-bold-purple ease-in-out duration-100"
         onClick={goBack}
       >
         BACK

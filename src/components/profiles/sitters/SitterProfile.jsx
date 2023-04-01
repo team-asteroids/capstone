@@ -47,7 +47,7 @@ const SitterProfile = () => {
   return (
     <div className="font-rubik flex flex-col gap-5 min-w-min">
       <button
-        className="text-left text-xs font-semibold hover:text-bold-purple ease-in-out duration-100"
+        className="text-left max-w-fit text-xs font-semibold hover:text-bold-purple ease-in-out duration-100"
         onClick={goBack}
       >
         BACK

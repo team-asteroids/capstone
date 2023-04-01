@@ -360,9 +360,14 @@ const EditPetDetails = (props) => {
 
   return (
     <div className="font-rubik flex flex-col gap-5">
-      {/* <button className="text-left text-xs font-semibold" onClick={goBack}>
-        BACK
-      </button> */}
+      {location.pathname.includes('account') ? (
+        <button
+          className="text-left max-w-fit text-xs font-semibold hover:text-bold-purple ease-in-out duration-100"
+          onClick={goBack}
+        >
+          BACK
+        </button>
+      ) : null}
       {formDisabled ? (
         <div className="flex flex-row gap-3 align-baseline">
           <p className="font-rubikmono">{singlePet.name} Profile</p>
@@ -468,6 +473,7 @@ const EditPetDetails = (props) => {
                   <label className={labelClass}>Image Url</label>
                   <input
                     id="size"
+                    type="text"
                     name="size"
                     className={validClass}
                     value={petInfo.imageSrc}

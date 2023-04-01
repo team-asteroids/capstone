@@ -26,13 +26,13 @@ const UserBookingCardDetails = (props) => {
   const bookingId = +params.bookingId;
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveAccessSuccess, setSaveAccessSuccess] = useState(false);
-
+  console.log('singleBooking', singleBooking);
   const { token, accessPermissions } = useSelector(selectAuth);
 
   const [clientSitterStatus, setClientSitterStatus] = useState(
-    singleBooking.status
+    singleBooking.clientStatus
   );
-
+  console.log(singleBooking.clientStatus);
   const [bookingForm, setBookingForm] = useState({});
 
   useEffect(() => {
@@ -55,12 +55,12 @@ const UserBookingCardDetails = (props) => {
       totalDays: singleBooking.totalDays,
     });
 
-    setClientSitterStatus(singleBooking.status);
+    setClientSitterStatus(singleBooking.clientStatus);
 
     return () => {
       dispatch(resetBookingStatus());
       dispatch(resetSitterStatus());
-      dispatch(resetSingleSitter());
+      // dispatch(resetSingleSitter());
     };
   }, [singleBooking]);
 
@@ -94,7 +94,6 @@ const UserBookingCardDetails = (props) => {
     const res = await dispatch(
       updateClientSitterStatus({ id, sitterId, token, accessStatus })
     );
-    console.log(res);
 
     if (res.type === 'updatePermissions/fulfilled') {
       setSaveAccessSuccess(true);
@@ -104,7 +103,7 @@ const UserBookingCardDetails = (props) => {
   return (
     <div className="font-rubik flex flex-col gap-5">
       <button
-        className="text-left text-xs font-semibold hover:text-bold-purple ease-in-out duration-100"
+        className="text-left text-xs max-w-fit font-semibold hover:text-bold-purple ease-in-out duration-100"
         onClick={goBack}
       >
         BACK
@@ -138,11 +137,11 @@ const UserBookingCardDetails = (props) => {
                           className={validClass}
                           value={bookingForm.status}
                           disabled={
-                            ['pending', 'approved'].includes(
+                            ['cancelled', 'withdrawn', 'declined'].includes(
                               singleBooking.status
                             )
-                              ? false
-                              : true
+                              ? true
+                              : false
                           }
                           onChange={(evt) => {
                             setSaveSuccess(false);
@@ -161,6 +160,7 @@ const UserBookingCardDetails = (props) => {
                             pending
                           </option>
                           <option disabled>approved</option>
+
                           <option
                             value="withdrawn"
                             disabled={
