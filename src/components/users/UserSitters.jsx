@@ -15,8 +15,6 @@ const UserSitters = (props) => {
     }
   }, [user]);
 
-  // console.log(sittersOfUserAuth);
-
   const labelClass = 'text-xs font-rubikmono';
 
   return (
@@ -24,7 +22,7 @@ const UserSitters = (props) => {
       <div>
         <p>My Sitters</p>
       </div>
-      <div className="">
+      <div>
         <table className="w-full">
           <thead>
             <tr className={labelClass}>
@@ -37,15 +35,15 @@ const UserSitters = (props) => {
               <th>Rate / Review</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="font-rubik font-regular">
             {userAuthSitters && userAuthSitters.length
               ? userAuthSitters.map((sitter) => (
-                  <tr key={sitter.id}>
-                    <th>{sitter.id}</th>
-                    <th>{`${sitter.firstName} ${sitter.lastName}`}</th>
-                    <th>{sitter.userName}</th>
-                    <th>{sitter.email}</th>
-                    <th>{sitter.clientStatus}</th>
+                  <tr key={sitter.id} className="font-rubik font-regular">
+                    <th className="font-regular">{sitter.id}</th>
+                    <th className="font-regular">{`${sitter.firstName} ${sitter.lastName}`}</th>
+                    <th className="font-regular">{sitter.userName}</th>
+                    <th className="font-regular">{sitter.email}</th>
+                    <th className="font-regular">{sitter.clientStatus}</th>
                     <th></th>
                     <th>
                       <Link to="/review">Rate / Review</Link>

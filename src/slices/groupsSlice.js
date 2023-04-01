@@ -2,6 +2,7 @@ import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const API = process.env.REACT_APP_API_URL;
+// const API = '';
 
 export const fetchAllGroups = createAsyncThunk('/allGroups', async () => {
   const { data } = await axios.get(API + '/api/groups');

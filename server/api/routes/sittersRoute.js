@@ -11,7 +11,7 @@ const {
   Booking_Pet,
   Access,
 } = require('../../db');
-const { requireToken, isSitter } = require('../authMiddleware');
+const { requireToken } = require('../authMiddleware');
 const sequelize = require('sequelize');
 
 // get all sitters with their user info

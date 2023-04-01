@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const API = process.env.REACT_APP_API_URL;
+// const API = '';
 
 export const fetchAllBookings = createAsyncThunk(
   'allBookings',

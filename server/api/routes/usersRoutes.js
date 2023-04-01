@@ -46,53 +46,61 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // get all user's sitters (including, status)
-router.get('/:id/sitters', requireToken, async (req, res, next) => {
-  try {
-    const allSitters = await Sitter_Client.findAll({
-      where: { userId: +req.params.id },
-    });
+// router.get('/:id/mysitters', requireToken, async (req, res, next) => {
+//   try {
+//     const mySitters = await Sitter_Client.findAll({
+//       where: { userId: +req.params.id },
+//     });
 
-    const userIdsOfSitters = allSitters.map((sitter) => sitter.userId);
+//     console.log(+req.params.id);
+//     res.status(200).send(mySitters);
 
-    const userDataOfSitters = await Promise.all(
-      userIdsOfSitters.map((userId) =>
-        User.findByPk(userId, {
-          attributes: {
-            exclude: ['password'],
-          },
-        })
-      )
-    );
+//     // const allSitters = await Promise.all(
+//     //   mySitters.map((sitter) => Sitter.findByPk(sitter.sitterId))
+//     // );
 
-    const sittersAndStatus = await Promise.all(
-      allSitters.map((sitter) =>
-        Sitter_Client.findOne({
-          where: {
-            sitterId: sitter.id,
-            userId: +req.params.id,
-          },
-        })
-      )
-    );
+//     // console.log(allSitters);
+//     // const userIdsOfSitters = allSitters.map((sitter) => sitter.userId);
 
-    const combinedData = [];
+//     // const userDataOfSitters = await Promise.all(
+//     //   userIdsOfSitters.map((userId) =>
+//     //     User.findByPk(userId, {
+//     //       attributes: {
+//     //         exclude: ['password'],
+//     //       },
+//     //     })
+//     //   )
+//     // );
 
-    allSitters.forEach((sitter) => {
-      const userData = userDataOfSitters.find(
-        (user) => user.id === sitter.userId
-      );
-      combinedData.push({
-        ...userData.dataValues,
-        ...sitter.dataValues,
-      });
-    });
+//     // const sittersAndStatus = await Promise.all(
+//     //   allSitters.map((sitter) =>
+//     //     Sitter_Client.findOne({
+//     //       where: {
+//     //         sitterId: sitter.id,
+//     //         userId: +req.params.id,
+//     //       },
+//     //     })
+//     //   )
+//     // );
 
-    res.status(200).json(combinedData);
-  } catch (err) {
-    console.error('BACKEND ISSUE FETCHING USERS SITTERS');
-    next(err);
-  }
-});
+//     // const combinedData = [];
+
+//     // allSitters.forEach((sitter) => {
+//     //   const userData = userDataOfSitters.find(
+//     //     (user) => user.id === sitter.userId
+//     //   );
+//     //   combinedData.push({
+//     //     ...userData.dataValues,
+//     //     ...sitter.dataValues,
+//     //   });
+//     // });
+
+//     // res.status(200).json(combinedData);
+//   } catch (err) {
+//     console.error('BACKEND ISSUE FETCHING USERS SITTERS');
+//     next(err);
+//   }
+// });
 
 // Get pet details of a user's pets
 

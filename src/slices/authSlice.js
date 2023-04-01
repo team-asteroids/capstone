@@ -1,7 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+// const PORT = process.env.PORT;
+
 const API = process.env.REACT_APP_API_URL;
+// const API = '';
 
 export const logIn = createAsyncThunk(
   'login',
@@ -140,15 +143,11 @@ export const updateClientSitterStatus = createAsyncThunk(
 
 // get all logged in user's sitters
 export const fetchAllUserAuthSitters = createAsyncThunk(
-  'fetchUsersSitters',
-  async ({ id, token }, { rejectWithValue }) => {
+  'fetchUserSitters',
+  async (x, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(API + `/api/users/${id}/sitters`, {
-        headers: {
-          authorization: token,
-        },
-      });
-      console.log('axios:', data);
+      const { data } = await axios.get(API + `/api/sitters`);
+      // console.log('axios:', data);
       return data;
     } catch (err) {
       return rejectWithValue(err);
