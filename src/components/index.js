@@ -23,7 +23,6 @@ export { default as SitterProfile } from './profiles/sitters/SitterProfile.jsx';
 export { default as UserProfile } from './profiles/UserProfile.jsx';
 export { default as EditSitterProfile } from './users/sitters/EditSitterProfile.jsx';
 export { default as EditUserPets } from './users/EditUserPets.jsx';
-export { default as EditSitterPetPrefs } from './users/sitters/EditSitterPetPrefs.jsx';
 export { default as SitterOverview } from './users/sitters/SitterOverview.jsx';
 export { default as SitterBookings } from './users/sitters/SitterBookings.jsx';
 export { default as EditUser } from './users/EditUser.jsx';
@@ -50,3 +49,4 @@ export { default as UserBookingCardDetails } from './users/UserBookingCardDetail
 export { default as SitterOnboarding } from './sitters/SitterOnboarding.jsx';
 export { default as SitterSubmitted } from './sitters/SitterSubmitted.jsx';
 export { default as RatingsAndReviews } from './profiles/RatingsAndReviews.jsx';
+export { default as UserSitters } from './users/UserSitters.jsx';

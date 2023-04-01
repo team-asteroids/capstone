@@ -98,6 +98,21 @@ function UserAccountSidebar() {
           Bookings
         </Link>
       </div>
+      <div>
+        <Link
+          to="/account/myhistory"
+          className={
+            selectedSidebar === 'myhistory'
+              ? selectedSidebarFontClass
+              : sidebarFontClass
+          }
+          onClick={() => {
+            setSelectedSidebar('myhistory');
+          }}
+        >
+          My Sitters
+        </Link>
+      </div>
     </div>
   );
 }

@@ -18,7 +18,7 @@ const Chat = () => {
 
   function renderChatForm(creds) {
     return (
-      <div>
+      <div style={{ height: '85vh' }}>
         <input
           placeholder="Username"
           value={username}
@@ -28,21 +28,23 @@ const Chat = () => {
       </div>
     );
   }
-
+  // const height =
   return (
-    <>
+    <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-[calc(100vh_-_5rem)]">
       {user ? (
-        <ChatEngine
-          projectID="88a2e771-cc61-4355-ae54-ab980b1f3afa"
-          userName={user}
-          userSecret="secret"
-          renderNewChatForm={(creds) => renderChatForm(creds)}
-          style={{ height: '100%' }}
-        />
+        <div>
+          <ChatEngine
+            projectID="88a2e771-cc61-4355-ae54-ab980b1f3afa"
+            userName={user}
+            userSecret="secret"
+            renderNewChatForm={(creds) => renderChatForm(creds)}
+            // style={{ height: '100vh' }}
+          />
+        </div>
       ) : (
         <>Not Found</>
       )}
-    </>
+    </div>
   );
 };
 

@@ -216,6 +216,7 @@ export const sittersSlice = createSlice({
     clients: [],
     client: {},
     clientAccess: {},
+    accessStatus: '',
     error: '',
     status: '',
   },
@@ -230,6 +231,11 @@ export const sittersSlice = createSlice({
     },
     resetSingleSitter: (state) => {
       state.singleSitter = {};
+    },
+    resetClientAccess: (state) => {
+      state.client = {};
+      state.clientAccess = {};
+      state.accessStatus = '';
     },
   },
   extraReducers: (builder) => {
@@ -366,15 +372,18 @@ export const sittersSlice = createSlice({
       })
       .addCase(fetchClientAccessData.fulfilled, (state, { payload }) => {
         state.clientAccess = payload;
+        state.accessStatus = 'fulfilled';
         state.status = 'fulfilled';
         state.error = '';
       })
       .addCase(fetchClientAccessData.pending, (state, { payload }) => {
         state.status = 'loading';
+        state.accessStatus = 'loading';
         state.error = '';
       })
       .addCase(fetchClientAccessData.rejected, (state, { payload }) => {
         state.status = 'failed';
+        state.accessStatus = 'failed';
         state.error = payload.message;
       })
       .addCase(updateSitter.fulfilled, (state, { payload }) => {
@@ -406,8 +415,12 @@ export const sittersSlice = createSlice({
   },
 });
 
-export const { resetSitterStatus, resetSingleBooking, resetSingleSitter } =
-  sittersSlice.actions;
+export const {
+  resetSitterStatus,
+  resetClientAccess,
+  resetSingleBooking,
+  resetSingleSitter,
+} = sittersSlice.actions;
 
 export const selectSitters = (state) => state.sitters;
 export const selectSingleSitter = (state) => state.sitters.singleSitter;
