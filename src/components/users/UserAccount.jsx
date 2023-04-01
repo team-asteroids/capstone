@@ -7,7 +7,6 @@ import {
   getAccessData,
   attemptTokenLogin,
 } from '../../slices/authSlice';
-
 import {
   sitterLogOut,
   selectSitterAuth,
