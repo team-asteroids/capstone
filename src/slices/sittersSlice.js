@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const API = process.env.REACT_APP_API_URL;
+
 export const fetchAllSitters = createAsyncThunk(
   'allSitters',
   async (x, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get('/api/sitters');
+      const { data } = await axios.get(API + '/api/sitters');
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -17,7 +19,7 @@ export const fetchSingleSitter = createAsyncThunk(
   'singleSitter',
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/sitters/${id}`);
+      const { data } = await axios.get(API + `/api/sitters/${id}`);
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -29,7 +31,7 @@ export const fetchSingleSitterReviews = createAsyncThunk(
   'sitterReviews',
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/sitters/${id}/reviews`);
+      const { data } = await axios.get(API + `/api/sitters/${id}/reviews`);
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -41,7 +43,7 @@ export const fetchSingleSitterRatings = createAsyncThunk(
   'sitterRatings',
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/sitters/${id}/ratings`);
+      const { data } = await axios.get(API + `/api/sitters/${id}/ratings`);
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -52,7 +54,7 @@ export const fetchSitterNames = createAsyncThunk(
   'fetch/searchSitters',
   async (name, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/api/sitters/name', {
+      const { data } = await axios.post(API + '/api/sitters/name', {
         params: {
           name: name,
         },
@@ -85,7 +87,7 @@ export const fetchSingleSitterBooking = createAsyncThunk(
   async ({ id, bookingId, token }, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
-        `/api/sitters/${id}/bookings/${bookingId}`,
+        API + `/api/sitters/${id}/bookings/${bookingId}`,
         {
           headers: {
             authorization: token,
@@ -104,7 +106,7 @@ export const editSitterBooking = createAsyncThunk(
   async ({ id, bookingId, token, bookingForm }, { rejectWithValue }) => {
     try {
       const { data } = await axios.put(
-        `/api/sitters/${id}/bookings/${bookingId}`,
+        API + `/api/sitters/${id}/bookings/${bookingId}`,
         bookingForm,
         {
           headers: {
@@ -123,7 +125,7 @@ export const fetchSitterClients = createAsyncThunk(
   'fetchClients',
   async ({ id, token }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/sitters/${id}/clients`, {
+      const { data } = await axios.get(API + `/api/sitters/${id}/clients`, {
         headers: {
           authorization: token,
         },
@@ -139,11 +141,14 @@ export const fetchSingleClient = createAsyncThunk(
   'fetchClient',
   async ({ id, token, userId }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/sitters/${id}/clients/${userId}`, {
-        headers: {
-          authorization: token,
-        },
-      });
+      const { data } = await axios.get(
+        API + `/api/sitters/${id}/clients/${userId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
 
       return data;
     } catch (err) {
@@ -157,7 +162,7 @@ export const fetchClientAccessData = createAsyncThunk(
   async ({ id, token, userId }, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
-        `/api/sitters/${id}/clients/${userId}/access`,
+        API + `/api/sitters/${id}/clients/${userId}/access`,
         {
           headers: {
             authorization: token,
@@ -175,7 +180,7 @@ export const updateSitter = createAsyncThunk(
   'updateSitter',
   async ({ id, token, formData }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(`/api/sitters/${id}`, formData, {
+      const { data } = await axios.put(API + `/api/sitters/${id}`, formData, {
         headers: {
           authorization: token,
         },
@@ -191,11 +196,15 @@ export const updateSitterPrefs = createAsyncThunk(
   'updateSitterPrefs',
   async ({ id, token, prefsData }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(`/api/sitters/${id}/prefs`, prefsData, {
-        headers: {
-          authorization: token,
-        },
-      });
+      const { data } = await axios.put(
+        API + `/api/sitters/${id}/prefs`,
+        prefsData,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
       return data;
     } catch (err) {
       return rejectWithValue(err);

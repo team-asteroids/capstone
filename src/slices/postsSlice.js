@@ -1,20 +1,22 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+const API = process.env.REACT_APP_API_URL;
+
 export const fetchAllPosts = createAsyncThunk('/allPosts', async () => {
-  const { data } = await axios.get('/api/posts');
+  const { data } = await axios.get(API + '/api/posts');
   return data;
 });
 
 export const fetchAllPostLikes = createAsyncThunk('/allPostLikes', async () => {
-  const { data } = await axios.get('/api/posts/likes');
+  const { data } = await axios.get(API + '/api/posts/likes');
   return data;
 });
 
 export const likePost = createAsyncThunk('/likePost', async ({ postId }) => {
   const token = localStorage.getItem('token');
   const { data } = await axios.post(
-    `/api/posts/${postId}/likes`,
+    API + `/api/posts/${postId}/likes`,
     { postId },
     {
       headers: {
@@ -29,7 +31,7 @@ export const unlikePost = createAsyncThunk(
   '/unlikePost',
   async ({ postId }) => {
     const token = localStorage.getItem('token');
-    const { data } = await axios.delete(`/api/posts/${postId}/likes`, {
+    const { data } = await axios.delete(API + `/api/posts/${postId}/likes`, {
       headers: {
         authorization: token,
       },
@@ -41,7 +43,7 @@ export const unlikePost = createAsyncThunk(
 export const addPost = createAsyncThunk('/addPost', async ({ content }) => {
   const token = localStorage.getItem('token');
   const { data } = await axios.post(
-    '/api/posts',
+    API + '/api/posts',
     { content },
     {
       headers: {
@@ -54,7 +56,7 @@ export const addPost = createAsyncThunk('/addPost', async ({ content }) => {
 
 export const deletePost = createAsyncThunk('/deletePost', async (postId) => {
   const token = localStorage.getItem('token');
-  const { data } = await axios.delete(`/api/posts/${postId}`, {
+  const { data } = await axios.delete(API + `/api/posts/${postId}`, {
     headers: {
       authorization: token,
     },
@@ -66,7 +68,7 @@ export const fetchPostsThroughSearch = createAsyncThunk(
   '/postsSearch',
   async (name, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/api/posts/search', {
+      const { data } = await axios.post(API + '/api/posts/search', {
         params: {
           content: name,
         },
@@ -82,7 +84,7 @@ export const fetchSinglePostComments = createAsyncThunk(
   '/singlePostComments',
   async (postId) => {
     const token = localStorage.getItem('token');
-    const { data } = await axios.get(`/api/posts/${postId}/comments`, {
+    const { data } = await axios.get(API + `/api/posts/${postId}/comments`, {
       headers: {
         authorization: token,
       },
@@ -96,7 +98,7 @@ export const addPostComment = createAsyncThunk(
   async ({ content, postId }) => {
     const token = localStorage.getItem('token');
     const { data } = await axios.post(
-      `/api/posts/${postId}/comments`,
+      API + `/api/posts/${postId}/comments`,
       { content },
       {
         headers: {
@@ -127,7 +129,7 @@ export const deletePostComment = createAsyncThunk(
 // export const fetchAllCommentLikes = createAsyncThunk(
 //   '/allCommentLikes',
 //   async ({ postId, commentId }) => {
-//     const { data } = await axios.get(`/${postId}/comments/${commentId}/likes`);
+//     const { data } = await axios.get(API + `/${postId}/comments/${commentId}/likes`);
 //     return data;
 //   }
 // );
@@ -136,7 +138,7 @@ export const fetchAllCommentLikes = createAsyncThunk(
   '/allCommentLikes',
   async () => {
     const token = localStorage.getItem('token');
-    const { data } = await axios.get(`/api/posts/comment-likes`, {
+    const { data } = await axios.get(API + `/api/posts/comment-likes`, {
       headers: {
         authorization: token,
       },
@@ -151,7 +153,7 @@ export const likeComment = createAsyncThunk(
   async ({ postCommentId }) => {
     const token = localStorage.getItem('token');
     const { data } = await axios.post(
-      `/api/posts/comments/${postCommentId}/likes`,
+      API + `/api/posts/comments/${postCommentId}/likes`,
       { postCommentId },
       {
         headers: {
@@ -168,7 +170,7 @@ export const unlikeComment = createAsyncThunk(
   async ({ postCommentId }) => {
     const token = localStorage.getItem('token');
     const { data } = await axios.delete(
-      `/api/posts/comments/${postCommentId}/likes`,
+      API + `/api/posts/comments/${postCommentId}/likes`,
       {
         headers: {
           authorization: token,

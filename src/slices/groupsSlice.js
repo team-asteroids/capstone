@@ -12,7 +12,7 @@ export const fetchSingleGroup = createAsyncThunk(
   '/singleGroup',
   async (groupId) => {
     const token = localStorage.getItem('token');
-    const { data } = await axios.get(`/api/groups/${groupId}`, {
+    const { data } = await axios.get(API + `/api/groups/${groupId}`, {
       headers: {
         authorization: token,
       },
@@ -26,7 +26,7 @@ export const fetchMemberships = createAsyncThunk(
   '/getMemberships',
   async (id) => {
     const token = window.localStorage.getItem('token');
-    const { data } = await axios.get(`/api/groups/memberships/${id}`, {
+    const { data } = await axios.get(API + `/api/groups/memberships/${id}`, {
       headers: {
         authorization: token,
       },
@@ -40,7 +40,7 @@ export const editSingleGroup = createAsyncThunk(
   async ({ groupId, name, topic, description, imageSrc }) => {
     const token = localStorage.getItem('token');
     const { data } = await axios.put(
-      `/api/groups/${groupId}`,
+      API + `/api/groups/${groupId}`,
       {
         name,
         topic,
@@ -60,7 +60,7 @@ export const deleteSingleGroup = createAsyncThunk(
   '/deleteSingleGroup',
   async (groupId) => {
     const token = localStorage.getItem('token');
-    const { data } = await axios.delete(`/api/groups/${groupId}`, {
+    const { data } = await axios.delete(API + `/api/groups/${groupId}`, {
       headers: {
         authorization: token,
       },
@@ -73,7 +73,7 @@ export const addSingleGroup = createAsyncThunk(
   async ({ name, topic, description, imageSrc }) => {
     const token = localStorage.getItem('token');
     const { data } = await axios.post(
-      '/api/groups',
+      API + '/api/groups',
       { name, topic, description, imageSrc },
       {
         headers: {
@@ -88,7 +88,7 @@ export const fetchGroupMembers = createAsyncThunk(
   '/groupMembers',
   async (groupId) => {
     const token = localStorage.getItem('token');
-    const { data } = await axios.get(`/api/groups/${groupId}/members`, {
+    const { data } = await axios.get(API + `/api/groups/${groupId}/members`, {
       headers: {
         authorization: token,
       },
@@ -103,7 +103,7 @@ export const addGroupMember = createAsyncThunk(
     const token = window.localStorage.getItem('token');
     console.log('thunk token --> ', token);
     const { data } = await axios.post(
-      `/api/groups/${groupId}/members`,
+      API + `/api/groups/${groupId}/members`,
       { groupId },
       {
         headers: {
@@ -121,7 +121,7 @@ export const deleteGroupMember = createAsyncThunk(
   async ({ groupId, memberId }) => {
     const token = localStorage.getItem('token');
     const { data } = await axios.delete(
-      `/api/groups/${groupId}/members/${memberId}`,
+      API + `/api/groups/${groupId}/members/${memberId}`,
       {
         headers: {
           authorization: token,
@@ -135,7 +135,7 @@ export const fetchGroupPosts = createAsyncThunk(
   '/groupPosts',
   async (groupId) => {
     const token = localStorage.getItem('token');
-    const { data } = await axios.get(`/api/groups/${groupId}/posts`, {
+    const { data } = await axios.get(API + `/api/groups/${groupId}/posts`, {
       headers: {
         authorization: token,
       },
@@ -148,7 +148,9 @@ export const fetchGroupPosts = createAsyncThunk(
 export const fetchGroupPost = createAsyncThunk(
   '/singleGroupPost',
   async ({ groupId, postId }) => {
-    const { data } = await axios.get(`/api/groups/${groupId}/posts/${postId}`);
+    const { data } = await axios.get(
+      API + `/api/groups/${groupId}/posts/${postId}`
+    );
     return data;
   }
 );
@@ -158,7 +160,7 @@ export const addGroupPost = createAsyncThunk(
   async ({ groupId, content }) => {
     const token = localStorage.getItem('token');
     const { data } = await axios.post(
-      `/api/groups/${groupId}/posts`,
+      API + `/api/groups/${groupId}/posts`,
       { content },
       {
         headers: {
@@ -174,7 +176,7 @@ export const editGroupPost = createAsyncThunk(
   '/editGroupPost',
   async ({ groupId, postId, editedInfo }) => {
     const { data } = await axios.put(
-      `/api/groups/${groupId}/posts/${postId}`,
+      API + `/api/groups/${groupId}/posts/${postId}`,
       editedInfo
     );
     return data;
@@ -185,7 +187,7 @@ export const deleteGroupPost = createAsyncThunk(
   async ({ groupId, postId }) => {
     const token = localStorage.getItem('token');
     const { data } = await axios.delete(
-      `/api/groups/${groupId}/posts/${postId}`,
+      API + `/api/groups/${groupId}/posts/${postId}`,
       {
         headers: {
           authorization: token,
@@ -200,7 +202,7 @@ export const fetchGroupLikes = createAsyncThunk(
   '/allGroupLikes',
   async (groupId) => {
     const token = localStorage.getItem('token');
-    const { data } = await axios.get(`/api/groups/${groupId}/likes`, {
+    const { data } = await axios.get(API + `/api/groups/${groupId}/likes`, {
       headers: {
         authorization: token,
       },
@@ -215,7 +217,7 @@ export const fetchGroupPostLikes = createAsyncThunk(
   async ({ groupId, postId }) => {
     const token = localStorage.getItem('token');
     const { data } = await axios.get(
-      `/api/groups/${groupId}/posts/${postId}/likes`,
+      API + `/api/groups/${groupId}/posts/${postId}/likes`,
       {
         headers: {
           authorization: token,
@@ -231,7 +233,7 @@ export const likeGroupPost = createAsyncThunk(
   async ({ groupId, postId }) => {
     const token = localStorage.getItem('token');
     const { data } = await axios.post(
-      `/api/groups/${groupId}/posts/${postId}/likes`,
+      API + `/api/groups/${groupId}/posts/${postId}/likes`,
       { postId },
       {
         headers: {
@@ -248,7 +250,7 @@ export const unlikeGroupPost = createAsyncThunk(
   async ({ groupId, postId }) => {
     const token = localStorage.getItem('token');
     const { data } = await axios.delete(
-      `/api/groups/${groupId}/posts/${postId}/likes`,
+      API + `/api/groups/${groupId}/posts/${postId}/likes`,
       {
         headers: {
           authorization: token,
@@ -263,7 +265,7 @@ export const fetchGroupNames = createAsyncThunk(
   'fetch/searchGroups',
   async (name, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/api/groups/name', {
+      const { data } = await axios.post(API + '/api/groups/name', {
         params: {
           name: name,
         },

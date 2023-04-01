@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const API = process.env.REACT_APP_API_URL;
+
 export const fetchAllPets = createAsyncThunk(
   'userPets',
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/users/${id}/pets`);
+      const { data } = await axios.get(API + `/api/users/${id}/pets`);
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -16,7 +18,7 @@ export const fetchAllPets = createAsyncThunk(
 export const fetchSinglePet = createAsyncThunk(
   'singlePet',
   async (petId, { rejectWithValue }) => {
-    const { data } = await axios.get(`/api/pets/${petId}`);
+    const { data } = await axios.get(API + `/api/pets/${petId}`);
     return data;
   }
 );
@@ -24,7 +26,7 @@ export const fetchSinglePet = createAsyncThunk(
 export const fetchPetDetails = createAsyncThunk(
   'petDetails',
   async (petId, { rejectWithValue }) => {
-    const { data } = await axios.get(`/api/pets/${petId}/details`);
+    const { data } = await axios.get(API + `/api/pets/${petId}/details`);
     return data;
   }
 );
@@ -33,7 +35,7 @@ export const updatePet = createAsyncThunk(
   'updatePet',
   async ({ id, token, petId, petInfo }, { rejectWithValue }) => {
     const { data } = await axios.put(
-      `/api/users/${id}/pets/${petId}`,
+      API + `/api/users/${id}/pets/${petId}`,
       petInfo,
       {
         headers: {
@@ -52,7 +54,7 @@ export const updatePetDetails = createAsyncThunk(
     { rejectWithValue }
   ) => {
     const { data } = await axios.put(
-      `/api/users/${id}/pets/${petId}/details/${detailsId}`,
+      API + `/api/users/${id}/pets/${petId}/details/${detailsId}`,
       petDetailsData,
       {
         headers: {
@@ -67,7 +69,7 @@ export const updatePetDetails = createAsyncThunk(
 export const addPet = createAsyncThunk(
   'addPet',
   async ({ id, token, petInfo }, { rejectWithValue }) => {
-    const { data } = await axios.post(`/api/users/${id}/pets`, petInfo, {
+    const { data } = await axios.post(API + `/api/users/${id}/pets`, petInfo, {
       headers: {
         authorization: token,
       },
@@ -80,7 +82,7 @@ export const addPetDetails = createAsyncThunk(
   'addPetDetails',
   async ({ id, token, petId, petDetailsData }, { rejectWithValue }) => {
     const { data } = await axios.post(
-      `/api/users/${id}/pets/${petId}/details`,
+      API + `/api/users/${id}/pets/${petId}/details`,
       petDetailsData,
       {
         headers: {
@@ -95,11 +97,14 @@ export const addPetDetails = createAsyncThunk(
 export const deletePet = createAsyncThunk(
   'deletePet',
   async ({ id, token, petId }, { rejectWithValue }) => {
-    const { data } = await axios.delete(`/api/users/${id}/pets/${petId}`, {
-      headers: {
-        authorization: token,
-      },
-    });
+    const { data } = await axios.delete(
+      API + `/api/users/${id}/pets/${petId}`,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     console.log(data);
     return data;
   }
