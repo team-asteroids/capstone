@@ -30,7 +30,10 @@ const UserEventsProfile = (props) => {
             <Link to={`/events/${rsvp.eventId}`}>
               {events.map((event) =>
                 event.id === rsvp.eventId ? (
-                  <div className="border-solid border-2 rounded-lg bg-slate">
+                  <div
+                    key={event.id}
+                    className="border-solid border-2 rounded-lg bg-slate"
+                  >
                     <li>Event Id: {rsvp.eventId}</li>
                     <li>Type: {event.topic}</li>
                     <li>Description: {event.description}</li>
