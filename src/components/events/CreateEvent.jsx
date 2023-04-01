@@ -80,7 +80,7 @@ const CreateEvent = () => {
   const labelClass = 'text-xs font-rubikmono';
 
   const validClass =
-    'appearance-none rounded-lg block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+    'appearance-none rounded block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
   return (
     <div className="p-6 bg-pale-blue h-[calc(100vh_-_5rem)]">
@@ -109,8 +109,8 @@ const CreateEvent = () => {
           </h3>
           <div className="flex flex-wrap">
             <form onSubmit={submitEvent}>
-              <div className="grid gap-6 mb-6 md:grid-cols-2">
-                <div>
+              <div className="flex flex-wrap mb-5">
+                <div className="w-1/2 flex flex-col pr-6">
                   <label htmlFor="event_start" className={labelClass}>
                     Event Start:
                   </label>
@@ -136,11 +136,8 @@ const CreateEvent = () => {
                     Please enter a start date/time
                   </p>
                 </div>
-                <div>
-                  <label
-                    htmlFor="event_end"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
+                <div className="w-1/2 flex flex-col">
+                  <label htmlFor="event_end" className={labelClass}>
                     Event End:
                   </label>
                   <input
@@ -165,12 +162,11 @@ const CreateEvent = () => {
                     Please enter a end date/time
                   </p>
                 </div>
+              </div>
 
-                <div>
-                  <label
-                    htmlFor="topic"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
+              <div className="flex flex-wrap mb-5">
+                <div className="w-1/2 flex flex-col pr-6">
+                  <label htmlFor="topic" className={labelClass}>
                     Type of Event:
                   </label>
                   <input
@@ -182,8 +178,7 @@ const CreateEvent = () => {
                       setTopicPrompt(false);
                       setTopic(e.target.value);
                     }}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Birthday, Group Playdate, etc..."
+                    className={validClass}
                     // required
                   ></input>
                   <p
@@ -196,11 +191,8 @@ const CreateEvent = () => {
                     This feild must be filled
                   </p>
                 </div>
-                <div>
-                  <label
-                    htmlFor="zip_code"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
+                <div className="w-1/2 flex flex-col">
+                  <label htmlFor="zip_code" className={labelClass}>
                     Location (Zip Code) :
                   </label>
                   <input
@@ -212,8 +204,7 @@ const CreateEvent = () => {
                       setZipPrompt(false);
                       setZipCode(e.target.value);
                     }}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="01010"
+                    className={validClass}
                     // required
                   ></input>
                   <p
@@ -225,11 +216,8 @@ const CreateEvent = () => {
                   </p>
                 </div>
               </div>
-              <div className="mb-6">
-                <label
-                  htmlFor="description"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
+              <div className="flex flex-wrap mb-5">
+                <label htmlFor="description" className={labelClass}>
                   Event Details:
                 </label>
                 <input
@@ -241,8 +229,7 @@ const CreateEvent = () => {
                     setDescriptionPrompt(false);
                     setDescription(e.target.value);
                   }}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Tell us a little bit more about this event"
+                  className={validClass}
                   // required
                 ></input>
                 <p
