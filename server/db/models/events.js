@@ -43,6 +43,12 @@ const Event = db.define('event', {
       notNull: true,
     },
   },
+  imageSrc: {
+    type: Sequelize.STRING,
+    defaultValue:
+      'https://img.freepik.com/free-photo/group-puppies-celebrating-new-year_53876-64798.jpg?w=996&t=st=1680384097~exp=1680384697~hmac=e0683efce9c1e7cf771049ff1629f8211f3981a060087845ba7895e009aec89c',
+    allowNull: true,
+  },
 });
 
 const Event_RSVP = db.define('event_rsvps');
