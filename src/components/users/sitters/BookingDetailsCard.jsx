@@ -90,7 +90,10 @@ const BookingDetailsCard = (props) => {
   const labelClass = 'text-xs font-rubikmono';
 
   const validClass =
-    'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+    'appearance-none block w-full bg-white-200 border border-gray-600 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+
+  const disabledClass =
+    'appearance-none block border-slate-400 w-full bg-slate-200/30 border rounded py-3 px-4 leading-tight mt-3 font-rubik';
 
   const validLinkClass =
     'cursor-pointer appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
@@ -177,7 +180,7 @@ const BookingDetailsCard = (props) => {
                       <div className="w-1/3 flex flex-col pr-6">
                         <label className={labelClass}>Start</label>
                         <input
-                          className={validClass}
+                          className={disabledClass}
                           value={sitterBooking.startDate}
                           disabled={true}
                         />
@@ -185,7 +188,7 @@ const BookingDetailsCard = (props) => {
                       <div className="w-1/3 flex flex-col">
                         <label className={labelClass}>End</label>
                         <input
-                          className={validClass}
+                          className={disabledClass}
                           value={sitterBooking.endDate}
                           disabled={true}
                         />
@@ -195,7 +198,7 @@ const BookingDetailsCard = (props) => {
                       <div className="w-1/4 flex flex-col pr-6">
                         <label className={labelClass}>Location</label>
                         <input
-                          className={validClass}
+                          className={disabledClass}
                           value={sitterBooking.location}
                           disabled={true}
                         />
@@ -203,7 +206,7 @@ const BookingDetailsCard = (props) => {
                       <div className="w-1/4 flex flex-col pr-6">
                         <label className={labelClass}>Total Days</label>
                         <input
-                          className={validClass}
+                          className={disabledClass}
                           value={sitterBooking.totalDays}
                           disabled={true}
                         />
@@ -239,7 +242,7 @@ const BookingDetailsCard = (props) => {
                       <div className="w-1/4 flex flex-col">
                         <label className={labelClass}>Total Amount</label>
                         <input
-                          className={validClass}
+                          className={disabledClass}
                           value={bookingForm.totalAmount}
                           disabled={true}
                         />
@@ -271,6 +274,7 @@ const BookingDetailsCard = (props) => {
                       <Link to={`/profile/${sitterBooking.user.id}`}>
                         <input
                           className={validLinkClass}
+                          type="text"
                           defaultValue={sitterBooking.user.fullName}
                           disabled
                         />
@@ -285,6 +289,7 @@ const BookingDetailsCard = (props) => {
                           >
                             <input
                               key={pet.id}
+                              type="text"
                               defaultValue={pet.name}
                               className={validLinkClass}
                               disabled
@@ -307,7 +312,7 @@ const BookingDetailsCard = (props) => {
                     <div className="w-full flex flex-col">
                       <label className={labelClass}>Phone</label>
                       <input
-                        className={validClass}
+                        className={disabledClass}
                         id="phone"
                         name="phone"
                         type="text"
@@ -321,7 +326,7 @@ const BookingDetailsCard = (props) => {
                     <div className="w-1/2 pr-6">
                       <label className={labelClass}>Address Line 1</label>
                       <input
-                        className={validClass}
+                        className={disabledClass}
                         id="address1"
                         name="address1"
                         type="text"
@@ -332,7 +337,7 @@ const BookingDetailsCard = (props) => {
                     <div className="w-1/2">
                       <label className={labelClass}>Address Line 2</label>
                       <input
-                        className={validClass}
+                        className={disabledClass}
                         id="address2"
                         name="address2"
                         type="text"
@@ -346,9 +351,10 @@ const BookingDetailsCard = (props) => {
                     <div className="w-1/3 pr-6">
                       <label className={labelClass}>City</label>
                       <input
-                        className={validClass}
+                        className={disabledClass}
                         id="city"
                         name="city"
+                        type="text"
                         defaultValue={clientAccess.city}
                         disabled
                       />
@@ -357,8 +363,9 @@ const BookingDetailsCard = (props) => {
                     <div className="w-1/3 pr-6">
                       <label className={labelClass}>State</label>
                       <input
-                        className={validClass}
+                        className={disabledClass}
                         id="state"
+                        type="text"
                         name="state"
                         defaultValue={clientAccess.state}
                         disabled
@@ -368,7 +375,7 @@ const BookingDetailsCard = (props) => {
                     <div className="w-1/3">
                       <label className={labelClass}>Zip Code</label>
                       <input
-                        className={validClass}
+                        className={disabledClass}
                         type="text"
                         id="zip"
                         name="zip"
@@ -384,7 +391,7 @@ const BookingDetailsCard = (props) => {
                         Emergency Contact Name
                       </label>
                       <input
-                        className={validClass}
+                        className={disabledClass}
                         id="emergencyContactName"
                         name="emergencyContactName"
                         type="text"
@@ -397,7 +404,7 @@ const BookingDetailsCard = (props) => {
                         Emergency Contact Phone
                       </label>
                       <input
-                        className={validClass}
+                        className={disabledClass}
                         id="emergencyContactPhone"
                         name="emergencyContactPhone"
                         type="tel"
@@ -410,7 +417,7 @@ const BookingDetailsCard = (props) => {
                     <div className="w-full text-left">
                       <label className={labelClass}>Additional Notes</label>
                       <textarea
-                        className={validClass}
+                        className={disabledClass}
                         id="additionalNotes"
                         name="additionalNotes"
                         type="text"

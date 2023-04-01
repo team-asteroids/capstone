@@ -5,7 +5,11 @@ import {
   updateSitterPrefs,
   resetSitterStatus,
 } from '../../../slices/sittersSlice';
-import { selectAuth } from '../../../slices/authSlice';
+import {
+  selectAuth,
+  updateSitterAuthPrefs,
+  updateSitterAuth,
+} from '../../../slices/authSlice';
 
 const EditSitterProfile = (props) => {
   const dispatch = useDispatch();
@@ -15,7 +19,7 @@ const EditSitterProfile = (props) => {
 
   const token = window.localStorage.getItem('token');
 
-  const { singleAuthSitter } = useSelector(selectAuth);
+  const { singleAuthSitter, userAuth } = useSelector(selectAuth);
 
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [savePrefsSuccess, setSavePrefsSuccess] = useState(false);
@@ -49,10 +53,7 @@ const EditSitterProfile = (props) => {
         medication: sitterPrefs[0].medication,
       });
     }
-    return () => {
-      dispatch(resetSitterStatus());
-    };
-  }, [sitter, sitterPrefs, singleAuthSitter]);
+  }, [sitter, sitterPrefs, singleAuthSitter, userAuth]);
 
   const labelClass = 'text-xs font-rubikmono';
 
@@ -66,7 +67,7 @@ const EditSitterProfile = (props) => {
     evt.preventDefault();
 
     const id = sitter.id;
-    const res = await dispatch(updateSitter({ id, token, formData }));
+    const res = await dispatch(updateSitterAuth({ id, token, formData }));
 
     if (res.type === 'updateSitter/fulfilled') {
       setSaveSuccess(true);
@@ -77,7 +78,7 @@ const EditSitterProfile = (props) => {
     evt.preventDefault();
 
     const id = sitter.id;
-    const res = await dispatch(updateSitterPrefs({ id, token, prefsData }));
+    const res = await dispatch(updateSitterAuthPrefs({ id, token, prefsData }));
 
     if (res.type === 'updateSitterPrefs/fulfilled') {
       setSavePrefsSuccess(true);

@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAuth } from '../../../slices/authSlice';
+import {
+  selectAuth,
+  fetchAllSitterAuthClients,
+  resetSitterAuthClients,
+} from '../../../slices/authSlice';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import {
   fetchSitterClients,
@@ -12,17 +16,17 @@ const SitterClients = (props) => {
   const dispatch = useDispatch();
 
   const { sitter } = props;
-  const { token } = useSelector(selectAuth);
-  const { clients } = useSelector(selectSitters);
+  const { token, userAuthSitterClients } = useSelector(selectAuth);
+  // const { clients } = useSelector(selectSitters);
+
+  console.log('userAuthSitterClients', userAuthSitterClients);
 
   useEffect(() => {
-    if (sitter && sitter.id) {
-      const { id } = sitter;
-      dispatch(fetchSitterClients({ id, token }));
-    }
+    const { id } = sitter;
+    dispatch(fetchAllSitterAuthClients({ id, token }));
 
     return () => {
-      dispatch(resetSitterStatus());
+      dispatch(resetSitterAuthClients());
     };
   }, [sitter]);
 
@@ -31,24 +35,28 @@ const SitterClients = (props) => {
   const validClass =
     'cursor-pointer appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
+  const disabledClass =
+    'cursor-pointer appearance-none block border-slate-400 w-full bg-bright-white/30 border rounded py-3 px-4 leading-tight mt-3 font-rubik';
+
   const inactiveStatusClass =
-    'cursor-pointer appearance-none block text-red-600 w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+    'cursor-pointer text-red-600 appearance-none block border-slate-400 w-full bg-bright-white/30 border rounded py-3 px-4 leading-tight mt-3 font-rubik';
 
   return (
     <div>
       <p className="pb-5">Clients</p>
       <div>
-        {clients
-          ? clients.map((client) => (
+        {userAuthSitterClients
+          ? userAuthSitterClients.map((client) => (
               <Link to={`/profile/${client.id}`}>
                 <div key={client.id} className="font-rubik mb-10">
                   <div className="flex flex-wrap mb-3">
                     <div className="w-1/5 flex flex-col pr-6">
                       <label className={labelClass}>Name</label>
                       <input
-                        className={validClass}
+                        className={disabledClass}
                         disabled
-                        defaultValue={`${client.firstName}, ${client.lastName}`}
+                        type="text"
+                        defaultValue={`${client.firstName} ${client.lastName}`}
                       />
                     </div>
                     <div className="w-1/5 flex flex-col pr-6">
@@ -56,28 +64,29 @@ const SitterClients = (props) => {
                       <input
                         className={
                           client.status === true
-                            ? validClass
+                            ? disabledClass
                             : inactiveStatusClass
                         }
+                        type="text"
                         disabled
-                        defaultValue={
-                          client.status === true ? 'active' : 'inactive'
-                        }
+                        defaultValue={client.status ? 'active' : 'inactive'}
                       />
                     </div>
                     <div className="w-1/5 flex flex-col pr-6">
                       <label className={labelClass}>Username</label>
                       <input
-                        className={validClass}
+                        className={disabledClass}
                         disabled
+                        type="text"
                         defaultValue={client.userName}
                       />
                     </div>
                     <div className="w-2/5 flex flex-col pr-6">
                       <label className={labelClass}>Email</label>
                       <input
-                        className={validClass}
+                        className={disabledClass}
                         disabled
+                        type="text"
                         defaultValue={client.email}
                       />
                     </div>

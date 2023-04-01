@@ -15,11 +15,14 @@ const BookingCard = (props) => {
   const validClass =
     'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
+  const disabledClass =
+    'appearance-none block border-slate-400 w-full bg-slate-200/40 border rounded py-3 px-4 leading-tight mt-3 font-rubik';
+
   // const invalidClass =
   //   'appearance-none block w-full border border-red-500 bg-white-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
   return (
-    <div className="pt-3 px-5 bg-bright-white bg-opacity-25 border rounded">
+    <div className="pt-3 px-5 bg-bright-white bg-opacity-20 border rounded-lg">
       <div className="flex flex-row flex-wrap p-5">
         <div className="w-1/4 flex flex-col justify-between pr-2">
           <div>

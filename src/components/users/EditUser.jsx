@@ -51,6 +51,9 @@ const EditUser = (props) => {
   const validClass =
     'appearance-none block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
+  const disabledClass =
+    'appearance-none block border-slate-400 w-full bg-slate-200/40 border rounded py-3 px-4 leading-tight mt-3 font-rubik';
+
   const buttonClass =
     'text-sm font-semibold ease-in-out duration-100 hover:text-bold-orange pb-2';
 
@@ -345,6 +348,7 @@ const EditUser = (props) => {
                       <input
                         className={validClass}
                         id="city"
+                        type="text"
                         name="city"
                         value={formAccessData.city}
                         onChange={(evt) => {
