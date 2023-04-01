@@ -12,20 +12,16 @@ const {
   Pet_Detail,
   Booking,
   Event,
-  // Payment,
   Group,
   Group_Post,
   Group_Member,
   Group_Post_Like,
-  Chat_Message,
-  Map,
   Post,
   Post_Comment,
   Access,
   FavGroup,
   Post_Like,
   Post_Comment_Like,
-  Chat,
 } = require('./server/db/index');
 const users = require('./mock-data/userSeed');
 const { events } = require('./mock-data/eventSeed');
@@ -102,16 +98,11 @@ const init = async () => {
     });
     console.log('Sitter prefs seeding successful!');
 
-    console.log('seeding chats...');
-    const seedChats = await Chat.bulkCreate(chatList, {
-      validate: true,
-    });
-    console.log('Chat seeding successful!');
-
     console.log('seeding pets...');
     const seedPets = await Pet.bulkCreate(pets, {
       validate: true,
     });
+
     console.log('Pet seeding successful!');
     const seed_petDetails = await Pet_Detail.bulkCreate(pet_details, {
       validate: true,
@@ -175,10 +166,10 @@ const init = async () => {
     });
     console.log('Post_Comment seeding successful!');
 
-    console.log('seeding maps...');
-    const seedMaps = await Map.bulkCreate(maps, {
-      validate: true,
-    });
+    // console.log('seeding maps...');
+    // const seedMaps = await Map.bulkCreate(maps, {
+    //   validate: true,
+    // });
     console.log('Map seeding successful!');
 
     console.log('seeding access...');
