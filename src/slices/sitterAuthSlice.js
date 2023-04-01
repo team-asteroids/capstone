@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const API = process.env.REACT_APP_API_URL;
+
 export const fetchSitterAuth = createAsyncThunk(
   'fetchSitterAuth',
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/sitters/${id}`);
+      const { data } = await axios.get(API + `/api/sitters/${id}`);
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -17,7 +19,7 @@ export const updateSitterAuth = createAsyncThunk(
   'updateSitter',
   async ({ id, token, formData }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(`/api/sitters/${id}`, formData, {
+      const { data } = await axios.put(API + `/api/sitters/${id}`, formData, {
         headers: {
           authorization: token,
         },
@@ -33,11 +35,15 @@ export const updateSitterAuthPrefs = createAsyncThunk(
   'updateSitterPrefs',
   async ({ id, token, prefsData }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(`/api/sitters/${id}/prefs`, prefsData, {
-        headers: {
-          authorization: token,
-        },
-      });
+      const { data } = await axios.put(
+        API + `/api/sitters/${id}/prefs`,
+        prefsData,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -50,7 +56,7 @@ export const fetchSitterAuthClients = createAsyncThunk(
   'fetchUserClients',
   async ({ id, token }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/sitters/${id}/clients`, {
+      const { data } = await axios.get(API + `/api/sitters/${id}/clients`, {
         headers: {
           authorization: token,
         },
@@ -67,11 +73,14 @@ export const fetchSitterAuthClient = createAsyncThunk(
   'fetchClient',
   async ({ id, token, userId }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/sitters/${id}/clients/${userId}`, {
-        headers: {
-          authorization: token,
-        },
-      });
+      const { data } = await axios.get(
+        API + `/api/sitters/${id}/clients/${userId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
 
       return data;
     } catch (err) {
