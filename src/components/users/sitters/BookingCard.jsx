@@ -7,7 +7,7 @@ const BookingCard = (props) => {
   const bookingId = booking.id;
   const bookingPets = booking.pets;
   const client = booking.user;
-  // const bookingSitter = booking.
+
   const location = useLocation();
 
   const labelClass = 'text-xs font-rubikmono';
