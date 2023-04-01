@@ -1,5 +1,9 @@
 const router = require('express').Router();
 
+const cors = require('cors');
+
+router.use(cors());
+
 // routes to specific pages
 router.use('/users', require('./routes/usersRoutes'));
 router.use('/pets', require('./routes/petsRoute'));
