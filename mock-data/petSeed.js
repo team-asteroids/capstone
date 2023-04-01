@@ -7,7 +7,7 @@ const pets = [
     sex: 'female',
     imageSrc:
       'https://cdn.akc.org/content/article-body-image/golden_puppy_dog_pictures.jpg',
-    userId: 1,
+    userId: 19,
   },
   {
     name: 'Rufus',
