@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const API = process.env.REACT_APP_API_URL;
+
 export const fetchAllUsers = createAsyncThunk(
   'allUsers',
   async (x, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get('/api/users');
+      const { data } = await axios.get(API + '/api/users');
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -17,7 +19,7 @@ export const fetchSingleUser = createAsyncThunk(
   'singleUser',
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/users/${id}`);
+      const { data } = await axios.get(API + `/api/users/${id}`);
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -32,7 +34,7 @@ export const postSitterRating = createAsyncThunk(
     try {
       if (!sitterRating) return rejectWithValue('no rating submitted');
       const { data } = await axios.post(
-        `/api/users/${id}/ratings`,
+        API + `/api/users/${id}/ratings`,
         { sitterId, rating: sitterRating },
         {
           headers: {
@@ -54,7 +56,7 @@ export const postSitterReview = createAsyncThunk(
     try {
       if (!sitterReview) return rejectWithValue('no rating submitted');
       const { data } = await axios.post(
-        `/api/users/${id}/reviews`,
+        API + `/api/users/${id}/reviews`,
         { sitterId, context: sitterReview },
         {
           headers: {
