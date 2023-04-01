@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
-  updateSitter,
-  updateSitterPrefs,
-  resetSitterStatus,
-  selectSitters,
-} from '../../../slices/sittersSlice';
+  selectAuth,
+  updateSitterAuthPrefs,
+  updateSitterAuth,
+} from '../../../slices/authSlice';
 
 const EditSitterProfile = (props) => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const EditSitterProfile = (props) => {
 
   const token = window.localStorage.getItem('token');
 
-  const { singleSitter } = useSelector(selectSitters);
+  const { singleAuthSitter, userAuth } = useSelector(selectAuth);
 
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [savePrefsSuccess, setSavePrefsSuccess] = useState(false);
@@ -49,10 +49,7 @@ const EditSitterProfile = (props) => {
         medication: sitterPrefs[0].medication,
       });
     }
-    return () => {
-      dispatch(resetSitterStatus());
-    };
-  }, [sitter, sitterPrefs]);
+  }, [sitter, sitterPrefs, singleAuthSitter, userAuth]);
 
   const labelClass = 'text-xs font-rubikmono';
 
@@ -66,7 +63,7 @@ const EditSitterProfile = (props) => {
     evt.preventDefault();
 
     const id = sitter.id;
-    const res = await dispatch(updateSitter({ id, token, formData }));
+    const res = await dispatch(updateSitterAuth({ id, token, formData }));
 
     if (res.type === 'updateSitter/fulfilled') {
       setSaveSuccess(true);
@@ -77,7 +74,7 @@ const EditSitterProfile = (props) => {
     evt.preventDefault();
 
     const id = sitter.id;
-    const res = await dispatch(updateSitterPrefs({ id, token, prefsData }));
+    const res = await dispatch(updateSitterAuthPrefs({ id, token, prefsData }));
 
     if (res.type === 'updateSitterPrefs/fulfilled') {
       setSavePrefsSuccess(true);
