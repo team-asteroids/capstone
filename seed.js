@@ -41,18 +41,18 @@ const { bookings } = require('./mock-data/bookingSeed');
 const groups = require('./mock-data/groupSeed');
 const groupMembers = require('./mock-data/groupMemSeed');
 const { groupPosts, groupPostLikes } = require('./mock-data/groupPostSeed');
-const messages = require('./mock-data/messageSeed');
+// const messages = require('./mock-data/messageSeed');
 const {
   posts,
   postComments,
   postLikes,
   postCommentLikes,
 } = require('./mock-data/postSeed');
-const maps = require('./mock-data/mapSeed');
+// const maps = require('./mock-data/mapSeed');
 const accessList = require('./mock-data/accessSeed');
 const { favSitters, favGroups } = require('./mock-data/favSeeds');
-const chatList = require('./mock-data/chatSeed');
-const chatMessages = require('./mock-data/chatMessageSeed');
+// const chatList = require('./mock-data/chatSeed');
+// const chatMessages = require('./mock-data/chatMessageSeed');
 
 const init = async () => {
   try {
@@ -142,10 +142,10 @@ const init = async () => {
     });
     console.log('Group seeding successful!');
 
-    console.log('seeding messages...');
-    const seedMessages = await Chat_Message.bulkCreate(chatMessages, {
-      validate: true,
-    });
+    // console.log('seeding messages...');
+    // const seedMessages = await Chat_Message.bulkCreate(chatMessages, {
+    //   validate: true,
+    // });
     console.log('Message seeding successful!');
 
     console.log('seeding posts...');
@@ -303,15 +303,15 @@ const init = async () => {
     console.log('event_rsvps seeding worked');
 
     // message_likes
-    console.log('seeding message_likes...');
-    const massMessageLikes = await Promise.all(
-      seedMessages
-        .filter((message) => {
-          return message.id % 2 !== 0;
-        })
-        .map((message) => message.addUser(Math.floor(Math.random() * 40) + 10))
-    );
-    console.log('message_likes seeding worked');
+    // console.log('seeding message_likes...');
+    // const massMessageLikes = await Promise.all(
+    //   seedMessages
+    //     .filter((message) => {
+    //       return message.id % 2 !== 0;
+    //     })
+    //     .map((message) => message.addUser(Math.floor(Math.random() * 40) + 10))
+    // );
+    // console.log('message_likes seeding worked');
 
     db.close();
   } catch (err) {
