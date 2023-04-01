@@ -17,14 +17,8 @@ const EventsView = (props) => {
   const nPages = Math.ceil(events.length / itemsPerPage);
 
   return (
-    <div>
-      <div
-        className="bg-gradient-to-r from-bold-blue via-bold-purple
-      to-white-smoke"
-      >
-        <Link to="/events/create">
-          <div>Create Event</div>
-        </Link>
+    <div className="h-[calc(100vh_-_5rem)]">
+      <div>
         <div className="container mx-auto ">
           {currentItems.map((event) => (
             <EventList
