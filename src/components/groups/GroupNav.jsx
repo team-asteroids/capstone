@@ -5,7 +5,7 @@ function GroupNav(props) {
   const { singleGroup, userAuth } = props;
 
   return (
-    <nav className="flex justify-between font-mono h-8 items-center tracking-tighter px-5">
+    <nav className="flex justify-between font-rubikmono h-8 items-center tracking-tighter px-5">
       <ul className="flex text-2xl gap-10">
         <Link to={`/groups/${singleGroup.id}/posts`}>
           <li>Discussion</li>

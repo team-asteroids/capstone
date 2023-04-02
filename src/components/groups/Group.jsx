@@ -30,7 +30,7 @@ const Group = (props) => {
 
   return (
     <div className="font-rubik">
-      <div className="w-96 border bg-white-smoke rounded-lg">
+      <div className="w-96 border bg-slate-50 rounded-lg">
         <Link to={`/groups/${group.id}`} state={{ groupId: group.id }}>
           <img
             className="rounded-t-lg object-cover h-72 w-144"
@@ -50,7 +50,7 @@ const Group = (props) => {
               <div className="flex justify-between px-5">
                 <div className="flex flex-col gap-2 pb-5">
                   <p className="text-sm">({`${group.topic}`})</p>
-                  <p>{`${mem}`} members</p>
+                  <p>{`${mem}`} MEMBERS</p>
                   <div className="">
                     <button onClick={joinGroup} className={buttonClass}>
                       JOIN GROUP
