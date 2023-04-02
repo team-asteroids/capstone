@@ -1,15 +1,15 @@
 const groups = [
   {
-    name: 'NYC Dog Owners Group',
+    name: 'Pawsitively Healthy!',
     topic: 'recommendations',
     description:
-      'This group is dedicated to advocating for dog owners in NYC and promoting responsible dog ownership. We host events and meetups throughout the city, and provide resources for dog owners on topics such as training, health, and legal issues.',
-    imageSrc: '',
+      'This group is dedicated to providing pet parents with valuable information and resources to keep their furry friends happy and healthy. Here, you can find useful tips and advice on nutrition, vaccinations, grooming, training, and more. Our goal is to create a supportive community where pet owners can learn from each other and get expert guidance from our team of veterinary professionals.',
+
     creatorId: 12,
   },
   {
     name: 'Big Apple Greyhound Adoption',
-    topic: 'playdates',
+    topic: 'neighborhood',
     description:
       'This organization rescues retired racing greyhounds and finds them loving homes in the NYC area. We also provide education and support for adopters, and host events to raise awareness about the breed.',
     imageSrc:
@@ -18,7 +18,7 @@ const groups = [
   },
   {
     name: 'Pit Bull Rescue Central',
-    topic: 'playdates',
+    topic: 'neighborhood',
     description:
       'This group is dedicated to rescuing and rehabilitating pit bulls and finding them permanent homes. We provide education and resources for owners and advocates, and work to combat stereotypes about the breed.',
     imageSrc:
@@ -27,7 +27,7 @@ const groups = [
   },
   {
     name: 'New York City Shiba Inu Meetup Group',
-    topic: 'exotic pets',
+    topic: 'playdates',
     description:
       'This group brings together owners of Shiba Inus, a popular breed in NYC, for playdates and socialization. We also provide resources and support for owners on topics such as training and health.',
     imageSrc:
@@ -54,7 +54,7 @@ const groups = [
   },
   {
     name: 'NYC Pug Meetup Group',
-    topic: 'exotic pets',
+    topic: 'playdates',
     description:
       'This group is for owners of Pugs in NYC. We host regular meetups and events where Pug owners can socialize and share tips on raising and caring for their dogs.',
     imageSrc:
@@ -63,7 +63,7 @@ const groups = [
   },
   {
     name: 'Badass Brooklyn Animal Rescue',
-    topic: 'exotic pets',
+    topic: 'neighborhood',
     description:
       'This rescue organization specializes in rescuing dogs from high-kill shelters in the South and bringing them to loving homes in the Northeast. TheWey also provide education and resources for pet owners, and advocate for animal welfare.',
     imageSrc:
@@ -72,7 +72,7 @@ const groups = [
   },
   {
     name: 'NYC Schnauzers & Friends Meetup Group',
-    topic: 'neighborhood',
+    topic: 'playdates',
     description:
       'This group is for owners of Schnauzers and other small breeds in NYC. We host regular meetups and events where owners can socialize and share tips on raising and caring for their dogs.',
     imageSrc:
@@ -81,7 +81,7 @@ const groups = [
   },
   {
     name: 'NYC Cocker Spaniel Meetup Group',
-    topic: 'neighborhood',
+    topic: 'playdates',
     description:
       'This group is for owners of Cocker Spaniels in NYC. We host regular meetups and events where owners can socialize and share tips on raising and caring for their dogs.',
     imageSrc:
@@ -125,7 +125,7 @@ const groups = [
     creatorId: 12,
   },
   {
-    name: 'NYC Foster Interest',
+    name: 'Queens Foster Interest',
     topic: 'recommendations',
     description:
       "We understand that sometimes dogs find themselves in unfortunate situations and need temporary homes to help them get back on their paws. That's where our foster families come in! By opening up their homes and hearts, our members provide a safe and loving environment for dogs to thrive while they wait for their forever homes. Our group is a place where potential foster families can connect with reputable rescues and shelters in their area, and learn about the fostering process. We also provide support and resources for current fosters, including tips for dog care, training, and behavior.In addition, our members share heartwarming stories and photos of the dogs they've fostered, and celebrate when they find their forever homes. We believe that every dog deserves a second chance, and our group is committed to making that a reality, one foster family at a time.Thank you for joining our community and for making a difference in the lives of dogs in need!",
