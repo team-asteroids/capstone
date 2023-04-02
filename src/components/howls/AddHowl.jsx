@@ -19,7 +19,6 @@ const AddHowl = () => {
     e.preventDefault();
     // const notify = () => toast('Testing Toast');
     await dispatch(addPost({ content }));
-    setContent('');
     toast({
       title: 'Posted howl',
       description: 'Aaaaoooo!',
@@ -28,6 +27,8 @@ const AddHowl = () => {
       status: 'success',
       position: 'top',
     });
+    setContent('');
+
     // notify();
   };
 
