@@ -12,8 +12,8 @@ const DiscoverSitters = () => {
   const { sitters } = useSelector(selectSitters);
 
   const [search, setSearch] = useState('');
-
   const [searchAlert, setSearchAlert] = useState('');
+  const [attemptSearch, setAttemptSearch] = useState(false);
 
   const [rating, setRating] = useState('');
   const [price, setPrice] = useState('');
@@ -21,14 +21,16 @@ const DiscoverSitters = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    setAttemptSearch(true);
     dispatch(fetchSitterNames(search));
     setSearchAlert(search);
-    setSearch('');
   };
 
   const viewAll = (e) => {
     e.preventDefault();
+    setAttemptSearch(false);
     dispatch(fetchAllSitters());
+    setSearch('');
     setSearchAlert('');
   };
 
@@ -52,6 +54,12 @@ const DiscoverSitters = () => {
     dispatch(fetchAllSitters());
   }, [dispatch]);
 
+  const validClass =
+    'appearance-none block w-full bg-white-200 border rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue font-rubik';
+
+  const buttonClass =
+    'text-sm px-4 py-2 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';
+
   if (sitters.status === 'loading') {
     return <div>Hang tight...</div>;
   }
@@ -61,79 +69,110 @@ const DiscoverSitters = () => {
   }
 
   return (
-    <div>
-      <div className="bg-white-smoke border rounded-lg shadow-lg">
-        <div className="p-4 flex flex-row justify-between">
-          <div className="basis-1/3 ">
-            <form onSubmit={handleSearch}>
-              <input
-                type="text"
-                placeholder="Search groups"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-              <button
-                type="submit"
-                className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
-              >
-                Search
-              </button>
-            </form>
-            <button
-              onClick={viewAll}
-              className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
+    <div className="bg-cover bg-right-top bg-no-repeat bg-[url('img/dalmation-bg1.jpg')] h-full">
+      <h2 className="font-rubikmono text-5xl pt-16 text-center m-auto">
+        Sitters
+      </h2>
+      <div className="flex flex-row justify-center pt-16 px-20">
+        <div className="flex flex-row justify-center gap-24">
+          <div className="w-1/3 flex flex-col gap-5 min-h-screen">
+            <div
+              id="search"
+              className="min-w-max flex flex-row items-center gap-3"
             >
-              View All
-            </button>
-          </div>
-          {searchAlert && (
-            <div className="basis-2/3 ">
-              <div className="font-mono">
-                Viewing search results for: {searchAlert}
+              <h2 className="font-rubikmono text-xl text-left">SEARCH</h2>
+              <div>
+                <form onSubmit={handleSearch}>
+                  <div className="flex flex-row gap-3 items-center">
+                    <input
+                      type="text"
+                      className={validClass}
+                      placeholder="find it..."
+                      value={search}
+                      disabled={attemptSearch ? true : false}
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <div>
+                      {!attemptSearch ? (
+                        <div>
+                          <button type="submit" className={buttonClass}>
+                            FETCH
+                          </button>
+                        </div>
+                      ) : (
+                        <div>
+                          <button
+                            type="submit"
+                            onClick={viewAll}
+                            className="font-semibold ease-in-out duration-100 hover:text-bold-orange"
+                          >
+                            CLEAR
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
-          )}
-        </div>
-      </div>
-      <div className="flex flex-row">
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-col gap-5">
-            <h2 className="font-rubikmono">Filter by Rating</h2>
-            <select value={rating} onChange={(e) => setRating(e.target.value)}>
-              <option value="">All</option>
-              <option value="1">1+</option>
-              <option value="2">2+</option>
-              <option value="3">3+</option>
-              <option value="4">4+</option>
-            </select>
-          </div>
-          <div className="flex flex-col gap-5">
-            <h2 className="font-rubikmono">Filter by Price</h2>
-            <select value={price} onChange={(e) => setPrice(e.target.value)}>
-              <option value="">All</option>
-              <option value="10">$10+</option>
-              <option value="20">$20+</option>
-              <option value="30">$30+</option>
-              <option value="40">$40+</option>
-              <option value="50">$50+</option>
-            </select>
-          </div>
-        </div>
-        {sitters.length === 0 ? (
-          <div className="bg-gradient-to-r from-yellow-400 to-blue-300">
-            <div className="container mx-auto">
-              <h1 className="text-4xl font-bold text-center text-white">
-                No results found
-              </h1>
+
+            <div
+              id="sort"
+              className="min-w-max flex flex-row items-center gap-3"
+            >
+              <h2 className="font-rubikmono text-xl text-left">FILTER</h2>
+              <div>
+                <h2 className="font-rubikmono">Filter by Rating</h2>
+                <select
+                  value={rating}
+                  onChange={(e) => setRating(e.target.value)}
+                >
+                  <option value="">All</option>
+                  <option value="1">1+</option>
+                  <option value="2">2+</option>
+                  <option value="3">3+</option>
+                  <option value="4">4+</option>
+                </select>
+                <h2 className="font-rubikmono">Filter by Price</h2>
+                <select
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                >
+                  <option value="">All</option>
+                  <option value="10">$10+</option>
+                  <option value="20">$20+</option>
+                  <option value="30">$30+</option>
+                  <option value="40">$40+</option>
+                  <option value="50">$50+</option>
+                </select>
+              </div>
             </div>
           </div>
-        ) : (
-          <div>
+          <div className="w-2/3 font-rubikmono overflow-auto gap-5">
+            {searchAlert && (
+              <div className="font-rubik text-center">
+                Viewing search results for: {searchAlert}
+              </div>
+            )}
             <div>
-              <SittersView sitters={sitterSelection} />
+              {sitters.length === 0 ? (
+                <div className="">
+                  <div className="p-5 mx-auto">
+                    <h1 className="text-4xl font-bold text-center text-white">
+                      No results found
+                    </h1>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div>
+                    <SittersView sitters={sitterSelection} />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

@@ -125,6 +125,7 @@ const AllHowls = () => {
                 </form>
               </div>
             </div>
+
             <div
               id="sort"
               className="min-w-max flex flex-row items-center gap-3"
@@ -147,7 +148,6 @@ const AllHowls = () => {
               </div>
             </div>
           </div>
-
           <div className="w-2/3 font-rubikmono overflow-auto gap-5">
             {searchAlert && (
               <div className="font-rubik text-center">
