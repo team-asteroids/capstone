@@ -47,8 +47,6 @@ const AllHowls = () => {
     return 0;
   });
 
-  console.log('sorted -->', sorted);
-
   const handleSearch = (e) => {
     e.preventDefault();
     setAttemptSearch(true);

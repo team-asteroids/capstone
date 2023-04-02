@@ -5,7 +5,7 @@ import { selectAuth } from '../../slices/authSlice';
 import { deletePostComment } from '../../slices/postsSlice';
 import LikeUnlikeComment from './LikeUnlikeComment';
 import { format } from 'date-fns';
-import { Divider } from '@mui/material';
+// import { Divider } from '@mui/material';
 
 const PostComment = (props) => {
   const { comment, likes } = props;
