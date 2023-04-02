@@ -19,11 +19,6 @@ const HowlView = (props) => {
   return (
     <div>
       <div className="bg-white-smoke border rounded-lg shadow-lg">
-        {userAuth && (
-          <div>
-            <AddHowl />
-          </div>
-        )}
         <div className="p-4">
           <div>
             {currentItems.map((post) => (
