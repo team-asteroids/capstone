@@ -83,7 +83,7 @@ const AllHowls = () => {
       </h2>
       <div className="flex flex-row justify-center pt-16 px-20">
         <div className="flex flex-row justify-center gap-24">
-          <div className="w-1/3 flex flex-col gap-5 min-h-screen">
+          <div className="flex flex-col gap-5 min-h-screen">
             <div
               id="search"
               className="min-w-max flex flex-row items-center gap-3"
