@@ -1,3 +1,4 @@
+import { useToast } from '@chakra-ui/react';
 import React, { useState } from 'react';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
@@ -17,6 +18,7 @@ const AddHowl = () => {
     // const notify = () => toast('Testing Toast');
     await dispatch(addPost({ content }));
     setContent('');
+    toast();
     // notify();
   };
 
@@ -33,6 +35,8 @@ const AddHowl = () => {
 
   const disabledButtonClass =
     'cursor-default text-sm px-4 py-3 text-bright-white rounded-lg bg-pale-purple font-semibold';
+
+  const toast = useToast();
 
   return (
     <div className="font-rubik pt-3">
