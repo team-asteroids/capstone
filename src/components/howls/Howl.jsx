@@ -7,6 +7,7 @@ import LikeUnlikeHowl from './LikeUnlikeHowl';
 import AddComment from './AddComment';
 import CommentView from './CommentView';
 import { format, setMonth, getMonth } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 const Howl = (props) => {
   const { post, likes, userAuth } = props;
@@ -45,7 +46,9 @@ const Howl = (props) => {
               alt="alt"
             />
             <div className="flex flex-row gap-2">
-              <p>{author}</p>
+              <Link to={`/profile/${post.user.id}`}>
+                <p>{author}</p>
+              </Link>
               <p className="text-slate-400">{formattedDate}</p>
             </div>
           </div>
