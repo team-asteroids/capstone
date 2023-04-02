@@ -70,26 +70,26 @@ const AllHowls = () => {
   }, [dispatch, allComments]);
 
   return (
-    <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-[calc(100vh_-_5rem)]">
-      <h2 className="font-rubikmono text-2xl text-center m-auto">HOWLS</h2>
-      <div className="flex flex-row justify-center mb-16 mx-10">
-        <div className="w-1/3 flex flex-col gap-5">
-          <div id="search" className="min-w-max flex flex-col gap-5">
-            SEARCH
-          </div>
-          <div id="sort" className="min-w-max flex flex-col gap-5">
-            SORT
-          </div>
-          <div id="addPost" className="min-w-max flex flex-col gap-5">
-            <div>
-              <AddHowl />
+    <div className="bg-cover bg-right bg-no-repeat bg-[url('img/dalmation-bg.jpg')] h-full">
+      <div className="flex flex-row justify-center pt-10 px-20">
+        <div className="flex flex-row justify-center gap-10">
+          <div className="w-1/2 flex flex-col gap-5">
+            <div id="search" className="min-w-max flex flex-col gap-5">
+              SEARCH
+            </div>
+            <div id="sort" className="min-w-max flex flex-col gap-5">
+              SORT
+            </div>
+            <div id="addPost" className="min-w-max flex flex-col gap-5">
+              <div>
+                <AddHowl />
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* <div>
+          {/* <div>
         <div className="flex mx-auto items-center justify-center shadow-lg mt-56 mx-8 mb-4 max-w-lg"> */}
-        {/* <form className="w-full max-w-xl bg-white rounded-lg px-4 pt-2">
+          {/* <form className="w-full max-w-xl bg-white rounded-lg px-4 pt-2">
       <div className="flex flex-wrap -mx-3 mb-6">
          <h2 className="px-4 pt-3 pb-2 text-gray-800 text-lg">Add a new comment</h2>
          <div className="w-full md:w-full px-3 mb-2 mt-2">
@@ -108,7 +108,7 @@ const AllHowls = () => {
          </div>
       </form> */}
 
-        {/* <div>
+          {/* <div>
         <div className="bg-white-smoke border rounded-lg shadow-lg p-3">
           <form onSubmit={handleSearch}>
             <input
@@ -151,38 +151,42 @@ const AllHowls = () => {
           </div>
         </div>
       </div> */}
-        <div className="h-[calc(100vh_-_10rem)] w-1/2 m-auto overflow-auto flex flex-col gap-5">
-          <div>
-            {postsData.length === 0 ? (
-              <div>
-                <div className="container mx-auto">
-                  <h1 className="text-4xl font-bold text-center text-white">
-                    No results found
-                  </h1>
+          <div className="w-4/5 font-rubikmono overflow-auto gap-5">
+            <h2 className="font-rubikmono text-2xl text-center m-auto">
+              HOWLS
+            </h2>
+            <div>
+              {postsData.length === 0 ? (
+                <div>
+                  <div className="container mx-auto">
+                    <h1 className="text-4xl font-bold text-center text-white">
+                      No results found
+                    </h1>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div>
-                {sorted === 'recent' && (
-                  <div>
-                    <HowlsView
-                      posts={recentPosts}
-                      likes={likes}
-                      userAuth={userAuth}
-                    />
-                  </div>
-                )}
-                {sorted === 'older' && (
-                  <div>
-                    <HowlsView
-                      posts={olderPosts}
-                      likes={likes}
-                      userAuth={userAuth}
-                    />
-                  </div>
-                )}
-              </div>
-            )}
+              ) : (
+                <div>
+                  {sorted === 'recent' && (
+                    <div>
+                      <HowlsView
+                        posts={recentPosts}
+                        likes={likes}
+                        userAuth={userAuth}
+                      />
+                    </div>
+                  )}
+                  {sorted === 'older' && (
+                    <div>
+                      <HowlsView
+                        posts={olderPosts}
+                        likes={likes}
+                        userAuth={userAuth}
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
