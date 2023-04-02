@@ -5,7 +5,7 @@ const API = process.env.REACT_APP_API_URL;
 
 export const fetchAllGroups = createAsyncThunk('/allGroups', async () => {
   const { data } = await axios.get(API + '/api/groups');
-  console.log('backend data --> ', data);
+
   return data;
 });
 export const fetchSingleGroup = createAsyncThunk(
@@ -17,7 +17,7 @@ export const fetchSingleGroup = createAsyncThunk(
         authorization: token,
       },
     });
-    // console.log('data--> ', data);
+
     return data;
   }
 );

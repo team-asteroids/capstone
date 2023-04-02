@@ -30,8 +30,9 @@ const Group = (props) => {
       <div>
         <img
           className="rounded-t-lg"
-          src={require('../../img/groups/party-pups.jpg')}
-          alt="Group"
+          src={group.imageSrc}
+          alt={''}
+          onerror={require('../../img/groups/party-pups.jpg')}
         />
         <div className="p-2">
           <p>{`${group.name}`}</p>
