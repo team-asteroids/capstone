@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllCommentLikes } from '../../slices/postsSlice';
 import PostComment from './PostComment';
+import { Divider } from '@mui/material';
 
 const CommentView = (props) => {
   const { post, comments, userAuth } = props;
@@ -22,32 +23,25 @@ const CommentView = (props) => {
   }, [dispatch]);
 
   return (
-    <>
-      <div>
-        <div className="bg-white-smoke border rounded-lg shadow-lg">
-          <div className="p-4">
-            <div>
-              {comments.map((comment) => (
-                <div key={comment.id}>
-                  <PostComment
-                    key={comment.id}
-                    comment={comment}
-                    likes={likes.filter(
-                      (like) => like.postCommentId === comment.id
-                    )}
-                  />
-                </div>
-              ))}
-            </div>
+    <div className="rounded-lg pl-10 py-5">
+      <div className="flex flex-col gap-5">
+        {comments.map((comment) => (
+          <div key={comment.id}>
+            <PostComment
+              key={comment.id}
+              comment={comment}
+              likes={likes.filter((like) => like.postCommentId === comment.id)}
+            />
           </div>
-        </div>
-        {/* <div>
-          <AddGroupPost groupId={groupId} />
-        </div> */}
-        <div className="p-4"></div>
+        ))}
       </div>
-    </>
+    </div>
   );
 };
 
 export default CommentView;
+
+/* <div>
+  <AddGroupPost groupId={groupId} />
+</div> */
+// <div className="p-4"></div>

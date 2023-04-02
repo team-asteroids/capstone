@@ -38,11 +38,11 @@ const LikeUnlikeHowl = (props) => {
       <p>
         <button
           onClick={likeUnlikePost}
-          className={`p-1 rounded-lg font-mono ${
-            testLike() ? 'bg-[#fb5607]' : 'bg-[#cbd5e1]'
+          className={`px-4 py-2 text-sm font-semibold rounded-lg ${
+            testLike() ? 'bg-bold-blue text-bright-white' : 'bg-slate-200'
           }`}
         >
-          Like
+          LIKE
         </button>
       </p>
     </>

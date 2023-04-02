@@ -6,6 +6,9 @@ import { deletePost } from '../../slices/postsSlice';
 import LikeUnlikeHowl from './LikeUnlikeHowl';
 import AddComment from './AddComment';
 import CommentView from './CommentView';
+import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
+import { Divider } from '@mui/material';
 
 const Howl = (props) => {
   const { post, likes, userAuth } = props;
@@ -17,10 +20,10 @@ const Howl = (props) => {
 
   const dispatch = useDispatch();
 
-  const date = post.createdAt;
-  const dateData = new Date(date);
-  const formattedDate = dateData.toDateString();
-  const formattedTime = dateData.toLocaleTimeString('en-US');
+  const date = new Date(post.createdAt);
+  // const dateData = new Date(date);
+  const formattedDate = format(date, 'MMM d, yyyy');
+  const formattedTime = format(date, 'h:m aaa');
 
   const toggleCommentView = () => {
     setCommentView(!commentView);
@@ -29,78 +32,93 @@ const Howl = (props) => {
   const deleteHandler = async (e) => {
     e.preventDefault();
     const postId = post.id;
-    console.log('postId -->', postId);
+    // console.log('postId -->', postId);
     await dispatch(deletePost(postId));
   };
 
   return (
-    <div className="bg-white-smoke border rounded-lg shadow-lg font-rubik">
-      <div className="p-2">
-        <div>
-          <p>Content: {content}</p>
-          <img
-            className="w-12 rounded-full"
-            src={require('../../img/default-dog.jpg')}
-            alt="alt"
-          />
-          <p>Posted by: {author}</p>
-          <p>
-            Posted at: {formattedTime} on {formattedDate}
-          </p>
-          <p>Comments: {comments.length}</p>
-          <p>Likes: {likes.length}</p>
-          <p>POST ID --> {post.id}</p>
-          <p>USER ID --> {post.creatorId}</p>
+    <div className="bg-slate-50 border rounded-lg font-rubik w-full">
+      <div className="px-8 py-10">
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-row gap-2 items-center">
+            <Link to={`/profile/${post.user.id}`}>
+              <img
+                className="w-10 h-10 rounded-full"
+                src={require('../../img/default-dog.jpg')}
+                alt="alt"
+              />
+            </Link>
+            <div className="flex flex-row gap-2">
+              <Link to={`/profile/${post.user.id}`}>
+                <p>{author}</p>
+              </Link>
+              <p className="text-slate-400">{formattedDate}</p>
+            </div>
+          </div>
+          <div>
+            <p>{content}</p>
+          </div>
+          <div className="flex flex-row gap-5">
+            <p>{likes.length} likes</p>
+            <p>{comments.length} comments</p>
+          </div>
+
+          <div>
+            {userAuth && (
+              <div className="flex flex-row gap-5 items-center">
+                <div>
+                  <LikeUnlikeHowl
+                    key={post.id}
+                    post={post}
+                    likes={likes}
+                    userAuth={userAuth}
+                  />
+                </div>
+                <div>
+                  <button
+                    onClick={toggleCommentView}
+                    className={
+                      commentView
+                        ? 'px-4 py-2 text-sm rounded-lg text-bright-white font-semibold bg-bold-pink'
+                        : 'px-4 py-2 text-sm rounded-lg font-semibold bg-slate-200'
+                    }
+                  >
+                    COMMENTS
+                  </button>
+                </div>
+                {userAuth &&
+                  (userAuth.id === post.creatorId ||
+                    userAuth.role === 'admin') && (
+                    <p>
+                      <button
+                        onClick={deleteHandler}
+                        className="p-1 rounded-lg font-semibold text-sm text-red-600"
+                      >
+                        (DELETE)
+                      </button>
+                    </p>
+                  )}
+              </div>
+            )}
+          </div>
         </div>
-        <br></br>
-        {userAuth && (
-          <>
+        <div>
+          {commentView && (
             <div>
-              <LikeUnlikeHowl
-                key={post.id}
-                post={post}
-                likes={likes}
-                userAuth={userAuth}
-              />
+              <Divider className="pt-5" />
+              <div>
+                <CommentView
+                  post={post}
+                  comments={comments}
+                  userAuth={userAuth}
+                />
+              </div>
+              <div>
+                <AddComment post={post} userAuth={userAuth} />
+              </div>
             </div>
-            <br></br>
-            <div>
-              <button
-                onClick={toggleCommentView}
-                className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
-              >
-                View Comments
-              </button>
-            </div>
-          </>
-        )}
-
-        {commentView && (
-          <>
-            <div>
-              <CommentView
-                post={post}
-                comments={comments}
-                userAuth={userAuth}
-              />
-            </div>
-            <div>
-              <AddComment post={post} userAuth={userAuth} />
-            </div>
-          </>
-        )}
-
-        {userAuth &&
-          (userAuth.id === post.creatorId || userAuth.role === 'admin') && (
-            <p>
-              <button
-                onClick={deleteHandler}
-                className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
-              >
-                X
-              </button>
-            </p>
           )}
+        </div>
       </div>
     </div>
   );

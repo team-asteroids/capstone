@@ -21,9 +21,8 @@ const EventsView = (props) => {
       <div className="justify-center">
         <div className="container px-10 m-auto grid grid-cols-3 gap-10 flex-none">
           {currentItems.map((event) => (
-            <div className="w-full">
+            <div className="w-full" key={event.id}>
               <EventList
-                key={event.id}
                 eventId={event.id}
                 creatorId={event.creatorId}
                 topic={event.topic}
