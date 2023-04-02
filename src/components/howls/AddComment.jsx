@@ -40,7 +40,7 @@ const AddComment = (props) => {
   return (
     <div>
       <div className="pl-10">
-        <Divider />
+        {post.post_comments.length ? <Divider /> : null}
         <fieldset disabled={userAuth && userAuth.id ? false : true}>
           <form onSubmit={commentHandler}>
             <div className="flex flex-wrap pt-5 mb-5">

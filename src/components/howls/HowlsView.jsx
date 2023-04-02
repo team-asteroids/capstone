@@ -18,7 +18,7 @@ const HowlView = (props) => {
   return (
     <div>
       <div className="">
-        <div className="p-5">
+        <div className="">
           <div className="flex flex-col gap-5">
             {currentItems.map((post) => (
               <div key={post.id}>

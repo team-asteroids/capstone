@@ -21,6 +21,7 @@ const AllHowls = () => {
   const [search, setSearch] = useState('');
   const [searchAlert, setSearchAlert] = useState('');
   const [sorted, setSorted] = useState('recent');
+  const [attemptSearch, setAttemptSearch] = useState(false);
 
   const recentPosts = postsData.slice(0).sort((a, b) => {
     const timeA = a.createdAt;
@@ -50,14 +51,16 @@ const AllHowls = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    setAttemptSearch(true);
     dispatch(fetchPostsThroughSearch(search));
     setSearchAlert(search);
-    setSearch('');
   };
 
   const viewAll = (e) => {
     e.preventDefault();
+    setAttemptSearch(false);
     dispatch(fetchAllPosts());
+    setSearch('');
     setSearchAlert('');
   };
 
@@ -69,16 +72,74 @@ const AllHowls = () => {
     getData();
   }, [dispatch, allComments]);
 
+  const validClass =
+    'appearance-none block w-full bg-white-200 border rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue font-rubik';
+
+  const buttonClass =
+    'text-sm px-4 py-2 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';
+
   return (
-    <div className="bg-cover bg-right bg-no-repeat bg-[url('img/dalmation-bg.jpg')] h-full">
-      <div className="flex flex-row justify-center pt-10 px-20">
-        <div className="flex flex-row justify-center gap-10">
-          <div className="w-1/2 flex flex-col gap-5">
-            <div id="search" className="min-w-max flex flex-col gap-5">
-              SEARCH
+    <div className="bg-cover bg-right-bottom bg-no-repeat bg-[url('img/dalmation-bg.jpg')] h-full">
+      <h2 className="font-rubikmono text-5xl pt-16 text-center m-auto">
+        HOWLS
+      </h2>
+      <div className="flex flex-row justify-center pt-16 px-20">
+        <div className="flex flex-row justify-center gap-24">
+          <div className="w-1/3 flex flex-col gap-5 min-h-screen">
+            <div
+              id="search"
+              className="min-w-max flex flex-row items-center gap-3"
+            >
+              <h2 className="font-rubikmono text-xl text-left">SEARCH</h2>
+              <div>
+                <form onSubmit={handleSearch}>
+                  <div className="flex flex-row gap-3 items-center">
+                    <input
+                      type="text"
+                      className={validClass}
+                      placeholder="find it..."
+                      value={search}
+                      disabled={attemptSearch ? true : false}
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <div>
+                      {!attemptSearch ? (
+                        <div>
+                          <button type="submit" className={buttonClass}>
+                            FETCH
+                          </button>
+                        </div>
+                      ) : (
+                        <div>
+                          <button
+                            type="submit"
+                            onClick={viewAll}
+                            className="font-semibold ease-in-out duration-100 hover:text-bold-orange"
+                          >
+                            CLEAR
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
-            <div id="sort" className="min-w-max flex flex-col gap-5">
-              SORT
+            <div
+              id="sort"
+              className="min-w-max flex flex-row items-center gap-3"
+            >
+              <h2 className="font-rubikmono text-xl text-left">SORT</h2>
+              <div>
+                <select
+                  className={validClass}
+                  onChange={(e) => setSorted(e.target.value)}
+                  placeholder="sort"
+                >
+                  <option value="recent">Most Recent</option>
+                  <option value="older">Oldest</option>
+                </select>
+              </div>
             </div>
             <div id="addPost" className="min-w-max flex flex-col gap-5">
               <div>
@@ -87,78 +148,16 @@ const AllHowls = () => {
             </div>
           </div>
 
-          {/* <div>
-        <div className="flex mx-auto items-center justify-center shadow-lg mt-56 mx-8 mb-4 max-w-lg"> */}
-          {/* <form className="w-full max-w-xl bg-white rounded-lg px-4 pt-2">
-      <div className="flex flex-wrap -mx-3 mb-6">
-         <h2 className="px-4 pt-3 pb-2 text-gray-800 text-lg">Add a new comment</h2>
-         <div className="w-full md:w-full px-3 mb-2 mt-2">
-            <textarea className="bg-gray-100 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 focus:outline-none focus:bg-white" name="body" placeholder='Type Your Comment' required></textarea>
-         </div>
-         <div className="w-full md:w-full flex items-start md:w-full px-3">
-            <div className="flex items-start w-1/2 text-gray-700 px-2 mr-auto">
-               <svg fill="none" className="w-5 h-5 text-gray-600 mr-1" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-               </svg>
-               <p className="text-xs md:text-sm pt-px">Some HTML is okay.</p>
-            </div>
-            <div className="-mr-1">
-               <input type='submit' className="bg-white text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100" value='Post Comment'>
-            </div>
-         </div>
-      </form> */}
-
-          {/* <div>
-        <div className="bg-white-smoke border rounded-lg shadow-lg p-3">
-          <form onSubmit={handleSearch}>
-            <input
-              type="text"
-              placeholder="Search howls"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <button
-              type="submit"
-              className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
-            >
-              Search
-            </button>
-          </form>
-          <button
-            onClick={viewAll}
-            className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
-          >
-            View All
-          </button>
-        </div>
-        {searchAlert && (
-          <div className="basis-2/3 ">
-            <div className="font-mono">
-              Viewing search results for: {searchAlert}
-            </div>
-          </div>
-        )}
-        <div>
-          <div className="bg-white-smoke border rounded-lg shadow-lg font-rubik">
-            <div className="p-2">
-              <h2 className="font-rubikmono">Sort</h2>
-              <select onChange={(e) => setSorted(e.target.value)}>
-                <option value="recent">Sort By:</option>
-                <option value="recent">Most Recent</option>
-                <option value="older">Oldest</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div> */}
-          <div className="w-4/5 font-rubikmono overflow-auto gap-5">
-            <h2 className="font-rubikmono text-2xl text-center m-auto">
-              HOWLS
-            </h2>
+          <div className="w-2/3 font-rubikmono overflow-auto gap-5">
+            {searchAlert && (
+              <div className="font-rubik text-center">
+                Viewing search results for: {searchAlert}
+              </div>
+            )}
             <div>
               {postsData.length === 0 ? (
-                <div>
-                  <div className="container mx-auto">
+                <div className="">
+                  <div className="p-5 mx-auto">
                     <h1 className="text-4xl font-bold text-center text-white">
                       No results found
                     </h1>

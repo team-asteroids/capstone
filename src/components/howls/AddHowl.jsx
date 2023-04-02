@@ -20,7 +20,7 @@ const AddHowl = () => {
     // notify();
   };
 
-  const labelClass = 'text-sm font-rubikmono mb-3';
+  const labelClass = 'font-rubikmono text-xl text-left pb-3';
 
   const commentBox =
     'w-full appearance-none border-slate-400 leading-tight block rounded-lg p-5 bg-bright-white focus:border-bold-blue focus:outline-none';
@@ -35,7 +35,7 @@ const AddHowl = () => {
     'cursor-default text-sm px-4 py-3 text-bright-white rounded-lg bg-pale-purple font-semibold';
 
   return (
-    <div className="font-rubik">
+    <div className="font-rubik pt-3">
       <div>
         <fieldset disabled={userAuth && userAuth.id ? false : true}>
           <form onSubmit={submitPost}>
