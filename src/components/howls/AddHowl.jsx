@@ -46,7 +46,7 @@ const AddHowl = () => {
                   name="content"
                   placeholder={
                     userAuth && userAuth.id
-                      ? 'howl away...'
+                      ? 'awoooo...'
                       : 'must be logged in to howl'
                   }
                   required
@@ -62,7 +62,9 @@ const AddHowl = () => {
             <div>
               <button
                 className={
-                  userAuth && userAuth.id ? buttonClass : disabledButtonClass
+                  content && userAuth && userAuth.id
+                    ? buttonClass
+                    : disabledButtonClass
                 }
                 disabled={userAuth && userAuth.id ? false : true}
                 type="submit"

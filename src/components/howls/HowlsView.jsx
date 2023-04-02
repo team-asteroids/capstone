@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Pagination from '../ui/Pagination';
 import Howl from './Howl';
-import AddHowl from './AddHowl';
 
 const HowlView = (props) => {
   const { posts, userAuth, likes } = props;
@@ -18,9 +17,9 @@ const HowlView = (props) => {
 
   return (
     <div>
-      <div className="bg-white-smoke border rounded-lg shadow-lg">
-        <div className="p-4">
-          <div>
+      <div className="">
+        <div className="p-5">
+          <div className="flex flex-col gap-5">
             {currentItems.map((post) => (
               <div key={post.id}>
                 <Howl
