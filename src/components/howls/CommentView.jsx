@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllCommentLikes } from '../../slices/postsSlice';
 import PostComment from './PostComment';
-import { Divider } from '@mui/material';
+// import { Divider } from '@mui/material';
 
 const CommentView = (props) => {
   const { post, comments, userAuth } = props;
