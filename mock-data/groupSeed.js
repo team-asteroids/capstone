@@ -4,7 +4,8 @@ const groups = [
     topic: 'recommendations',
     description:
       'This group is dedicated to providing pet parents with valuable information and resources to keep their furry friends happy and healthy. Here, you can find useful tips and advice on nutrition, vaccinations, grooming, training, and more. Our goal is to create a supportive community where pet owners can learn from each other and get expert guidance from our team of veterinary professionals.',
-
+    imageSrc:
+      'https://www.pumpkin.care/wp-content/uploads/2022/02/how-often-should-i-take-my-dog-to-the-vet-1200x628.jpg',
     creatorId: 12,
   },
   {
@@ -132,6 +133,14 @@ const groups = [
     imageSrc:
       'https://cdn.fstoppers.com/styles/large-16-9/s3/lead/2017/07/nine-dogs-in-grassy-field.jpg',
     creatorId: 9,
+  },
+  {
+    name: 'Prospect Park Playdates',
+    topic: 'playdates',
+    description: `Welcome to the Prospect Park Dog Friends group! This is a community for dog owners and their furry companions to meet, play, and make new friends in Prospect Park. We organize regular meetups where dogs can play and interact off-leash, as well as on-leash walks around the park. These meetups provide a great opportunity for dogs to exercise and socialize, and for owners to make new friends and connect with other dog lovers. So, if you're looking for a fun and welcoming community of dog owners and their furry companions, join us today!`,
+    imageSrc:
+      'https://petfriendlytravel.com/wp-content/uploads/2019/05/pet-friendly-travel-dog-park-prospect-park-ny-960x636.jpg',
+    creatorId: 18,
   },
 ];
 
