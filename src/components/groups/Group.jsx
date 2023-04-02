@@ -25,44 +25,47 @@ const Group = (props) => {
     }
   };
 
+  const buttonClass =
+    'text-sm px-4 py-2 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';
+
   return (
-    <div className="bg-white-smoke border rounded-lg shadow-lg">
-      <div>
-        <img
-          className="rounded-t-lg"
-          src={group.imageSrc}
-          alt={''}
-          onerror={require('../../img/groups/party-pups.jpg')}
-        />
-        <div className="p-2">
-          <p>{`${group.name}`}</p>
-          <p>Topic: {`${group.topic}`}</p>
-          <p>{`${mem}`} members</p>
-          {!logInPrompt ? (
-            <div className="flex justify-between">
-              <div>
-                <Link to={`/groups/${group.id}`} state={{ groupId: group.id }}>
-                  <button className="p-1 rounded-lg bg-[#cbd5e1]">
-                    View Group
-                  </button>
-                </Link>
-              </div>
-              <div>
-                <button
-                  onClick={joinGroup}
-                  className="p-1 rounded-lg bg-[#cbd5e1]"
-                >
-                  Join Group
-                </button>
-              </div>
+    <div className="font-rubik">
+      <div className="w-96 border bg-white-smoke rounded-lg">
+        <Link to={`/groups/${group.id}`} state={{ groupId: group.id }}>
+          <img
+            className="rounded-t-lg object-cover h-72 w-144"
+            src={group.imageSrc}
+            alt={''}
+            onerror={require('../../img/groups/party-pups.jpg')}
+          />
+        </Link>
+        <div className="flex flex-col gap-3">
+          <Link to={`/groups/${group.id}`} state={{ groupId: group.id }}>
+            <div className="p-5 flex flex-col">
+              <p className="text-lg font-semibold h-12">{`${group.name.toUpperCase()}`}</p>
             </div>
-          ) : (
-            <Link to="/login">
-              <button className="p-1 rounded-lg bg-[#cbd5e1]">
-                Please log in to unleash this group adventure!
-              </button>
-            </Link>
-          )}
+          </Link>
+          <div>
+            {!logInPrompt ? (
+              <div className="flex justify-between px-5">
+                <div className="flex flex-col gap-2 pb-5">
+                  <p className="text-sm">({`${group.topic}`})</p>
+                  <p>{`${mem}`} members</p>
+                  <div className="">
+                    <button onClick={joinGroup} className={buttonClass}>
+                      JOIN GROUP
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Link to="/login">
+                <button className="">
+                  Please log in to unleash this group adventure!
+                </button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </div>

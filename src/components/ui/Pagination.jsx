@@ -16,7 +16,7 @@ const Pagination = ({ nPages, currentPage, setCurrentPage }) => {
 
   return (
     <nav>
-      <ul className="inline-flex items-center -space-x-px">
+      <ul className="font-rubik inline-flex items-center -space-x-px">
         <li>
           <button
             onClick={prevPage}

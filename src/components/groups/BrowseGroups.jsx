@@ -60,8 +60,8 @@ const BrowseGroups = () => {
       <h2 className="font-rubikmono text-5xl pt-16 text-center m-auto">
         GROUPS
       </h2>
-      <div className="flex flex-row justify-center pt-16 px-10">
-        <div className="w-1/3 flex flex-col gap-5 min-h-screen">
+      <div className="flex flex-row justify-center pt-16 px-10 gap-10">
+        <div className="min-w-1/4 flex flex-col gap-5 min-h-screen">
           <div
             id="search"
             className="min-w-max flex flex-row items-center gap-3"
@@ -124,13 +124,13 @@ const BrowseGroups = () => {
           )}
         </div>
 
-        <div className="w-2/3 font-rubikmono overflow-auto gap-5">
+        <div className="min-w-3/4 font-rubikmono overflow-auto gap-5">
           {searchAlert && (
             <div className="font-rubik text-center">
               Viewing search results for: {searchAlert}
             </div>
           )}
-          <div>
+          <div className="flex flex-col">
             <GroupsView groups={groupSelection} userAuth={userAuth} />
           </div>
         </div>
