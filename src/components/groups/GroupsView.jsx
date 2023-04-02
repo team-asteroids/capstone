@@ -25,7 +25,7 @@ const GroupsView = (props) => {
           </div>
         ))}
       </div>
-      <div className="py-16">
+      <div className="pt-16 pb-5">
         <Pagination
           nPages={nPages}
           currentPage={currentPage}
