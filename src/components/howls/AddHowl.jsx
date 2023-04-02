@@ -1,3 +1,4 @@
+import { useToast } from '@chakra-ui/react';
 import React, { useState } from 'react';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
@@ -12,11 +13,22 @@ const AddHowl = () => {
 
   const [content, setContent] = useState('');
 
+  const toast = useToast();
+
   const submitPost = async (e) => {
     e.preventDefault();
     // const notify = () => toast('Testing Toast');
     await dispatch(addPost({ content }));
+    toast({
+      title: 'Posted howl',
+      description: 'Aaaaoooo!',
+      duration: 5000,
+      isClosable: true,
+      status: 'success',
+      position: 'top',
+    });
     setContent('');
+
     // notify();
   };
 
