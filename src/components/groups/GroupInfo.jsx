@@ -18,6 +18,7 @@ const GroupInfo = () => {
 
   const { userAuth, token } = useSelector(selectAuth);
   const memberId = userAuth.id;
+  const [memberIds, setMemberIds] = useState([]);
 
   const singleGroup = useSelector((state) => state.groups.singleGroup);
 
@@ -33,6 +34,13 @@ const GroupInfo = () => {
     };
     fetchData();
   }, [dispatch]);
+
+  useEffect(() => {
+    if (members && members.length) {
+      const ids = members.map((member) => member.id);
+      setMemberIds(ids);
+    }
+  }, [members]);
 
   const joinGroup = async (e) => {
     e.preventDefault();
@@ -53,67 +61,77 @@ const GroupInfo = () => {
     await dispatch(deleteSingleGroup(groupId));
   };
 
+  const buttonClass =
+    'text-sm px-4 py-2 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';
+
   return (
-    <>
+    <div>
       {singleGroup && singleGroup.name ? (
-        <div>
-          <div className="bg-white-smoke border rounded-lg shadow-lg font-mono">
-            <div className="p-4 flex flex-row justify-between">
-              <div className="basis-1/2 ">
+        <div className="pt-16 pl-16 flex flex-row">
+          <div className="bg-slate-50 border rounded-lg font-rubik">
+            <div className="flex flex-row">
+              <div className="">
                 <img
                   src={require('../../img/groups/party-pups.jpg')}
                   alt="Group"
-                  className="border rounded-lg max-w-sm"
+                  className="border rounded-l-lg max-w-sm"
                 />
               </div>
-              <div className="basis-1/2 p-6 flex flex-col border rounded-lg text-lg justify-evenly">
-                <div>{`${singleGroup.name}`}</div>
-                <div>Topic: {`${singleGroup.topic}`}</div>
-                <div>{`${members.length}`} members</div>
-                <div>
-                  <button
-                    onClick={joinGroup}
-                    className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
-                  >
-                    Join group
-                  </button>
+
+              <div className="min-w-1/3 w-72 p-6 pr-8 flex flex-col rounded-lg text-lg justify-between">
+                <div className="flex flex-wrap max-w-md">
+                  <p className="h-20 font-semibold">{`${singleGroup.name.toUpperCase()}`}</p>
                 </div>
-                <div>
-                  <button
-                    onClick={leaveGroup}
-                    className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
-                  >
-                    Leave group
-                  </button>
+                <div className="flex flex-col gap-2">
+                  <p className="text-sm">({`${singleGroup.topic}`})</p>
+                  <p className="text-sm pb-3">{`${members.length}`} MEMBERS</p>
+                  <div className="">
+                    {userAuth.role === 'admin' ||
+                    userAuth.id === singleGroup.creatorId ? (
+                      <div>
+                        <p className="text-xs font-semibold">YOUR GROUP</p>
+                        <button
+                          onClick={deleteGroup}
+                          className="text-red-600 font-semibold text-sm"
+                        >
+                          DELETE GROUP
+                        </button>
+                      </div>
+                    ) : memberIds.includes(userAuth.id) ? (
+                      <div>
+                        <button
+                          onClick={leaveGroup}
+                          className="text-red-600 font-semibold text-sm"
+                        >
+                          LEAVE GROUP
+                        </button>
+                      </div>
+                    ) : (
+                      <div>
+                        <button onClick={joinGroup} className={buttonClass}>
+                          JOIN
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                {userAuth.role === 'admin' ||
-                  (userAuth.id === singleGroup.creatorId && (
-                    <div>
-                      <button
-                        onClick={deleteGroup}
-                        className="p-1 rounded-lg bg-[#cbd5e1] font-mono"
-                      >
-                        Delete group
-                      </button>
-                    </div>
-                  ))}
               </div>
             </div>
           </div>
-          <div>
+          {/* <div className="">
             <GroupNav
               singleGroup={singleGroup}
               members={members}
               userAuth={userAuth}
             />
-          </div>
+          </div> */}
         </div>
       ) : (
         <div className="bg-white-smoke border rounded-lg shadow-lg text-lg">
           Loading
         </div>
       )}
-    </>
+    </div>
   );
 };
 

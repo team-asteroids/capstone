@@ -17,25 +17,15 @@ const GroupsView = (props) => {
   const nPages = Math.ceil(groups.length / itemsPerPage);
 
   return (
-    <div>
-      <div className="p-6 bg-[#fca5a5]">
-        {userAuth && (
-          <div>
-            <h3 className="text-lg font-rubikmono ">
-              <Link to={`/groups/create`}>
-                <li>Add New Group</li>
-              </Link>
-            </h3>
+    <div className="flex flex-col justify-between">
+      <div className="flex flex-row flex-wrap gap-8">
+        {currentItems.map((group) => (
+          <div key={group.group.id} id="cardItem" className="col-xs-2">
+            <Group group={group.group} members={group.members} />
           </div>
-        )}
-        <div className="p-6 grid grid-cols-3 gap-8 font-mono">
-          {currentItems.map((group) => (
-            <div key={group.group.id} id="cardItem" className="col-xs-2">
-              <Group group={group.group} members={group.members} />
-            </div>
-          ))}
-        </div>
-        <br></br>
+        ))}
+      </div>
+      <div className="pt-16 pb-5">
         <Pagination
           nPages={nPages}
           currentPage={currentPage}
