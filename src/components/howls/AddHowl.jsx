@@ -21,6 +21,7 @@ const AddHowl = () => {
   };
 
   const labelClass = 'text-sm font-rubikmono mb-3';
+
   const commentBox =
     'w-full appearance-none border-slate-400 leading-tight block rounded-lg p-5 bg-bright-white focus:border-bold-blue focus:outline-none';
 
@@ -31,7 +32,7 @@ const AddHowl = () => {
     'text-sm px-4 py-3 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';
 
   const disabledButtonClass =
-    'text-sm px-4 py-3 text-bright-white rounded-lg bg-pale-purple font-semibold';
+    'cursor-default text-sm px-4 py-3 text-bright-white rounded-lg bg-pale-purple font-semibold';
 
   return (
     <div className="font-rubik">
@@ -40,7 +41,7 @@ const AddHowl = () => {
           <form onSubmit={submitPost}>
             <div className="flex flex-wrap mb-5">
               <div className="w-full flex flex-col">
-                <label className={labelClass}>Post</label>
+                <label className={labelClass}>Post Howl</label>
                 <textarea
                   id="content"
                   name="content"

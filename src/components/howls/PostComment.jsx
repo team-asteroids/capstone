@@ -36,7 +36,7 @@ const PostComment = (props) => {
 
   return (
     <div className="bg-slate-100 px-8 py-5 rounded-lg font-rubik">
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-5">
         <div className="flex flex-row gap-2 items-center">
           <Link to={`/profile/${comment.user.id}`}>
             <img
@@ -55,34 +55,34 @@ const PostComment = (props) => {
         <div>
           <p>{comment.content}</p>
         </div>
-        <div>
+        <div className="flex flex-row items-center gap-3">
           <p>{likes.length} likes</p>
-        </div>
-        <div>
-          {userAuth && (
-            <div className="flex flex-row gap-5 items-center">
-              <div>
-                <LikeUnlikeComment
-                  key={comment.id}
-                  postId={comment.postId}
-                  comment={comment}
-                  likes={likes}
-                  userAuth={userAuth}
-                />
-              </div>
+          <div>
+            {userAuth && (
+              <div className="flex flex-row gap-3 items-center">
+                <div>
+                  <LikeUnlikeComment
+                    key={comment.id}
+                    postId={comment.postId}
+                    comment={comment}
+                    likes={likes}
+                    userAuth={userAuth}
+                  />
+                </div>
 
-              {userAuth.id === comment.userId && (
-                <p>
-                  <button
-                    onClick={deleteHandler}
-                    className="p-1 rounded-lg font-semibold text-sm text-red-600"
-                  >
-                    (DELETE)
-                  </button>
-                </p>
-              )}
-            </div>
-          )}
+                {userAuth.id === comment.userId && (
+                  <p>
+                    <button
+                      onClick={deleteHandler}
+                      className="p-1 rounded-lg font-semibold text-sm text-red-600"
+                    >
+                      (DELETE)
+                    </button>
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
