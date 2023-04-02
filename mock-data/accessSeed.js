@@ -1,6 +1,6 @@
 const accessList = [
   {
-    phone: '212-555-9876',
+    phone: '2125559876',
     address1: '456 Park Avenue',
     address2: 'Unit 22E',
     city: 'New York',
@@ -8,14 +8,14 @@ const accessList = [
     zip: '10022',
     accessCode: 6789,
     emergencyContactName: 'Michael Lee',
-    emergencyContactPhone: '646-555-4321',
+    emergencyContactPhone: '6465554321',
     wifi: 'NYCWiFi456',
     additionalNotes:
       'My two dogs, Max and Bella, need to be walked twice a day and fed once in the morning. They are both friendly and love to play fetch. Please make sure they have plenty of water and are not left alone for more than 6 hours. Thank you!',
     userId: 1,
   },
   {
-    phone: '347-555-1111',
+    phone: '3475551111',
     address1: '789 Broadway',
     address2: 'Apt 3D',
     city: 'New York',
@@ -23,14 +23,14 @@ const accessList = [
     zip: '10003',
     accessCode: 1234,
     emergencyContactName: 'Jennifer Smith',
-    emergencyContactPhone: '646-555-2222',
+    emergencyContactPhone: '6465552222',
     wifi: 'NYCWiFi789',
     additionalNotes:
       'My dog, Luna, needs to be fed twice a day. She is shy at first but loves to play with toys once she gets to know you. Thank you for taking care of her!',
     userId: 2,
   },
   {
-    phone: '212-555-3333',
+    phone: '2125553333',
     address1: '234 Park Place',
     address2: 'Apt 4F',
     city: 'Brooklyn',
@@ -38,14 +38,14 @@ const accessList = [
     zip: '11238',
     accessCode: 5678,
     emergencyContactName: 'Karen Johnson',
-    emergencyContactPhone: '917-555-4444',
+    emergencyContactPhone: '9175554444',
     wifi: 'NYCWiFi234',
     additionalNotes:
       'My dog, Charlie, needs to be walked three times a day and fed twice a day. He is friendly with people but may bark at other dogs. Please keep him on a leash at all times. Thank you!',
     userId: 3,
   },
   {
-    phone: '646-555-5555',
+    phone: '6465555555',
     address1: '321 Hudson Street',
     address2: 'Apt 2A',
     city: 'New York',
@@ -53,7 +53,7 @@ const accessList = [
     zip: '10013',
     accessCode: 9012,
     emergencyContactName: 'David Rodriguez',
-    emergencyContactPhone: '212-555-6666',
+    emergencyContactPhone: '2125556666',
     wifi: 'NYCWiFi321',
     additionalNotes:
       'My two dogs, Simba and Nala, need to be fed twice a day. They are both very friendly and love to cuddle. Thank you for taking care of them!',
@@ -90,7 +90,7 @@ const accessList = [
     userId: 6,
   },
   {
-    phone: '718-555-7777',
+    phone: '7185557777',
     address1: '567 Fifth Avenue',
     address2: 'Apt 12B',
     city: 'Brooklyn',
@@ -98,14 +98,14 @@ const accessList = [
     zip: '11215',
     accessCode: 3456,
     emergencyContactName: 'Andrew Huberman',
-    emergencyContactPhone: '917-555-8888',
+    emergencyContactPhone: '9175558888',
     wifi: 'NYCWiFi567',
     additionalNotes:
       'My dog, Max, needs to be walked twice a day and fed once in the morning. He is friendly with people and other dogs. Please make sure he has plenty of water and is not left alone for more than 4 hours. Thank you!',
     userId: 7,
   },
   {
-    phone: '718-555-1234',
+    phone: '7185551234',
     address1: '100 Main Street',
     address2: null,
     city: 'Brooklyn',
@@ -113,14 +113,14 @@ const accessList = [
     zip: '11201',
     accessCode: 4321,
     emergencyContactName: 'Sophia Smith',
-    emergencyContactPhone: '347-555-6789',
+    emergencyContactPhone: '3475556789',
     wifi: 'BrooklynWiFi123',
     additionalNotes:
-    'My dog, Whiskers, needs to be fed twice a day. She is very friendly and loves to play with string toys. Please also water my plants every other day. Thank you!',
+      'My dog, Whiskers, needs to be fed twice a day. She is very friendly and loves to play with string toys. Please also water my plants every other day. Thank you!',
     userId: 8,
-    },
-    {
-    phone: '917-555-9876',
+  },
+  {
+    phone: '9175559876',
     address1: '789 Park Place',
     address2: 'Apt 3B',
     city: 'New York',
@@ -128,14 +128,14 @@ const accessList = [
     zip: '10016',
     accessCode: 2345,
     emergencyContactName: 'Samantha Smith',
-    emergencyContactPhone: '212-555-5678',
+    emergencyContactPhone: '2125555678',
     wifi: 'ManhattanWiFi789',
     additionalNotes:
-    'My dog, Charlie, needs to be walked three times a day and fed twice a day. He is very energetic and loves to play with balls. Please also give him his medication with his breakfast. Thank you!',
+      'My dog, Charlie, needs to be walked three times a day and fed twice a day. He is very energetic and loves to play with balls. Please also give him his medication with his breakfast. Thank you!',
     userId: 9,
-    },
-    {
-    phone: '646-555-2345',
+  },
+  {
+    phone: '6465552345',
     address1: '321 West End Avenue',
     address2: 'Unit 5C',
     city: 'New York',
@@ -143,14 +143,14 @@ const accessList = [
     zip: '10023',
     accessCode: 9876,
     emergencyContactName: 'William Wong',
-    emergencyContactPhone: '718-555-6789',
+    emergencyContactPhone: '7185556789',
     wifi: 'UpperWestWiFi321',
     additionalNotes:
-    'My two dogs, Luna and Simba, need to be fed twice a day. Luna is shy at first but will warm up to you if you play with her using feather toys. Simba is very friendly and loves to be petted. Please also water my plants every day. Thank you!',
+      'My two dogs, Luna and Simba, need to be fed twice a day. Luna is shy at first but will warm up to you if you play with her using feather toys. Simba is very friendly and loves to be petted. Please also water my plants every day. Thank you!',
     userId: 10,
-    },
-    {
-    phone: '212-555-5678',
+  },
+  {
+    phone: '2125555678',
     address1: '456 Lexington Avenue',
     address2: 'Suite 1200',
     city: 'New York',
@@ -158,14 +158,14 @@ const accessList = [
     zip: '10017',
     accessCode: 3456,
     emergencyContactName: 'David Chen',
-    emergencyContactPhone: '646-555-7890',
+    emergencyContactPhone: '6465557890',
     wifi: 'MidtownWiFi456',
     additionalNotes:
-    'My dog, Ginger, needs to be fed once a day. She is very active and loves to run on her wheel. Please also water my plants every other day. Thank you!',
+      'My dog, Ginger, needs to be fed once a day. She is very active and loves to run on her wheel. Please also water my plants every other day. Thank you!',
     userId: 11,
-    },
-    {
-    phone: '917-555-2345',
+  },
+  {
+    phone: '9175552345',
     address1: '101 5th Avenue',
     address2: 'Apt 2A',
     city: 'New York',
@@ -173,14 +173,14 @@ const accessList = [
     zip: '10003',
     accessCode: 7890,
     emergencyContactName: 'Emily Jones',
-    emergencyContactPhone: '718-555-1234',
+    emergencyContactPhone: '7185551234',
     wifi: 'UnionSquareWiFi101',
     additionalNotes:
-    'My dog, Whiskers, needs to be fed twice a day. She is very friendly and loves to play with string toys. Please also water my plants every other day. Thank you!',
+      'My dog, Whiskers, needs to be fed twice a day. She is very friendly and loves to play with string toys. Please also water my plants every other day. Thank you!',
     userId: 12,
-    },
-    {
-    phone: '917-555-3456',
+  },
+  {
+    phone: '9175553456',
     address1: '789 3rd Avenue',
     address2: 'Apt 3B',
     city: 'New York',
@@ -188,43 +188,43 @@ const accessList = [
     zip: '10017',
     accessCode: 6789,
     emergencyContactName: 'Samantha Smith',
-    emergencyContactPhone: '212-555-5678',
+    emergencyContactPhone: '2125555678',
     wifi: 'MidtownWiFi789',
     additionalNotes:
-    'My dog, Charlie, needs to be walked three times a day and fed twice a day. He is very energetic and loves to play with balls. Please also give him his medication with his breakfast. Thank you!',
+      'My dog, Charlie, needs to be walked three times a day and fed twice a day. He is very energetic and loves to play with balls. Please also give him his medication with his breakfast. Thank you!',
     userId: 13,
-    },
-    {
-      phone: '718-555-2345',
-      address1: '456 Broadway',
-      address2: 'Suite 5A',
-      city: 'New York',
-      state: 'New York',
-      zip: '10013',
-      accessCode: 4567,
-      emergencyContactName: 'David Kim',
-      emergencyContactPhone: '646-555-7890',
-      wifi: 'TribecaWiFi456',
-      additionalNotes:
-      'My dog, Ginger, needs to be fed once a day. She is very active. Please also water my plants every other day. Thank you!',
-      userId: 14,
   },
-  
   {
-      phone: '212-555-3456',
-      address1: '789 Park Ave',
-      address2: 'Floor 8',
-      city: 'New York',
-      state: 'New York',
-      zip: '10021',
-      accessCode: 7890,
-      emergencyContactName: 'John Williams',
-      emergencyContactPhone: '917-555-5678',
-      wifi: 'UESWiFi789',
-      additionalNotes:
-      'My dog, Buddy, needs to be walked four times a day and fed twice a day. He is a friendly dog who loves to play fetch. Please also make sure he has plenty of water. Thank you!',
-      userId: 15,
+    phone: '7185552345',
+    address1: '456 Broadway',
+    address2: 'Suite 5A',
+    city: 'New York',
+    state: 'New York',
+    zip: '10013',
+    accessCode: 4567,
+    emergencyContactName: 'David Kim',
+    emergencyContactPhone: '6465557890',
+    wifi: 'TribecaWiFi456',
+    additionalNotes:
+      'My dog, Ginger, needs to be fed once a day. She is very active. Please also water my plants every other day. Thank you!',
+    userId: 14,
   },
-]
+
+  {
+    phone: '2125553456',
+    address1: '789 Park Ave',
+    address2: 'Floor 8',
+    city: 'New York',
+    state: 'New York',
+    zip: '10021',
+    accessCode: 7890,
+    emergencyContactName: 'John Williams',
+    emergencyContactPhone: '9175555678',
+    wifi: 'UESWiFi789',
+    additionalNotes:
+      'My dog, Buddy, needs to be walked four times a day and fed twice a day. He is a friendly dog who loves to play fetch. Please also make sure he has plenty of water. Thank you!',
+    userId: 15,
+  },
+];
 
 module.exports = accessList;

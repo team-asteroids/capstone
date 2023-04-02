@@ -178,22 +178,6 @@ const bookingPets = [
     petId: 11,
     bookingId: 11,
   },
-  {
-    petId: 12,
-    bookingId: 12,
-  },
-  {
-    petId: 13,
-    bookingId: 13,
-  },
-  {
-    petId: 14,
-    bookingId: 14,
-  },
-  {
-    petId: 15,
-    bookingId: 15,
-  },
 ];
 
 //bookingPets.length = 200

@@ -196,12 +196,6 @@ const init = async () => {
     //     group.addUser(Math.floor(Math.random() * 50) + 1)
     //   )
     // );
-    const secondMassGroupMembers = await Promise.all(
-      seedGroups.map((group) =>
-        group.addUser(Math.floor(Math.random() * 50) + 1)
-      )
-    );
-    console.log('Group members seeding worked');
 
     // post_likes
     console.log('seeding postLikes associations...');
@@ -257,26 +251,7 @@ const init = async () => {
       .then(await seedBookings[3].addPet(7))
       .then(await seedBookings[4].addPet(8))
       .then(await seedBookings[5].addPet(12))
-      .then(await seedBookings[6].addPet(11))
-      .then(await seedBookings[7].addPet(23))
-      .then(await seedBookings[8].addPet(40))
-      .then(await seedBookings[9].addPet(30))
-      .then(await seedBookings[10].addPet(60))
-      .then(await seedBookings[11].addPet(70))
-      .then(await seedBookings[12].addPet(15))
-      .then(await seedBookings[13].addPet(25))
-      .then(await seedBookings[14].addPet(26))
-      .then(await seedBookings[15].addPet(35))
-      .then(await seedBookings[16].addPet(45))
-      .then(await seedBookings[17].addPet(55))
-      .then(await seedBookings[18].addPet(65))
-      .then(await seedBookings[19].addPet(75))
-      .then(await seedBookings[20].addPet(23))
-      .then(await seedBookings[21].addPet(33))
-      .then(await seedBookings[22].addPet(43))
-      .then(await seedBookings[22].addPet(53))
-      .then(await seedBookings[21].addPet(63))
-      .then(await seedBookings[20].addPet(73));
+      .then(await seedBookings[6].addPet(11));
 
     console.log('newBookingPets seeding worked');
     // fav_groups
@@ -289,7 +264,7 @@ const init = async () => {
         .filter((event) => {
           return event.id % 2 !== 0;
         })
-        .map((event) => event.addUser(Math.floor(Math.random() * 40) + 10))
+        .map((event) => event.addUser(Math.floor(Math.random() * 20) + 1))
     );
     console.log('event_rsvps seeding worked');
 
