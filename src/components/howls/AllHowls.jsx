@@ -79,7 +79,7 @@ const AllHowls = () => {
     'text-sm px-4 py-2 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';
 
   return (
-    <div className="bg-cover bg-right-bottom bg-no-repeat bg-[url('img/dalmation-bg.jpg')] h-full">
+    <div className="bg-cover bg-right-top bg-no-repeat bg-[url('img/dalmation-bg1.jpg')] h-full">
       <h2 className="font-rubikmono text-5xl pt-16 text-center m-auto">
         HOWLS
       </h2>
