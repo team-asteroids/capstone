@@ -13,12 +13,19 @@ const AddHowl = () => {
 
   const [content, setContent] = useState('');
 
+  const toast = useToast();
+
   const submitPost = async (e) => {
     e.preventDefault();
     // const notify = () => toast('Testing Toast');
     await dispatch(addPost({ content }));
     setContent('');
-    toast();
+    toast({
+      title: 'Posted howl',
+      description: 'Aaaaoooo!',
+      duration: 5000,
+      isClosable: true,
+    });
     // notify();
   };
 
@@ -35,8 +42,6 @@ const AddHowl = () => {
 
   const disabledButtonClass =
     'cursor-default text-sm px-4 py-3 text-bright-white rounded-lg bg-pale-purple font-semibold';
-
-  const toast = useToast();
 
   return (
     <div className="font-rubik pt-3">
