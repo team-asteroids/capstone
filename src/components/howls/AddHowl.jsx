@@ -1,10 +1,8 @@
-import { Snackbar } from '@mui/material';
 import React, { useState } from 'react';
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { addPost } from '../../slices/postsSlice';
+import { Snackbar, IconButton, CloseIcon } from '@mui/material';
 
 const AddHowl = () => {
   const { userAuth } = useSelector(selectAuth);
@@ -16,12 +14,13 @@ const AddHowl = () => {
 
   const submitPost = async (e) => {
     e.preventDefault();
-    // const notify = () => toast('Testing Toast');
     await dispatch(addPost({ content }));
     setOpen(true);
     setContent('');
+  };
 
-    // notify();
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const labelClass = 'font-rubikmono text-xl text-left pb-3';
@@ -79,7 +78,12 @@ const AddHowl = () => {
             </div>
           </form>
         </fieldset>
-        <Snackbar open={open} autoHideDuration={5000} message="Howl posted!" />
+        <Snackbar
+          open={open}
+          autoHideDuration={5000}
+          onClose={handleClose}
+          message="Howl posted!"
+        />
       </div>
     </div>
   );
