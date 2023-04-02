@@ -42,6 +42,8 @@ const PostComment = (props) => {
             Posted at: {formattedTime} on {formattedDate}
           </p>
           <p>Likes: {likes.length}</p>
+          <p>COMMENT ID --> {comment.id}</p>
+          <p>POST ID --> {comment.postId}</p>
         </div>
         <div>
           <LikeUnlikeComment

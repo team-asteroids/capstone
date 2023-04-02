@@ -49,6 +49,7 @@ const Howl = (props) => {
           </p>
           <p>Comments: {comments.length}</p>
           <p>Likes: {likes.length}</p>
+          <p>POST ID --> {post.id}</p>
         </div>
         <br></br>
         {userAuth && (
