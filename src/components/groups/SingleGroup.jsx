@@ -8,6 +8,7 @@ import MemberView from './MemberView';
 import EditGroup from './EditGroup';
 
 import { selectAuth } from '../../slices/authSlice';
+import MustLogIn from '../ui/MustLogIn';
 
 const SingleGroup = () => {
   const { groupId } = useParams();
@@ -18,9 +19,14 @@ const SingleGroup = () => {
 
   // console.log('location --> ', location);
   console.log('userAuth --> ', userAuth);
+  console.log('userAuth ID--> ', userAuth.id);
 
-  if (!userAuth) {
-    return <div>Oops, please log in!</div>;
+  if (!userAuth || !userAuth.id) {
+    return (
+      <div>
+        <MustLogIn />
+      </div>
+    );
   } else {
     return (
       <>
