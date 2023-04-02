@@ -1,4 +1,4 @@
-import { useToast } from '@chakra-ui/react';
+import { Snackbar } from '@mui/material';
 import React, { useState } from 'react';
 // import { ToastContainer, toast } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
@@ -12,21 +12,13 @@ const AddHowl = () => {
   const dispatch = useDispatch();
 
   const [content, setContent] = useState('');
-
-  const toast = useToast();
+  const [open, setOpen] = useState(false);
 
   const submitPost = async (e) => {
     e.preventDefault();
     // const notify = () => toast('Testing Toast');
     await dispatch(addPost({ content }));
-    toast({
-      title: 'Posted howl',
-      description: 'Aaaaoooo!',
-      duration: 5000,
-      isClosable: true,
-      status: 'success',
-      position: 'top',
-    });
+    setOpen(true);
     setContent('');
 
     // notify();
@@ -87,6 +79,7 @@ const AddHowl = () => {
             </div>
           </form>
         </fieldset>
+        <Snackbar open={open} autoHideDuration={5000} message="Howl posted!" />
       </div>
     </div>
   );
