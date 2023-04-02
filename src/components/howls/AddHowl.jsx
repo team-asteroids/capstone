@@ -25,6 +25,8 @@ const AddHowl = () => {
       description: 'Aaaaoooo!',
       duration: 5000,
       isClosable: true,
+      status: 'success',
+      position: 'top',
     });
     // notify();
   };
