@@ -44,6 +44,7 @@ const PostComment = (props) => {
           <p>Likes: {likes.length}</p>
           <p>COMMENT ID --> {comment.id}</p>
           <p>POST ID --> {comment.postId}</p>
+          <p>USER ID --> {comment.userId}</p>
         </div>
         <div>
           <LikeUnlikeComment
