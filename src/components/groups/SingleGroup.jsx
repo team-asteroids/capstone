@@ -56,8 +56,11 @@ const SingleGroup = () => {
               </Link>
             </div>
           </div>
-          <div className="w-4/5 flex flex-col ml-10 pr-10">
-            <div className="flex flex-row text-left font-rubikmono mt-16 mb-5 text-2xl gap-10">
+          <div className="w-4/5 flex flex-col ml-10 pr-10 mt-16 gap-5">
+            <div className="w-3/4">
+              <p>{singleGroup.description}</p>
+            </div>
+            <div className="flex flex-row text-left font-rubikmono text-2xl gap-10">
               <div>
                 <Link to={`/groups/${groupId}/posts`}>
                   <h2 className="hover:text-bright-white">DISCUSSION</h2>
