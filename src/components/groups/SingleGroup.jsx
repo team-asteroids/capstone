@@ -29,9 +29,9 @@ const SingleGroup = () => {
     );
   } else {
     return (
-      <>
-        <div>
-          <div className="bg-white-smoke border rounded-lg shadow-lg font-mono">
+      <div className="bg-cover bg-top bg-no-repeat bg-[url('img/groups-bg.jpg')] h-[calc(100vh_-_5rem)]">
+        <div className="flex flex-row">
+          <div>
             <div>
               <GroupInfo />
             </div>
@@ -42,19 +42,21 @@ const SingleGroup = () => {
             <Route path="/edit" element={<EditGroup />} />
           </Routes>
         </div>
-        {url === `/groups/${groupId}` && (
-          <div className="bg-white-smoke border rounded-lg shadow-lg text-lg">
-            <PostsView />
+        <div>
+          {url === `/groups/${groupId}` && (
+            <div className="bg-white-smoke border rounded-lg shadow-lg text-lg">
+              <PostsView />
+            </div>
+          )}
+          <div className="p-4">
+            <Link to="/groups">
+              <button className="p-1 rounded-lg bg-[#cbd5e1] font-mono">
+                Back to Browse Groups
+              </button>
+            </Link>
           </div>
-        )}
-        <div className="p-4">
-          <Link to="/groups">
-            <button className="p-1 rounded-lg bg-[#cbd5e1] font-mono">
-              Back to Browse Groups
-            </button>
-          </Link>
         </div>
-      </>
+      </div>
     );
   }
 };

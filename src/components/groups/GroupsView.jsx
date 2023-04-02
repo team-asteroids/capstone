@@ -18,16 +18,7 @@ const GroupsView = (props) => {
 
   return (
     <div>
-      <div className="p-6 bg-[#fca5a5]">
-        {userAuth && (
-          <div>
-            <h3 className="text-lg font-rubikmono ">
-              <Link to={`/groups/create`}>
-                <li>Add New Group</li>
-              </Link>
-            </h3>
-          </div>
-        )}
+      <div className="">
         <div className="p-6 grid grid-cols-3 gap-8 font-mono">
           {currentItems.map((group) => (
             <div key={group.group.id} id="cardItem" className="col-xs-2">
