@@ -12,19 +12,15 @@ import MustLogIn from '../ui/MustLogIn';
 
 const SingleGroup = () => {
   const { groupId } = useParams();
-  const location = useLocation();
-  const url = location.pathname;
+  // const location = useLocation();
+  // const url = location.pathname;
   const params = useParams();
-
-  console.log(params);
 
   const { userAuth } = useSelector(selectAuth);
 
   // console.log('location --> ', location);
-  console.log('userAuth --> ', userAuth);
-  console.log('userAuth ID--> ', userAuth.id);
-
-  console.log(groupId);
+  // console.log('userAuth --> ', userAuth);
+  // console.log('userAuth ID--> ', userAuth.id);
 
   if (!userAuth || !userAuth.id) {
     return (
@@ -40,9 +36,11 @@ const SingleGroup = () => {
             <div>
               <GroupInfo />
             </div>
-            <div>
+            <div className="ml-16 pt-5">
               <Link to="/groups">
-                <button className="">Back to Browse Groups</button>
+                <button className="hover:text-bright-white font-semibold">
+                  BACK TO BROWSE GROUPS
+                </button>
               </Link>
             </div>
           </div>
