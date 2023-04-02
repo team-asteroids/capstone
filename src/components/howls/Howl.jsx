@@ -6,8 +6,9 @@ import { deletePost } from '../../slices/postsSlice';
 import LikeUnlikeHowl from './LikeUnlikeHowl';
 import AddComment from './AddComment';
 import CommentView from './CommentView';
-import { format, setMonth, getMonth } from 'date-fns';
+import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
+import { Divider } from '@mui/material';
 
 const Howl = (props) => {
   const { post, likes, userAuth } = props;
@@ -40,11 +41,13 @@ const Howl = (props) => {
       <div className="px-8 py-10">
         <div className="flex flex-col gap-5">
           <div className="flex flex-row gap-2 items-center">
-            <img
-              className="w-12 rounded-full"
-              src={require('../../img/default-dog.jpg')}
-              alt="alt"
-            />
+            <Link to={`/profile/${post.user.id}`}>
+              <img
+                className="w-10 h-10 rounded-full"
+                src={require('../../img/default-dog.jpg')}
+                alt="alt"
+              />
+            </Link>
             <div className="flex flex-row gap-2">
               <Link to={`/profile/${post.user.id}`}>
                 <p>{author}</p>
@@ -56,8 +59,8 @@ const Howl = (props) => {
             <p>{content}</p>
           </div>
           <div className="flex flex-row gap-5">
-            <p>{comments.length} comments</p>
             <p>{likes.length} likes</p>
+            <p>{comments.length} comments</p>
           </div>
 
           <div>
@@ -99,21 +102,23 @@ const Howl = (props) => {
             )}
           </div>
         </div>
-
-        {commentView && (
-          <>
+        <div>
+          {commentView && (
             <div>
-              <CommentView
-                post={post}
-                comments={comments}
-                userAuth={userAuth}
-              />
+              <Divider className="pt-5" />
+              <div>
+                <CommentView
+                  post={post}
+                  comments={comments}
+                  userAuth={userAuth}
+                />
+              </div>
+              <div>
+                <AddComment post={post} userAuth={userAuth} />
+              </div>
             </div>
-            <div>
-              <AddComment post={post} userAuth={userAuth} />
-            </div>
-          </>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
