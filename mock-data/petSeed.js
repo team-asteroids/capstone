@@ -150,7 +150,7 @@ const pets = [
   },
   {
     name: 'Lucy',
-    breed: 'Harriers',
+    breed: 'Mixed',
     age: 3,
     size: 'medium',
     sex: 'female',
