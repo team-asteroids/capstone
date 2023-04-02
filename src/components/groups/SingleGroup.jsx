@@ -43,7 +43,7 @@ const SingleGroup = () => {
   } else {
     return (
       <div className="bg-cover bg-top bg-no-repeat bg-[url('img/groups-bg.jpg')] h-full min-h-screen pb-10">
-        <div className="mx-20 flex flex-row gap-16 justify-left ">
+        <div className="mx-20 == flex flex-row gap-16 justify-left ">
           <div className="max-w-2/5">
             <div>
               <GroupInfo />

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchGroupMembers } from '../../slices/groupsSlice';
+import { Divider } from '@mui/material';
 
 const MemberView = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const MemberView = () => {
     fetchData();
   }, [dispatch, groupId, member]);
 
-  // console.log('members-->', members);
+  console.log('members-->', members);
 
   return (
     <>
@@ -29,34 +30,29 @@ const MemberView = () => {
         <div className="font-rubikmono">Fetching good things...</div>
       ) : (
         <div>
-          <div className="bg-white-smoke border rounded-lg shadow-lg">
-            <h3>Members - {members.length}</h3>
-            <p>Find a member</p>
-            <p>Link to your own profile</p>
-            <div className="p-4">
-              <div className="w-96">
+          <div className="bg-slate-50 px-8 py-10 rounded-lg font-rubik">
+            <div className="flex flex-col gap-5">
+              <h3 className="font-semibold">MEMEBERS ({members.length}):</h3>
+              <Divider />
+              {/* <p>Find a member</p> */}
+              {/* <p>Link to your own profile</p> */}
+              <div className="w-full flex flex-col gap-2 items-left">
                 {members.map((mem) => (
-                  <div
-                    key={mem.id}
-                    className="bg-white-smoke border rounded-lg shadow-lg font-rubik"
-                  >
+                  <div key={mem.id} className="">
                     <div className="p-2 flex flex-row">
-                      <div className="basis-1/4">
-                        <img
-                          className="w-12 rounded-full"
-                          src={require('../../img/default-dog.jpg')}
-                          alt="alt"
-                        />
-                      </div>
-                      <div className="basis-1/3  text-bold-blue">
-                        {mem.userName}
-                      </div>
-                      <div className="basis-1/3">
+                      <div className="flex flex-row gap-3 items-center">
                         <Link to={`/profile/${mem.id}`}>
-                          <button className="p-1 rounded-lg bg-[#cbd5e1] ">
-                            View Profile
-                          </button>
+                          <img
+                            className="w-10 h-10 rounded-full"
+                            src={require('../../img/default-dog.jpg')}
+                            alt="alt"
+                          />
                         </Link>
+                        <div>
+                          <Link to={`/profile/${mem.id}`}>
+                            <p className="hover:text-bold-purple">{`${mem.fullName} (${mem.userName})`}</p>
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
