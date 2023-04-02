@@ -78,7 +78,7 @@ const GroupInfo = () => {
                 />
               </div>
 
-              <div className="max-w-1/3 p-6 pr-8 flex flex-col rounded-lg text-lg justify-between">
+              <div className="min-w-1/3 w-72 p-6 pr-8 flex flex-col rounded-lg text-lg justify-between">
                 <div className="flex flex-wrap max-w-md">
                   <p className="h-20 font-semibold">{`${singleGroup.name.toUpperCase()}`}</p>
                 </div>
