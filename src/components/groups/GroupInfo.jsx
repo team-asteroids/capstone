@@ -89,6 +89,7 @@ const GroupInfo = () => {
                     {userAuth.role === 'admin' ||
                     userAuth.id === singleGroup.creatorId ? (
                       <div>
+                        <p className="text-xs font-semibold">YOUR GROUP</p>
                         <button
                           onClick={deleteGroup}
                           className="text-red-600 font-semibold text-sm"
