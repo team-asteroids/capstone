@@ -44,21 +44,30 @@ const PostsView = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <div>
       <div>
         {loading ? (
           <div className="bg-white-smoke border rounded-lg shadow-lg">
             <div className="font-rubikmono">Fetching good things...</div>
           </div>
         ) : (
-          <>
+          <div>
+            <div>
+              <div className="">
+                {memberIds.includes(userAuth.id) && (
+                  <div>
+                    <AddGroupPost groupId={groupId} />
+                  </div>
+                )}
+              </div>
+            </div>
             {posts.length ? (
-              <>
-                <div className="bg-white-smoke border rounded-lg shadow-lg">
-                  <div className="p-4">
-                    <div>
+              <div>
+                <div className="">
+                  <div className="">
+                    <div className="flex flex-col gap-5">
                       {posts.map((post) => (
-                        <div key={post.id}>
+                        <div key={post.id} className="">
                           <GroupPost
                             key={post.id}
                             post={post}
@@ -75,27 +84,20 @@ const PostsView = () => {
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
             ) : (
-              <>
+              <div>
                 {memberIds.includes(userAuth.id) ? (
                   <div>No posts yet! Be the first to post!</div>
                 ) : (
                   <div>No posts yet! Please join to post!</div>
                 )}
-              </>
+              </div>
             )}
-          </>
-        )}
-      </div>
-      <>
-        {memberIds.includes(userAuth.id) && (
-          <div>
-            <AddGroupPost groupId={groupId} />
           </div>
         )}
-      </>
-    </>
+      </div>
+    </div>
   );
 };
 
