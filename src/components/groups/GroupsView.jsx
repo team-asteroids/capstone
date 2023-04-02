@@ -17,16 +17,15 @@ const GroupsView = (props) => {
   const nPages = Math.ceil(groups.length / itemsPerPage);
 
   return (
-    <div>
-      <div className="">
-        <div className="p-6 grid grid-cols-3 gap-8 font-mono">
-          {currentItems.map((group) => (
-            <div key={group.group.id} id="cardItem" className="col-xs-2">
-              <Group group={group.group} members={group.members} />
-            </div>
-          ))}
-        </div>
-        <br></br>
+    <div className="flex flex-col justify-between">
+      <div className="flex flex-row flex-wrap gap-8">
+        {currentItems.map((group) => (
+          <div key={group.group.id} id="cardItem" className="col-xs-2">
+            <Group group={group.group} members={group.members} />
+          </div>
+        ))}
+      </div>
+      <div className="py-16">
         <Pagination
           nPages={nPages}
           currentPage={currentPage}

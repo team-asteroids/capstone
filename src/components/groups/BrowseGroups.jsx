@@ -115,9 +115,11 @@ const BrowseGroups = () => {
           </div>
           {userAuth && (
             <div>
-              <h3 className="text-lg font-rubikmono ">
+              <h3 className="font-rubikmono ">
                 <Link to={`/groups/create`}>
-                  <p>Add New Group</p>
+                  <p className="bg-bold-blue px-3 py-3 hover:bg-pale-blue ease-in-out duration-300 text-bright-white rounded max-w-fit">
+                    Add New Group
+                  </p>
                 </Link>
               </h3>
             </div>
