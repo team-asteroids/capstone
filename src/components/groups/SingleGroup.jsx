@@ -18,8 +18,9 @@ const SingleGroup = () => {
 
   // console.log('location --> ', location);
   console.log('userAuth --> ', userAuth);
+  console.log('userAuth ID--> ', userAuth.id);
 
-  if (!userAuth) {
+  if (!userAuth || !userAuth.id) {
     return <div>Oops, please log in!</div>;
   } else {
     return (
