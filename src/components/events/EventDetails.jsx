@@ -103,7 +103,7 @@ const EventDetails = () => {
         {loading ? (
           <div>Loading</div>
         ) : (
-          <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-[calc(100vh_-_10rem)] ">
+          <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-[calc(100vh_-_5rem)] ">
             <div>
               {/* blue div that holds event details / edit / delete */}
               <div className="bg-bold-blue pl-5 flex pt-3 pb-3  font-rubikmono">
@@ -171,7 +171,7 @@ const EventDetails = () => {
                     className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
                     onClick={() => {
                       dispatch(addRsvpAsync(event.id));
-                      window.location.reload(false);
+                      navigate(-1);
                     }}
                   >
                     RSVP
@@ -181,7 +181,7 @@ const EventDetails = () => {
                     className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
                     onClick={() => {
                       dispatch(removeRsvpAsync(event.id));
-                      window.location.reload(false);
+                      navigate(-1);
                     }}
                   >
                     Remove RSVP
