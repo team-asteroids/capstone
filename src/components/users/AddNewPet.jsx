@@ -21,6 +21,7 @@ const AddNewPet = (props) => {
     sex: '',
     breed: '',
     size: '',
+    imageSrc: '',
   });
 
   const [petDetailsData, setPetDetailsData] = useState({
@@ -303,6 +304,7 @@ const AddNewPet = (props) => {
                   id="name"
                   name="name"
                   value={petInfo.name}
+                  required
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
                     setPetInfo({ ...petInfo, name: evt.target.value });
@@ -313,6 +315,7 @@ const AddNewPet = (props) => {
                 <label className={labelClass}>Breed</label>
                 <select
                   className={validClass}
+                  required
                   value={petInfo.breed}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
@@ -337,6 +340,7 @@ const AddNewPet = (props) => {
                   min={0}
                   max={30}
                   step={1}
+                  required
                   className={validClass}
                   value={petInfo.age}
                   onChange={(evt) => {
@@ -349,6 +353,7 @@ const AddNewPet = (props) => {
                 <label className={labelClass}>Gender</label>
                 <select
                   className={validClass}
+                  required
                   value={petInfo.sex}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
@@ -364,6 +369,7 @@ const AddNewPet = (props) => {
                 <label className={labelClass}>Size</label>
                 <select
                   id="size"
+                  required
                   name="size"
                   className={validClass}
                   value={petInfo.size}
@@ -386,6 +392,7 @@ const AddNewPet = (props) => {
               <textarea
                 rows={3}
                 type="text"
+                required
                 className={validClass}
                 value={petDetailsData.about}
                 onChange={(evt) => {
@@ -398,11 +405,29 @@ const AddNewPet = (props) => {
               ></textarea>
             </div>
 
+            <div className="w-full flex flex-col mb-3">
+              <label className={labelClass}>Image</label>
+              <input
+                type="text"
+                required
+                className={validClass}
+                value={petInfo.imageSrc}
+                onChange={(evt) => {
+                  // setIsInvalidPhone(false);
+                  setPetDetailsData({
+                    ...petInfo,
+                    imageSrc: evt.target.value,
+                  });
+                }}
+              />
+            </div>
+
             <div className="flex flex-wrap mb-3">
               <div className="w-1/4 flex flex-col pr-6">
                 <label className={labelClass}>Microchipped</label>
                 <select
                   name="microchipped"
+                  required
                   className={validClass}
                   value={petDetailsData.microchipped}
                   onChange={(evt) => {
@@ -422,6 +447,7 @@ const AddNewPet = (props) => {
                 <label className={labelClass}>Housetrained</label>
                 <select
                   name="houstrained"
+                  required
                   className={validClass}
                   value={petDetailsData.housetrained}
                   onChange={(evt) => {
@@ -442,6 +468,7 @@ const AddNewPet = (props) => {
                 <select
                   name="cratetrained"
                   className={validClass}
+                  required
                   value={petDetailsData.cratetrained}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
@@ -461,6 +488,7 @@ const AddNewPet = (props) => {
                 <label className={labelClass}>Spayed / Neutered</label>
                 <select
                   name="fixed"
+                  required
                   className={validClass}
                   value={petDetailsData.spayedOrNeutered}
                   onChange={(evt) => {
@@ -484,6 +512,7 @@ const AddNewPet = (props) => {
                 <label className={labelClass}>Friendly with Dogs</label>
                 <select
                   name="otherDogs"
+                  required
                   className={validClass}
                   value={petDetailsData.friendlyWithDogs}
                   onChange={(evt) => {
@@ -506,6 +535,7 @@ const AddNewPet = (props) => {
                 <select
                   name="cats"
                   className={validClass}
+                  required
                   value={petDetailsData.friendlyWithCats}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
@@ -528,6 +558,7 @@ const AddNewPet = (props) => {
                   name="kids"
                   className={validClass}
                   value={petDetailsData.friendlyWithChildren}
+                  required
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
                     setPetDetailsData({
@@ -550,6 +581,7 @@ const AddNewPet = (props) => {
                 <select
                   name="energy"
                   className={validClass}
+                  required
                   value={petDetailsData.energyLevels}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
@@ -570,6 +602,7 @@ const AddNewPet = (props) => {
                 <select
                   name="alone"
                   className={validClass}
+                  required
                   value={petDetailsData.canBeLeftAlone}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
@@ -609,6 +642,7 @@ const AddNewPet = (props) => {
                   rows={3}
                   type="text"
                   className={validClass}
+                  required
                   value={petDetailsData.canBeLeftAloneDetails}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
@@ -628,6 +662,7 @@ const AddNewPet = (props) => {
                   name="feeding"
                   className={validClass}
                   value={petDetailsData.feedingSchedule}
+                  required
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
                     setPetDetailsData({
@@ -647,6 +682,7 @@ const AddNewPet = (props) => {
                 <select
                   name="walks"
                   className={validClass}
+                  required
                   value={petDetailsData.walkSchedule}
                   onChange={(evt) => {
                     // setIsInvalidPhone(false);
@@ -724,6 +760,7 @@ const AddNewPet = (props) => {
               <select
                 name="meds"
                 className={validClass}
+                required
                 value={petDetailsData.medications}
                 onChange={(evt) => {
                   // setIsInvalidPhone(false);

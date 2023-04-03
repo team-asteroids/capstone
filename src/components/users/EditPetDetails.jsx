@@ -424,7 +424,7 @@ const EditPetDetails = (props) => {
               </div>
 
               <div className="flex flex-wrap mb-3">
-                <div className="w-1/4 flex flex-col pr-6">
+                <div className="w-1/3 flex flex-col pr-6">
                   <label className={labelClass}>Age</label>
                   <input
                     type="number"
@@ -439,7 +439,7 @@ const EditPetDetails = (props) => {
                     }}
                   />
                 </div>
-                <div className="w-1/4 flex flex-col pr-6">
+                <div className="w-1/3 flex flex-col pr-6">
                   <label className={labelClass}>Gender</label>
                   <select
                     className={formDisabled ? disabledClass : validClass}
@@ -454,7 +454,7 @@ const EditPetDetails = (props) => {
                     <option>female</option>
                   </select>
                 </div>
-                <div className="w-1/4 flex flex-col pr-6">
+                <div className="w-1/3 flex flex-col">
                   <label className={labelClass}>Size</label>
                   <select
                     id="size"
@@ -471,20 +471,6 @@ const EditPetDetails = (props) => {
                     <option>large</option>
                     <option>extralarge</option>
                   </select>
-                </div>
-                <div className="w-1/4 flex flex-col">
-                  <label className={labelClass}>Image Url</label>
-                  <input
-                    id="size"
-                    type="text"
-                    name="size"
-                    className={formDisabled ? disabledClass : validClass}
-                    value={petInfo.imageSrc}
-                    onChange={(evt) => {
-                      // setIsInvalidPhone(false);
-                      setPetInfo({ ...petInfo, imageSrc: evt.target.value });
-                    }}
-                  />
                 </div>
               </div>
 
@@ -503,6 +489,21 @@ const EditPetDetails = (props) => {
                     });
                   }}
                 ></textarea>
+              </div>
+
+              <div className="w-full flex flex-col mb-3">
+                <label className={labelClass}>Image Url</label>
+                <input
+                  id="size"
+                  type="text"
+                  name="size"
+                  className={formDisabled ? disabledClass : validClass}
+                  value={petInfo.imageSrc}
+                  onChange={(evt) => {
+                    // setIsInvalidPhone(false);
+                    setPetInfo({ ...petInfo, imageSrc: evt.target.value });
+                  }}
+                />
               </div>
 
               <div className="flex flex-wrap mb-3">
