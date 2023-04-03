@@ -137,10 +137,10 @@ const BrowseGroups = () => {
             </div>
           )}
           <div>
-            {searchAlert && groups.length < 1 ? (
-              <div className="p-5 mx-auto">
-                <h1 className="text-4xl font-bold text-center text-white">
-                  No results found
+            {groups.length < 1 ? (
+              <div className="p-5 mx-auto font-rubikmono">
+                <h1 className="text-4xl text-center text-white">
+                  Woof! No results!
                 </h1>
               </div>
             ) : null}

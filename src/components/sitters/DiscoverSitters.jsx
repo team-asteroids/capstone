@@ -160,9 +160,9 @@ const DiscoverSitters = () => {
             <div>
               {sitters.length === 0 ? (
                 <div className="">
-                  <div className="p-5 mx-auto">
+                  <div className="p-5 mx-auto font-rubikmono">
                     <h1 className="text-4xl font-bold text-center text-white">
-                      No results found
+                      WOOF! NO RESULTS!
                     </h1>
                   </div>
                 </div>

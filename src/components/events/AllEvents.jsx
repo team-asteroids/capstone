@@ -131,10 +131,10 @@ const AllEvents = () => {
           )}
           <div className="flex flex-col gap-5">
             {eventsSorted.length === 0 ? (
-              <div className="font-rubik">
-                <div className="m-auto">
-                  <h1 className="text-4xl text-center font-rubikmono pt-20 font-bold text-center">
-                    OOPS! NO RESULTS!
+              <div className="font-rubikmono">
+                <div className="p-5 mx-auto">
+                  <h1 className="text-4xl text-center text-white">
+                    WOOF! NO RESULTS!
                   </h1>
                 </div>
               </div>
