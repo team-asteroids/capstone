@@ -83,25 +83,73 @@ const EventDetails = () => {
               Event Details
             </div>
             {/* div with image and info */}
-
-            <div className="pt-5 pb-5 container mx-auto relative w-1/2">
-              <img
-                className="w-screen rounded-lg mx-auto max-h-96"
-                src={event.imageSrc}
-                alt="puppy event"
-              />
-              <div
-                className="w-1/2 pl-3"
-                style={{ maxHeight: '400px', overflow: 'hidden' }}
-              >
+            <div className="flex flex-row gap-5 mt-20">
+              <div className="ml-20 flex flex-col flex-wrap gap-5 rounded-lg bg-slate-50 px-10 py-10 min-w-1/2">
+                <div className="">
+                  <img
+                    className="rounded-lg mx-auto max-w-xl object-cover"
+                    src={event.imageSrc}
+                    alt="puppy event"
+                  />
+                </div>
                 {/* map */}
-                <Map zip={event.zip_code} />
+                <div className="">
+                  <div
+                    className=""
+                    style={{
+                      maxHeight: '400px',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <Map zip={event.zip_code} />
+                  </div>
+                </div>
               </div>
-              <div className="mx-40">
-                <div className="p-1">Topic: {event.topic}</div>
-                <div className="p-1 ">Description: {event.description}</div>
-                <button className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3">
-                  <Link to={'/login'}>Login to RSVP</Link>
+              <div className="flex flex-col w-1/2 items-center">
+                <h2 className="font-rubikmono text-2xl pb-10">EVENT DETAILS</h2>
+                <div className="w-3/4 flex flex-col gap-5">
+                  <div className="text-lg">
+                    <p className="pb-2">
+                      <strong>PUP-E-VENT </strong>
+                    </p>
+                    <div>{event.topic.toUpperCase()}</div>
+                  </div>
+                  {/* <div className="">
+                    <p className="pb-2">
+                      <strong>PACK LEADER</strong>
+                    </p>
+                    <div className="flex flex-row gap-2 items-center min-w-fit">
+                      <Link to={`/profile/${event.creatorId}`}>
+                        <img
+                          className="w-10 h-10 object-cover rounded-full"
+                          src={
+                            user.singleUser.imageSrc ||
+                            require('../../img/default-dog.jpg')
+                          }
+                          alt="alt"
+                        />
+                      </Link>
+                      <Link to={`/profile/${event.creatorId}`}>
+                        {`${user.singleUser.fullName} (${user.singleUser.userName})`}
+                      </Link>
+                    </div>
+                  </div> */}
+                  <div>
+                    <p className="pb-2">
+                      <strong>DESCRIPTION</strong>
+                    </p>
+                    <div>{event.description}</div>
+                  </div>
+
+                  <button className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3">
+                    <Link to={'/login'}>Login to RSVP</Link>
+                  </button>
+                </div>
+                <button
+                  className="text-left max-w-fit text-xs font-semibold hover:text-bold-purple mt-5 ease-in-out duration-100"
+                  onClick={goBack}
+                >
+                  BACK
                 </button>
               </div>
             </div>
