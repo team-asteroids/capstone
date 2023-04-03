@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link, useParams } from 'react-router-dom';
-import { selectAuth } from '../../slices/authSlice';
 
 function SitterAccountSidebar() {
   const dispatch = useDispatch();
@@ -10,11 +9,9 @@ function SitterAccountSidebar() {
 
   const [selectedSidebar, setSelectedSidebar] = useState('sitter');
 
-  const { userAuth } = useSelector(selectAuth);
-
   useEffect(() => {
     if (!location) {
-      setSelectedSidebar('sitter');
+      setSelectedSidebar('sitter/editprofile');
     } else setSelectedSidebar(location['*']);
   }, [location]);
 
@@ -31,7 +28,7 @@ function SitterAccountSidebar() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div>
+      {/* <div>
         <Link
           to="/account/sitter"
           value="overview"
@@ -47,7 +44,7 @@ function SitterAccountSidebar() {
         >
           Overview
         </Link>
-      </div>
+      </div> */}
       <div>
         <Link
           to="/account/sitter/editprofile"

@@ -13,7 +13,7 @@ function UserAccountSidebar() {
 
   useEffect(() => {
     if (!location) {
-      setSelectedSidebar('overview');
+      setSelectedSidebar('editprofile');
     } else setSelectedSidebar(location['*']);
   }, [location]);
 
@@ -37,7 +37,7 @@ function UserAccountSidebar() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div>
+      {/* <div>
         <Link
           to="/account"
           value="overview"
@@ -52,7 +52,7 @@ function UserAccountSidebar() {
         >
           Overview
         </Link>
-      </div>
+      </div> */}
       <div>
         <Link
           to="/account/editprofile"
@@ -98,7 +98,7 @@ function UserAccountSidebar() {
           Bookings
         </Link>
       </div>
-      <div>
+      {/* <div>
         <Link
           to="/account/myhistory"
           className={
@@ -112,7 +112,7 @@ function UserAccountSidebar() {
         >
           My Sitters
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }
