@@ -6,7 +6,6 @@ import {
   fetchAllPostLikes,
   fetchPostsThroughSearch,
 } from '../../slices/postsSlice';
-
 import HowlsView from './HowlsView';
 import AddHowl from './AddHowl';
 
