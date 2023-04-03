@@ -93,9 +93,7 @@ const CreateEvent = () => {
         <div className="">
           <p>Event successfully created!</p>
           <Link to={`/events/`}>
-            <button className="p-1 rounded-lg bg-[#cbd5e1]">
-              Back to Browse Events!
-            </button>
+            <button className="">Back to Browse Events!</button>
           </Link>
         </div>
       ) : (
@@ -109,7 +107,7 @@ const CreateEvent = () => {
                   : 'collapse font-rubik text-xs'
               }
             >
-              Cannot create event.
+              Cannot create event!
             </p>
             <h3 className="text-4xl font-rubikmono text-center pb-10">
               Create New Event
