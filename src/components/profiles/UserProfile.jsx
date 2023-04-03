@@ -15,7 +15,6 @@ const UserProfile = () => {
 
   const { singleUser } = useSelector(selectUser);
   const { userAuth } = useSelector(selectAuth);
-  console.log('singleUser', singleUser);
 
   const { id } = useParams();
 
