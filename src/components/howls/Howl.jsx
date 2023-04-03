@@ -31,6 +31,18 @@ const Howl = (props) => {
   const formattedDate = format(date, 'MMM d, yyyy');
   const formattedTime = format(date, 'h:m aaa');
 
+  const sortedComments = comments.slice(0).sort((a, b) => {
+    const timeA = a.createdAt;
+    const timeB = b.createdAt;
+    if (timeA < timeB) {
+      return -1;
+    }
+    if (timeA > timeB) {
+      return 1;
+    }
+    return 0;
+  });
+
   const toggleCommentView = () => {
     setCommentView(!commentView);
   };
@@ -132,7 +144,7 @@ const Howl = (props) => {
               <div>
                 <CommentView
                   post={post}
-                  comments={comments}
+                  comments={sortedComments}
                   userAuth={userAuth}
                 />
               </div>
