@@ -26,7 +26,6 @@ const AddHowl = () => {
       }
     }
     setOpen(true);
-    // console.log('response-->', response);
     setContent('');
   };
 
@@ -40,7 +39,7 @@ const AddHowl = () => {
     'w-full appearance-none border-slate-400 leading-tight block rounded-lg p-5 bg-bright-white focus:border-bold-blue focus:outline-none';
 
   const disabledBox =
-    'w-full appearance-none leading-tight block rounded-lg p-5  border-slate-400 w-full bg-slate-200/50 focus:border-bold-blue focus:outline-none';
+    'w-full appearance-nonegit push leading-tight block rounded-lg p-5  border-slate-400 w-full bg-slate-200/50 focus:border-bold-blue focus:outline-none';
 
   const buttonClass =
     'text-sm px-4 py-3 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';
@@ -91,7 +90,7 @@ const AddHowl = () => {
         </fieldset>
         <Snackbar
           open={open}
-          autoHideDuration={5000}
+          autoHideDuration={4000}
           onClose={handleClose}
           message={snackbarMessage}
         />
