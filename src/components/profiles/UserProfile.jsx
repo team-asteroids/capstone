@@ -15,6 +15,7 @@ const UserProfile = () => {
 
   const { singleUser } = useSelector(selectUser);
   const { userAuth } = useSelector(selectAuth);
+  // console.log('singleUser', singleUser);
 
   const { id } = useParams();
 
@@ -97,7 +98,7 @@ const UserProfile = () => {
           <div>
             <div>
               <p className="font-rubikmono mb-2">Neighborhood</p>
-              <p>{singleUser.access.zip}</p>
+              <p>{singleUser.zip || singleUser.access.zip}</p>
             </div>
           </div>
           <div>
