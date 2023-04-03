@@ -33,9 +33,11 @@ const AddHowl = () => {
     setOpen(true);
     setContent('');
   };
+
   const handleClose = () => {
     setOpen(false);
   };
+
   const action = (
     <IconButton
       size="small"
@@ -106,6 +108,7 @@ const AddHowl = () => {
           <SnackbarContent
             message={snackbarMessage}
             action={action}
+            autoHideDuration={3000}
             style={{
               backgroundColor: `${color}`,
             }}
