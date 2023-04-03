@@ -188,7 +188,7 @@ const EventDetails = () => {
                 {auth.userAuth.id === event.creatorId ? (
                   <>
                     <div className="pl-5 flex space-x-4">
-                      <Link to={`/events/${id}/edit`}>Edit </Link>
+                      <Link to={`/events/${id}/edit`}>Edit</Link>
                       <button onClick={deleteEvent}>Delete</button>
                     </div>
                   </>
