@@ -23,6 +23,8 @@ const SitterPrefSidebar = () => {
     }
   }, [singleSitter]);
 
+  if (!sitterPrefs) return <div>Fetching good things...</div>;
+  
   return (
     <div className="min-w-max">
       <div className="pb-5">
