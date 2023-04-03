@@ -9,8 +9,6 @@ const LikeUnlikeComment = (props) => {
 
   const dispatch = useDispatch();
 
-  console.log('likes -->', likes);
-
   const testLike = () => {
     if (!likes.length) {
       return false;
@@ -18,8 +16,6 @@ const LikeUnlikeComment = (props) => {
       const likeIds = likes.map((like) => {
         return like.userId;
       });
-      console.log('likeIds -->', likeIds);
-      console.log('userAuth -->', userAuth.id);
       if (likeIds.includes(userAuth.id)) {
         return true;
       } else {

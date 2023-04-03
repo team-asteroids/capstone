@@ -11,11 +11,22 @@ const AddHowl = () => {
 
   const [content, setContent] = useState('');
   const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const submitPost = async (e) => {
     e.preventDefault();
-    await dispatch(addPost({ content }));
+    const response = await dispatch(addPost({ content }));
+    if (response.type === '/addPost/fulfilled') {
+      setSnackbarMessage('Howl posted!');
+    } else {
+      if (response.error.message === 'Request failed with status code 409') {
+        setSnackbarMessage(
+          `Arf! We've sniffed out a duplicate post. Try an original!`
+        );
+      }
+    }
     setOpen(true);
+    // console.log('response-->', response);
     setContent('');
   };
 
@@ -82,7 +93,7 @@ const AddHowl = () => {
           open={open}
           autoHideDuration={5000}
           onClose={handleClose}
-          message="Howl posted!"
+          message={snackbarMessage}
         />
       </div>
     </div>
