@@ -29,7 +29,7 @@ const UserSocialView = (props) => {
       </button>
       {params['*'] === '' ? (
         <div className="font-rubik flex flex-row">
-          <div className="w-4/5 h-[calc(100vh_-_20rem)] overflow-auto flex flex-col pr-10 gap-10">
+          <div className="w-full h-[calc(100vh_-_20rem)] overflow-auto flex flex-col pr-10 gap-10">
             <div>
               <UserPetProfiles user={user} />
             </div>
@@ -39,9 +39,9 @@ const UserSocialView = (props) => {
               <UserGroupsProfile user={user} />
             </div>
           </div>
-          <div className="w-1/5">
+          {/* <div className="w-1/5">
             <UserFriendsSidebar user={user} />
-          </div>
+          </div> */}
         </div>
       ) : (
         <EditPetDetails user={user} />

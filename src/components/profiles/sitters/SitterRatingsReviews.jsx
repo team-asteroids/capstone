@@ -32,7 +32,7 @@ const SitterRatingsReviews = (props) => {
             </p>
           </div>
         )}
-        <div className="pb-3">
+        <div className="pb-5">
           <h3 className="font-rubikmono text-sm pb-3">Ratings</h3>
           <div>
             <p>
@@ -41,36 +41,34 @@ const SitterRatingsReviews = (props) => {
           </div>
         </div>
         <div>
-          <h3 className="font-rubikmono text-sm pb-3">Reviews</h3>
+          <h3 className="font-rubikmono text-sm pb-5">Reviews</h3>
           <div className="flex flex-col gap-5">
             {reviews.length > 0
               ? reviews.map((review) => (
-                  <div key={review.id} className="flex flex-col w-full pb-3">
-                    <div className="w-full flex flex-row mb-5 gap-5">
-                      <div className="w-1/2 flex flex-col">
-                        <input
-                          disabled
-                          className={validClass}
-                          defaultValue={dateFormatter(review.createdAt)}
+                  <div
+                    key={review.id}
+                    className="flex flex-col rounded-lg w-full pb-3 bg-slate-50 px-8 py-10 gap-5"
+                  >
+                    <div className="flex flex-row gap-2 items-center">
+                      <Link to={`/profile/${review.userId}`}>
+                        <img
+                          className="w-10 h-10 rounded-full"
+                          src={require('../../../img/default-dog.jpg')}
+                          alt="alt"
                         />
-                      </div>
-                      <div className="w-1/2 flex flex-col">
-                        <input
-                          disabled
-                          className={validClass}
-                          defaultValue={review.user.fullName}
-                        />
+                      </Link>
+                      <div className="flex flex-row gap-2">
+                        <Link to={`/profile/${review.userId}`}>
+                          <p>{review.user.fullName}</p>
+                        </Link>
+                        <p className="text-slate-400">
+                          {dateFormatter(review.createdAt)}
+                        </p>
                       </div>
                     </div>
-                    <div>
-                      <textarea
-                        className={validClass}
-                        rows={4}
-                        disabled
-                        defaultValue={review.context}
-                      />
+                    <div className="pb-8">
+                      <p>{review.context}</p>
                     </div>
-                    <Divider className="py-5" />
                   </div>
                 ))
               : 'no reviews!'}

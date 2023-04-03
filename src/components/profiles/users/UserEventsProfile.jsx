@@ -23,28 +23,29 @@ const UserEventsProfile = (props) => {
 
   return (
     <div>
-      <h2 className="font-semibold text-sm">UPCOMING EVENTS</h2>
-      <ul>
+      <h2 className="font-semibold text-sm pb-5">UPCOMING EVENTS</h2>
+      <div className="flex flex-col gap-5">
         {rsvps.map((rsvp) => (
-          <>
-            <Link to={`/events/${rsvp.eventId}`}>
-              {events.map((event) =>
-                event.id === rsvp.eventId ? (
-                  <div className="border-solid border-2 rounded-lg bg-slate">
-                    <li>Event Id: {rsvp.eventId}</li>
-                    <li>Type: {event.topic}</li>
-                    <li>Description: {event.description}</li>
-                    <li>Location: {event.zip_code}</li>
-                  </div>
-                ) : (
-                  <li></li>
-                )
-              )}
-            </Link>
-            <></>
-          </>
+          <div key={rsvp.id}>
+            {events && events.length
+              ? events.map((event) => (
+                  <Link to={`/events/${rsvp.eventId}`}>
+                    {event.id === rsvp.eventId ? (
+                      <div className="flex flex-col gap-2 bg-slate-50 py-8 px-5 rounded-lg">
+                        <div className="font-semibold">
+                          {event.topic.toUpperCase()}
+                        </div>
+                        <div>Event Id: {rsvp.eventId}</div>
+                        <div>{event.description}</div>
+                        <div>Location: {event.zip_code}</div>
+                      </div>
+                    ) : null}
+                  </Link>
+                ))
+              : null}
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
