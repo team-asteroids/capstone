@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addGroupMember } from '../../slices/groupsSlice';
+import { addGroupMember, deleteGroupMember } from '../../slices/groupsSlice';
 import { selectAuth } from '../../slices/authSlice';
 
 const Group = (props) => {
@@ -28,6 +28,12 @@ const Group = (props) => {
     } else {
       setLogInPrompt(true);
     }
+  };
+
+  const leaveGroup = async (e) => {
+    e.preventDefault();
+    const memberId = userAuth.id;
+    await dispatch(deleteGroupMember({ groupId, memberId }));
   };
 
   const buttonClass =
@@ -58,7 +64,17 @@ const Group = (props) => {
                     <p className="text-sm">({`${group.topic}`})</p>
                     <p>{`${mem}`} MEMBERS</p>
                     {memberIds.includes(userAuth.id) ? (
-                      <div>Part of the pack!</div>
+                      <div>
+                        <div>Part of the pack!</div>
+                        <div>
+                          <button
+                            onClick={leaveGroup}
+                            className="text-red-600 font-semibold text-sm"
+                          >
+                            LEAVE GROUP
+                          </button>
+                        </div>
+                      </div>
                     ) : (
                       <div className="">
                         <button onClick={joinGroup} className={buttonClass}>
