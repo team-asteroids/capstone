@@ -433,6 +433,30 @@ const pet_details = [
 
     petId: 18,
   },
+  {
+    about: 'Calm and well-behaved',
+    microchipped: true,
+    housetrained: true,
+    cratetrained: 'yes',
+    spayedOrNeutered: true,
+    reactivity: 'No',
+    friendlyWithDogs: 'yes',
+    friendlyWithCats: 'yes',
+    friendlyWithChildren: 'yes',
+    energyLevels: 'low',
+    feedingSchedule: 'twice a day',
+    foodDetails: 'Eats a special diet for weight management',
+    walkSchedule: '1',
+    walkDuration: '30',
+    walkDetails: 'Prefers short walks in quiet areas',
+    medications: 'pill',
+    medicationDetails: 'Takes medication for arthritis',
+    canBeLeftAlone: 'custom',
+    canBeLeftAloneDetails: 'Comfortable being left alone for a few hours',
+    additionalDetails: 'Loves napping and lounging in the sun',
+
+    petId: 19,
+  },
 ];
 
 module.exports = pet_details;
