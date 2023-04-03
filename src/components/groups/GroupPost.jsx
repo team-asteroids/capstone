@@ -1,44 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
-import { fetchGroupPostLikes, deleteGroupPost } from '../../slices/groupsSlice';
+import { deleteGroupPost } from '../../slices/groupsSlice';
 import LikeUnlike from './LikeUnlike';
-import { Divider } from '@mui/material';
+import { Snackbar, SnackbarContent, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+
 import { format } from 'date-fns';
-import AddGroupPost from './AddGroupPost';
 
 const GroupPost = (props) => {
   const { post, likes, memberIds, user } = props;
 
   const { groupId } = useParams();
   const dispatch = useDispatch();
-  // console.log('post-->', post);
-  // console.log('user-->', user);
 
-  // const likes = useSelector((state) => state.groups.likes);
   const { userAuth } = useSelector(selectAuth);
+
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [color, setColor] = useState('');
 
   const date = new Date(post.createdAt);
   // const dateData = new Date(date);
   const formattedDate = format(date, 'MMM d, yyyy');
   const formattedTime = format(date, 'h:m aaa');
 
-  // useEffect(() => {
-  //   dispatch(fetchGroupPostLikes({ groupId, postId }));
-  // }, [dispatch]);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  // console.log('post--> ', post);
-
-  // console.log('likes--> ', likes);
+  const action = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="white"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
 
   const deleteHandler = async (e) => {
     e.preventDefault();
     const postId = post.id;
     await dispatch(deleteGroupPost({ groupId, postId }));
+    setSnackbarMessage('Howl deleted!');
+    setColor('#b388ff');
+    setOpen(true);
   };
-
-  // console.log(post);
 
   return (
     <div className="bg-slate-50 border rounded-lg font-rubik min-w-full">
@@ -90,6 +100,16 @@ const GroupPost = (props) => {
           </div>
         </div>
       </div>
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <SnackbarContent
+          message={snackbarMessage}
+          action={action}
+          autoHideDuration={3000}
+          style={{
+            backgroundColor: `${color}`,
+          }}
+        />
+      </Snackbar>
     </div>
   );
 };
