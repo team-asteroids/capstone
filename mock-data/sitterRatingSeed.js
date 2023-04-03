@@ -99,6 +99,31 @@ const sitterRatingList = [
     sitterId: 10,
     userId: 6,
   },
+  {
+    rating: 5,
+    sitterId: 11,
+    userId: 2,
+  },
+  {
+    rating: 5,
+    sitterId: 11,
+    userId: 8,
+  },
+  {
+    rating: 5,
+    sitterId: 11,
+    userId: 16,
+  },
+  {
+    rating: 5,
+    sitterId: 12,
+    userId: 17,
+  },
+  {
+    rating: 4,
+    sitterId: 12,
+    userId: 5,
+  },
 ];
 
 module.exports = sitterRatingList;
