@@ -8,8 +8,6 @@ import CloseIcon from '@mui/icons-material/Close';
 
 const Group = (props) => {
   const { group, members } = props;
-  //   console.log('group --> ', group);
-  //   console.log('members --> ', members);
   const mem = members.length;
   const groupId = group.id;
 
@@ -18,7 +16,6 @@ const Group = (props) => {
   });
 
   const dispatch = useDispatch();
-  // const [logInPrompt, setLogInPrompt] = useState(false);
 
   const [open, setOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -106,49 +103,53 @@ const Group = (props) => {
               </div>
             </Link>
           ) : null}
+
           <div>
             <div>
-              {/* {!logInPrompt ? ( */}
               <div className="flex justify-between px-5">
                 <div className="flex flex-col gap-2 pb-5">
                   <p className="text-sm">({`${group.topic}`})</p>
                   <p>{`${mem}`} MEMBERS</p>
-                  {userAuth &&
-                  userAuth.id &&
-                  memberIds.includes(userAuth.id) ? (
+                  {userAuth && userAuth.id ? (
                     <div>
-                      <div>Part of the pack!</div>
-                      <div>
-                        <button
-                          onClick={leaveGroup}
-                          className="text-red-600 font-semibold text-sm"
-                        >
-                          LEAVE GROUP
-                        </button>
-                      </div>
+                      {userAuth &&
+                      userAuth.id &&
+                      memberIds.includes(userAuth.id) ? (
+                        <div>
+                          <div>Part of the pack!</div>
+                          <div>
+                            <button
+                              onClick={leaveGroup}
+                              className="text-red-600 font-semibold text-sm"
+                            >
+                              LEAVE GROUP
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="">
+                          <button onClick={joinGroup} className={buttonClass}>
+                            JOIN GROUP
+                          </button>
+                        </div>
+                      )}
                     </div>
                   ) : (
-                    <div className="">
-                      <button onClick={joinGroup} className={buttonClass}>
-                        JOIN GROUP
-                      </button>
+                    <div className="bg-gains-boro rounded-md py-2 px-1 text-center">
+                      <Link to="/login">
+                        Please{' '}
+                        <strong className="text-bold-blue ">log in</strong> to
+                        unleash this group adventure!
+                      </Link>
                     </div>
                   )}
                 </div>
               </div>
-              {/* ) : (
-                <Link to="/login">
-                  <button className="">
-                    Please <strong className="text-bold-blue">log in</strong> to
-                    unleash this group adventure!
-                  </button>
-                </Link>
-              )} */}
             </div>
           </div>
         </div>
       </div>
-      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
         <SnackbarContent
           message={snackbarMessage}
           action={action}
