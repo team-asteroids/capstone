@@ -10,13 +10,12 @@ const SitterPrefSidebar = () => {
   const { singleUser } = useSelector(selectUser);
   const { singleSitter } = useSelector(selectSitters);
 
-  const id = singleUser.sitter.id;
-
   useEffect(() => {
-    if (id) {
+    if (singleUser && singleUser.sitter) {
+      const id = singleUser.sitter.id;
       dispatch(fetchSingleSitter(id));
     }
-  }, [id]);
+  }, [singleUser]);
 
   useEffect(() => {
     if (singleSitter.sitterPrefs) {
