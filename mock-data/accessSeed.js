@@ -225,6 +225,86 @@ const accessList = [
       'My dog, Buddy, needs to be walked four times a day and fed twice a day. He is a friendly dog who loves to play fetch. Please also make sure he has plenty of water. Thank you!',
     userId: 15,
   },
+
+  {
+    phone: '2125553456',
+    address1: '789 Park Ave',
+    address2: 'Floor 8',
+    city: 'New York',
+    state: 'New York',
+    zip: '10021',
+    accessCode: 7890,
+    emergencyContactName: 'John Williams',
+    emergencyContactPhone: '9175555678',
+    wifi: 'UESWiFi789',
+    additionalNotes:
+      'My dog, Buddy, needs to be walked four times a day and fed twice a day. He is a friendly dog who loves to play fetch. Please also make sure he has plenty of water. Thank you!',
+    userId: 16,
+  },
+
+  {
+    phone: '2125553456',
+    address1: '789 Park Ave',
+    address2: 'Floor 8',
+    city: 'New York',
+    state: 'New York',
+    zip: '10021',
+    accessCode: 7890,
+    emergencyContactName: 'John Williams',
+    emergencyContactPhone: '9175555678',
+    wifi: 'UESWiFi789',
+    additionalNotes:
+      'My dog, Buddy, needs to be walked four times a day and fed twice a day. He is a friendly dog who loves to play fetch. Please also make sure he has plenty of water. Thank you!',
+    userId: 17,
+  },
+
+  {
+    phone: '2125553456',
+    address1: '789 Park Ave',
+    address2: 'Floor 8',
+    city: 'New York',
+    state: 'New York',
+    zip: '10021',
+    accessCode: 7890,
+    emergencyContactName: 'John Williams',
+    emergencyContactPhone: '9175555678',
+    wifi: 'UESWiFi789',
+    additionalNotes:
+      'My dog, Buddy, needs to be walked four times a day and fed twice a day. He is a friendly dog who loves to play fetch. Please also make sure he has plenty of water. Thank you!',
+    userId: 18,
+  },
+
+  {
+    phone: '2125553456',
+    address1: '789 Park Ave',
+    address2: 'Floor 8',
+    city: 'New York',
+    state: 'New York',
+    zip: '10021',
+    accessCode: 7890,
+    emergencyContactName: 'John Williams',
+    emergencyContactPhone: '9175555678',
+    wifi: 'UESWiFi789',
+    additionalNotes:
+      'My dog, Buddy, needs to be walked four times a day and fed twice a day. He is a friendly dog who loves to play fetch. Please also make sure he has plenty of water. Thank you!',
+    userId: 19,
+  },
+
+  {
+    phone: '2125553456',
+    address1: '789 Park Ave',
+    address2: 'Floor 8',
+    city: 'New York',
+    state: 'New York',
+    zip: '10021',
+    accessCode: 7890,
+    emergencyContactName: 'John Williams',
+    emergencyContactPhone: '9175555678',
+    wifi: 'UESWiFi789',
+    additionalNotes:
+      'My dog, Buddy, needs to be walked four times a day and fed twice a day. He is a friendly dog who loves to play fetch. Please also make sure he has plenty of water. Thank you!',
+    userId: 20,
+  },
 ];
 
 module.exports = accessList;
