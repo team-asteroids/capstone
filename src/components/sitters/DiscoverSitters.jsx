@@ -17,7 +17,6 @@ const DiscoverSitters = () => {
 
   const [rating, setRating] = useState('');
   const [price, setPrice] = useState('');
-  const [zip, setZip] = useState('');
 
   const handleSearch = (e) => {
     e.preventDefault();
