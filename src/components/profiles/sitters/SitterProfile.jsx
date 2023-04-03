@@ -25,14 +25,13 @@ const SitterProfile = () => {
   const { singleSitter, sitterReviews, sitterRatings } =
     useSelector(selectSitters);
 
-  const id = singleSitter.id;
-
   const total = sitterRatings.reduce((acc, curr) => {
     return acc + curr.rating;
   }, 0);
 
   useEffect(() => {
-    if (id) {
+    if (singleSitter && singleSitter.id) {
+      const id = singleSitter.id;
       dispatch(fetchSingleSitterReviews(id));
       dispatch(fetchSingleSitterRatings(id));
     }
@@ -62,7 +61,10 @@ const SitterProfile = () => {
           </div>
           <div>
             <h2 className="font-rubikmono pb-3">Availability & Booking</h2>
-            <SitterCalendar rate={singleSitter.rate} sitterId={id} />
+            <SitterCalendar
+              rate={singleSitter.rate}
+              sitterId={singleSitter.id}
+            />
           </div>
           <div>
             <h2 className="font-rubikmono pb-3">Ratings & Reviews</h2>
