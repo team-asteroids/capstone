@@ -131,23 +131,9 @@ router.post('/name', async (req, res, next) => {
     const name = req.body.params.name;
     const users = await User.findAll({
       where: {
-        [sequelize.Op.or]: [
-          {
-            firstName: {
-              [sequelize.Op.iLike]: `%${name}%`,
-            },
-          },
-          {
-            lastName: {
-              [sequelize.Op.iLike]: `%${name}%`,
-            },
-          },
-          {
-            bio: {
-              [sequelize.Op.iLike]: `%${name}%`,
-            },
-          },
-        ],
+        firstName: {
+          [sequelize.Op.iLike]: `%${name}%`,
+        },
       },
     });
     const userIds = users.map((user) => user.dataValues.id);
