@@ -83,17 +83,17 @@ const EventDetails = () => {
               Event Details
             </div>
             {/* div with image and info */}
-            <div className="flex flex-row gap-5 mt-20">
-              <div className="ml-20 flex flex-col flex-wrap gap-5 rounded-lg bg-slate-50 px-10 py-10 min-w-1/2">
-                <div className="">
+            <div className="flex flex-row gap-5 mt-20 justify-center">
+              <div className="w-1/3 ml-20 flex flex-col flex-wrap rounded-lg bg-slate-50 px-10 py-10 min-w-1/3">
+                <div className="w-full">
                   <img
-                    className="rounded-lg mx-auto max-w-xl object-cover"
+                    className="rounded-t-lg mx-auto object-cover"
                     src={event.imageSrc}
                     alt="puppy event"
                   />
                 </div>
                 {/* map */}
-                <div className="">
+                <div className="w-full">
                   <div
                     className=""
                     style={{
@@ -107,7 +107,7 @@ const EventDetails = () => {
               </div>
               <div className="flex flex-col w-1/2 items-center">
                 <h2 className="font-rubikmono text-2xl pb-10">EVENT DETAILS</h2>
-                <div className="w-3/4 flex flex-col gap-5">
+                <div className="w-2/3 flex flex-col gap-5">
                   <div className="text-lg">
                     <p className="pb-2">
                       <strong>PUP-E-VENT </strong>
@@ -197,19 +197,19 @@ const EventDetails = () => {
                 )}
               </div>
               {/* div with image and info */}
-              <div className="flex flex-row gap-5 mt-20">
-                <div className="ml-20 flex flex-col flex-wrap gap-5 rounded-lg bg-slate-50 px-10 py-10 min-w-1/2">
-                  <div className="">
+              <div className="flex flex-row gap-5 mt-20 justify-center">
+                <div className="w-1/3 ml-20 flex flex-col flex-wrap rounded-lg bg-slate-50 px-10 py-10 min-w-1/3">
+                  <div className="w-full">
                     <img
-                      className="rounded-lg mx-auto max-w-xl object-cover"
+                      className="rounded-t-lg mx-auto object-cover"
                       src={event.imageSrc}
                       alt="puppy event"
                     />
                   </div>
                   {/* map */}
-                  <div className="">
+                  <div className="w-full">
                     <div
-                      className=""
+                      className="border-none rounded-b-lg"
                       style={{
                         maxHeight: '400px',
                         overflow: 'hidden',
@@ -223,7 +223,7 @@ const EventDetails = () => {
                   <h2 className="font-rubikmono text-2xl pb-10">
                     EVENT DETAILS
                   </h2>
-                  <div className="w-3/4 flex flex-col gap-5">
+                  <div className="w-2/3 flex flex-col gap-5">
                     <div className="text-lg">
                       <p className="pb-2">
                         <strong>PUP-E-VENT </strong>
