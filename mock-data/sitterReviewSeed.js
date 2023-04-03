@@ -60,9 +60,24 @@ const sitterReviewList = [
     userId: 13,
   },
   {
-    context: `I was hesitant to leave my dog with someone new, but [dog sitter's name] put me at ease with their warm and friendly personality. They took great care of my dog and even sent me a personalized thank-you note after the stay.`,
+    context: `I was hesitant to leave my dog with someone new, but they put me at ease with their warm and friendly personality. They took great care of my dog and even sent me a personalized thank-you note after the stay.`,
     sitterId: 3,
     userId: 14,
+  },
+  {
+    context: `I can't recommend Allyssa enough! She took care of my dog while I was away for a week and did an amazing job. She was very communicative and sent me updates every day, including pictures of my happy pup playing and relaxing with her. I could tell that she really cares about dogs and made sure to give my dog plenty of attention and exercise. She even went above and beyond by giving him a bath before I picked him up, which was a nice surprise. Overall, Allyssa provided a safe, comfortable, and loving home away from home for my dog, and I would definitely use her services again in the future.`,
+    sitterId: 12,
+    userId: 3,
+  },
+  {
+    context: `I was nervous to leave my reactive dog with a new dog sitter, but Allyssa put my mind at ease with her expertise and understanding of reactive dogs. She was patient and caring towards my dog, and provided a safe and calm environment for him to relax and feel comfortable. Allyssa communicated with me regularly and gave me updates on my dog's progress, which I really appreciated. When I returned home, my dog was happy and relaxed, which is a testament to Allyssa's excellent care. I would highly recommend her to anyone with a reactive dog.`,
+    sitterId: 11,
+    userId: 3,
+  },
+  {
+    context: `I had a great experience with Allyssa taking care of my reactive dog while I was away. [Dog Sitter's Name] was patient and understanding of my dog's needs and behaviors, and went above and beyond to create a safe and comfortable environment for my pup. She followed all the instructions I provided and kept me updated on my dog's progress, which gave me peace of mind. When I returned, my dog was happy and healthy, and I could tell that she had been well-cared for. I highly recommend Allyssa to anyone looking for a dog sitter, especially if you have a reactive dog like mine.`,
+    sitterId: 11,
+    userId: 17,
   },
 ];
 
