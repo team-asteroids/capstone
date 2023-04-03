@@ -79,22 +79,27 @@ const EventDetails = () => {
               Event Details
             </div>
             {/* div with image and info */}
+
             <div className="pt-5 pb-5 container mx-auto relative w-1/2">
               <img
                 className="w-screen rounded-lg mx-auto max-h-96"
                 src={event.imageSrc}
                 alt="puppy event"
               />
+              <div
+                className="w-1/2 pl-3"
+                style={{ maxHeight: '400px', overflow: 'hidden' }}
+              >
+                {/* map */}
+                <Map zip={event.zip_code} />
+              </div>
+
               <div className="p-1">Topic: {event.topic}</div>
 
               <div className="p-1 ">Description: {event.description}</div>
               <button className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3">
                 <Link to={'/login'}>Login to RSVP</Link>
               </button>
-            </div>
-            {/* map */}
-            <div>
-              <Map zip={event.zip_code} />
             </div>
           </div>
         )}
@@ -140,62 +145,68 @@ const EventDetails = () => {
                 )}
               </div>
               {/* div with image and info */}
-              <div className="pt-5 pb-5 container mx-auto relative w-1/2">
-                <img
-                  className="w-screen rounded-lg mx-auto max-h-96"
-                  src={event.imageSrc}
-                  alt="puppy event"
-                />
-                <div className="p-1">
-                  <strong>PUP-E-VENT:</strong> {event.topic}
+              <div className="pl-5 pt-3 container mx-auto relative flex flex-wrap">
+                <div className="w-1/2 px-2">
+                  <img
+                    className="rounded-lg mx-auto max-h-96"
+                    src={event.imageSrc}
+                    alt="puppy event"
+                  />
                 </div>
-                <div className="p-1">
-                  <strong>PACK LEADER: </strong>{' '}
-                  <Link to={`/profile/${event.creatorId}`}>
-                    {user.singleUser.userName}
-                  </Link>
+                {/* map */}
+                <div
+                  className="w-1/2 pl-3"
+                  style={{ maxHeight: '400px', overflow: 'hidden' }}
+                >
+                  <Map zip={event.zip_code} />
                 </div>
-                <div className="p-1 ">
-                  <strong>DESCRIPTION:</strong> {event.description}
-                </div>
-                <div>
-                  <strong>THE PACK:</strong>
-                </div>
-                <ul>
-                  {event.users.length ? (
-                    event.users.map((user) => (
-                      <li key={user.id}>{user.userName}</li>
-                    ))
-                  ) : (
-                    <p>No HOWLR's...yet</p>
-                  )}
-                </ul>
-                {!alreadyRSVPd.length ? (
-                  <button
-                    className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
-                    onClick={() => {
-                      dispatch(addRsvpAsync(event.id));
-                      navigate(-1);
-                    }}
-                  >
-                    RSVP
-                  </button>
-                ) : (
-                  <button
-                    className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
-                    onClick={() => {
-                      dispatch(removeRsvpAsync(event.id));
-                      navigate(-1);
-                    }}
-                  >
-                    Remove RSVP
-                  </button>
-                )}
               </div>
-              {/* map */}
+
+              <div className="p-1">
+                <strong>PUP-E-VENT:</strong> {event.topic}
+              </div>
+              <div className="p-1">
+                <strong>PACK LEADER: </strong>{' '}
+                <Link to={`/profile/${event.creatorId}`}>
+                  {user.singleUser.userName}
+                </Link>
+              </div>
+              <div className="p-1 ">
+                <strong>DESCRIPTION:</strong> {event.description}
+              </div>
               <div>
-                <Map zip={event.zip_code} />
+                <strong>THE PACK:</strong>
               </div>
+              <ul>
+                {event.users.length ? (
+                  event.users.map((user) => (
+                    <li key={user.id}>{user.userName}</li>
+                  ))
+                ) : (
+                  <p>No HOWLR's...yet</p>
+                )}
+              </ul>
+              {!alreadyRSVPd.length ? (
+                <button
+                  className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
+                  onClick={() => {
+                    dispatch(addRsvpAsync(event.id));
+                    navigate(-1);
+                  }}
+                >
+                  RSVP
+                </button>
+              ) : (
+                <button
+                  className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
+                  onClick={() => {
+                    dispatch(removeRsvpAsync(event.id));
+                    navigate(-1);
+                  }}
+                >
+                  Remove RSVP
+                </button>
+              )}
             </div>
           </div>
         )}
