@@ -72,7 +72,7 @@ const GroupInfo = () => {
             <div className="flex flex-row">
               <div className="">
                 <img
-                  src={require('../../img/groups/party-pups.jpg')}
+                  src={singleGroup.imageSrc}
                   alt="Group"
                   className="border rounded-l-lg max-w-sm"
                 />

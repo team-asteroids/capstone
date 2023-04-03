@@ -36,7 +36,7 @@ const Group = (props) => {
             className="rounded-t-lg object-cover h-72 w-144"
             src={group.imageSrc}
             alt={''}
-            onerror={require('../../img/groups/party-pups.jpg')}
+            onError={require('../../img/groups/party-pups.jpg')}
           />
         </Link>
         <div className="flex flex-col gap-3">
