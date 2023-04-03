@@ -896,11 +896,7 @@ const EditPetDetails = (props) => {
               )}
             </form>
           </fieldset>
-          {singlePet &&
-          singlePet.id &&
-          userAuth &&
-          userAuth.id &&
-          singlePet.user.id === userAuth.id ? (
+          {userAuth && userAuth.id ? (
             <div className="">
               <button
                 className="font-semibold cursor-pointer text-red-600 hover:text-red-900 mt-5"
