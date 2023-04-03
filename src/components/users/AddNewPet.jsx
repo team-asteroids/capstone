@@ -408,13 +408,13 @@ const AddNewPet = (props) => {
             <div className="w-full flex flex-col mb-3">
               <label className={labelClass}>Image</label>
               <input
-                type="text"
+                type="url"
                 required
                 className={validClass}
                 value={petInfo.imageSrc}
                 onChange={(evt) => {
                   // setIsInvalidPhone(false);
-                  setPetDetailsData({
+                  setPetInfo({
                     ...petInfo,
                     imageSrc: evt.target.value,
                   });
