@@ -16,19 +16,24 @@ const UserGroupsProfile = (props) => {
   // console.log(memberships);
   return (
     <div>
-      <h2 className="font-semibold text-sm">MY GROUPS</h2>
-      <ul>
+      <h2 className="font-semibold text-sm pb-5">MY GROUPS</h2>
+      <div className="flex flex-col gap-5">
         {memberships.map((membership) => (
-          <Link to={`/groups/${membership.id}`}>
-            {' '}
-            <div className="border-solid border-2 rounded-lg bg-slate">
-              <li>Group Name: {membership.name}</li>
-              <li>Topic: {membership.topic}</li>
-              <li>Description: {membership.description}</li>
-            </div>
-          </Link>
+          <div
+            key={membership.id}
+            className="flex flex-col gap-2 bg-slate-50 py-8 px-5 rounded-lg"
+          >
+            <Link to={`/groups/${membership.id}`}>
+              <div className="flex flex-col gap-5">
+                <div className="font-semibold">
+                  {membership.name.toUpperCase()}
+                </div>
+                <div>{membership.description}</div>
+              </div>
+            </Link>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
