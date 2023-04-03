@@ -159,14 +159,28 @@ const pets = [
     userId: 14,
   },
   {
-    name: 'Cooper',
-    breed: 'Belgian Laekenois',
+    name: 'Zoey',
+    breed: 'Labrador Retrievers',
+    age: 5,
+    size: 'large',
+    sex: 'femaile',
+    userId: 23,
+  },
+  {
+    name: 'Chance',
+    breed: 'Mixed',
     age: 5,
     size: 'large',
     sex: 'male',
-    imageSrc:
-      'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2019/12/1200/675/yellow-labrador-dog-iStock.jpg?ve=1&tl=1',
-    userId: 15,
+    userId: 23,
+  },
+  {
+    name: 'Saxen',
+    breed: 'Mixed',
+    age: 5,
+    size: 'large',
+    sex: 'male',
+    userId: 21,
   },
 ];
 
