@@ -74,7 +74,7 @@ const UserPetProfiles = (props) => {
                     </p>
                   </div>
                 </div>
-                <button onClick={() => submitDeletePet(pet.id)}>Delete</button>
+                // <button onClick={() => submitDeletePet(pet.id)}>Delete</button>
               </div>
             ))
           : 'no pets!'}
