@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { likePost, unlikePost } from '../../slices/postsSlice';
+import PetsIcon from '@mui/icons-material/Pets';
 
 const LikeUnlikeHowl = (props) => {
   const { post, likes, userAuth } = props;
@@ -42,7 +43,7 @@ const LikeUnlikeHowl = (props) => {
             testLike() ? 'bg-bold-blue text-bright-white' : 'bg-slate-200'
           }`}
         >
-          LIKE
+          <PetsIcon style={{ color: 'bg-bold-blue' }} />
         </button>
       </p>
     </>

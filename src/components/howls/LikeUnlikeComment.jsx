@@ -1,14 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { likeComment, unlikeComment } from '../../slices/postsSlice';
+import PetsIcon from '@mui/icons-material/Pets';
 
 const LikeUnlikeComment = (props) => {
   const { comment, likes, userAuth } = props;
   const postCommentId = comment.id;
 
   const dispatch = useDispatch();
-
-  console.log('likes -->', likes);
 
   const testLike = () => {
     if (!likes.length) {
@@ -17,8 +16,6 @@ const LikeUnlikeComment = (props) => {
       const likeIds = likes.map((like) => {
         return like.userId;
       });
-      console.log('likeIds -->', likeIds);
-      console.log('userAuth -->', userAuth.id);
       if (likeIds.includes(userAuth.id)) {
         return true;
       } else {
@@ -45,7 +42,7 @@ const LikeUnlikeComment = (props) => {
             testLike() ? 'bg-bold-blue text-bright-white' : 'bg-slate-200'
           }`}
         >
-          LIKE
+          <PetsIcon style={{ color: 'bg-bold-blue' }} />
         </button>
       </p>
     </>
