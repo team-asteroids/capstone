@@ -11,8 +11,9 @@ import mapStyles from './mapStyles';
 const dogMarker = require('../../../src/img/dog.png');
 const libraries = ['places'];
 const mapContainerStyle = {
-  width: '100vw',
-  height: '100vh',
+  width: '50vw ',
+  height: '50vh',
+  borderRadius: '10px',
 };
 const options = {
   styles: mapStyles,

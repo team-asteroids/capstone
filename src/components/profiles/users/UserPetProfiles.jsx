@@ -36,7 +36,7 @@ const UserPetProfiles = (props) => {
         {allPets && allPets.length
           ? allPets.map((pet) => (
               <div className="flex flex-col gap-5" key={pet.id}>
-                <div className="flex flex-row flex-wrap gap-5">
+                <div className="flex flex-row flex-wrap items-center gap-5">
                   <div className="min-w-max">
                     <Link
                       to={
@@ -46,9 +46,9 @@ const UserPetProfiles = (props) => {
                       }
                     >
                       <img
-                        className="h-24 w-24 object-cover rounded-full drop-shadow-md hover:opacity-50 ease-in-out duration-500"
+                        className="h-28 w-28 object-cover rounded-full drop-shadow-md hover:opacity-50 ease-in-out duration-500"
                         alt={'pet-pic'}
-                        src={defaultImg}
+                        src={pet.imageSrc || defaultImg}
                       />
                     </Link>
                   </div>

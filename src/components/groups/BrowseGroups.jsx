@@ -118,7 +118,7 @@ const BrowseGroups = () => {
               </select>
             </div>
           </div>
-          {userAuth && (
+          {userAuth && userAuth.id ? (
             <div>
               <h3 className="font-rubikmono ">
                 <Link to={`/groups/create`}>
@@ -128,7 +128,7 @@ const BrowseGroups = () => {
                 </Link>
               </h3>
             </div>
-          )}
+          ) : null}
         </div>
 
         <div className="min-w-3/4 font-rubikmono overflow-auto gap-5">

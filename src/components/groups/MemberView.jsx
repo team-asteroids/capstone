@@ -42,8 +42,10 @@ const MemberView = () => {
                       <div className="flex flex-row gap-3 items-center">
                         <Link to={`/profile/${mem.id}`}>
                           <img
+
                             className="w-10 h-10 rounded-full"
                             src={mem.imageSrc}
+
                             alt="alt"
                           />
                         </Link>

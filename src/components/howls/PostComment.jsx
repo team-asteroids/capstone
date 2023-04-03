@@ -64,8 +64,10 @@ const PostComment = (props) => {
         <div className="flex flex-row gap-2 items-center">
           <Link to={`/profile/${comment.user.id}`}>
             <img
-              className="w-10 h-10 rounded-full"
-              src={require('../../img/default-dog.jpg')}
+              className="w-10 h-10 object-cover rounded-full"
+              src={
+                comment.user.imageSrc || require('../../img/default-dog.jpg')
+              }
               alt="alt"
             />
           </Link>

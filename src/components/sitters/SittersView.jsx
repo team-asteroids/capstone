@@ -23,7 +23,8 @@ const SittersView = (props) => {
         {currentItems.map((sitter) => (
           <SitterCard
             key={sitter.id}
-            img={defaultImg}
+            id={sitter.id}
+            img={sitter.imageSrc}
             sitter={sitter}
             firstName={sitter.firstName}
             rate={sitter.rate}

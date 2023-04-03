@@ -20,6 +20,7 @@ const SitterCard = (props) => {
     zip,
   } = props;
 
+  // console.log({ id, sitter });
   const dispatch = useDispatch();
 
   return (
@@ -28,14 +29,16 @@ const SitterCard = (props) => {
         <div className="px-10 py-10 flex flex-row gap-5">
           <div className="flex flex-col w-1/4">
             <div className="flex flex-col gap-5">
-              <Link to={`/profile/${userId}/sitter/${sitter.id}`}>
+              <Link to={`/profile/${userId}/sitter/${id}`}>
                 <img
                   className="h-36 w-36 object-cover rounded-full drop-shadow-md"
-                  src={require('../../img/sitter-profile.jpg')}
+                  src={
+                    sitter.imageSrc || require('../../img/sitter-profile.jpg')
+                  }
                   alt="alt"
                 />
               </Link>
-              <Link to={`/profile/${userId}/sitter/${sitter.id}`}>
+              <Link to={`/profile/${userId}/sitter/${id}`}>
                 <div>
                   <h3 className="text-base font-rubikmono leading-6 text-gray-900">
                     {`${firstName} ${sitter.lastName}`}

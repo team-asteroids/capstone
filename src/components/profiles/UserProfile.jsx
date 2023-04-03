@@ -52,8 +52,8 @@ const UserProfile = () => {
           <div id="userBio" className="min-w-max flex flex-col gap-5">
             <div className="flex flex-col gap-5 min-w-48">
               <img
-                className="h-48 w-48 rounded-full drop-shadow-md"
-                src={defaultImg}
+                className="h-48 w-48 object-cover rounded-full drop-shadow-md"
+                src={singleUser.imageSrc || defaultImg}
                 alt="alt"
               ></img>
               <div className="font-rubikmono">{singleUser.fullName}</div>
