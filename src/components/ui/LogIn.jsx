@@ -66,7 +66,7 @@ function LogIn() {
   };
 
   useEffect(() => {
-    if (userAuth && userAuth.firstName) navigate('/account');
+    if (userAuth && userAuth.firstName) navigate('/account/editprofile');
     else if (logInAttempt) {
       setLogInFail(true);
     }
@@ -156,7 +156,7 @@ function LogIn() {
           </form>
         </section>
         <div className="text-xs mt-5 text-center">
-          <p className="hover:text-white">
+          <p className="bg-slate-50/60 rounded  px-3 py-3 hover:bg-slate-50 ease-in-out duration-200">
             <Link to={'/signup'}>Don't have an account? Sign Up!</Link>
           </p>
         </div>
