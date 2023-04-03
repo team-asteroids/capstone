@@ -100,7 +100,7 @@ const GroupInfo = () => {
                 <img
                   src={singleGroup.imageSrc}
                   alt="Group"
-                  className="border rounded-l-lg max-w-sm"
+                  className="border object-cover rounded-l-lg max-w-sm"
                 />
               </div>
 
