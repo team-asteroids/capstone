@@ -50,6 +50,10 @@ const EventDetails = () => {
     navigate(-1);
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   if (!auth.userAuth) {
     //user is not logged in
     return (
@@ -93,13 +97,13 @@ const EventDetails = () => {
                 {/* map */}
                 <Map zip={event.zip_code} />
               </div>
-
-              <div className="p-1">Topic: {event.topic}</div>
-
-              <div className="p-1 ">Description: {event.description}</div>
-              <button className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3">
-                <Link to={'/login'}>Login to RSVP</Link>
-              </button>
+              <div className="mx-40">
+                <div className="p-1">Topic: {event.topic}</div>
+                <div className="p-1 ">Description: {event.description}</div>
+                <button className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3">
+                  <Link to={'/login'}>Login to RSVP</Link>
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -145,68 +149,126 @@ const EventDetails = () => {
                 )}
               </div>
               {/* div with image and info */}
-              <div className="pl-5 pt-3 container mx-auto relative flex flex-wrap">
-                <div className="w-1/2 px-2">
-                  <img
-                    className="rounded-lg mx-auto max-h-96"
-                    src={event.imageSrc}
-                    alt="puppy event"
-                  />
+              <div className="flex flex-row gap-5 mt-20">
+                <div className="ml-20 flex flex-col flex-wrap gap-5 rounded-lg bg-slate-50 px-10 py-10 min-w-1/2">
+                  <div className="">
+                    <img
+                      className="rounded-lg mx-auto max-w-xl object-cover"
+                      src={event.imageSrc}
+                      alt="puppy event"
+                    />
+                  </div>
+                  {/* map */}
+                  <div className="">
+                    <div
+                      className=""
+                      style={{
+                        maxHeight: '400px',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <Map zip={event.zip_code} />
+                    </div>
+                  </div>
                 </div>
-                {/* map */}
-                <div
-                  className="w-1/2 pl-3"
-                  style={{ maxHeight: '400px', overflow: 'hidden' }}
-                >
-                  <Map zip={event.zip_code} />
-                </div>
-              </div>
+                <div className="flex flex-col w-1/2 items-center">
+                  <h2 className="font-rubikmono text-2xl pb-10">
+                    EVENT DETAILS
+                  </h2>
+                  <div className="w-3/4 flex flex-col gap-5">
+                    <div className="text-lg">
+                      <p className="pb-2">
+                        <strong>PUP-E-VENT </strong>
+                      </p>
+                      <div>{event.topic.toUpperCase()}</div>
+                    </div>
+                    <div className="">
+                      <p className="pb-2">
+                        <strong>PACK LEADER</strong>
+                      </p>
+                      <div className="flex flex-row gap-2 items-center min-w-fit">
+                        <Link to={`/profile/${event.creatorId}`}>
+                          <img
+                            className="w-10 h-10 object-cover rounded-full"
+                            src={
+                              user.singleUser.imageSrc ||
+                              require('../../img/default-dog.jpg')
+                            }
+                            alt="alt"
+                          />
+                        </Link>
+                        <Link to={`/profile/${event.creatorId}`}>
+                          {`${user.singleUser.fullName} (${user.singleUser.userName})`}
+                        </Link>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="pb-2">
+                        <strong>DESCRIPTION</strong>
+                      </p>
+                      <div>{event.description}</div>
+                    </div>
 
-              <div className="p-1">
-                <strong>PUP-E-VENT:</strong> {event.topic}
+                    <div>
+                      <p className="pb-2">
+                        <strong>THE PACK</strong>
+                      </p>
+                      <div>
+                        {event.users.length ? (
+                          event.users.map((user) => (
+                            <div key={user.id} className="flex flex-col pb-3">
+                              <div className="flex flex-row gap-2 items-center min-w-fit">
+                                <Link to={`/profile/${user.id}`}>
+                                  <img
+                                    className="w-10 h-10 object-cover rounded-full"
+                                    src={
+                                      user.imageSrc ||
+                                      require('../../img/default-dog.jpg')
+                                    }
+                                    alt="alt"
+                                  />
+                                </Link>
+                                <Link to={`/profile/${user.id}`}>
+                                  {`${user.fullName} (${user.userName})`}
+                                </Link>
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <p>No HOWLRs... yet!</p>
+                        )}
+                      </div>
+                    </div>
+                    {!alreadyRSVPd.length ? (
+                      <button
+                        className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
+                        onClick={() => {
+                          dispatch(addRsvpAsync(event.id));
+                          navigate(-1);
+                        }}
+                      >
+                        RSVP
+                      </button>
+                    ) : (
+                      <button
+                        className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
+                        onClick={() => {
+                          dispatch(removeRsvpAsync(event.id));
+                          navigate(-1);
+                        }}
+                      >
+                        Remove RSVP
+                      </button>
+                    )}
+                  </div>
+                  <button
+                    className="text-left max-w-fit text-xs font-semibold hover:text-bold-purple mt-5 ease-in-out duration-100"
+                    onClick={goBack}
+                  >
+                    BACK
+                  </button>
+                </div>
               </div>
-              <div className="p-1">
-                <strong>PACK LEADER: </strong>{' '}
-                <Link to={`/profile/${event.creatorId}`}>
-                  {user.singleUser.userName}
-                </Link>
-              </div>
-              <div className="p-1 ">
-                <strong>DESCRIPTION:</strong> {event.description}
-              </div>
-              <div>
-                <strong>THE PACK:</strong>
-              </div>
-              <ul>
-                {event.users.length ? (
-                  event.users.map((user) => (
-                    <li key={user.id}>{user.userName}</li>
-                  ))
-                ) : (
-                  <p>No HOWLR's...yet</p>
-                )}
-              </ul>
-              {!alreadyRSVPd.length ? (
-                <button
-                  className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
-                  onClick={() => {
-                    dispatch(addRsvpAsync(event.id));
-                    navigate(-1);
-                  }}
-                >
-                  RSVP
-                </button>
-              ) : (
-                <button
-                  className="ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-3"
-                  onClick={() => {
-                    dispatch(removeRsvpAsync(event.id));
-                    navigate(-1);
-                  }}
-                >
-                  Remove RSVP
-                </button>
-              )}
             </div>
           </div>
         )}
