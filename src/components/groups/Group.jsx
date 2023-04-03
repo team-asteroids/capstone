@@ -11,6 +11,11 @@ const Group = (props) => {
   const mem = members.length;
   const groupId = group.id;
 
+  const memberIds = members.map((mem) => {
+    return mem.userId;
+  });
+  console.log('memberIds--> ', memberIds);
+
   const dispatch = useDispatch();
   const [logInPrompt, setLogInPrompt] = useState(false);
 
@@ -46,25 +51,31 @@ const Group = (props) => {
             </div>
           </Link>
           <div>
-            {!logInPrompt ? (
-              <div className="flex justify-between px-5">
-                <div className="flex flex-col gap-2 pb-5">
-                  <p className="text-sm">({`${group.topic}`})</p>
-                  <p>{`${mem}`} MEMBERS</p>
-                  <div className="">
-                    <button onClick={joinGroup} className={buttonClass}>
-                      JOIN GROUP
-                    </button>
+            <div>
+              {!logInPrompt ? (
+                <div className="flex justify-between px-5">
+                  <div className="flex flex-col gap-2 pb-5">
+                    <p className="text-sm">({`${group.topic}`})</p>
+                    <p>{`${mem}`} MEMBERS</p>
+                    {memberIds.includes(userAuth.id) ? (
+                      <div>Part of the pack!</div>
+                    ) : (
+                      <div className="">
+                        <button onClick={joinGroup} className={buttonClass}>
+                          JOIN GROUP
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
-            ) : (
-              <Link to="/login">
-                <button className="">
-                  Please log in to unleash this group adventure!
-                </button>
-              </Link>
-            )}
+              ) : (
+                <Link to="/login">
+                  <button className="">
+                    Please log in to unleash this group adventure!
+                  </button>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>
