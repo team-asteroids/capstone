@@ -75,7 +75,7 @@ const PostComment = (props) => {
             <Link to={`/profile/${comment.user.id}`}>
               <p>{comment.user.fullName}</p>
             </Link>
-            <p className="text-slate-400">{formattedDate}</p>
+            <p className="text-slate-400">{`${formattedDate} at ${formattedTime}`}</p>
           </div>
         </div>
         <div>

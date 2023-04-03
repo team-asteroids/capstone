@@ -66,7 +66,7 @@ const GroupPost = (props) => {
               <Link to={`/profile/${post.id}`}>
                 <p>{post.user.fullName}</p>
               </Link>
-              <p className="text-slate-400">{formattedDate}</p>
+              <p className="text-slate-400">{`${formattedDate} at ${formattedTime}`}</p>
             </div>
           </div>
           <div className="flex overflow-wrap break-words">
