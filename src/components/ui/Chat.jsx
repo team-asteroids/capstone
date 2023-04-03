@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { ChatEngine, getOrCreateChat } from 'react-chat-engine';
 import { useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
+import { useLocation } from 'react-router-dom';
 
 const Chat = () => {
-  const [username, setUsername] = useState('');
+  const location = useLocation();
+  const [username, setUsername] = useState(location.state.userName);
   const { userAuth } = useSelector(selectAuth);
   const user = userAuth.userName;
 
