@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchSingleGroup,
@@ -8,7 +8,7 @@ import {
   deleteGroupMember,
   fetchGroupMembers,
 } from '../../slices/groupsSlice';
-import GroupNav from './GroupNav';
+// import GroupNav from './GroupNav';
 
 import { selectAuth } from '../../slices/authSlice';
 
