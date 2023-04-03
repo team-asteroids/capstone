@@ -79,8 +79,12 @@ const EventDetails = () => {
               Event Details
             </div>
             {/* div with image and info */}
-            <div className="pl-5 pt-3  container mx-auto relative">
-              <img className="w-100 " src={event.imageSrc} alt="puppy event" />
+            <div className="pt-5 pb-5 container mx-auto relative w-1/2">
+              <img
+                className="w-screen rounded-lg mx-auto max-h-96"
+                src={event.imageSrc}
+                alt="puppy event"
+              />
               <div className="p-1">Topic: {event.topic}</div>
 
               <div className="p-1 ">Description: {event.description}</div>
