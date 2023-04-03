@@ -4,30 +4,39 @@ import {
   selectPets,
   fetchAllPets,
   resetPetStatus,
+  deletePet,
 } from '../../../slices/petsSlice';
 import defaultImg from '../../../img/default-dog.jpg';
 import { selectAuth } from '../../../slices/authSlice';
-import { useParams, Link, useLocation } from 'react-router-dom';
+import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
 
 const UserPetProfiles = (props) => {
   const dispatch = useDispatch();
   const params = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const { userAuth } = useSelector(selectAuth);
+  const { userAuth, token } = useSelector(selectAuth);
   const { user } = props;
-  const id = user.id;
 
   const { allPets } = useSelector(selectPets);
 
   useEffect(() => {
-    if (id) {
+    if (user && user.id) {
+      const id = user.id;
       dispatch(fetchAllPets(id));
     }
     return () => {
       dispatch(resetPetStatus());
     };
-  }, [id]);
+  }, [user]);
+
+  const submitDeletePet = async (petId) => {
+    console.log('delete attempted');
+    const id = user.id;
+    const res = await dispatch(deletePet({ id, token, petId }));
+    if (res.type === 'deletePet/fulfilled') navigate('/account/pets');
+  };
 
   return (
     <div>
@@ -65,6 +74,7 @@ const UserPetProfiles = (props) => {
                     </p>
                   </div>
                 </div>
+                <button onClick={() => submitDeletePet(pet.id)}>Delete</button>
               </div>
             ))
           : 'no pets!'}
