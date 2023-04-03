@@ -149,6 +149,21 @@ const sitterPrefsList = [
     medication: true,
     sitterId: 10,
   },
+  {
+    hostAtHome: false,
+    atOwnerHouse: true,
+    reactive: false,
+    puppies: false,
+    small: false,
+    medium: false,
+    large: true,
+    extraLarge: true,
+    multiplePets: false,
+    cats: true,
+    disabled: false,
+    medication: true,
+    sitterId: 11,
+  },
 ];
 
 module.exports = sitterPrefsList;
