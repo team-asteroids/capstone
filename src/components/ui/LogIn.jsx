@@ -61,7 +61,7 @@ function LogIn() {
   };
 
   useEffect(() => {
-    if (userAuth && userAuth.firstName) navigate('/account');
+    if (userAuth && userAuth.firstName) navigate('/account/editprofile');
     else if (logInAttempt) {
       setLogInFail(true);
     }
