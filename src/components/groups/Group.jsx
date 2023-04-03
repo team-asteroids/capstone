@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addGroupMember, deleteGroupMember } from '../../slices/groupsSlice';
 import { selectAuth } from '../../slices/authSlice';
 import { Snackbar, SnackbarContent, IconButton } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 
 const Group = (props) => {
@@ -27,6 +26,21 @@ const Group = (props) => {
 
   const { userAuth, token } = useSelector(selectAuth);
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const action = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="white"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
+
   const joinGroup = async (e) => {
     e.preventDefault();
     if (token) {
@@ -47,21 +61,6 @@ const Group = (props) => {
     setColor('#b388ff');
     setOpen(true);
   };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const action = (
-    <IconButton
-      size="small"
-      aria-label="close"
-      color="white"
-      onClick={handleClose}
-    >
-      <CloseIcon fontSize="small" />
-    </IconButton>
-  );
 
   const buttonClass =
     'text-sm px-4 py-2 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';

@@ -9,8 +9,9 @@ import {
   fetchGroupMembers,
 } from '../../slices/groupsSlice';
 // import GroupNav from './GroupNav';
-
 import { selectAuth } from '../../slices/authSlice';
+import { Snackbar, SnackbarContent, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const GroupInfo = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,50 @@ const GroupInfo = () => {
   const singleGroup = useSelector((state) => state.groups.singleGroup);
 
   const members = useSelector((state) => state.groups.members);
+
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [color, setColor] = useState('');
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const action = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="white"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
+
+  const joinGroup = async (e) => {
+    e.preventDefault();
+    if (token) {
+      await dispatch(addGroupMember(groupId));
+      setSnackbarMessage('Welcome to the pack!');
+      setColor('#64b5f6');
+      setOpen(true);
+    } else {
+      console.log('no token in component');
+    }
+  };
+
+  const leaveGroup = async (e) => {
+    e.preventDefault();
+    await dispatch(deleteGroupMember({ groupId, memberId }));
+    setSnackbarMessage('Goodbye fur now!');
+    setColor('#b388ff');
+    setOpen(true);
+  };
+
+  const deleteGroup = async (e) => {
+    e.preventDefault();
+    await dispatch(deleteSingleGroup(groupId));
+  };
 
   useEffect(() => {
     dispatch(fetchGroupMembers(groupId));
@@ -41,25 +86,6 @@ const GroupInfo = () => {
       setMemberIds(ids);
     }
   }, [members]);
-
-  const joinGroup = async (e) => {
-    e.preventDefault();
-    if (token) {
-      await dispatch(addGroupMember(groupId));
-    } else {
-      console.log('no token in component');
-    }
-  };
-
-  const leaveGroup = async (e) => {
-    e.preventDefault();
-    await dispatch(deleteGroupMember({ groupId, memberId }));
-  };
-
-  const deleteGroup = async (e) => {
-    e.preventDefault();
-    await dispatch(deleteSingleGroup(groupId));
-  };
 
   const buttonClass =
     'text-sm px-4 py-2 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';
@@ -116,6 +142,19 @@ const GroupInfo = () => {
                   </div>
                 </div>
               </div>
+              <Snackbar
+                open={open}
+                autoHideDuration={4000}
+                onClose={handleClose}
+              >
+                <SnackbarContent
+                  message={snackbarMessage}
+                  action={action}
+                  style={{
+                    backgroundColor: `${color}`,
+                  }}
+                />
+              </Snackbar>
             </div>
           </div>
           {/* <div className="">
