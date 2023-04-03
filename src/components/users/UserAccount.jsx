@@ -92,7 +92,10 @@ function UserAccount() {
                 src={userAuth.imageSrc || defaultImg}
                 alt="alt"
               ></img>
-              <div className="font-rubikmono">{`${userAuth.firstName} ${userAuth.lastName}`}</div>
+              <div className="font-rubikmono">
+                <p>{`${userAuth.firstName} ${userAuth.lastName}`}</p>
+                <p className="text-xs pt-2">{singleUser.userName}</p>
+              </div>
               {userAuth.role === 'sitter' ? (
                 <div>
                   <label className="relative inline-flex items-center cursor-pointer">
