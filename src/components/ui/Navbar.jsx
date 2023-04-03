@@ -36,7 +36,7 @@ function Navbar(props) {
 
           {userAuth && userAuth.firstName ? (
             <div>
-              <Link to={'/chat'}>
+              <Link to={'/chat'} state={{ userName: '' }}>
                 <div>Chat</div>
               </Link>
             </div>
