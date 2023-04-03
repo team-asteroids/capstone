@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { addGroupPost } from '../../slices/groupsSlice';
 import { Divider } from '@mui/material';
+import { Snackbar, SnackbarContent, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const AddGroupPost = (props) => {
   const { groupId } = props;
@@ -14,13 +16,34 @@ const AddGroupPost = (props) => {
 
   const [content, setContent] = useState('');
 
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [color, setColor] = useState('');
+
   const submitPost = async (e) => {
     e.preventDefault();
-    // const notify = () => toast('Testing Toast');
+
     await dispatch(addGroupPost({ groupId, content }));
     setContent('');
-    // notify();
+    setSnackbarMessage('Howl posted!');
+    setColor('#64b5f6');
+    setOpen(true);
   };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const action = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="white"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
 
   const labelClass = 'font-rubikmono text-left pb-3';
 
@@ -79,6 +102,16 @@ const AddGroupPost = (props) => {
           <Divider />
         </div>
       </div>
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <SnackbarContent
+          message={snackbarMessage}
+          action={action}
+          autoHideDuration={3000}
+          style={{
+            backgroundColor: `${color}`,
+          }}
+        />
+      </Snackbar>
     </div>
   );
 };

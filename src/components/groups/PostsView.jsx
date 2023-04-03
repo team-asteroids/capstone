@@ -19,15 +19,25 @@ const PostsView = () => {
   const members = useSelector((state) => state.groups.members);
 
   const member = useSelector((state) => state.groups.member);
-
   const { userAuth } = useSelector(selectAuth);
-
   const memberIds = members.map((mem) => {
     return mem.id;
   });
 
   const [loading, setLoading] = useState(true);
   // console.log(posts);
+
+  const postsSorted = posts.slice(0).sort((a, b) => {
+    const timeA = a.createdAt;
+    const timeB = b.createdAt;
+    if (timeA < timeB) {
+      return 1;
+    }
+    if (timeA > timeB) {
+      return -1;
+    }
+    return 0;
+  });
 
   useEffect(() => {
     dispatch(fetchGroupMembers(groupId));
@@ -66,7 +76,7 @@ const PostsView = () => {
                 <div className="">
                   <div className="">
                     <div className="flex flex-col gap-5">
-                      {posts.map((post) => (
+                      {postsSorted.map((post) => (
                         <div key={post.id} className="">
                           <GroupPost
                             key={post.id}

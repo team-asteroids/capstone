@@ -34,8 +34,7 @@ const MemberView = () => {
             <div className="flex flex-col gap-5">
               <h3 className="font-semibold">MEMEBERS ({members.length}):</h3>
               <Divider />
-              {/* <p>Find a member</p> */}
-              {/* <p>Link to your own profile</p> */}
+
               <div className="w-full flex flex-col gap-2 items-left">
                 {members.map((mem) => (
                   <div key={mem.id} className="">
@@ -43,11 +42,10 @@ const MemberView = () => {
                       <div className="flex flex-row gap-3 items-center">
                         <Link to={`/profile/${mem.id}`}>
                           <img
-                            className="w-10 h-10 object-cover rounded-full"
-                            src={
-                              mem.imageSrc ||
-                              require('../../img/default-dog.jpg')
-                            }
+
+                            className="w-10 h-10 rounded-full"
+                            src={mem.imageSrc}
+
                             alt="alt"
                           />
                         </Link>

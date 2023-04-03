@@ -150,6 +150,7 @@ const GroupInfo = () => {
                 <SnackbarContent
                   message={snackbarMessage}
                   action={action}
+                  autoHideDuration={3000}
                   style={{
                     backgroundColor: `${color}`,
                   }}

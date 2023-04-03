@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-// import { Link, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { deletePost } from '../../slices/postsSlice';
@@ -9,6 +9,8 @@ import CommentView from './CommentView';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import { Divider } from '@mui/material';
+import { Snackbar, SnackbarContent, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Howl = (props) => {
   const { post, likes, userAuth } = props;
@@ -17,6 +19,10 @@ const Howl = (props) => {
   const author = post.user.fullName;
 
   const [commentView, setCommentView] = useState(false);
+
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [color, setColor] = useState('');
 
   const dispatch = useDispatch();
 
@@ -29,11 +35,28 @@ const Howl = (props) => {
     setCommentView(!commentView);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const action = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="white"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
+
   const deleteHandler = async (e) => {
     e.preventDefault();
     const postId = post.id;
-    // console.log('postId -->', postId);
     await dispatch(deletePost(postId));
+    setSnackbarMessage('Howl deleted!');
+    setColor('#b388ff');
+    setOpen(true);
   };
 
   return (
@@ -120,6 +143,16 @@ const Howl = (props) => {
           )}
         </div>
       </div>
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <SnackbarContent
+          message={snackbarMessage}
+          action={action}
+          autoHideDuration={3000}
+          style={{
+            backgroundColor: `${color}`,
+          }}
+        />
+      </Snackbar>
     </div>
   );
 };

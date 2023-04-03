@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { addPost } from '../../slices/postsSlice';
-import { Snackbar, IconButton, CloseIcon } from '@mui/material';
+import { Snackbar, SnackbarContent, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const AddHowl = () => {
   const { userAuth } = useSelector(selectAuth);
@@ -10,19 +11,23 @@ const AddHowl = () => {
   const dispatch = useDispatch();
 
   const [content, setContent] = useState('');
+
   const [open, setOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [color, setColor] = useState('');
 
   const submitPost = async (e) => {
     e.preventDefault();
     const response = await dispatch(addPost({ content }));
     if (response.type === '/addPost/fulfilled') {
       setSnackbarMessage('Howl posted!');
+      setColor('#64b5f6');
     } else {
       if (response.error.message === 'Request failed with status code 409') {
         setSnackbarMessage(
           `Arf! We've sniffed out a duplicate post. Try an original!`
         );
+        setColor('#B22222');
       }
     }
     setOpen(true);
@@ -32,6 +37,17 @@ const AddHowl = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const action = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="white"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
 
   const labelClass = 'font-rubikmono text-xl text-left pb-3';
 
@@ -88,12 +104,16 @@ const AddHowl = () => {
             </div>
           </form>
         </fieldset>
-        <Snackbar
-          open={open}
-          autoHideDuration={4000}
-          onClose={handleClose}
-          message={snackbarMessage}
-        />
+        <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+          <SnackbarContent
+            message={snackbarMessage}
+            action={action}
+            autoHideDuration={3000}
+            style={{
+              backgroundColor: `${color}`,
+            }}
+          />
+        </Snackbar>
       </div>
     </div>
   );

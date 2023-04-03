@@ -18,7 +18,7 @@ const Group = (props) => {
   });
 
   const dispatch = useDispatch();
-  const [logInPrompt, setLogInPrompt] = useState(false);
+  // const [logInPrompt, setLogInPrompt] = useState(false);
 
   const [open, setOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -49,7 +49,9 @@ const Group = (props) => {
       setColor('#64b5f6');
       setOpen(true);
     } else {
-      setLogInPrompt(true);
+      setSnackbarMessage('Please log in to unleash this adventure!');
+      setColor('#B22222');
+      setOpen(true);
     }
   };
 
@@ -64,19 +66,38 @@ const Group = (props) => {
     }
   };
 
+  const handleClick = async (e) => {
+    e.preventDefault();
+    setSnackbarMessage('Please log in to unleash this adventure!');
+    setColor('#B22222');
+    setOpen(true);
+  };
+
   const buttonClass =
     'text-sm px-4 py-2 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';
 
   return (
     <div className="font-rubik">
       <div className="w-96 border bg-slate-50 rounded-lg">
-        <Link to={`/groups/${group.id}`} state={{ groupId: group.id }}>
+        {userAuth && userAuth.id ? (
+          <div>
+            <Link to={`/groups/${group.id}`} state={{ groupId: group.id }}>
+              <img
+                className="rounded-t-lg object-cover h-72 w-144"
+                src={group.imageSrc}
+                alt={''}
+              />
+            </Link>
+          </div>
+        ) : (
           <img
+            onClick={handleClick}
             className="rounded-t-lg object-cover h-72 w-144"
             src={group.imageSrc}
             alt={''}
           />
-        </Link>
+        )}
+
         <div className="flex flex-col gap-3">
           {group && group.id ? (
             <Link to={`/groups/${group.id}`} state={{ groupId: group.id }}>
@@ -87,41 +108,42 @@ const Group = (props) => {
           ) : null}
           <div>
             <div>
-              {!logInPrompt ? (
-                <div className="flex justify-between px-5">
-                  <div className="flex flex-col gap-2 pb-5">
-                    <p className="text-sm">({`${group.topic}`})</p>
-                    <p>{`${mem}`} MEMBERS</p>
-                    {userAuth &&
-                    userAuth.id &&
-                    memberIds.includes(userAuth.id) ? (
+              {/* {!logInPrompt ? ( */}
+              <div className="flex justify-between px-5">
+                <div className="flex flex-col gap-2 pb-5">
+                  <p className="text-sm">({`${group.topic}`})</p>
+                  <p>{`${mem}`} MEMBERS</p>
+                  {userAuth &&
+                  userAuth.id &&
+                  memberIds.includes(userAuth.id) ? (
+                    <div>
+                      <div>Part of the pack!</div>
                       <div>
-                        <div>Part of the pack!</div>
-                        <div>
-                          <button
-                            onClick={leaveGroup}
-                            className="text-red-600 font-semibold text-sm"
-                          >
-                            LEAVE GROUP
-                          </button>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="">
-                        <button onClick={joinGroup} className={buttonClass}>
-                          JOIN GROUP
+                        <button
+                          onClick={leaveGroup}
+                          className="text-red-600 font-semibold text-sm"
+                        >
+                          LEAVE GROUP
                         </button>
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  ) : (
+                    <div className="">
+                      <button onClick={joinGroup} className={buttonClass}>
+                        JOIN GROUP
+                      </button>
+                    </div>
+                  )}
                 </div>
-              ) : (
+              </div>
+              {/* ) : (
                 <Link to="/login">
                   <button className="">
-                    Please log in to unleash this group adventure!
+                    Please <strong className="text-bold-blue">log in</strong> to
+                    unleash this group adventure!
                   </button>
                 </Link>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -130,6 +152,7 @@ const Group = (props) => {
         <SnackbarContent
           message={snackbarMessage}
           action={action}
+          autoHideDuration={3000}
           style={{
             backgroundColor: `${color}`,
           }}

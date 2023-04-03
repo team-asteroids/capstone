@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
@@ -6,6 +6,8 @@ import { deletePostComment } from '../../slices/postsSlice';
 import LikeUnlikeComment from './LikeUnlikeComment';
 import { format } from 'date-fns';
 import { Divider } from '@mui/material';
+import { Snackbar, SnackbarContent, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const PostComment = (props) => {
   const { comment, likes } = props;
@@ -23,6 +25,25 @@ const PostComment = (props) => {
   const formattedDate = format(date, 'MMM d, yyyy');
   const formattedTime = format(date, 'h:m aaa');
 
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [color, setColor] = useState('');
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const action = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="white"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
+
   // console.log('post--> ', post);
 
   // console.log('likes--> ', likes);
@@ -32,6 +53,9 @@ const PostComment = (props) => {
     const postId = comment.postId;
     const commentId = comment.id;
     await dispatch(deletePostComment({ postId, commentId }));
+    setSnackbarMessage('Howl deleted!');
+    setColor('#b388ff');
+    setOpen(true);
   };
 
   return (
@@ -87,6 +111,16 @@ const PostComment = (props) => {
           </div>
         </div>
       </div>
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <SnackbarContent
+          message={snackbarMessage}
+          action={action}
+          autoHideDuration={3000}
+          style={{
+            backgroundColor: `${color}`,
+          }}
+        />
+      </Snackbar>
     </div>
   );
 };
