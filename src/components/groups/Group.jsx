@@ -118,7 +118,8 @@ const Group = (props) => {
               ) : (
                 <Link to="/login">
                   <button className="">
-                    Please log in to unleash this group adventure!
+                    Please <strong className="text-bold-blue">log in</strong> to
+                    unleash this group adventure!
                   </button>
                 </Link>
               )}
