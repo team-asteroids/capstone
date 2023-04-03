@@ -43,8 +43,11 @@ const MemberView = () => {
                       <div className="flex flex-row gap-3 items-center">
                         <Link to={`/profile/${mem.id}`}>
                           <img
-                            className="w-10 h-10 rounded-full"
-                            src={require('../../img/default-dog.jpg')}
+                            className="w-10 h-10 object-cover rounded-full"
+                            src={
+                              mem.imageSrc ||
+                              require('../../img/default-dog.jpg')
+                            }
                             alt="alt"
                           />
                         </Link>
