@@ -105,7 +105,7 @@ const UserProfile = () => {
             <p>{singleUser.canFoster ? 'yes!' : 'not right now'}</p>
           </div>
           <div className="w-1/4">
-            <Link to={`/chat/`}>
+            <Link to={`/chat/`} state={{ userName: singleUser.userName }}>
               <button
                 className={
                   userAuth.id === singleUser.id
