@@ -35,27 +35,30 @@ const SitterBookings = (props) => {
     };
   }, [sitter, sitter.id]);
 
-  if (sitterBookings && sitterBookings.length) {
-    sitterBookings.forEach((booking) => {
-      if (booking.status === 'pending' && !pending.includes(booking))
-        pending.push(booking);
+  useEffect(() => {
+    if (sitterBookings && sitterBookings.length) {
+      sitterBookings.forEach((booking) => {
+        if (booking.status === 'pending' && !pending.includes(booking))
+          pending.push(booking);
 
-      if (booking.status === 'approved' && !approved.includes(booking))
-        approved.push(booking);
+        if (booking.status === 'approved' && !approved.includes(booking))
+          approved.push(booking);
 
-      if (booking.status === 'complete' && !completed.includes(booking))
-        completed.push(booking);
+        if (booking.status === 'complete' && !completed.includes(booking))
+          completed.push(booking);
 
-      if (
-        ['cancelled', 'withdrawn', 'declined'].includes(booking.status) &&
-        !cancelled.includes(booking)
-      )
-        cancelled.push(booking);
-    });
-  }
+        if (
+          ['cancelled', 'withdrawn', 'declined'].includes(booking.status) &&
+          !cancelled.includes(booking)
+        )
+          cancelled.push(booking);
+      });
+    }
+  }, [sitterBookings]);
 
   // if (!sitterBookings.length) return <div>Loading...</div>;
 
+  if (!sitterBookings.length) return <div>Fetching good things...</div>;
   return (
     <div className="font-rubik flex flex-col gap-5">
       <div>
