@@ -23,6 +23,7 @@ const Group = (props) => {
 
   const [open, setOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [color, setColor] = useState('');
 
   const { userAuth, token } = useSelector(selectAuth);
 
@@ -31,6 +32,7 @@ const Group = (props) => {
     if (token) {
       await dispatch(addGroupMember(groupId));
       setSnackbarMessage('Welcome to the pack!');
+      setColor('#64b5f6');
       setOpen(true);
     } else {
       setLogInPrompt(true);
@@ -42,6 +44,7 @@ const Group = (props) => {
     const memberId = userAuth.id;
     await dispatch(deleteGroupMember({ groupId, memberId }));
     setSnackbarMessage('Goodbye fur now!');
+    setColor('#b388ff');
     setOpen(true);
   };
 
@@ -123,7 +126,7 @@ const Group = (props) => {
           message={snackbarMessage}
           action={action}
           style={{
-            backgroundColor: 'teal',
+            backgroundColor: `${color}`,
           }}
         />
       </Snackbar>
