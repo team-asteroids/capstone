@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addGroupMember, deleteGroupMember } from '../../slices/groupsSlice';
 import { selectAuth } from '../../slices/authSlice';
-import { Snackbar, IconButton } from '@mui/material';
+import { Snackbar, SnackbarContent, IconButton } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 
 const Group = (props) => {
@@ -52,7 +53,7 @@ const Group = (props) => {
     <IconButton
       size="small"
       aria-label="close"
-      color="inherit"
+      color="white"
       onClick={handleClose}
     >
       <CloseIcon fontSize="small" />
@@ -117,13 +118,15 @@ const Group = (props) => {
           </div>
         </div>
       </div>
-      <Snackbar
-        open={open}
-        autoHideDuration={4000}
-        onClose={handleClose}
-        message={snackbarMessage}
-        action={action}
-      />
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <SnackbarContent
+          message={snackbarMessage}
+          action={action}
+          style={{
+            backgroundColor: 'teal',
+          }}
+        />
+      </Snackbar>
     </div>
   );
 };
