@@ -104,7 +104,11 @@ const BrowseGroups = () => {
           <div id="sort" className="min-w-max flex flex-row items-center gap-3">
             <h2 className="font-rubikmono text-xl text-left">SORT</h2>
             <div>
-              <select value={topic} onChange={(e) => setTopic(e.target.value)}>
+              <select
+                value={topic}
+                className={validClass}
+                onChange={(e) => setTopic(e.target.value)}
+              >
                 <option value="">All</option>
                 <option value="playdates">Playdates</option>
                 <option value="recommendations">Recommendations</option>
