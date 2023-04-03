@@ -19,30 +19,28 @@ const SittersView = (props) => {
 
   return (
     <div>
-      <div className="bg-white-smoke border rounded-lg shadow-lg">
-        <div className="p-4">
-          <div>
-            {currentItems.map((sitter) => (
-              <SitterCard
-                key={sitter.id}
-                img={defaultImg}
-                firstName={sitter.firstName}
-                rate={sitter.rate}
-                rating={sitter.sitterRating}
-                reviews={sitter.sitterReviewCount}
-                bio={sitter.bio}
-                userId={sitter.userId}
-              />
-            ))}
-          </div>
-          <br></br>
-          <Pagination
-            nPages={nPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
+      <div className="flex flex-col gap-5">
+        {currentItems.map((sitter) => (
+          <SitterCard
+            key={sitter.id}
+            img={defaultImg}
+            sitter={sitter}
+            firstName={sitter.firstName}
+            rate={sitter.rate}
+            rating={sitter.sitterRating}
+            reviews={sitter.sitterReviewCount}
+            bio={sitter.bio}
+            userId={sitter.userId}
           />
-        </div>
+        ))}
       </div>
+      <br></br>
+      <Pagination
+        nPages={nPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+
       <div className="p-4"></div>
     </div>
   );

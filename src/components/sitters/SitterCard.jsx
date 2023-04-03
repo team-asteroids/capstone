@@ -1,84 +1,78 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import defaultImg from '../../img/sitter-profile.jpg';
+import { useDispatch, useSelector } from 'react-redux';
 
-const SitterCard = ({
-  id,
-  firstName,
-  rate,
-  rating,
-  reviews,
-  bio,
-  userId,
-  zip,
-}) => {
+import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
+import { fetchAllUsers } from '../../slices/usersSlice';
+
+const SitterCard = (props) => {
+  const {
+    id,
+    sitter,
+    firstName,
+    lastName,
+    rate,
+    rating,
+    reviews,
+    bio,
+    userId,
+    zip,
+  } = props;
+
+  const dispatch = useDispatch();
+
   return (
-    <div className="pt-8">
-      <div className="overflow-hidden bg-white shadow sm:rounded-lg mb-8">
-        <div className="px-4 py-5 sm:px-6 flex flex-col sm:flex-row">
-          <img
-            className="h-48 w-48 rounded-full drop-shadow-md"
-            src={require('../../img/sitter-profile.jpg')}
-          />
-          <div className="flex flex-col gap-5 ml-5">
-            <h3 className="text-base font-semibold leading-6 text-gray-900">
-              {firstName}
-            </h3>
-            <div className="bg-white px-4 py-5">
-              <dt className="text-sm font-medium text-gray-500">Rating ⭐️</dt>
-              <dd className="mt-1 text-sm text-gray-900">{rating}</dd>
+    <div className="font-rubik">
+      <div className="overflow-hidden bg-slate-50 sm:rounded-lg">
+        <div className="px-10 py-10 flex flex-row gap-5">
+          <div className="flex flex-col w-1/4">
+            <div className="flex flex-col gap-5">
+              <Link to={`/profile/${userId}/sitter/${sitter.id}`}>
+                <img
+                  className="h-36 w-36 object-cover rounded-full drop-shadow-md"
+                  src={require('../../img/sitter-profile.jpg')}
+                  alt="alt"
+                />
+              </Link>
+              <Link to={`/profile/${userId}/sitter/${sitter.id}`}>
+                <div>
+                  <h3 className="text-base font-rubikmono leading-6 text-gray-900">
+                    {`${firstName} ${sitter.lastName}`}
+                  </h3>
+                  <p>({sitter.userName})</p>
+                </div>
+              </Link>
+              <div className="font-semibold"></div>
             </div>
           </div>
-          <div className="sm:w-1/2">
-            <div className="bg-gray-50 px-4 py-5">
-              <dt className="text-sm font-medium text-gray-500">Hourly</dt>
-              <dd className="mt-1 text-sm text-gray-900">{rate}</dd>
+
+          <div className="w-3/4 flex flex-col gap-3">
+            <h2 className="font-rubikmono text">DETAILS</h2>
+            <div className="flex flex-row gap-5">
+              <div className="flex flex-row gap-2">
+                <p className="font-semibold">REVIEWS: </p> <p>{reviews}</p>
+              </div>
+              <div className="">⭐️ {rating}</div>
             </div>
-            <div className="bg-white px-4 py-5">
-              <dt className="text-sm font-medium text-gray-500">
-                Reviews: {reviews}
-              </dt>
+            <div className="flex flex-row gap-2">
+              <p className="font-semibold">RATE: </p>
+              <p>${rate}</p>
             </div>
-            <div className="bg-white px-4 py-5">
-              <dt className="text-sm font-medium text-gray-500">Bio: {bio}</dt>
+            <div className="flex flex-row gap-2">
+              <p className="font-semibold">BIO: </p>
+              <p className="pr-10">{bio}</p>
             </div>
-            <div className="bg-white px-4 py-5">
-              <dt className="text-sm font-medium text-gray-500">Zip: {zip}</dt>
+            <div className="flex flex-row gap-2">
+              <p className="font-semibold">Location:</p>
+              <p>{sitter.sitterZip}</p>
             </div>
-            <div className="bg-gray-50 px-4 py-5">
-              <dt className="text-sm font-medium text-gray-500">Details</dt>
-              <dd className="mt-1 text-sm text-gray-900">
-                <ul className="divide-y divide-gray-200 rounded-md border border-gray-200">
-                  <li className="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-                    <div className="flex w-0 flex-1 items-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      <span className="ml-2 flex-1 w-0 truncate">
-                        <Link // profile or bookings page?
-                          to={`/profile/${userId}`}
-                          className="font-medium text-indigo-600 hover:text-indigo-500"
-                        >
-                          Available
-                        </Link>
-                      </span>
-                    </div>
-                  </li>
-                </ul>
-              </dd>
-            </div>
+            <Link
+              to={`/profile/${userId}/sitter/${sitter.id}`}
+              className="font-medium text-indigo-600 hover:text-indigo-500"
+            >
+              Check Availability
+            </Link>
           </div>
         </div>
       </div>
