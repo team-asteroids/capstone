@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { selectAuth, logIn, attemptTokenLogin } from '../../slices/authSlice';
+import {
+  selectAuth,
+  logIn,
+  attemptTokenLogin,
+  resetAuthStatus,
+} from '../../slices/authSlice';
 
 function LogIn() {
   const dispatch = useDispatch();
@@ -65,6 +70,10 @@ function LogIn() {
     else if (logInAttempt) {
       setLogInFail(true);
     }
+
+    return () => {
+      resetAuthStatus();
+    };
   }, [userAuth]);
 
   return (
@@ -95,7 +104,7 @@ function LogIn() {
                   onChange={(evt) => {
                     setIsInvalidEmail(false);
                     setLogInFail(false);
-                    setEmail(evt.target.value);
+                    setEmail(evt.target.value.toLowerCase());
                   }}
                 />
                 <p

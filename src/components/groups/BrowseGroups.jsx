@@ -105,7 +105,11 @@ const BrowseGroups = () => {
           <div id="sort" className="min-w-max flex flex-row items-center gap-3">
             <h2 className="font-rubikmono text-xl text-left">SORT</h2>
             <div>
-              <select value={topic} onChange={(e) => setTopic(e.target.value)}>
+              <select
+                value={topic}
+                className={validClass}
+                onChange={(e) => setTopic(e.target.value)}
+              >
                 <option value="">All</option>
                 <option value="playdates">Playdates</option>
                 <option value="recommendations">Recommendations</option>
@@ -133,6 +137,15 @@ const BrowseGroups = () => {
               Viewing search results for: {searchAlert}
             </div>
           )}
+          <div>
+            {groups.length < 1 ? (
+              <div className="p-5 mx-auto font-rubikmono">
+                <h1 className="text-4xl text-center text-white">
+                  Woof! No results!
+                </h1>
+              </div>
+            ) : null}
+          </div>
           <div className="flex flex-col">
             <GroupsView groups={groupSelection} userAuth={userAuth} />
           </div>

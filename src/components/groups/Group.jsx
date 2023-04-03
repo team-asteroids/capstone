@@ -55,11 +55,13 @@ const Group = (props) => {
 
   const leaveGroup = async (e) => {
     e.preventDefault();
-    const memberId = userAuth.id;
-    await dispatch(deleteGroupMember({ groupId, memberId }));
-    setSnackbarMessage('Goodbye fur now!');
-    setColor('#b388ff');
-    setOpen(true);
+    if (userAuth && userAuth.id) {
+      const memberId = userAuth.id;
+      await dispatch(deleteGroupMember({ groupId, memberId }));
+      setSnackbarMessage('Goodbye fur now!');
+      setColor('#b388ff');
+      setOpen(true);
+    }
   };
 
   const buttonClass =
@@ -76,11 +78,13 @@ const Group = (props) => {
           />
         </Link>
         <div className="flex flex-col gap-3">
-          <Link to={`/groups/${group.id}`} state={{ groupId: group.id }}>
-            <div className="p-5 flex flex-col">
-              <p className="text-lg font-semibold h-12">{`${group.name.toUpperCase()}`}</p>
-            </div>
-          </Link>
+          {group && group.id ? (
+            <Link to={`/groups/${group.id}`} state={{ groupId: group.id }}>
+              <div className="p-5 flex flex-col">
+                <p className="text-lg font-semibold h-12">{`${group.name.toUpperCase()}`}</p>
+              </div>
+            </Link>
+          ) : null}
           <div>
             <div>
               {!logInPrompt ? (
@@ -88,7 +92,9 @@ const Group = (props) => {
                   <div className="flex flex-col gap-2 pb-5">
                     <p className="text-sm">({`${group.topic}`})</p>
                     <p>{`${mem}`} MEMBERS</p>
-                    {memberIds.includes(userAuth.id) ? (
+                    {userAuth &&
+                    userAuth.id &&
+                    memberIds.includes(userAuth.id) ? (
                       <div>
                         <div>Part of the pack!</div>
                         <div>

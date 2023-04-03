@@ -154,9 +154,9 @@ const AllHowls = () => {
             <div>
               {postsData.length === 0 ? (
                 <div className="">
-                  <div className="p-5 mx-auto">
+                  <div className="p-5 mx-auto font-rubikmono">
                     <h1 className="text-4xl font-bold text-center text-white">
-                      No results found
+                      Woof! No Results!
                     </h1>
                   </div>
                 </div>

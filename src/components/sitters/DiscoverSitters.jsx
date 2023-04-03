@@ -17,20 +17,20 @@ const DiscoverSitters = () => {
 
   const [rating, setRating] = useState('');
   const [price, setPrice] = useState('');
+  const [zip, setZip] = useState('');
 
   const handleSearch = (e) => {
     e.preventDefault();
     setAttemptSearch(true);
-    console.log('name-->', search);
     dispatch(fetchSitterNames(search));
     setSearchAlert(search);
-    setSearch('');
   };
 
   const viewAll = (e) => {
     e.preventDefault();
     setAttemptSearch(false);
     dispatch(fetchAllSitters());
+    setSearch('');
     setSearchAlert('');
   };
 
@@ -51,17 +51,14 @@ const DiscoverSitters = () => {
     });
 
   useEffect(() => {
-    setAttemptSearch(false);
     dispatch(fetchAllSitters());
   }, [dispatch]);
 
   const validClass =
-    'appearance-none block w-full bg-white-200 border border-gray-600 rounded py-2.5 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue my-3 font-rubik';
+    'appearance-none block w-full bg-white-200 border rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue font-rubik';
 
-  const validButton =
-    'my-3 py-3 px-4 rounded ease-in-out duration-300 hover:bg-pale-purple bg-bold-purple text-bright-white font-rubik font-semibold text-sm';
-  const disabledButton =
-    'my-3 py-3 px-4 rounded bg-opacity-25 bg-bold-purple text-bright-white font-rubik font-semibold text-sm';
+  const buttonClass =
+    'text-sm px-4 py-2 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';
 
   if (sitters.status === 'loading') {
     return <div>Hang tight...</div>;
@@ -90,29 +87,26 @@ const DiscoverSitters = () => {
                     <input
                       type="text"
                       className={validClass}
-                      placeholder="Search sitters"
+                      placeholder="find it..."
                       value={search}
+                      disabled={attemptSearch ? true : false}
                       onChange={(e) => setSearch(e.target.value)}
                     />
                     <div>
                       {!attemptSearch ? (
                         <div>
-                          <button
-                            type="submit"
-                            className={search ? validButton : disabledButton}
-                            disabled={search ? false : true}
-                          >
-                            SEARCH
+                          <button type="submit" className={buttonClass}>
+                            FETCH
                           </button>
                         </div>
                       ) : (
-                        <div className="min-w-fit align-baseline">
+                        <div>
                           <button
                             type="submit"
                             onClick={viewAll}
-                            className="my-3 py-3 px-4 rounded ease-in-out duration-300 hover:bg-pale-blue bg-bold-blue text-bright-white font-rubik font-semibold text-sm"
+                            className="font-semibold ease-in-out duration-100 hover:text-bold-orange"
                           >
-                            VIEW ALL
+                            CLEAR
                           </button>
                         </div>
                       )}
@@ -158,19 +152,17 @@ const DiscoverSitters = () => {
             </div>
           </div>
           <div className="w-2/3 font-rubikmono overflow-auto gap-5">
-            {searchAlert && attemptSearch ? (
+            {searchAlert && (
               <div className="font-rubik text-center">
                 Viewing search results for: {searchAlert}
               </div>
-            ) : (
-              <div className="mb-5"></div>
             )}
             <div>
               {sitters.length === 0 ? (
                 <div className="">
-                  <div className="p-5 mx-auto">
+                  <div className="p-5 mx-auto font-rubikmono">
                     <h1 className="text-4xl font-bold text-center text-white">
-                      No results found
+                      WOOF! NO RESULTS!
                     </h1>
                   </div>
                 </div>
