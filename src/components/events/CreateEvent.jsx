@@ -81,14 +81,14 @@ const CreateEvent = () => {
   const labelClass = 'text-xs font-rubikmono';
 
   const validClass =
-    'appearance-none rounded-lg block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+    'appearance-none rounded block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
 
   const goBack = () => {
     navigate(-1);
   };
 
   return (
-    <div className="bg-cover bg-no-repeat bg-center bg-[url('img/events-bg.jpg')] h-[calc(100vh_-_5rem)]">
+    <div className="bg-cover bg-no-repeat bg-left bg-[url('img/events-bg.jpg')] h-[calc(100vh_-_5rem)]">
       {created ? (
         <div className="">
           <p>Event successfully created!</p>
@@ -228,9 +228,10 @@ const CreateEvent = () => {
                     <label htmlFor="description" className={labelClass}>
                       Description
                     </label>
-                    <input
+                    <textarea
                       type="text"
                       id="description"
+                      rows={4}
                       value={description}
                       onChange={(e) => {
                         setIsInvalidDescription(false);
@@ -240,7 +241,7 @@ const CreateEvent = () => {
                       className={validClass}
                       placeholder="Tell us a little bit more about this event"
                       // required
-                    ></input>
+                    />
                     <p
                       className={
                         descriptionPrompt
