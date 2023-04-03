@@ -50,7 +50,7 @@ const EventDetails = () => {
     navigate(-1);
   };
 
-  if (!auth.userAuth) {
+  if (!auth.userAuth || !auth.userAuth.id) {
     //user is not logged in
     return (
       <>
