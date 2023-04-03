@@ -6,6 +6,8 @@ import { deletePostComment } from '../../slices/postsSlice';
 import LikeUnlikeComment from './LikeUnlikeComment';
 import { format } from 'date-fns';
 import { Divider } from '@mui/material';
+import { Snackbar, SnackbarContent, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const PostComment = (props) => {
   const { comment, likes } = props;
