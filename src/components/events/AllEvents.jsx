@@ -24,13 +24,13 @@ const AllEvents = () => {
     setAttemptSearch(true);
     dispatch(fetchEventNames(search));
     setSearchAlert(search);
-    setSearch('');
   };
 
   const viewAll = (e) => {
     e.preventDefault();
     setAttemptSearch(false);
     dispatch(fetchAllEvents());
+    setSearch('');
     setSearchAlert('');
   };
 
@@ -58,78 +58,93 @@ const AllEvents = () => {
 
   const validButton =
     'my-3 py-3 px-4 rounded ease-in-out duration-300 hover:bg-pale-purple bg-bold-purple text-bright-white font-rubik font-semibold text-sm';
+
   const disabledButton =
     'my-3 py-3 px-4 rounded bg-opacity-25 bg-bold-purple text-bright-white font-rubik font-semibold text-sm';
 
-  return (
-    <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-[calc(100vh_-_10rem)]">
-      <div className="px-10 pt-5 flex flex-row justify-between gap-5">
-        <div>
-          <div className="flex flex-col gap-3">
-            <form onSubmit={handleSearch}>
-              <div className="flex flex-row gap-5 items-center justify-center">
-                <div className="min-w-2/3">
-                  <input
-                    className={validClass}
-                    type="text"
-                    placeholder="Search events"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                  />
-                </div>
+  const buttonClass =
+    'text-sm px-4 py-2 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';
 
-                {!attemptSearch ? (
-                  <div>
-                    <button
-                      type="submit"
-                      className={search ? validButton : disabledButton}
-                      disabled={search ? false : true}
-                    >
-                      SEARCH
-                    </button>
+  return (
+    <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-full">
+      <h2 className="font-rubikmono text-5xl pt-16 text-center m-auto">
+        EVENTS
+      </h2>
+      <div className="flex flex-row justify-center pt-16 px-20">
+        <div className="flex flex-row justify-center gap-24">
+          <div className="flex flex-col gap-5 min-h-screen">
+            <div
+              id="search"
+              className="min-w-max flex flex-row items-center gap-3"
+            >
+              <h2 className="font-rubikmono text-xl text-left">SEARCH</h2>
+              <div className="flex flex-col gap-3">
+                <form onSubmit={handleSearch}>
+                  <div className="flex flex-row gap-5 items-center justify-center">
+                    <div className="min-w-2/3">
+                      <input
+                        className={validClass}
+                        type="text"
+                        placeholder="find it..."
+                        value={search}
+                        disabled={attemptSearch ? true : false}
+                        onChange={(e) => setSearch(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      {!attemptSearch ? (
+                        <div>
+                          <button type="submit" className={buttonClass}>
+                            FETCH
+                          </button>
+                        </div>
+                      ) : (
+                        <div>
+                          <button
+                            type="submit"
+                            onClick={viewAll}
+                            className="font-semibold ease-in-out duration-100 hover:text-bold-orange"
+                          >
+                            CLEAR
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                ) : (
-                  <div className="min-w-fit align-baseline">
-                    <button
-                      type="submit"
-                      className="my-3 py-3 px-4 rounded ease-in-out duration-300 hover:bg-pale-blue bg-bold-blue text-bright-white font-rubik font-semibold text-sm"
-                      onClick={viewAll}
-                    >
-                      VIEW ALL
-                    </button>
-                  </div>
-                )}
+                </form>
               </div>
-            </form>
-          </div>
-          {searchAlert && attemptSearch ? (
-            <div className="font-rubik my-auto mb-5">
-              <p>Viewing search results for: {searchAlert}</p>
             </div>
-          ) : (
-            <div className="mb-5"></div>
+            <div>
+              <Link to="/events/create">
+                <p className="px-4 py-3 w-fit font-semibold bg-bold-blue text-bright-white rounded-lg hover:bg-pale-blue ease-in-out duration-200">
+                  NEW EVENT
+                </p>
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="w-2/3 font-rubikmono overflow-auto gap-5">
+          {searchAlert && attemptSearch && (
+            <div className="font-rubik text-center">
+              Viewing search results for: {searchAlert}
+            </div>
           )}
-        </div>
-        <div>
-          <Link to="/events/create">
-            <p className={validButton}>NEW EVENT</p>
-          </Link>
-        </div>
-      </div>
-      <div className="overflow-auto flex flex-col gap-5">
-        {eventsSorted.length === 0 ? (
-          <div className="">
-            <div className="m-auto">
-              <h1 className="text-4xl text-center font-rubikmono pt-20 font-bold text-center">
-                OOPS! NO RESULTS!
-              </h1>
-            </div>
+          <div className="flex flex-col gap-5">
+            {eventsSorted.length === 0 ? (
+              <div className="font-rubik">
+                <div className="m-auto">
+                  <h1 className="text-4xl text-center font-rubikmono pt-20 font-bold text-center">
+                    OOPS! NO RESULTS!
+                  </h1>
+                </div>
+              </div>
+            ) : (
+              <div className="">
+                <EventsView events={eventsSorted} userAuth={userAuth} />
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="overflow-auto">
-            <EventsView events={eventsSorted} userAuth={userAuth} />
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );

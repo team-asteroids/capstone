@@ -8,7 +8,7 @@ const EventList = ({ topic, description, date, zip, creatorId, eventId }) => {
   const formattedTime = format(dateData, 'h aaa');
 
   return (
-    <div className="">
+    <div className="font-rubik">
       <div className="overflow-hidden bg-white shadow sm:rounded-lg mb-8">
         <div className="px-4 py-5 sm:px-6">
           <h3 className="text-base text-center font-semibold leading-6 text-gray-900">
