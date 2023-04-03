@@ -32,7 +32,7 @@ const SitterRatingsReviews = (props) => {
             </p>
           </div>
         )}
-        <div className="pb-3">
+        <div className="pb-5">
           <h3 className="font-rubikmono text-sm pb-3">Ratings</h3>
           <div>
             <p>
@@ -41,13 +41,13 @@ const SitterRatingsReviews = (props) => {
           </div>
         </div>
         <div>
-          <h3 className="font-rubikmono text-sm pb-3">Reviews</h3>
+          <h3 className="font-rubikmono text-sm pb-5">Reviews</h3>
           <div className="flex flex-col gap-5">
             {reviews.length > 0
               ? reviews.map((review) => (
                   <div
                     key={review.id}
-                    className="flex flex-col rounded-lg w-full pb-3 bg-slate-50 px-8 py-10  gap-5"
+                    className="flex flex-col rounded-lg w-full pb-3 bg-slate-50 px-8 py-10 gap-5"
                   >
                     <div className="flex flex-row gap-2 items-center">
                       <Link to={`/profile/${review.userId}`}>
