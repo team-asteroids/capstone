@@ -136,6 +136,15 @@ const BrowseGroups = () => {
               Viewing search results for: {searchAlert}
             </div>
           )}
+          <div>
+            {searchAlert && groups.length < 1 ? (
+              <div className="p-5 mx-auto">
+                <h1 className="text-4xl font-bold text-center text-white">
+                  No results found
+                </h1>
+              </div>
+            ) : null}
+          </div>
           <div className="flex flex-col">
             <GroupsView groups={groupSelection} userAuth={userAuth} />
           </div>
