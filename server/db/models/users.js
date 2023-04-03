@@ -60,7 +60,7 @@ const User = db.define('user', {
     },
   },
   imageSrc: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     defaultValue: 'default-dog.jpg',
     allowNull: true,
   },
