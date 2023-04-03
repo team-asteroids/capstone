@@ -63,7 +63,7 @@ const sitterList = [
     userId: 9,
   },
   {
-    rate: 55,
+    rate: 40,
     calendar: 'https://calendly.com/',
     bio: `Attentive and compassionate pet sitter who provides peace of mind to pet owners while they're away.`,
     canFoster: true,
@@ -75,6 +75,13 @@ const sitterList = [
     bio: `Longtime dog parent and pet-sitter experienced with reactive dogs. I understand that reactive dogs require special attention and care, and I am confident in my ability to handle any situation that may arise. I am patient, calm, and understanding, and I always make sure to create a safe and secure environment for all dogs in my care.`,
     canFoster: true,
     userId: 21,
+  },
+  {
+    rate: 55,
+    calendar: 'https://calendly.com/',
+    bio: `Experienced and compassionate pet sitter who provides a safe and playful home for pets while their humans are away.`,
+    canFoster: true,
+    userId: 22,
   },
 ];
 
