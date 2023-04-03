@@ -29,7 +29,7 @@ const UserPetProfiles = (props) => {
     return () => {
       dispatch(resetPetStatus());
     };
-  }, [user]);
+  }, [user, userAuth]);
 
   const submitDeletePet = async (petId) => {
     console.log('delete attempted');

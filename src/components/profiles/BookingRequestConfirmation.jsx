@@ -49,7 +49,6 @@ const BookingRequestConfirmation = () => {
     additionalNotes: accessData.additionalNotes,
   });
 
-  const id = userAuth.id;
   // const bookingId = newBooking.id;
 
   const states = [
@@ -130,11 +129,12 @@ const BookingRequestConfirmation = () => {
     'font-rubikmono bg-bold-blue disabled:opacity-25 w-full text-white py-3 rounded-xl mx-auto block text-xl mt-3';
 
   useEffect(() => {
-    if (id) {
+    if (userAuth && userAuth.id) {
+      const id = userAuth.id;
       dispatch(fetchAllPets(id));
       dispatch(getAccessData(id));
     }
-  }, [userAuth, id]);
+  }, [userAuth]);
 
   useEffect(() => {
     dispatch(attemptTokenLogin());
@@ -151,7 +151,7 @@ const BookingRequestConfirmation = () => {
         additionalNotes: accessData.additionalNotes,
       });
     }
-  }, [id, accessData.id]);
+  }, [userAuth, accessData]);
 
   const togglePet = (evt) => {
     if (petIds.includes(+evt.target.value)) {
@@ -239,6 +239,7 @@ const BookingRequestConfirmation = () => {
   const confirmBooking = async (evt) => {
     evt.preventDefault();
     await checkFormValidation();
+    const id = userAuth.id;
     if (!isInvalid && !isInvalidPetIds) {
       const res = await dispatch(updateAccessData({ id, token, formData }));
       const res2 = await dispatch(
@@ -255,9 +256,10 @@ const BookingRequestConfirmation = () => {
 
   const cancelBooking = async () => {
     const status = 'withdrawn';
+    const id = userAuth.id;
     const res = await dispatch(updateBooking({ id, status, token, bookingId }));
     if (res.type === 'updateBooking/fulfilled') {
-      navigate('/account');
+      navigate('/account/bookings');
     }
   };
 
