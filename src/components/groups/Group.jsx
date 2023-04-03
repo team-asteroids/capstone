@@ -97,11 +97,24 @@ const Group = (props) => {
 
         <div className="flex flex-col gap-3">
           {group && group.id ? (
-            <Link to={`/groups/${group.id}`} state={{ groupId: group.id }}>
-              <div className="p-5 flex flex-col">
-                <p className="text-lg font-semibold h-12">{`${group.name.toUpperCase()}`}</p>
-              </div>
-            </Link>
+            <div>
+              {userAuth && userAuth.id ? (
+                <div>
+                  <Link
+                    to={`/groups/${group.id}`}
+                    state={{ groupId: group.id }}
+                  >
+                    <div className="p-5 flex flex-col">
+                      <p className="text-lg font-semibold h-12">{`${group.name.toUpperCase()}`}</p>
+                    </div>
+                  </Link>
+                </div>
+              ) : (
+                <div onClick={handleClick} className="p-5 flex flex-col">
+                  <p className="text-lg font-semibold h-12">{`${group.name.toUpperCase()}`}</p>
+                </div>
+              )}
+            </div>
           ) : null}
 
           <div>
@@ -112,9 +125,7 @@ const Group = (props) => {
                   <p>{`${mem}`} MEMBERS</p>
                   {userAuth && userAuth.id ? (
                     <div>
-                      {userAuth &&
-                      userAuth.id &&
-                      memberIds.includes(userAuth.id) ? (
+                      {memberIds.includes(userAuth.id) ? (
                         <div>
                           <div>Part of the pack!</div>
                           <div>
