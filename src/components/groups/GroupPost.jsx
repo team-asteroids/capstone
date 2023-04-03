@@ -47,8 +47,8 @@ const GroupPost = (props) => {
           <div className="flex flex-row gap-2 items-center min-w-fit">
             <Link to={`/profile/${post.id}`}>
               <img
-                className="w-10 h-10 rounded-full"
-                src={require('../../img/default-dog.jpg')}
+                className="w-10 h-10 object-cover rounded-full"
+                src={post.user.imageSrc || require('../../img/default-dog.jpg')}
                 alt="alt"
               />
             </Link>
