@@ -66,7 +66,7 @@ const AllEvents = () => {
     'text-sm px-4 py-2 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';
 
   return (
-    <div className="bg-cover bg-no-repeat bg-[url('img/profile-bg.jpg')] h-full">
+    <div className="bg-cover bg-no-repeat bg-bottom bg-[url('img/events-bg.jpg')] h-full">
       <h2 className="font-rubikmono text-5xl pt-16 text-center m-auto">
         EVENTS
       </h2>
