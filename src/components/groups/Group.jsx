@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addGroupMember, deleteGroupMember } from '../../slices/groupsSlice';
 import { selectAuth } from '../../slices/authSlice';
+import { Snackbar, IconButton, CloseIcon } from '@mui/material';
 
 const Group = (props) => {
   const { group, members } = props;
@@ -14,10 +15,12 @@ const Group = (props) => {
   const memberIds = members.map((mem) => {
     return mem.userId;
   });
-  console.log('memberIds--> ', memberIds);
 
   const dispatch = useDispatch();
   const [logInPrompt, setLogInPrompt] = useState(false);
+
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const { userAuth, token } = useSelector(selectAuth);
 
@@ -25,6 +28,8 @@ const Group = (props) => {
     e.preventDefault();
     if (token) {
       await dispatch(addGroupMember(groupId));
+      setSnackbarMessage('Welcome to the pack!');
+      setOpen(true);
     } else {
       setLogInPrompt(true);
     }
@@ -34,6 +39,12 @@ const Group = (props) => {
     e.preventDefault();
     const memberId = userAuth.id;
     await dispatch(deleteGroupMember({ groupId, memberId }));
+    setSnackbarMessage('Goodbye fur now!');
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const buttonClass =
@@ -47,7 +58,6 @@ const Group = (props) => {
             className="rounded-t-lg object-cover h-72 w-144"
             src={group.imageSrc}
             alt={''}
-            onError={require('../../img/groups/party-pups.jpg')}
           />
         </Link>
         <div className="flex flex-col gap-3">
@@ -95,6 +105,12 @@ const Group = (props) => {
           </div>
         </div>
       </div>
+      <Snackbar
+        open={open}
+        autoHideDuration={4000}
+        onClose={handleClose}
+        message={snackbarMessage}
+      />
     </div>
   );
 };
