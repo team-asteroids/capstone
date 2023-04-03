@@ -36,7 +36,7 @@ function Navbar(props) {
             <Link to={'/chat'}>
               <li>Chat</li>
             </Link>
-            <Link to={'/account'}>
+            <Link to={'/account/editprofile'}>
               <div className="flex flex-row gap-5 justify-center items-center">
                 <div></div>
                 <Avatar

@@ -72,8 +72,8 @@ function UserAccount() {
 
   const toggleSitter = () => {
     if (location['*'].includes('sitter')) {
-      navigate('/account');
-    } else navigate('/account/sitter');
+      navigate('/account/editprofile');
+    } else navigate('/account/sitter/editprofile');
   };
 
   // console.log(userAuth);
@@ -156,7 +156,7 @@ function UserAccount() {
         </div>
         <div className="w-4/5 font-rubikmono overflow-auto gap-5">
           <Routes>
-            <Route path="/" element={<UserOverview />}></Route>
+            {/* <Route path="/" element={<UserOverview />}></Route> */}
 
             <Route path="/bookings" element={<UserBookings />}></Route>
             <Route
