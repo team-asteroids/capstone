@@ -369,7 +369,7 @@ const users = [
     city: 'Over',
     state: 'New York',
     zip: '55555',
-    role: 'user',
+    role: 'sitter',
     imageSrc:
       'https://media.licdn.com/dms/image/D4E03AQES_HIeRjYfOw/profile-displayphoto-shrink_200_200/0/1677031262866?e=1686182400&v=beta&t=M211mOaEqB7OPYg-_FhsYlu4DdkmYUFGptHzE7e32wA',
     password: '12345678',
@@ -387,7 +387,7 @@ const users = [
     city: 'Over',
     state: 'New York',
     zip: '55555',
-    role: 'user',
+    role: 'sitter',
     imageSrc:
       'https://media.licdn.com/dms/image/D4E03AQFSay1e5SIYcA/profile-displayphoto-shrink_800_800/0/1667243405851?e=1686182400&v=beta&t=obxL-0fJQmqtO-jAz5JI48YgTw5UBLxwp13nvCZf59w',
     password: '12345678',
@@ -423,7 +423,7 @@ const users = [
     city: 'Over',
     state: 'New York',
     zip: '55555',
-    role: 'user',
+    role: 'sitter',
     imageSrc:
       'https://media.licdn.com/dms/image/C4D03AQHDO6K3t4XtxA/profile-displayphoto-shrink_800_800/0/1647479135334?e=1686182400&v=beta&t=JKQgvZlysYhSsoXJa8rrz8t3JYa4RLKY37tIi55OH0w',
     password: '12345678',
