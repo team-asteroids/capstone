@@ -69,12 +69,12 @@ const DiscoverSitters = () => {
   }
 
   return (
-    <div className="bg-cover bg-right-top bg-no-repeat bg-[url('img/dalmation-bg1.jpg')] h-full">
+    <div className="bg-cover bg-right-top bg-no-repeat bg-[url('img/sitters-bg.jpg')] h-full">
       <h2 className="font-rubikmono text-5xl pt-16 text-center m-auto">
         Sitters
       </h2>
-      <div className="flex flex-row justify-center pt-16 px-20">
-        <div className="flex flex-row justify-center gap-24">
+      <div className="flex flex-row justify-left pt-16 px-20">
+        <div className="flex flex-row justify-center gap-16">
           <div className="w-1/3 flex flex-col gap-5 min-h-screen">
             <div
               id="search"
@@ -116,35 +116,38 @@ const DiscoverSitters = () => {
               </div>
             </div>
 
-            <div
-              id="sort"
-              className="min-w-max flex flex-row items-center gap-3"
-            >
+            <div id="sort" className="min-w-max flex flex-row items-top gap-3">
               <h2 className="font-rubikmono text-xl text-left">FILTER</h2>
-              <div>
-                <h2 className="font-rubikmono">Filter by Rating</h2>
-                <select
-                  value={rating}
-                  onChange={(e) => setRating(e.target.value)}
-                >
-                  <option value="">All</option>
-                  <option value="1">1+</option>
-                  <option value="2">2+</option>
-                  <option value="3">3+</option>
-                  <option value="4">4+</option>
-                </select>
-                <h2 className="font-rubikmono">Filter by Price</h2>
-                <select
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                >
-                  <option value="">All</option>
-                  <option value="10">$10+</option>
-                  <option value="20">$20+</option>
-                  <option value="30">$30+</option>
-                  <option value="40">$40+</option>
-                  <option value="50">$50+</option>
-                </select>
+              <div className="flex flex-col gap-3">
+                <div>
+                  <h2 className="font-rubikmono text-xs w-72 mb-2">RATING</h2>
+                  <select
+                    value={rating}
+                    className={validClass}
+                    onChange={(e) => setRating(e.target.value)}
+                  >
+                    <option value="">All</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                  </select>
+                </div>
+                <div>
+                  <h2 className="font-rubikmono text-xs mb-2">PRICE</h2>
+                  <select
+                    value={price}
+                    className={validClass}
+                    onChange={(e) => setPrice(e.target.value)}
+                  >
+                    <option value="">All</option>
+                    <option value="10">$10+</option>
+                    <option value="20">$20+</option>
+                    <option value="30">$30+</option>
+                    <option value="40">$40+</option>
+                    <option value="50">$50+</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
