@@ -32,6 +32,8 @@ module.exports = {
         'pale-purple': '#AF7EF3',
         'pale-pink': '#FF5BA2',
         'bright-white': '#ffffff',
+        'alice-blue': '#F0F8FF',
+        'gains-boro': '#DCDCDC',
       },
     },
   },
