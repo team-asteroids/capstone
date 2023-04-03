@@ -10,7 +10,8 @@ const users = [
     state: 'New York',
     zip: '10003',
     role: 'sitter',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/latin-man-smiling-mockup-psd-cheerful-expression-closeup-portrai_53876-145665.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=sph',
     password: 'p8Vr5nKsBt6',
     totalPets: 1,
     canFoster: true,
@@ -27,7 +28,8 @@ const users = [
     state: 'New York',
     zip: '10022',
     role: 'sitter',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/smiling-asian-girl-sunglasses-using-smartphone-app-holding-mobile-phone-standing-blue-background_1258-89908.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=sph',
     password: 'h7Bc3pLmDf5',
     totalPets: 3,
     canFoster: true,
@@ -44,7 +46,8 @@ const users = [
     state: 'New York',
     zip: '10002',
     role: 'sitter',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/dreamy-young-woman-sunglasses-looking-front_197531-16739.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=sph',
     password: 'P4ssw0rd',
     totalPets: 2,
     canFoster: false,
@@ -61,7 +64,8 @@ const users = [
     state: 'New York',
     zip: '10022',
     role: 'sitter',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/portrait-man-laughing_23-2148859448.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=sph',
     password: 'password123',
     totalPets: 1,
     canFoster: true,
@@ -78,7 +82,8 @@ const users = [
     state: 'New York',
     zip: '10002',
     role: 'sitter',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/amazing-african-american-model-woman-green-pants-black-hat-posed-with-different-emotions-park-shows-surprise-face_627829-2914.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.2.1091660285.1679576791&semt=sph',
     password: 'nXRk26X9',
     totalPets: 2,
     canFoster: false,
@@ -95,7 +100,8 @@ const users = [
     state: 'New York',
     zip: '10003',
     role: 'sitter',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/happy-man-with-earphones-smiling-camera_23-2148322120.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=ais',
     password: 'VpyHqxS9',
     totalPets: 1,
     canFoster: true,
@@ -112,7 +118,8 @@ const users = [
     state: 'New York',
     zip: '10001',
     role: 'sitter',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/close-up-smiley-woman-outdoors_23-2149066143.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=ais',
     password: 'letmein',
     totalPets: 3,
     canFoster: true,
@@ -129,7 +136,8 @@ const users = [
     state: 'New York',
     zip: '10128',
     role: 'sitter',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=sph',
     password: 'TifrsVXfYr',
     totalPets: 3,
     canFoster: true,
@@ -146,7 +154,8 @@ const users = [
     state: 'New York',
     zip: '10019',
     role: 'sitter',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/outdoor-lifestyle-portrait-smiling-black-woman-pink-glasses_273443-1969.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=ais',
     password: 'UkDY6U4',
     totalPets: 1,
     canFoster: false,
@@ -163,7 +172,8 @@ const users = [
     state: 'New York',
     zip: '10001',
     role: 'sitter',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/closeup-portrait-beautiful-smiling-brunette-girl-summer-hipster-jacket-model-taking-selfie-smartphone-woman-making-photos-warm-sunny-day-street-sunglasses_158538-1654.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=ais',
     password: 'ew49oIhW8',
     totalPets: 2,
     canFoster: false,
@@ -180,7 +190,8 @@ const users = [
     state: 'New York',
     zip: '11963',
     role: 'user',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/close-up-portrait-attractive-unshaved-dark-skinned-man-with-afro-hairstyle-smiling-expressing-happiness-while-sitting-park-enjoying-nice-weather-listening-music_176420-19804.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=ais',
     password: 'tZMyIlnL5C',
     totalPets: 2,
     canFoster: false,
@@ -197,7 +208,8 @@ const users = [
     state: 'New York',
     zip: '10016',
     role: 'user',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/positive-carefree-woman-with-two-hair-buns-wears-trendy-pink-sunglasses-blouse-carries-shopping-bags-poses-outdoors-during-daytime-smiling-female-shopper-poses-making-selfie-city_273609-56848.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=ais',
     password: '8OyBpjvEQp',
     totalPets: 1,
     canFoster: true,
@@ -214,7 +226,8 @@ const users = [
     state: 'New York',
     zip: '11220',
     role: 'user',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/expressive-senior-woman-posing_344912-3132.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=ais',
     password: 'H4Ez4sJSfj',
     totalPets: 2,
     canFoster: true,
@@ -231,7 +244,8 @@ const users = [
     state: 'New York',
     zip: '10150',
     role: 'user',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/close-up-smiling-retired-man_23-2147562098.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=ais',
     password: 'gmzGkgptbKJx',
     totalPets: 1,
     canFoster: false,
@@ -248,7 +262,8 @@ const users = [
     state: 'New York',
     zip: '10048',
     role: 'user',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/miling-mature-woman_1398-1619.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=ais',
     password: 'nLKp7opCl',
     totalPets: 3,
     canFoster: true,
@@ -265,7 +280,8 @@ const users = [
     state: 'New York',
     zip: '11550',
     role: 'user',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/close-up-portrait-happy-young-african-american-man-smiling-against-black-neon-studio-background_155003-22873.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=sph',
     password: 'cvG2btxeRs',
     totalPets: 2,
     canFoster: true,
@@ -282,7 +298,8 @@ const users = [
     state: 'New York',
     zip: '10029',
     role: 'user',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/bohemian-man-with-his-arms-crossed_1368-3542.jpg?w=740&t=st=1680534080~exp=1680534680~hmac=8629e7a1ac247628f7a9c3d543804d0f1072f8d10f3b57850fcdcff3b55cc36a',
     password: 'pL47Jz9bYkw',
     totalPets: 2,
     canFoster: false,
@@ -299,7 +316,8 @@ const users = [
     state: 'New York',
     zip: '10036',
     role: 'user',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/headshot-cute-emotional-caucasian-girl-with-hair-knot-having-rest-cafe_273609-9038.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=ais',
     password: 'E9VKvH8WfjU',
     totalPets: 1,
     canFoster: true,
@@ -316,7 +334,8 @@ const users = [
     state: 'New York',
     zip: '11201',
     role: 'user',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/vertical-shot-attractive-african-american-man-posing-smiling_181624-15027.jpg?w=740&t=st=1680534127~exp=1680534727~hmac=a79925c9f3ccaca5adc64a22ea31886518d1e96d88eef4b4f1f3ced33c0a4454',
     password: '9ZsCgTbJhnL',
     totalPets: 3,
     canFoster: true,
@@ -333,7 +352,8 @@ const users = [
     state: 'New York',
     zip: '11435',
     role: 'user',
-    imageSrc: '',
+    imageSrc:
+      'https://img.freepik.com/free-photo/close-up-shot-pretty-woman-with-perfect-teeth-dark-clean-skin-having-rest-indoors-smiling-happily-after-received-good-positive-news_273609-1248.jpg?size=626&ext=jpg&uid=R97253778&ga=GA1.1.1091660285.1679576791&semt=sph',
     password: 'zVj2GtWxh4A',
     totalPets: 1,
     canFoster: false,
