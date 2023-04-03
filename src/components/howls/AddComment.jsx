@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectAuth } from '../../slices/authSlice';
 import { addPostComment } from '../../slices/postsSlice';
 import { Divider } from '@mui/material';
+import { Snackbar, SnackbarContent, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const AddComment = (props) => {
   const { post, userAuth } = props;
@@ -13,14 +15,34 @@ const AddComment = (props) => {
 
   const [content, setContent] = useState('');
 
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [color, setColor] = useState('');
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const action = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="white"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
+
   const commentHandler = async (e) => {
     e.preventDefault();
     const postId = post.id;
-    // const notify = () => toast('Testing Toast');
-    await dispatch(addPostComment({ content, postId }));
-    setContent('');
 
-    // notify();
+    await dispatch(addPostComment({ content, postId }));
+    setSnackbarMessage('Howl posted!');
+    setContent('');
+    setColor('#64b5f6');
+    setOpen(true);
   };
 
   const labelClass = 'text-sm font-semibold font-rubik mb-3';
@@ -79,6 +101,15 @@ const AddComment = (props) => {
           </form>
         </fieldset>
       </div>
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <SnackbarContent
+          message={snackbarMessage}
+          action={action}
+          style={{
+            backgroundColor: `${color}`,
+          }}
+        />
+      </Snackbar>
     </div>
   );
 };
