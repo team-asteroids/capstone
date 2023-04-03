@@ -21,6 +21,7 @@ const AddNewPet = (props) => {
     sex: '',
     breed: '',
     size: '',
+    imageSrc: '',
   });
 
   const [petDetailsData, setPetDetailsData] = useState({
@@ -30,7 +31,6 @@ const AddNewPet = (props) => {
     cratetrained: '',
     spayedOrNeutered: '',
     reactivity: '',
-    imageSrc: '',
     friendlyWithDogs: '',
     friendlyWithCats: '',
     friendlyWithChildren: '',
@@ -411,11 +411,11 @@ const AddNewPet = (props) => {
                 type="text"
                 required
                 className={validClass}
-                value={petDetailsData.imageSrc}
+                value={petInfo.imageSrc}
                 onChange={(evt) => {
                   // setIsInvalidPhone(false);
                   setPetDetailsData({
-                    ...petDetailsData,
+                    ...petInfo,
                     imageSrc: evt.target.value,
                   });
                 }}
