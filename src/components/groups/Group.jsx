@@ -146,11 +146,10 @@ const Group = (props) => {
                       )}
                     </div>
                   ) : (
-                    <div className="bg-gains-boro rounded-md py-2 px-1 text-center">
+                    <div className="bg-gains-boro rounded-md py-2 px-2 text-center justify-center">
                       <Link to="/login">
-                        Please{' '}
-                        <strong className="text-bold-blue ">log in</strong> to
-                        unleash this group adventure!
+                        <strong className="text-bold-blue ">Log in</strong> to
+                        view or join!
                       </Link>
                     </div>
                   )}
