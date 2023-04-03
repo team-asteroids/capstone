@@ -52,7 +52,7 @@ const Howl = (props) => {
               <Link to={`/profile/${post.user.id}`}>
                 <p>{author}</p>
               </Link>
-              <p className="text-slate-400">{formattedDate}</p>
+              <p className="text-slate-400">{`${formattedDate} at ${formattedTime}`}</p>
             </div>
           </div>
           <div>
