@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import defaultImg from '../../img/sitter-profile.jpg';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
+import { fetchAllUsers } from '../../slices/usersSlice';
 
 const SitterCard = (props) => {
   const {
@@ -15,7 +19,9 @@ const SitterCard = (props) => {
     userId,
     zip,
   } = props;
-  console.log(sitter);
+
+  const dispatch = useDispatch();
+
   return (
     <div className="font-rubik">
       <div className="overflow-hidden bg-slate-50 sm:rounded-lg">
@@ -59,7 +65,7 @@ const SitterCard = (props) => {
             </div>
             <div className="flex flex-row gap-2">
               <p className="font-semibold">Location:</p>
-              <p>{zip}</p>
+              <p>{sitter.sitterZip}</p>
             </div>
             <Link
               to={`/profile/${userId}/sitter/${sitter.id}`}
