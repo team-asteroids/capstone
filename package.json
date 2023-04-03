@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "concurrently \"node server/server.js\" \"react-scripts start\" ",
+    "start": "concurrently \"nodemon server/server.js\" \"react-scripts start\" ",
     "build": "concurrently \"react-scripts build\" \"npx tailwindcss -i ./src/index.css -o ./public/tailwind.css\" ",
     "api": "node server/server.js",
     "test": "react-scripts test",

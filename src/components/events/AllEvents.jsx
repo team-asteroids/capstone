@@ -46,8 +46,6 @@ const AllEvents = () => {
     return 0;
   });
 
-  // zip code
-
   useEffect(() => {
     setAttemptSearch(false);
     dispatch(fetchAllEvents());

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, useLocation, useParams, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingleGroup } from '../../slices/groupsSlice';
 
@@ -14,8 +14,7 @@ import MustLogIn from '../ui/MustLogIn';
 const SingleGroup = () => {
   const dispatch = useDispatch();
   const { groupId } = useParams();
-  // const location = useLocation();
-  // const url = location.pathname;
+
   const params = useParams();
 
   const { userAuth } = useSelector(selectAuth);
@@ -27,12 +26,6 @@ const SingleGroup = () => {
       dispatch(fetchSingleGroup(groupId));
     }
   }, [dispatch, groupId]);
-
-  // console.log(singleGroup);
-
-  // console.log('location --> ', location);
-  // console.log('userAuth --> ', userAuth);
-  // console.log('userAuth ID--> ', userAuth.id);
 
   if (!userAuth || !userAuth.id) {
     return (

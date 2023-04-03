@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addGroupMember } from '../../slices/groupsSlice';
+import { addGroupMember, deleteGroupMember } from '../../slices/groupsSlice';
 import { selectAuth } from '../../slices/authSlice';
+import { Snackbar, SnackbarContent, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Group = (props) => {
   const { group, members } = props;
@@ -11,18 +13,53 @@ const Group = (props) => {
   const mem = members.length;
   const groupId = group.id;
 
+  const memberIds = members.map((mem) => {
+    return mem.userId;
+  });
+
   const dispatch = useDispatch();
   const [logInPrompt, setLogInPrompt] = useState(false);
 
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [color, setColor] = useState('');
+
   const { userAuth, token } = useSelector(selectAuth);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const action = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="white"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
 
   const joinGroup = async (e) => {
     e.preventDefault();
     if (token) {
       await dispatch(addGroupMember(groupId));
+      setSnackbarMessage('Welcome to the pack!');
+      setColor('#64b5f6');
+      setOpen(true);
     } else {
       setLogInPrompt(true);
     }
+  };
+
+  const leaveGroup = async (e) => {
+    e.preventDefault();
+    const memberId = userAuth.id;
+    await dispatch(deleteGroupMember({ groupId, memberId }));
+    setSnackbarMessage('Goodbye fur now!');
+    setColor('#b388ff');
+    setOpen(true);
   };
 
   const buttonClass =
@@ -36,7 +73,6 @@ const Group = (props) => {
             className="rounded-t-lg object-cover h-72 w-144"
             src={group.imageSrc}
             alt={''}
-            onerror={require('../../img/groups/party-pups.jpg')}
           />
         </Link>
         <div className="flex flex-col gap-3">
@@ -46,28 +82,53 @@ const Group = (props) => {
             </div>
           </Link>
           <div>
-            {!logInPrompt ? (
-              <div className="flex justify-between px-5">
-                <div className="flex flex-col gap-2 pb-5">
-                  <p className="text-sm">({`${group.topic}`})</p>
-                  <p>{`${mem}`} MEMBERS</p>
-                  <div className="">
-                    <button onClick={joinGroup} className={buttonClass}>
-                      JOIN GROUP
-                    </button>
+            <div>
+              {!logInPrompt ? (
+                <div className="flex justify-between px-5">
+                  <div className="flex flex-col gap-2 pb-5">
+                    <p className="text-sm">({`${group.topic}`})</p>
+                    <p>{`${mem}`} MEMBERS</p>
+                    {memberIds.includes(userAuth.id) ? (
+                      <div>
+                        <div>Part of the pack!</div>
+                        <div>
+                          <button
+                            onClick={leaveGroup}
+                            className="text-red-600 font-semibold text-sm"
+                          >
+                            LEAVE GROUP
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="">
+                        <button onClick={joinGroup} className={buttonClass}>
+                          JOIN GROUP
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
-              </div>
-            ) : (
-              <Link to="/login">
-                <button className="">
-                  Please log in to unleash this group adventure!
-                </button>
-              </Link>
-            )}
+              ) : (
+                <Link to="/login">
+                  <button className="">
+                    Please log in to unleash this group adventure!
+                  </button>
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </div>
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <SnackbarContent
+          message={snackbarMessage}
+          action={action}
+          style={{
+            backgroundColor: `${color}`,
+          }}
+        />
+      </Snackbar>
     </div>
   );
 };
