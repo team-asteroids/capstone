@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addGroupMember, deleteGroupMember } from '../../slices/groupsSlice';
 import { selectAuth } from '../../slices/authSlice';
-import { Snackbar, IconButton, CloseIcon } from '@mui/material';
+import { Snackbar, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Group = (props) => {
   const { group, members } = props;
@@ -46,6 +47,17 @@ const Group = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const action = (
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="inherit"
+      onClick={handleClose}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  );
 
   const buttonClass =
     'text-sm px-4 py-2 text-bright-white rounded-lg bg-bold-purple font-semibold ease-in-out duration-100 hover:bg-pale-purple';
@@ -110,6 +122,7 @@ const Group = (props) => {
         autoHideDuration={4000}
         onClose={handleClose}
         message={snackbarMessage}
+        action={action}
       />
     </div>
   );
