@@ -113,11 +113,13 @@ const AllEvents = () => {
               </div>
             </div>
             <div>
-              <Link to="/events/create">
-                <p className="px-4 py-3 w-fit font-semibold bg-bold-blue text-bright-white rounded-lg hover:bg-pale-blue ease-in-out duration-200">
-                  NEW EVENT
-                </p>
-              </Link>
+              {userAuth && userAuth.id ? (
+                <Link to="/events/create">
+                  <p className="px-4 py-3 w-fit font-semibold bg-bold-blue text-bright-white rounded-lg hover:bg-pale-blue ease-in-out duration-200">
+                    NEW EVENT
+                  </p>
+                </Link>
+              ) : null}
             </div>
           </div>
         </div>
