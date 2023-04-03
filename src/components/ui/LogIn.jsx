@@ -95,7 +95,7 @@ function LogIn() {
                   onChange={(evt) => {
                     setIsInvalidEmail(false);
                     setLogInFail(false);
-                    setEmail(evt.target.value);
+                    setEmail(evt.target.value.toLowerCase());
                   }}
                 />
                 <p

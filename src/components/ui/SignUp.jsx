@@ -230,7 +230,10 @@ function SignUp() {
                     onChange={(evt) => {
                       setIsInvalidEmail(false);
                       // setIsInvalid(false);
-                      setFormData({ ...formData, email: evt.target.value });
+                      setFormData({
+                        ...formData,
+                        email: evt.target.value.toLowerCase(),
+                      });
                     }}
                   />
                   <p
