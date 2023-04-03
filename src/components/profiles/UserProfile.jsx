@@ -12,6 +12,7 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useParams();
+  console.log(location.id);
 
   const { singleUser } = useSelector(selectUser);
   const { userAuth } = useSelector(selectAuth);
@@ -19,10 +20,10 @@ const UserProfile = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchSingleUser(id));
+    if (location && location.id) {
+      dispatch(fetchSingleUser(location.id));
     }
-  }, [id]);
+  }, [location]);
 
   const toggleClass =
     "checked w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pale-blue  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all  peer-checked:bg-bold-pink";
@@ -36,9 +37,10 @@ const UserProfile = () => {
   const disabledButtonClass =
     'bg-bold-purple disabled:opacity-25 bg-bold-purple font-bold px-5 py-2.5 text-white rounded-lg';
 
+  // console.log(params);
   const toggleSitter = () => {
     if (location['*'].includes('sitter')) {
-      navigate(`/profile/${id}`);
+      navigate(`/profile/${location.id}`);
     } else navigate(`/profile/${id}/sitter/${singleUser.sitter.id}`);
   };
 
