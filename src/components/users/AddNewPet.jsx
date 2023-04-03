@@ -30,6 +30,7 @@ const AddNewPet = (props) => {
     cratetrained: '',
     spayedOrNeutered: '',
     reactivity: '',
+    imageSrc: '',
     friendlyWithDogs: '',
     friendlyWithCats: '',
     friendlyWithChildren: '',
@@ -402,6 +403,23 @@ const AddNewPet = (props) => {
                   });
                 }}
               ></textarea>
+            </div>
+
+            <div className="w-full flex flex-col mb-3">
+              <label className={labelClass}>Image</label>
+              <input
+                type="text"
+                required
+                className={validClass}
+                value={petDetailsData.imageSrc}
+                onChange={(evt) => {
+                  // setIsInvalidPhone(false);
+                  setPetDetailsData({
+                    ...petDetailsData,
+                    imageSrc: evt.target.value,
+                  });
+                }}
+              />
             </div>
 
             <div className="flex flex-wrap mb-3">
