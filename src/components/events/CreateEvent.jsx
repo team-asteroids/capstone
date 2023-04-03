@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { selectAuth } from '../../slices/authSlice';
 import { createEventAsync } from '../../slices/eventsSlice';
 
@@ -8,6 +8,7 @@ const CreateEvent = () => {
   const { userAuth } = useSelector(selectAuth);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [eventStart, setEventStart] = useState('');
   const [eventEnd, setEventEnd] = useState('');
@@ -81,6 +82,10 @@ const CreateEvent = () => {
 
   const validClass =
     'appearance-none rounded-lg block w-full bg-white-200 border rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-3 font-rubik';
+
+  const goBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="bg-cover bg-no-repeat bg-center bg-[url('img/events-bg.jpg')] h-[calc(100vh_-_5rem)]">
@@ -281,6 +286,14 @@ const CreateEvent = () => {
                   SUBMIT
                 </button>
               </form>
+              <div className="m-auto">
+                <button
+                  className="max-w-fit text-sm m-auto font-semibold hover:text-bold-purple ease-in-out duration-100"
+                  onClick={goBack}
+                >
+                  BACK
+                </button>
+              </div>
             </div>
           </div>
         </div>
