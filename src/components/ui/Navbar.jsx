@@ -59,7 +59,7 @@ function Navbar(props) {
           ) : (
             <div>
               <Link to={'/login'}>
-                <li>Login</li>
+                <div>Login</div>
               </Link>
             </div>
           )}
