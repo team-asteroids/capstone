@@ -39,11 +39,9 @@ const LikeUnlikeHowl = (props) => {
       <p>
         <button
           onClick={likeUnlikePost}
-          className={`px-4 py-2 text-sm font-semibold rounded-lg ${
-            testLike() ? 'bg-bold-blue text-bright-white' : 'bg-slate-200'
-          }`}
+          className={`px-4 py-2 text-sm font-semibold rounded-lg `}
         >
-          <PetsIcon style={{ color: 'bg-bold-blue' }} />
+          <PetsIcon color={`${testLike() ? 'primary' : 'disabled'}`} />
         </button>
       </p>
     </>

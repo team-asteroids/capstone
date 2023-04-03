@@ -59,6 +59,7 @@ export const fetchSitterNames = createAsyncThunk(
           name: name,
         },
       });
+      console.log('data-->', data);
       return data;
     } catch (err) {
       return rejectWithValue(err);

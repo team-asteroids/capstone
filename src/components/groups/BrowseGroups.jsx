@@ -8,6 +8,7 @@ import GroupsView from './GroupsView';
 const BrowseGroups = () => {
   const dispatch = useDispatch();
   const groups = useSelector((state) => state.groups.allGroups);
+  const members = useSelector((state) => state.groups.members);
 
   const { userAuth } = useSelector(selectAuth);
 
@@ -47,7 +48,7 @@ const BrowseGroups = () => {
 
   useEffect(() => {
     dispatch(fetchAllGroups());
-  }, [dispatch]);
+  }, [dispatch, members]);
 
   const validClass =
     'appearance-none block w-full bg-white-200 border rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue font-rubik';
