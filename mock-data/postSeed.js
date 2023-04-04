@@ -35,7 +35,7 @@ const posts = [
     createdAt: '2023-03-25 13:14:43.893-04',
   },
   {
-    content: `Cannot WAIT for Wufstock this year!!!`,
+    content: `Can't wait for Woofstock!!!`,
     creatorId: 19,
     createdAt: '2023-03-28 14:17:43.893-04',
   },
