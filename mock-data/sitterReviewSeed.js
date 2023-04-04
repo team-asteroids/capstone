@@ -75,7 +75,7 @@ const sitterReviewList = [
     userId: 3,
   },
   {
-    context: `I had a great experience with Allyssa taking care of my reactive dog while I was away. [Dog Sitter's Name] was patient and understanding of my dog's needs and behaviors, and went above and beyond to create a safe and comfortable environment for my pup. She followed all the instructions I provided and kept me updated on my dog's progress, which gave me peace of mind. When I returned, my dog was happy and healthy, and I could tell that she had been well-cared for. I highly recommend Allyssa to anyone looking for a dog sitter, especially if you have a reactive dog like mine.`,
+    context: `I had a great experience with Allyssa taking care of my reactive dog while I was away. Allyssa was patient and understanding of my dog's needs and behaviors, and went above and beyond to create a safe and comfortable environment for my pup. She followed all the instructions I provided and kept me updated on my dog's progress, which gave me peace of mind. When I returned, my dog was happy and healthy, and I could tell that she had been well-cared for. I highly recommend Allyssa to anyone looking for a dog sitter, especially if you have a reactive dog like mine.`,
     sitterId: 11,
     userId: 17,
   },
