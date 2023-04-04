@@ -53,6 +53,7 @@ function MapCreate(props) {
         setMarker(marker);
       })
       .catch((error) => console.log(error));
+    console.log('Google maps api key-->', process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
   }, []);
   const center = useMemo(() => latLng, [latLng]);
   // Reference to map instance
