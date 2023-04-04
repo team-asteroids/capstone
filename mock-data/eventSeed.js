@@ -1,8 +1,8 @@
 const events = [
   {
     zip_code: 11215,
-    event_start: '2022-05-11 10:00:00',
-    event_end: '2022-05-13 20:00:00',
+    event_start: '2024-05-11 10:00:00',
+    event_end: '2024-05-13 20:00:00',
     topic: 'Woofstock',
     imageSrc:
       'http://moderndogmagazine.com/sites/default/files/styles/slidehsow-banner/public/images/articles/top_images/WoofstockHeader.jpg?itok=rmKhV89F',
