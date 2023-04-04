@@ -41,7 +41,11 @@ const SitterBookings = (props) => {
   }, [sitter, sitter.id]);
 
   useEffect(() => {
-    if (sitterBookings && sitterBookings.length > 0) {
+    if (
+      sitterBookings &&
+      sitterBookings.length > 0 &&
+      typeof sitterBookings !== 'string'
+    ) {
       sitterBookings.forEach((booking) => {
         if (
           booking.status === 'pending' &&
