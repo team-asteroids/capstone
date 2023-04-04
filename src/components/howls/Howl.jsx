@@ -29,7 +29,7 @@ const Howl = (props) => {
   const date = new Date(post.createdAt);
   // const dateData = new Date(date);
   const formattedDate = format(date, 'MMM d, yyyy');
-  const formattedTime = format(date, 'h:m aaa');
+  const formattedTime = format(date, 'h:mm aaa');
 
   const sortedComments = comments.slice(0).sort((a, b) => {
     const timeA = a.createdAt;

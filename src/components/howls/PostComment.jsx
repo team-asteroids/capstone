@@ -23,7 +23,7 @@ const PostComment = (props) => {
   const date = new Date(comment.createdAt);
   // const dateData = new Date(date);
   const formattedDate = format(date, 'MMM d, yyyy');
-  const formattedTime = format(date, 'h:m aaa');
+  const formattedTime = format(date, 'h:mm aaa');
 
   const [open, setOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
