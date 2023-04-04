@@ -10,7 +10,7 @@ import {
 } from '../../slices/authSlice';
 import {
   addPetsToBooking,
-  // selectBookings,
+  resetBookingStatus,
   updateBooking,
 } from '../../slices/bookingsSlice';
 import { fetchAllPets, selectPets } from '../../slices/petsSlice';
@@ -249,6 +249,7 @@ const BookingRequestConfirmation = () => {
         res.type === 'updateAccessData/fulfilled' &&
         res2.type === 'addPets/fulfilled'
       ) {
+        dispatch(resetBookingStatus());
         navigate(`/bookings/${bookingId}/success`);
       }
     }
