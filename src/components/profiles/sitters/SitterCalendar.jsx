@@ -112,7 +112,7 @@ const SitterCalendar = (props) => {
     }
   };
 
-  console.log('status', status, 'newBooking', newBooking);
+  // console.log('status', status, 'newBooking', newBooking);
 
   useEffect(() => {
     if (newBooking && status === 'success') {
@@ -120,7 +120,7 @@ const SitterCalendar = (props) => {
       navigate(`/bookings/${bookingId}/confirmation`);
     }
     return () => {
-      console.log('dismount');
+      // console.log('dismount');
       dispatch(resetBookingStatus());
     };
   }, [status]);

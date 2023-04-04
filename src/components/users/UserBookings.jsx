@@ -15,6 +15,11 @@ function UserBookings() {
 
   const { allBookings } = useSelector(selectBookings);
 
+  const [pending, setPending] = useState([]);
+  const [approved, setApproved] = useState([]);
+  const [completed, setCompleted] = useState([]);
+  const [cancelled, setCancelled] = useState([]);
+
   useEffect(() => {
     dispatch(attemptTokenLogin());
   }, [dispatch]);
@@ -30,29 +35,59 @@ function UserBookings() {
     };
   }, [userAuth]);
 
-  let pending = [];
-  let approved = [];
-  let completed = [];
-  let cancelled = [];
+  useEffect(() => {
+    if (allBookings && allBookings.length) {
+      allBookings.forEach((booking) => {
+        if (
+          booking.status === 'pending' &&
+          !pending.some((element) => booking.id === element.id)
+        )
+          setPending([...pending, booking]);
 
-  if (allBookings && allBookings.length) {
-    allBookings.forEach((booking) => {
-      if (booking.status === 'pending' && !pending.includes(booking))
-        pending.push(booking);
+        if (
+          booking.status === 'approved' &&
+          !approved.some((element) => booking.id === element.id)
+        )
+          setApproved([...approved, booking]);
 
-      if (booking.status === 'approved' && !approved.includes(booking))
-        approved.push(booking);
+        if (
+          booking.status === 'complete' &&
+          !completed.some((element) => booking.id === element.id)
+        )
+          setCompleted([...completed, booking]);
 
-      if (booking.status === 'complete' && !completed.includes(booking))
-        completed.push(booking);
+        if (
+          ['cancelled', 'withdrawn', 'declined'].includes(booking.status) &&
+          !cancelled.some((element) => booking.id === element.id)
+        )
+          setCancelled([...cancelled, booking]);
+      });
+    }
+  }, [userAuth, allBookings]);
 
-      if (
-        ['cancelled', 'withdrawn', 'declined'].includes(booking.status) &&
-        !cancelled.includes(booking)
-      )
-        cancelled.push(booking);
-    });
-  }
+  // let pending = [];
+  // let approved = [];
+  // let completed = [];
+  // let cancelled = [];
+
+  // if (allBookings && allBookings.length) {
+  //   allBookings.forEach((booking) => {
+  //     if (booking.status === 'pending' && !pending.includes(booking))
+  //       pending.push(booking);
+
+  //     if (booking.status === 'approved' && !approved.includes(booking))
+  //       approved.push(booking);
+
+  //     if (booking.status === 'complete' && !completed.includes(booking))
+  //       completed.push(booking);
+
+  //     if (
+  //       ['cancelled', 'withdrawn', 'declined'].includes(booking.status) &&
+  //       !cancelled.includes(booking)
+  //     )
+  //       cancelled.push(booking);
+  //   });
+  // }
 
   if (!userAuth && !userAuth.firstName)
     return <div className="font-rubikmono">Fetching good things...</div>;

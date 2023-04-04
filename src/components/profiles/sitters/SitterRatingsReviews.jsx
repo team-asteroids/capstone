@@ -72,6 +72,9 @@ const SitterRatingsReviews = (props) => {
                     <div className="pb-8">
                       <p>{review.context}</p>
                     </div>
+                    {userAuth.id === review.user.id ? (
+                      <button>Delete Review</button>
+                    ) : null}
                   </div>
                 ))
               : 'no reviews!'}
