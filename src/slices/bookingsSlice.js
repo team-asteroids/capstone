@@ -112,6 +112,7 @@ const bookingsSlice = createSlice({
     resetBookingStatus: (state) => {
       state.status = '';
       state.error = '';
+      state.newBooking = {};
     },
     resetSingleBooking: (state) => {
       state.singleBooking = {};
