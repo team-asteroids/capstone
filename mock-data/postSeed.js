@@ -35,7 +35,7 @@ const posts = [
     createdAt: '2023-03-25 13:14:43.893-04',
   },
   {
-    content: `I just signed up for the NYC Dog Agility Trials. Wish us luck!`,
+    content: `Cannot WAIT for Wufstock this year!!!`,
     creatorId: 19,
     createdAt: '2023-03-28 14:17:43.893-04',
   },
