@@ -41,7 +41,7 @@ const SitterBookings = (props) => {
   }, [sitter, sitter.id]);
 
   useEffect(() => {
-    if (sitterBookings && sitterBookings.length) {
+    if (sitterBookings && sitterBookings.length > 0) {
       sitterBookings.forEach((booking) => {
         if (
           booking.status === 'pending' &&
@@ -72,7 +72,7 @@ const SitterBookings = (props) => {
 
   console.log({ sitterBookings, pending, approved, completed });
 
-  // if (!sitterBookings.length) return <div>Loading...</div>;
+  if (!sitterBookings.length) return <div>Loading...</div>;
 
   return (
     <div className="font-rubik flex flex-col gap-5">
@@ -80,74 +80,80 @@ const SitterBookings = (props) => {
         <h2 className="font-rubikmono">Manage Sitter Bookings</h2>
       </div>
       <div className="h-[calc(100vh_-_20rem)] overflow-auto flex flex-col gap-5">
-        <div>
-          <p className="font-rubikmono text-lg pb-2">
-            Review New Booking Requests ({pending.length})
-          </p>
-          <div className="flex flex-col gap-5">
-            {pending && pending.length
-              ? pending.map((booking) => (
-                  <div key={booking.id}>
-                    <BookingCard booking={booking} role={'sitter'} />
-                    <div className="pt-5">
-                      <Divider />
-                    </div>
-                  </div>
-                ))
-              : 'no upcoming bookings!'}
+        {sitterBookings && sitterBookings.length < 1 ? (
+          <div>Loading...</div>
+        ) : (
+          <div>
+            <div>
+              <p className="font-rubikmono text-lg pb-2">
+                Review New Booking Requests ({pending.length})
+              </p>
+              <div className="flex flex-col gap-5">
+                {pending && pending.length
+                  ? pending.map((booking) => (
+                      <div key={booking.id}>
+                        <BookingCard booking={booking} role={'sitter'} />
+                        <div className="pt-5">
+                          <Divider />
+                        </div>
+                      </div>
+                    ))
+                  : 'no upcoming bookings!'}
+              </div>
+            </div>
+            <div>
+              <p className="font-rubikmono text-lg pb-2">
+                Upcoming ({approved.length})
+              </p>
+              <div className="flex flex-col gap-5">
+                {approved && approved.length
+                  ? approved.map((booking) => (
+                      <div key={booking.id}>
+                        <BookingCard booking={booking} role={'sitter'} />
+                        <div className="pt-5">
+                          <Divider />
+                        </div>
+                      </div>
+                    ))
+                  : 'no upcoming bookings!'}
+              </div>
+            </div>
+            <div>
+              <p className="font-rubikmono text-lg pb-2">
+                Completed ({completed.length})
+              </p>
+              <div className="flex flex-col gap-5">
+                {completed && completed.length
+                  ? completed.map((booking) => (
+                      <div key={booking.id}>
+                        <BookingCard booking={booking} role={'sitter'} />
+                        <div className="pt-5">
+                          <Divider />
+                        </div>
+                      </div>
+                    ))
+                  : 'no past bookings!'}
+              </div>
+            </div>
+            <div>
+              <p className="font-rubikmono text-lg pb-2">
+                Cancelled ({cancelled.length})
+              </p>
+              <div className="flex flex-col gap-5">
+                {cancelled && cancelled.length
+                  ? cancelled.map((booking) => (
+                      <div key={booking.id}>
+                        <BookingCard booking={booking} role={'sitter'} />
+                        <div className="pt-5">
+                          <Divider />
+                        </div>
+                      </div>
+                    ))
+                  : 'no cancelled bookings!'}
+              </div>
+            </div>
           </div>
-        </div>
-        <div>
-          <p className="font-rubikmono text-lg pb-2">
-            Upcoming ({approved.length})
-          </p>
-          <div className="flex flex-col gap-5">
-            {approved && approved.length
-              ? approved.map((booking) => (
-                  <div key={booking.id}>
-                    <BookingCard booking={booking} role={'sitter'} />
-                    <div className="pt-5">
-                      <Divider />
-                    </div>
-                  </div>
-                ))
-              : 'no upcoming bookings!'}
-          </div>
-        </div>
-        <div>
-          <p className="font-rubikmono text-lg pb-2">
-            Completed ({completed.length})
-          </p>
-          <div className="flex flex-col gap-5">
-            {completed && completed.length
-              ? completed.map((booking) => (
-                  <div key={booking.id}>
-                    <BookingCard booking={booking} role={'sitter'} />
-                    <div className="pt-5">
-                      <Divider />
-                    </div>
-                  </div>
-                ))
-              : 'no past bookings!'}
-          </div>
-        </div>
-        <div>
-          <p className="font-rubikmono text-lg pb-2">
-            Cancelled ({cancelled.length})
-          </p>
-          <div className="flex flex-col gap-5">
-            {cancelled && cancelled.length
-              ? cancelled.map((booking) => (
-                  <div key={booking.id}>
-                    <BookingCard booking={booking} role={'sitter'} />
-                    <div className="pt-5">
-                      <Divider />
-                    </div>
-                  </div>
-                ))
-              : 'no cancelled bookings!'}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
