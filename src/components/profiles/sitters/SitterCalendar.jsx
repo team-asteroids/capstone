@@ -37,7 +37,7 @@ const SitterCalendar = (props) => {
 
   const [includesBlackoutDays, setIncludesBlackoutDays] = useState(false);
 
-  const blackoutDays = ['4-4-23', '4-5-23'];
+  const blackoutDays = ['4-12-23', '4-13-23'];
 
   const checkDate = (date) => {
     const day = format(date, 'M-d-yy');
