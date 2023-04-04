@@ -90,10 +90,44 @@ export const fetchSitterAuthClient = createAsyncThunk(
 );
 
 // get all bookings of logged in user sitter
-export const fetchSitterAuthBookings = createAsyncThunk();
+// export const fetchSitterAuthBookings = createAsyncThunk();
+
+export const fetchSitterAuthBookings = createAsyncThunk(
+  'sitterBookings',
+  async ({ id, token }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/sitters/${id}/bookings`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
 
 // get single booking of logged in user sitter
-export const fetchSitterAuthBooking = createAsyncThunk();
+
+export const fetchSitterAuthBooking = createAsyncThunk(
+  'singleSitterBooking',
+  async ({ id, bookingId, token }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        API + `/api/sitters/${id}/bookings/${bookingId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
 
 const sitterAuthSlice = createSlice({
   name: 'sitterAuth',

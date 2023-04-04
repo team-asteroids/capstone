@@ -74,7 +74,7 @@ const SitterBookings = (props) => {
     }
   }, [sitter, sitterBookings]);
 
-  // console.log({ sitterBookings, pending, approved, completed });
+  console.log({ sitterBookings, pending, approved, completed });
 
   if (!sitterBookings.length) return <div>Loading...</div>;
 
