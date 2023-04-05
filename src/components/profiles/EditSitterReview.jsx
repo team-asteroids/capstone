@@ -79,7 +79,7 @@ const EditSitterReview = (props) => {
   const labelClass = 'text-xs font-rubikmono';
 
   const buttonClass =
-    'ease-in duration-300 hover:bg-bold-purple w-full bg-bold-blue text-white py-3 rounded-xl mx-auto block text-xl hover:transition-all mt-8 mb-5';
+    'text-sm font-semibold ease-in-out duration-100 hover:text-bold-pink pb-2';
 
   const validClass =
     'appearance-none block w-full bg-white-200 border rounded py-3 px-6 leading-tight focus:outline-none focus:bg-white focus:border-bold-blue mt-1 font-rubik';
@@ -148,7 +148,7 @@ const EditSitterReview = (props) => {
             </button>
           </form>
         </section>
-        <div className="w-2/3 text-center font-semibold text-red-600 hover:text-red-900">
+        <div className="w-2/3 text-xs mt-5 font-semibold text-red-600 hover:text-red-900">
           <button onClick={deleteReview}>DELETE</button>
         </div>
       </div>
