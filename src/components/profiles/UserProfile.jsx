@@ -17,7 +17,7 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useParams();
-  console.log(location.id);
+  // console.log(location.id);
 
   const { singleUser } = useSelector(selectUser);
   const { userAuth } = useSelector(selectAuth);
