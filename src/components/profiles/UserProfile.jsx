@@ -5,7 +5,12 @@ import { useNavigate, Routes, Route, useParams, Link } from 'react-router-dom';
 import defaultImg from '../../img/default-dog.jpg';
 import { fetchSingleSitter } from '../../slices/sittersSlice';
 import { fetchSingleUser, selectUser } from '../../slices/usersSlice';
-import { RatingsAndReviews, SitterProfile, UserSocialView } from '../index';
+import {
+  EditSitterReview,
+  RatingsAndReviews,
+  SitterProfile,
+  UserSocialView,
+} from '../index';
 import { selectAuth } from '../../slices/authSlice';
 
 const UserProfile = () => {
@@ -132,9 +137,15 @@ const UserProfile = () => {
               element={<SitterProfile sitter={singleUser.sitter} />}
             />
             <Route
-              path="/sitter/:sitterId/reviews/*"
+              path="/sitter/:sitterId/reviews"
               element={
                 <RatingsAndReviews user={userAuth} sitter={singleUser.sitter} />
+              }
+            />
+            <Route
+              path="/sitter/:sitterId/reviews/:reviewId"
+              element={
+                <EditSitterReview user={userAuth} sitter={singleUser.sitter} />
               }
             />
           </Routes>
