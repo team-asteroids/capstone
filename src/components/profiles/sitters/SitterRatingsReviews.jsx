@@ -25,10 +25,11 @@ const SitterRatingsReviews = (props) => {
     <div>
       <div>
         {userAuth && +userAuth.id === +params.id ? null : (
-          <div className="text-left pb-3">
-            <p>Throw a dog a bone!</p>
+          <div className="text-left pb-3 text-sm hover:text-bold-purple">
             <p>
-              <Link to={`${location.pathname}/reviews`}>Leave a review</Link>
+              <Link to={`${location.pathname}/reviews`}>
+                Leave a Treat! Rate & Review
+              </Link>
             </p>
           </div>
         )}
