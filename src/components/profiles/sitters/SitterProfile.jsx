@@ -69,7 +69,7 @@ const SitterProfile = () => {
           <div>
             <h2 className="font-rubikmono pb-3">Ratings & Reviews</h2>
             <SitterRatingsReviews
-              ratings={sitterReviews}
+              ratings={sitterRatings}
               reviews={sitterReviews}
               avgRating={avgRating}
             />

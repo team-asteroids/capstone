@@ -25,10 +25,11 @@ const SitterRatingsReviews = (props) => {
     <div>
       <div>
         {userAuth && +userAuth.id === +params.id ? null : (
-          <div className="text-left pb-3">
-            <p>Throw a dog a bone!</p>
+          <div className="text-left pb-3 text-sm hover:text-bold-purple">
             <p>
-              <Link to={`${location.pathname}/reviews`}>Leave a review</Link>
+              <Link to={`${location.pathname}/reviews`}>
+                Leave a Treat! Rate & Review
+              </Link>
             </p>
           </div>
         )}
@@ -43,7 +44,7 @@ const SitterRatingsReviews = (props) => {
         <div>
           <h3 className="font-rubikmono text-sm pb-5">Reviews</h3>
           <div className="flex flex-col gap-5">
-            {reviews.length > 0
+            {reviews && reviews.length > 0
               ? reviews.map((review) => (
                   <div
                     key={review.id}
@@ -69,9 +70,20 @@ const SitterRatingsReviews = (props) => {
                         </p>
                       </div>
                     </div>
-                    <div className="pb-8">
+                    <div className="pb-6">
                       <p>{review.context}</p>
                     </div>
+                    {!userAuth || userAuth.id !== review.user.id ? null : (
+                      <div>
+                        <p className="text-xs font-semibold pb-5 hover:text-bold-pink">
+                          <Link
+                            to={`${location.pathname}/reviews/${review.id}`}
+                          >
+                            EDIT / DELETE
+                          </Link>
+                        </p>
+                      </div>
+                    )}
                   </div>
                 ))
               : 'no reviews!'}

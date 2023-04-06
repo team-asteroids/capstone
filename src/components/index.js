@@ -50,3 +50,4 @@ export { default as SitterOnboarding } from './sitters/SitterOnboarding.jsx';
 export { default as SitterSubmitted } from './sitters/SitterSubmitted.jsx';
 export { default as RatingsAndReviews } from './profiles/RatingsAndReviews.jsx';
 export { default as UserSitters } from './users/UserSitters.jsx';
+export { default as EditSitterReview } from './profiles/EditSitterReview.jsx';
