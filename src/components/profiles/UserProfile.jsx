@@ -148,6 +148,12 @@ const UserProfile = () => {
                 <EditSitterReview user={userAuth} sitter={singleUser.sitter} />
               }
             />
+            <Route
+              path="/sitter/:sitterId/ratings"
+              element={
+                <EditSitterReview user={userAuth} sitter={singleUser.sitter} />
+              }
+            />
           </Routes>
         </div>
       </div>

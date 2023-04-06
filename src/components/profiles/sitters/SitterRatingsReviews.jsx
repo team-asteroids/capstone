@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { format, setMonth, getMonth } from 'date-fns';
 import { Divider } from '@mui/material';
 import { useLocation, Link, useParams } from 'react-router-dom';
@@ -11,7 +11,18 @@ const SitterRatingsReviews = (props) => {
   const { userAuth } = useSelector(selectAuth);
 
   const { reviews, ratings, avgRating } = props;
-  useEffect(() => {}, [ratings]);
+  // useEffect(() => {}, [ratings]);
+
+  const [rated, setRated] = useState('');
+
+  useEffect(() => {
+    if (userAuth && ratings && ratings.length) {
+      const ratingIdArr = ratings.map((rating) => rating.userId);
+      const didRate = ratingIdArr.includes(userAuth.id);
+
+      setRated(didRate);
+    }
+  }, [ratings, userAuth]);
 
   const dateFormatter = (date) => {
     const formattedDate = new Date(date);
@@ -24,21 +35,29 @@ const SitterRatingsReviews = (props) => {
   return (
     <div>
       <div>
-        {userAuth && +userAuth.id === +params.id ? null : (
-          <div className="text-left pb-3">
-            <p>Throw a dog a bone!</p>
-            <p>
-              <Link to={`${location.pathname}/reviews`}>Leave a review</Link>
-            </p>
-          </div>
-        )}
         <div className="pb-5">
+          {userAuth && userAuth.id === +params.id ? null : (
+            <div className="pb-5">
+              <p className="hover:text-bold-purple hover:font-semibold">
+                <Link to={`${location.pathname}/reviews`}>
+                  Leave a Treat! Rate & Review
+                </Link>
+              </p>
+            </div>
+          )}
           <h3 className="font-rubikmono text-sm pb-3">Ratings</h3>
           <div>
             <p>
               {avgRating ? avgRating : ''} ({ratings.length} ratings)
             </p>
           </div>
+          {!rated ? null : (
+            <div>
+              <p className="text-sm pt-3 hover:text-bold-purple hover:font-semibold">
+                <Link to={`${location.pathname}/ratings`}>Update Rating</Link>
+              </p>
+            </div>
+          )}
         </div>
         <div>
           <h3 className="font-rubikmono text-sm pb-5">Reviews</h3>
