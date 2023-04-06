@@ -35,16 +35,16 @@ function About() {
             </h2>
             <ul className="list-disc text-lg text-gray-700 mb-8">
               <li className="flex items-center">
-                <span className="mr-2">Nica: ~photo and or quick blurb~</span>
+                <span className="mr-2">Nica Weisinger: bio ~</span>
                 <a
-                  href="https://www.github.com"
+                  href="https://github.com/nicaemma"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <FaGithub />
                 </a>
                 <a
-                  href="https://www.linkedin.com"
+                  href="https://www.linkedin.com/in/nica-weisinger/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -52,18 +52,16 @@ function About() {
                 </a>
               </li>
               <li className="flex items-center">
-                <span className="mr-2">
-                  Allyssa: ~photo and or quick blurb~
-                </span>
+                <span className="mr-2">Allyssa Deorocki: bio ~</span>
                 <a
-                  href="https://www.github.com"
+                  href="https://github.com/allyssad"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <FaGithub />
                 </a>
                 <a
-                  href="https://www.linkedin.com"
+                  href="https://www.linkedin.com/in/allyssadeorocki/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -71,16 +69,16 @@ function About() {
                 </a>
               </li>
               <li className="flex items-center">
-                <span className="mr-2">Forhad: ~photo and or quick blurb~</span>
+                <span className="mr-2">Forhad Zinnah: bio~</span>
                 <a
-                  href="https://www.github.com"
+                  href="https://github.com/fzinnah"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <FaGithub />
                 </a>
                 <a
-                  href="https://www.linkedin.com"
+                  href="https://www.linkedin.com/in/forhad-zinnah/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -88,16 +86,16 @@ function About() {
                 </a>
               </li>
               <li className="flex items-center">
-                <span className="mr-2">Paul: ~photo and or quick blurb~</span>
+                <span className="mr-2">Paul Schofield: bio~</span>
                 <a
-                  href="https://www.github.com"
+                  href="https://github.com/makeitsough"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <FaGithub />
                 </a>
                 <a
-                  href="https://www.linkedin.com"
+                  href="https://www.linkedin.com/in/paul-schofield-io/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
