@@ -31,7 +31,7 @@ const UserSocialView = (props) => {
         <div className="font-rubik flex flex-row">
           <div className="w-full h-[calc(100vh_-_20rem)] overflow-auto flex flex-col pr-10 gap-10">
             <div>
-              <UserPetProfiles user={user} />
+              <UserPetProfiles user={user} userAuth={userAuth} />
             </div>
             <div className="flex flex-col gap-5">
               <h2 className="font-rubikmono">Recent Activity</h2>
@@ -44,7 +44,7 @@ const UserSocialView = (props) => {
           </div> */}
         </div>
       ) : (
-        <EditPetDetails user={user} />
+        <EditPetDetails user={user} userAuth={userAuth} />
       )}
     </div>
   );

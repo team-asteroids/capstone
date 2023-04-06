@@ -122,7 +122,9 @@ const UserProfile = () => {
                     ? disabledButtonClass
                     : buttonClass
                 }
-                disabled={!userAuth || userAuth.id === singleUser.id ? true : false}
+                disabled={
+                  !userAuth || userAuth.id === singleUser.id ? true : false
+                }
               >
                 MESSAGE
               </button>
