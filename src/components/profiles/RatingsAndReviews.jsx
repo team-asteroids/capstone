@@ -71,13 +71,13 @@ const RatingsAndReviews = (props) => {
       ratingRes = await dispatch(
         postSitterRating({ id, sitterId, token, sitterRating })
       );
-      console.log(ratingRes);
+      // console.log(ratingRes);
       setInvalidRating(false);
 
       reviewRes = await dispatch(
         postSitterReview({ id, sitterId, token, sitterReview })
       );
-      console.log(reviewRes);
+      // console.log(reviewRes);
       setInvalidReview(false);
     } else {
       setInvalidRating(true);

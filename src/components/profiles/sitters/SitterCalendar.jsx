@@ -22,12 +22,6 @@ const SitterCalendar = (props) => {
   const today = new Date();
   const maxDay = setMonth(today, getMonth(today) + 6);
 
-  // EXAMPLE DATE FORMATTING
-  // if (userAuth && userAuth.id) {
-  //   const testDate = format(new Date(userAuth.createdAt), 'E, m-d-yy');
-  //   console.log(testDate);
-  // }
-
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [totalDays, setTotalDays] = useState(0);
@@ -112,15 +106,12 @@ const SitterCalendar = (props) => {
     }
   };
 
-  console.log('status', status, 'newBooking', newBooking);
-
   useEffect(() => {
     if (newBooking && status === 'success') {
       const bookingId = newBooking.id;
       navigate(`/bookings/${bookingId}/confirmation`);
     }
     return () => {
-      console.log('dismount');
       dispatch(resetBookingStatus());
     };
   }, [status]);
