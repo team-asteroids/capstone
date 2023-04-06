@@ -118,11 +118,11 @@ const UserProfile = () => {
             <Link to={`/chat/`} state={{ userName: singleUser.userName }}>
               <button
                 className={
-                  userAuth.id === singleUser.id
+                  !userAuth || userAuth.id === singleUser.id
                     ? disabledButtonClass
                     : buttonClass
                 }
-                disabled={userAuth.id === singleUser.id ? true : false}
+                disabled={!userAuth || userAuth.id === singleUser.id ? true : false}
               >
                 MESSAGE
               </button>
