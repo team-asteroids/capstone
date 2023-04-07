@@ -162,7 +162,10 @@ const About = () => {
                     </a>
                   </div>
                   <div className="pl-2 text-sm font-regular">
-                    <p>(Paul Bio)</p>
+                    <p>
+                      Paul resides in Brooklyn, where he spends time biking,
+                      climbing, and occasionally listening to Snoop Dogg.
+                    </p>
                   </div>
                 </div>
               </div>
