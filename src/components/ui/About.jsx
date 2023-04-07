@@ -7,7 +7,7 @@ const About = () => {
       <div className="container mx-auto px-8 py-16">
         <div className="flex flex-col items-center">
           <h1 className="text-4xl font-bold text-bold-blue mb-4">Digs</h1>
-          <p className="text-lg font-bold text-gray-700 mb-8 text-center">
+          <p className="text-lg font-bold mb-8 text-center">
             How it started...
           </p>
         </div>
@@ -16,18 +16,18 @@ const About = () => {
             <h2 className="text-3xl font-bold text-bold-blue mb-4">
               Our Story
             </h2>
-            <p className="text-lg text-gray-700 mb-8">
+            <p className="text-lg mb-8">
               We are a group of passionate dog lovers who came together with a
               common goal of creating a dedicated platform for dog owners and
               pet professionals.
             </p>
-            <p className="text-lg text-gray-700 mb-8">
+            <p className="text-lg  mb-8">
               As a fully remote team across NYC and San Diego, we recognized the
               need for a better way to connect dog owners with trusted pet
               professionals, find local dog-friendly events, and share photos
               and stories with friends.
             </p>
-            <p className="text-lg text-gray-700 mb-8">~ the Howlr team~</p>
+            <p className="text-lg mb-8">~ the Howlr team~</p>
           </div>
 
           <div>
@@ -38,7 +38,7 @@ const About = () => {
               <div className="flex items-center">
                 <img
                   src="https://media.licdn.com/dms/image/C4D03AQHDO6K3t4XtxA/profile-displayphoto-shrink_400_400/0/1647479135334?e=1686182400&v=beta&t=M5lLsCorfhQ790Q3BaG8Uz-GYxp9sVZR2YhH3udU38o"
-                  className="h-36 w-36 object-cover rounded-full"
+                  className="h-24 w-24 object-cover rounded-full"
                 ></img>
                 <div className="flex flex-col pl-3">
                   <div className="flex flex-row gap-3">
@@ -60,7 +60,7 @@ const About = () => {
                       <FaLinkedin />
                     </a>
                   </div>
-                  <div className="pl-2">
+                  <div className="pl-2 text-sm font-regular">
                     <p>(Nica Bio)</p>
                   </div>
                 </div>
@@ -68,7 +68,7 @@ const About = () => {
               <div className="flex items-center">
                 <img
                   src="https://media.licdn.com/dms/image/D4E03AQES_HIeRjYfOw/profile-displayphoto-shrink_800_800/0/1677031262866?e=1686182400&v=beta&t=g3zBHjKMc3tllUC8mQakJ3tgJyjJgBR5gOR97GrMWno"
-                  className="h-36 w-36 object-cover rounded-full"
+                  className="h-24 w-24 object-cover rounded-full"
                 ></img>
                 <div className="flex flex-col pl-3">
                   <div className="flex flex-row gap-3">
@@ -90,7 +90,7 @@ const About = () => {
                       <FaLinkedin />
                     </a>
                   </div>
-                  <div className="pl-2">
+                  <div className="pl-2 text-sm font-regular">
                     <p>
                       Allyssa lives in Brooklyn with her dog, Saxen. They love
                       playing frisbee together and going for long sniff walks in
@@ -102,7 +102,7 @@ const About = () => {
               <div className="flex items-center">
                 <img
                   src="https://media.licdn.com/dms/image/D5603AQGWfW9Bui6nTg/profile-displayphoto-shrink_400_400/0/1677027359477?e=1686182400&v=beta&t=eUndhW-yJTYsZeb3gBAGwWGKhhuvW3fcQ1glRCr52Dw"
-                  className="h-36 w-36 object-cover rounded-full"
+                  className="h-24 w-24 object-cover rounded-full"
                 ></img>
                 <div className="flex flex-col pl-3">
                   <div className="flex flex-row gap-3">
@@ -124,7 +124,7 @@ const About = () => {
                       <FaLinkedin />
                     </a>
                   </div>
-                  <div className="pl-2">
+                  <div className="pl-2 text-sm font-regular">
                     <p>(Forhad Bio)</p>
                   </div>
                 </div>
@@ -132,7 +132,7 @@ const About = () => {
               <div className="flex items-center">
                 <img
                   src="https://media.licdn.com/dms/image/D4E03AQFSay1e5SIYcA/profile-displayphoto-shrink_400_400/0/1667243405851?e=1686182400&v=beta&t=62h89wtnfBKUXlF9lnBkglm3QRDN9FbTzI38YbyQ0fg"
-                  className="h-36 w-36 object-cover rounded-full"
+                  className="h-24 w-24 object-cover rounded-full"
                 ></img>
                 <div className="flex flex-col pl-3">
                   <div className="flex flex-row gap-3">
@@ -154,7 +154,7 @@ const About = () => {
                       <FaLinkedin />
                     </a>
                   </div>
-                  <div className="pl-2">
+                  <div className="pl-2 text-sm font-regular">
                     <p>(Paul Bio)</p>
                   </div>
                 </div>
