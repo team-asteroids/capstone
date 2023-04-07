@@ -126,8 +126,8 @@ const About = () => {
                   </div>
                   <div className="pl-2 text-sm font-regular">
                     <p>
-                      I love dogs more than most people, pour-over coffee, long
-                      walks in silence and peanut butter.
+                      Forhad love dogs more than most people, pour-over coffee,
+                      long walks in silence and peanut butter.
                     </p>
                   </div>
                 </div>
