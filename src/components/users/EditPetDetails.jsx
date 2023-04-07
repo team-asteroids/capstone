@@ -896,7 +896,7 @@ const EditPetDetails = (props) => {
               )}
             </form>
           </fieldset>
-          {userAuth && userAuth.id ? (
+          {!userAuth || userAuth.id !== user.id ? null : (
             <div className="">
               <button
                 className="font-semibold cursor-pointer text-red-600 hover:text-red-900 mt-5"
@@ -905,7 +905,7 @@ const EditPetDetails = (props) => {
                 Delete Pet Profile
               </button>
             </div>
-          ) : null}
+          )}
         </section>
       </div>
     </div>
