@@ -61,7 +61,11 @@ const About = () => {
                     </a>
                   </div>
                   <div className="pl-2 text-sm font-regular">
-                    <p>(Nica Bio)</p>
+                    <p>
+                      Nica enjoys going to Prospect Park and pretending like all
+                      the dogs romping around are hers. She looks forward to
+                      having her own furry best friend one day.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -159,9 +163,8 @@ const About = () => {
                   </div>
                   <div className="pl-2 text-sm font-regular">
                     <p>
-                    Paul resides in Brooklyn, where 
-                    he spends time biking, climbing,
-                    and occasionally listening to Snoop Dogg.
+                      Paul resides in Brooklyn, where he spends time biking,
+                      climbing, and occasionally listening to Snoop Dogg.
                     </p>
                   </div>
                 </div>
