@@ -17,7 +17,7 @@ const UserSocialView = (props) => {
     navigate(-1);
   };
 
-  const { user } = props;
+  const { user, userAuth } = props;
 
   return (
     <div className="font-rubik flex flex-col gap-5">
@@ -31,12 +31,12 @@ const UserSocialView = (props) => {
         <div className="font-rubik flex flex-row">
           <div className="w-full h-[calc(100vh_-_20rem)] overflow-auto flex flex-col pr-10 gap-10">
             <div>
-              <UserPetProfiles user={user} />
+              <UserPetProfiles user={user} userAuth={userAuth} />
             </div>
             <div className="flex flex-col gap-5">
               <h2 className="font-rubikmono">Recent Activity</h2>
-              <UserEventsProfile user={user} />
-              <UserGroupsProfile user={user} />
+              <UserEventsProfile user={user} userAuth={userAuth} />
+              <UserGroupsProfile user={user} userAuth={userAuth} />
             </div>
           </div>
           {/* <div className="w-1/5">
@@ -44,7 +44,7 @@ const UserSocialView = (props) => {
           </div> */}
         </div>
       ) : (
-        <EditPetDetails user={user} />
+        <EditPetDetails user={user} userAuth={userAuth} />
       )}
     </div>
   );

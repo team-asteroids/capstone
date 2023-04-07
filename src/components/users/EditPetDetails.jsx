@@ -374,11 +374,11 @@ const EditPetDetails = (props) => {
       {formDisabled ? (
         <div className="flex flex-row gap-3 align-baseline">
           <p className="font-rubikmono">{singlePet.name} Profile</p>
-          {userAuth.id === user.id ? (
+          {!userAuth || userAuth.id !== user.id ? null : (
             <p className=" hover:text-bold-purple">
               <Link to={`${location.pathname}/edit`}>(edit)</Link>
             </p>
-          ) : null}
+          )}
         </div>
       ) : (
         <h2 className="font-rubikmono">Edit Pet Details</h2>
@@ -896,7 +896,7 @@ const EditPetDetails = (props) => {
               )}
             </form>
           </fieldset>
-          {userAuth && userAuth.id ? (
+          {!userAuth || userAuth.id !== user.id ? null : (
             <div className="">
               <button
                 className="font-semibold cursor-pointer text-red-600 hover:text-red-900 mt-5"
@@ -905,7 +905,7 @@ const EditPetDetails = (props) => {
                 Delete Pet Profile
               </button>
             </div>
-          ) : null}
+          )}
         </section>
       </div>
     </div>

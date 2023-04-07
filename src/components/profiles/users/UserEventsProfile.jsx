@@ -10,7 +10,7 @@ import {
 import { format } from 'date-fns';
 
 const UserEventsProfile = (props) => {
-  const { user } = props;
+  const { user, userAuth } = props;
   const { id } = useParams();
   const rsvps = useSelector(selectMyRsvps);
   const { events } = useSelector(selectEvents);
@@ -25,26 +25,39 @@ const UserEventsProfile = (props) => {
     <div>
       <h2 className="font-semibold text-sm pb-5">UPCOMING EVENTS</h2>
       <div className="flex flex-col gap-5">
-        {rsvps.map((rsvp) => (
-          <div key={rsvp.id}>
-            {events && events.length
-              ? events.map((event) => (
-                  <Link to={`/events/${rsvp.eventId}`}>
-                    {event.id === rsvp.eventId ? (
-                      <div className="flex flex-col gap-2 bg-slate-50 py-8 px-5 rounded-lg">
-                        <div className="font-semibold">
-                          {event.topic.toUpperCase()}
-                        </div>
-                        <div>Event Id: {rsvp.eventId}</div>
-                        <div>{event.description}</div>
-                        <div>Location: {event.zip_code}</div>
-                      </div>
-                    ) : null}
-                  </Link>
-                ))
-              : null}
+        {!userAuth ? (
+          <div>
+            <Link to="/login" className="hover:text-bold-blue">
+              Log In
+            </Link>{' '}
+            or{' '}
+            <Link to="/signup" className="hover:text-bold-purple">
+              Sign Up
+            </Link>{' '}
+            to see groups
           </div>
-        ))}
+        ) : (
+          rsvps.map((rsvp) => (
+            <div key={rsvp.id}>
+              {events && events.length
+                ? events.map((event) => (
+                    <Link to={`/events/${rsvp.eventId}`}>
+                      {event.id === rsvp.eventId ? (
+                        <div className="flex flex-col gap-2 bg-slate-50 py-8 px-5 rounded-lg">
+                          <div className="font-semibold">
+                            {event.topic.toUpperCase()}
+                          </div>
+                          <div>Event Id: {rsvp.eventId}</div>
+                          <div>{event.description}</div>
+                          <div>Location: {event.zip_code}</div>
+                        </div>
+                      ) : null}
+                    </Link>
+                  ))
+                : null}
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
