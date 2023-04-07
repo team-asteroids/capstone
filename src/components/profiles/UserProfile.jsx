@@ -114,22 +114,36 @@ const UserProfile = () => {
             <p className="font-rubikmono mb-2">Can Foster</p>
             <p>{singleUser.canFoster ? 'yes!' : 'not right now'}</p>
           </div>
-          <div className="w-1/4">
-            <Link to={`/chat/`} state={{ userName: singleUser.userName }}>
-              <button
-                className={
-                  !userAuth || userAuth.id === singleUser.id
-                    ? disabledButtonClass
-                    : buttonClass
-                }
-                disabled={
-                  !userAuth || userAuth.id === singleUser.id ? true : false
-                }
-              >
-                MESSAGE
-              </button>
-            </Link>
-          </div>
+          {!userAuth ? (
+            <div className="group" type="tooltip">
+              <div className="w-1/4">
+                <button className={disabledButtonClass} disabled>
+                  MESSAGE
+                </button>
+              </div>
+              <span className="group-hover:opacity-100 transition-opacity position absolute ml-5 bg-pale-blue p-1 text-sm text-bright-white rounded px-2 opacity-0">
+                <p>Log In or</p>
+                <p>Sign Up!</p>
+              </span>
+            </div>
+          ) : (
+            <div className="w-1/4">
+              <Link to={`/chat/`} state={{ userName: singleUser.userName }}>
+                <button
+                  className={
+                    !userAuth || userAuth.id === singleUser.id
+                      ? disabledButtonClass
+                      : buttonClass
+                  }
+                  disabled={
+                    !userAuth || userAuth.id === singleUser.id ? true : false
+                  }
+                >
+                  MESSAGE
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
         <div className="w-4/5 font-rubikmono overflow-auto gap-5">
           <Routes>
