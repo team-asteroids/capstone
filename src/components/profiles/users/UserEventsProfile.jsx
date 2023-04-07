@@ -34,7 +34,7 @@ const UserEventsProfile = (props) => {
             <Link to="/signup" className="hover:text-bold-purple">
               Sign Up
             </Link>{' '}
-            to see groups
+            to see events
           </div>
         ) : (
           rsvps.map((rsvp) => (
