@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSingleSitter, selectSitters } from '../../../slices/sittersSlice';
 import { selectUser } from '../../../slices/usersSlice';
+import PetsIcon from '@mui/icons-material/Pets';
 
 const SitterPrefSidebar = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const SitterPrefSidebar = () => {
   }, [singleSitter]);
 
   if (!sitterPrefs) return <div>Fetching good things...</div>;
-  
+
   return (
     <div className="min-w-max">
       <div className="pb-5">
@@ -38,33 +39,81 @@ const SitterPrefSidebar = () => {
         <div>
           <p className="font-semibold text-sm">LOCATION:</p>
           <ul>
-            {sitterPrefs.hostAtHome ? <li>- sitter home</li> : null}
-            {sitterPrefs.atOwnerHouse ? <li>- owner home</li> : null}
+            {sitterPrefs.hostAtHome ? (
+              <li>
+                <PetsIcon /> sitter home
+              </li>
+            ) : null}
+            {sitterPrefs.atOwnerHouse ? (
+              <li>
+                <PetsIcon /> owner home
+              </li>
+            ) : null}
           </ul>
         </div>
         <div>
           <p className="font-semibold text-sm">SIZE:</p>
           <ul>
-            {sitterPrefs.small ? <li>- small</li> : null}
-            {sitterPrefs.medium ? <li>- medium</li> : null}
-            {sitterPrefs.large ? <li>- large</li> : null}
-            {sitterPrefs.extraLarge ? <li>- extra large</li> : null}
-            {sitterPrefs.puppies ? <li>- puppies</li> : null}
+            {sitterPrefs.small ? (
+              <li>
+                <PetsIcon /> small
+              </li>
+            ) : null}
+            {sitterPrefs.medium ? (
+              <li>
+                <PetsIcon /> medium
+              </li>
+            ) : null}
+            {sitterPrefs.large ? (
+              <li>
+                <PetsIcon /> large
+              </li>
+            ) : null}
+            {sitterPrefs.extraLarge ? (
+              <li>
+                <PetsIcon /> extra large
+              </li>
+            ) : null}
+            {sitterPrefs.puppies ? (
+              <li>
+                <PetsIcon /> puppies
+              </li>
+            ) : null}
           </ul>
         </div>
         <div>
           <p className="font-semibold text-sm">OTHER PETS:</p>
           <ul>
-            {sitterPrefs.cats ? <li>- cats</li> : null}
-            {sitterPrefs.multiplePets ? <li>- multiple pets</li> : null}
+            {sitterPrefs.cats ? (
+              <li>
+                <PetsIcon /> cats
+              </li>
+            ) : null}
+            {sitterPrefs.multiplePets ? (
+              <li>
+                <PetsIcon /> multiple pets
+              </li>
+            ) : null}
           </ul>
         </div>
         <div>
           <p className="font-semibold text-sm">SPECIAL NEEDS:</p>
           <ul>
-            {sitterPrefs.disabled ? <li>- disabled</li> : null}
-            {sitterPrefs.medication ? <li>- medication</li> : null}
-            {sitterPrefs.reactive ? <li>- reactive</li> : null}
+            {sitterPrefs.disabled ? (
+              <li>
+                <PetsIcon /> disabled
+              </li>
+            ) : null}
+            {sitterPrefs.medication ? (
+              <li>
+                <PetsIcon /> medication
+              </li>
+            ) : null}
+            {sitterPrefs.reactive ? (
+              <li>
+                <PetsIcon /> reactive
+              </li>
+            ) : null}
           </ul>
         </div>
       </div>
