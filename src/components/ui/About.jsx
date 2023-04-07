@@ -125,7 +125,10 @@ const About = () => {
                     </a>
                   </div>
                   <div className="pl-2 text-sm font-regular">
-                    <p>(Forhad Bio)</p>
+                    <p>
+                      I love dogs more than most people, pour-over coffee, long
+                      walks in silence and peanut butter.
+                    </p>
                   </div>
                 </div>
               </div>
