@@ -9,6 +9,7 @@ import {
 import defaultImg from '../../../img/default-dog.jpg';
 import { selectAuth } from '../../../slices/authSlice';
 import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
+import PetsIcon from '@mui/icons-material/Pets';
 
 const UserPetProfiles = (props) => {
   const dispatch = useDispatch();
@@ -62,16 +63,19 @@ const UserPetProfiles = (props) => {
                     </Link>
                   </div>
                   <div>
-                    <p className="text-xs font-rubikmono">{pet.name}</p>
-                    <p>{pet.breed}</p>
-                    <p>
-                      {'age: '}
-                      {pet.age}
-                    </p>
-                    <p>
-                      {'size: '}
-                      {pet.size}
-                    </p>
+                    <p className="text-sm font-rubikmono">{pet.name}</p>
+                    <div className="flex flex-row gap-2">
+                      <PetsIcon />
+                      <p>{pet.breed}</p>
+                    </div>
+                    <div className="flex flex-row gap-2">
+                      <PetsIcon />
+                      <p>{pet.age}</p>
+                    </div>
+                    <div className="flex flex-row gap-2">
+                      <PetsIcon />
+                      <p>{pet.size}</p>
+                    </div>
                   </div>
                 </div>
               </div>
