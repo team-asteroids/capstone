@@ -93,7 +93,7 @@ const About = () => {
                   <div className="pl-2">
                     <p>
                       Allyssa lives in Brooklyn with her dog, Saxen. They love
-                      to play frisbee together and go for long sniff walks in
+                      playing frisbee together and going for long sniff walks in
                       their neighborhood!
                     </p>
                   </div>
