@@ -374,11 +374,11 @@ const EditPetDetails = (props) => {
       {formDisabled ? (
         <div className="flex flex-row gap-3 align-baseline">
           <p className="font-rubikmono">{singlePet.name} Profile</p>
-          {userAuth.id === user.id ? (
+          {!userAuth || userAuth.id !== user.id ? null : (
             <p className=" hover:text-bold-purple">
               <Link to={`${location.pathname}/edit`}>(edit)</Link>
             </p>
-          ) : null}
+          )}
         </div>
       ) : (
         <h2 className="font-rubikmono">Edit Pet Details</h2>
