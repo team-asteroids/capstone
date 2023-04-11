@@ -25,6 +25,7 @@ const BookingRequestConfirmation = () => {
   const { allPets } = useSelector(selectPets);
 
   const [petIds, setPetIds] = useState([]);
+  const [formAccessData, setFormAccessData] = useState({});
 
   const [isInvalid, setIsInvalid] = useState(false);
   const [isInvalidPetIds, setIsInvalidPetIds] = useState(false);
@@ -37,19 +38,29 @@ const BookingRequestConfirmation = () => {
   const [isInvalidEmergencyContactPhone, setIsInvalidEmergencyContactPhone] =
     useState(false);
 
-  const [formData, setFormData] = useState({
-    phone: accessData.phone,
-    address1: accessData.address1,
-    address2: accessData.address2,
-    city: accessData.city,
-    state: accessData.state,
-    zip: accessData.zip,
-    emergencyContactName: accessData.emergencyContactName,
-    emergencyContactPhone: accessData.emergencyContactPhone,
-    additionalNotes: accessData.additionalNotes,
-  });
+  useEffect(() => {
+    if (userAuth && userAuth.id) {
+      const id = userAuth.id;
+      dispatch(fetchAllPets(id));
+      dispatch(getAccessData(id));
+    }
+  }, [userAuth]);
 
-  // const bookingId = newBooking.id;
+  useEffect(() => {
+    if (userAuth && accessData && accessData.id) {
+      setFormAccessData({
+        phone: accessData.phone,
+        address1: accessData.address1,
+        address2: accessData.address2,
+        city: accessData.city,
+        state: accessData.state,
+        zip: accessData.zip,
+        emergencyContactName: accessData.emergencyContactName,
+        emergencyContactPhone: accessData.emergencyContactPhone,
+        additionalNotes: accessData.additionalNotes,
+      });
+    }
+  }, [userAuth, accessData]);
 
   const states = [
     'Alabama',
@@ -128,31 +139,6 @@ const BookingRequestConfirmation = () => {
   const disabledButtonClass =
     'font-rubikmono bg-bold-blue disabled:opacity-25 w-full text-white py-3 rounded-xl mx-auto block text-xl mt-3';
 
-  useEffect(() => {
-    if (userAuth && userAuth.id) {
-      const id = userAuth.id;
-      dispatch(fetchAllPets(id));
-      dispatch(getAccessData(id));
-    }
-  }, [userAuth]);
-
-  useEffect(() => {
-    dispatch(attemptTokenLogin());
-    if (accessData && accessData.id) {
-      setFormData({
-        phone: accessData.phone,
-        address1: accessData.address1,
-        address2: accessData.address2,
-        city: accessData.city,
-        state: accessData.state,
-        zip: accessData.zip,
-        emergencyContactName: accessData.emergencyContactName,
-        emergencyContactPhone: accessData.emergencyContactPhone,
-        additionalNotes: accessData.additionalNotes,
-      });
-    }
-  }, [userAuth, accessData]);
-
   const togglePet = (evt) => {
     if (petIds.includes(+evt.target.value)) {
       const idx = petIds.indexOf(+evt.target.value);
@@ -179,47 +165,47 @@ const BookingRequestConfirmation = () => {
       setIsInvalidPetIds(true);
     }
 
-    if (formData.phone === '') {
+    if (formAccessData.phone === '') {
       setIsInvalidPhone(true);
       // setIsInvalid(true);
     }
 
-    if (!validatePhone(formData.phone)) {
+    if (!validatePhone(formAccessData.phone)) {
       setIsInvalidPhone(true);
       // setIsInvalid(true);
     }
 
-    if (formData.address1 === '') {
+    if (formAccessData.address1 === '') {
       setIsInvalidAddress1(true);
       // setIsInvalid(true);
     }
 
-    if (formData.city === '') {
+    if (formAccessData.city === '') {
       setIsInvalidCity(true);
       // setIsInvalid(true);
     }
 
-    if (formData.zip === '') {
+    if (formAccessData.zip === '') {
       setIsInvalidZip(true);
       // setIsInvalid(true);
     }
 
-    if (!validateZip(formData.zip)) {
+    if (!validateZip(formAccessData.zip)) {
       setIsInvalidZip(true);
       // setIsInvalid(true);
     }
 
-    if (formData.emergencyContactName === '') {
+    if (formAccessData.emergencyContactName === '') {
       setIsInvalidEmergencyContactName(true);
       // setIsInvalid(true);
     }
 
-    if (formData.emergencyContactPhone === '') {
+    if (formAccessData.emergencyContactPhone === '') {
       setIsInvalidEmergencyContactPhone(true);
       // setIsInvalid(true);
     }
 
-    if (!validatePhone(formData.emergencyContactPhone)) {
+    if (!validatePhone(formAccessData.emergencyContactPhone)) {
       setIsInvalidEmergencyContactPhone(true);
     }
 
@@ -241,7 +227,9 @@ const BookingRequestConfirmation = () => {
     await checkFormValidation();
     const id = userAuth.id;
     if (!isInvalid && !isInvalidPetIds) {
-      const res = await dispatch(updateAccessData({ id, token, formData }));
+      const res = await dispatch(
+        updateAccessData({ id, token, formAccessData })
+      );
       const res2 = await dispatch(
         addPetsToBooking({ id, token, bookingId, petIds })
       );
@@ -325,10 +313,13 @@ const BookingRequestConfirmation = () => {
                         id="phone"
                         name="phone"
                         type="text"
-                        value={formData.phone}
+                        value={formAccessData.phone}
                         onChange={(evt) => {
                           setIsInvalidPhone(false);
-                          setFormData({ ...formData, phone: evt.target.value });
+                          setFormAccessData({
+                            ...formAccessData,
+                            phone: evt.target.value,
+                          });
                         }}
                       />
                     </div>
@@ -344,11 +335,11 @@ const BookingRequestConfirmation = () => {
                         id="address1"
                         name="address1"
                         type="text"
-                        value={formData.address1}
+                        value={formAccessData.address1}
                         onChange={(evt) => {
                           setIsInvalidAddress1(true);
-                          setFormData({
-                            ...formData,
+                          setFormAccessData({
+                            ...formAccessData,
                             address1: evt.target.value,
                           });
                         }}
@@ -361,10 +352,10 @@ const BookingRequestConfirmation = () => {
                         id="address2"
                         name="address2"
                         type="text"
-                        value={formData.address2}
+                        value={formAccessData.address2}
                         onChange={(evt) => {
-                          setFormData({
-                            ...formData,
+                          setFormAccessData({
+                            ...formAccessData,
                             address2: evt.target.value,
                           });
                         }}
@@ -379,10 +370,13 @@ const BookingRequestConfirmation = () => {
                         className={isInvalidCity ? invalidClass : validClass}
                         id="city"
                         name="city"
-                        value={formData.city}
+                        value={formAccessData.city}
                         onChange={(evt) => {
                           setIsInvalidCity(false);
-                          setFormData({ ...formData, city: evt.target.value });
+                          setFormAccessData({
+                            ...formAccessData,
+                            city: evt.target.value,
+                          });
                         }}
                       />
                     </div>
@@ -393,9 +387,12 @@ const BookingRequestConfirmation = () => {
                         className={validClass}
                         id="state"
                         name="state"
-                        value={formData.state}
+                        value={formAccessData.state}
                         onChange={(evt) => {
-                          setFormData({ ...formData, state: evt.target.value });
+                          setFormAccessData({
+                            ...formAccessData,
+                            state: evt.target.value,
+                          });
                         }}
                       >
                         <option disabled></option>
@@ -414,10 +411,13 @@ const BookingRequestConfirmation = () => {
                         type="text"
                         id="zip"
                         name="zip"
-                        value={formData.zip}
+                        value={formAccessData.zip}
                         onChange={(evt) => {
                           setIsInvalidZip(false);
-                          setFormData({ ...formData, zip: evt.target.value });
+                          setFormAccessData({
+                            ...formAccessData,
+                            zip: evt.target.value,
+                          });
                         }}
                       />
                     </div>
@@ -437,11 +437,11 @@ const BookingRequestConfirmation = () => {
                         id="emergencyContactName"
                         name="emergencyContactName"
                         type="text"
-                        value={formData.emergencyContactName}
+                        value={formAccessData.emergencyContactName}
                         onChange={(evt) => {
                           setIsInvalidEmergencyContactName(false);
-                          setFormData({
-                            ...formData,
+                          setFormAccessData({
+                            ...formAccessData,
                             emergencyContactName: evt.target.value,
                           });
                         }}
@@ -460,11 +460,11 @@ const BookingRequestConfirmation = () => {
                         id="emergencyContactPhone"
                         name="emergencyContactPhone"
                         type="tel"
-                        value={formData.emergencyContactPhone}
+                        value={formAccessData.emergencyContactPhone}
                         onChange={(evt) => {
                           setIsInvalidEmergencyContactPhone(false);
-                          setFormData({
-                            ...formData,
+                          setFormAccessData({
+                            ...formAccessData,
                             emergencyContactPhone: evt.target.value,
                           });
                         }}
@@ -480,10 +480,10 @@ const BookingRequestConfirmation = () => {
                         name="additionalNotes"
                         type="text"
                         rows={6}
-                        value={formData.additionalNotes}
+                        value={formAccessData.additionalNotes}
                         onChange={(evt) => {
-                          setFormData({
-                            ...formData,
+                          setFormAccessData({
+                            ...formAccessData,
                             additionalNotes: evt.target.value,
                           });
                         }}
