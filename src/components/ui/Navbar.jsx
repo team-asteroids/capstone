@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Dropdown, Avatar } from 'flowbite-react';
 import EventIcon from '@mui/icons-material/Event';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PetsIcon from '@mui/icons-material/Pets';
+import { AiOutlineMenu } from 'react-icons/ai';
 
 function Navbar(props) {
   const { userAuth } = props;
+
+  const [nav, setNav] = useState(false);
+  const handleNav = () => {
+    setNav(!nav);
+    // console.log("nav state changed");
+  };
 
   return (
     <nav className="flex justify-between font-rubikmono h-20 items-center tracking-tighter text-bold-blue px-5">
@@ -15,7 +22,15 @@ function Navbar(props) {
           <h1 className="text-bold-blue text-5xl">Howlr</h1>
         </Link>
       </div>
-      <div className="flex flex-row">
+      <div>
+        <AiOutlineMenu
+          size={38}
+          onClick={handleNav}
+          className="absolute top-5 right-4 z-[99] md:hidden"
+        />
+      </div>
+
+      <div className="md:block hidden flex-row">
         <div className="flex flex-row items-center text-2xl gap-10">
           <div>
             <Dropdown label="Social" inline={true}>
