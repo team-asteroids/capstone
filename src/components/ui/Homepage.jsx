@@ -10,13 +10,8 @@ const Homepage = () => {
   const { userAuth } = useSelector(selectAuth);
 
   return (
-    <div>
-      <img
-        className="w-full h-screen object-cover object-left"
-        src={backgroundImg}
-        alt=""
-      ></img>
-      <div className="w-full h-screen absolute top-0 left-0">
+    <div className="bg-cover bg-right-top bg-no-repeat bg-[url('img/treats-bg.jpg')] h-full">
+      <div className="w-full h-screen top-0 left-0">
         <div className="max-w-[800px] m-auto h-full w-full flex flex-col justify-center items-center">
           <div className="flex flex-row justify-center">
             <div className="mb-10 ml-4 bg-bold-pink rounded-lg">

@@ -15,74 +15,71 @@ function Navbar(props) {
     setNav(!nav);
     // console.log("nav state changed");
   };
-
   return (
     <div>
-      <nav className="flex justify-between font-rubikmono h-20 items-center tracking-tighter text-bold-blue px-5">
+      <nav className="flex justify-between font-rubikmono h-20 items-center tracking-tighter text-bold-blue px-5 bg-white">
         <div>
           <Link to={'/'}>
-            <h1 className="text-bold-blue text-5xl">Howlr</h1>
+            <h1 className="text-bold-blue text-5xl cursor-pointer">Howlr</h1>
           </Link>
         </div>
         <div>
           <AiOutlineMenu
             size={38}
             onClick={handleNav}
-            className="absolute top-5 right-4 z-[99] md:hidden"
+            className="absolute top-5 right-4 z-[99] md:hidden cursor-pointer"
           />
         </div>
-        {!nav && (
-          <div className="md:block hidden flex-row">
-            <div className="flex flex-row items-center text-2xl gap-10">
-              <div>
-                <Dropdown label="Social" inline={true}>
-                  <Link to={`/events`}>
-                    <Dropdown.Item icon={EventIcon}>Events</Dropdown.Item>
-                  </Link>
-                  <Link to={`/groups`}>
-                    <Dropdown.Item icon={GroupsIcon}>Groups</Dropdown.Item>
-                  </Link>
-                  <Link to={`/howls`}>
-                    <Dropdown.Item icon={PetsIcon}>Howls</Dropdown.Item>
-                  </Link>
-                </Dropdown>
-              </div>
-              <div>
-                <Link to={`/sitters`}>Sitters</Link>
-              </div>
-              {userAuth && userAuth.firstName ? (
-                <div>
-                  <Link to={'/chat'} state={{ userName: '' }}>
-                    <div>Chat</div>
-                  </Link>
-                </div>
-              ) : null}
-              {userAuth && userAuth.firstName ? (
-                <div>
-                  <Link to={'/account/editprofile'}>
-                    <div className="flex flex-row gap-5 justify-center align-middle items-center">
-                      <img
-                        className="w-12 h-12 object-cover rounded-full"
-                        src={
-                          userAuth.imageSrc ||
-                          require('../../img/default-dog.jpg')
-                        }
-                        alt="alt"
-                      />
-                      <div>Hi, {userAuth.firstName}</div>
-                    </div>
-                  </Link>
-                </div>
-              ) : (
-                <div>
-                  <Link to={'/login'}>
-                    <div>Login</div>
-                  </Link>
-                </div>
-              )}
+        <div className="md:block hidden flex-row">
+          <div className="flex flex-row items-center text-2xl gap-10">
+            <div>
+              <Dropdown label="Social" inline={true}>
+                <Link to={`/events`}>
+                  <Dropdown.Item icon={EventIcon}>Events</Dropdown.Item>
+                </Link>
+                <Link to={`/groups`}>
+                  <Dropdown.Item icon={GroupsIcon}>Groups</Dropdown.Item>
+                </Link>
+                <Link to={`/howls`}>
+                  <Dropdown.Item icon={PetsIcon}>Howls</Dropdown.Item>
+                </Link>
+              </Dropdown>
             </div>
+            <div>
+              <Link to={`/sitters`}>Sitters</Link>
+            </div>
+            {userAuth && userAuth.firstName ? (
+              <div>
+                <Link to={'/chat'} state={{ userName: '' }}>
+                  <div>Chat</div>
+                </Link>
+              </div>
+            ) : null}
+            {userAuth && userAuth.firstName ? (
+              <div>
+                <Link to={'/account/editprofile'}>
+                  <div className="flex flex-row gap-5 justify-center align-middle items-center">
+                    <img
+                      className="w-12 h-12 object-cover rounded-full"
+                      src={
+                        userAuth.imageSrc ||
+                        require('../../img/default-dog.jpg')
+                      }
+                      alt="alt"
+                    />
+                    <div>Hi, {userAuth.firstName}</div>
+                  </div>
+                </Link>
+              </div>
+            ) : (
+              <div>
+                <Link to={'/login'}>
+                  <div>Login</div>
+                </Link>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </nav>
       {nav && (
         <div className="fixed w-full h-screen bg-white/90 flex flex-col justify-center items-center z-20">
@@ -94,30 +91,30 @@ function Navbar(props) {
             <EventIcon size={20} />
             <span className="pl-4">Events</span>
           </Link>
-          <a
+          <Link
+            to={`/groups`}
             onClick={handleNav}
-            href="#work"
             className="w-[75%] flex justify-center items-center rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200"
           >
             <GroupsIcon size={20} />
             <span className="pl-4">Groups</span>
-          </a>
-          <a
+          </Link>
+          <Link
+            to={`/howls`}
             onClick={handleNav}
-            href="#projects"
             className="w-[75%] flex justify-center items-center rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200"
           >
             <PetsIcon size={20} />
             <span className="pl-4">Howls</span>
-          </a>
-          <a
+          </Link>
+          <Link
+            to={`/sitters`}
             onClick={handleNav}
-            href="#contact"
             className="w-[75%] flex justify-center items-center rounded-full shadow-lg bg-gray-100 shadow-gray-400 m-2 p-4 cursor-pointer hover:scale-110 ease-in duration-200"
           >
             <AccessibilityNewIcon size={20} />
             <span className="pl-4">Sitters</span>
-          </a>
+          </Link>
         </div>
       )}
     </div>
