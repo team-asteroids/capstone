@@ -2,39 +2,50 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectAuth } from '../../slices/authSlice';
+import backgroundImg from '../../img/treats-bg.jpg';
+import { Diversity2Sharp } from '@mui/icons-material';
 
 const Homepage = () => {
   const token = window.localStorage.getItem('token');
   const { userAuth } = useSelector(selectAuth);
 
   return (
-    <div className="bg-cover bg-no-repeat bg-[url('img/treats-bg.jpg')] h-[calc(100vh_-_5rem)] font-rubikmono">
-      <div className="flex absolute flex-col text-[3.5rem] top-96 left-48 tracking-wide">
-        <p className="leading-none pb-2">Welcome to the</p>
-        <p className="leading-none">Howlr Pack!</p>
-      </div>
-      <div className="flex flex-col absolute top-[35rem] text-2xl left-48">
-        <p>Digital dog park for Sitters, Friends, Packmates</p>
-      </div>
-      {token ? (
-        <div className="flex flex-col absolute top-[40rem] text-xl left-48">
-          <Link
-            to={`/profile/${userAuth.id}`}
-            className="bg-bold-pink px-6 py-3.5 rounded-xl text-white ease-in duration-200 hover:bg-pale-pink"
-          >
-            My Profile
-          </Link>
+    <div className="bg-cover bg-right-top bg-no-repeat bg-[url('img/treats-bg.jpg')] h-full">
+      <div className="w-full h-screen top-0 left-0">
+        <div className="max-w-[600px] m-auto h-full w-full flex flex-col justify-center items-center">
+          <div className="flex flex-row justify-center">
+            <div className="mb-10 ml-4 ">
+              <div className="pt-10 px-6 pb-6 flex flex-wrap gap-4 justify-center items-center font-rubikmono text-center">
+                <p className="text-2xl sm:text-3xl">Welcome to the</p>
+                <p className="text-4xl sm:text-5xl">Howlr Pack!</p>
+              </div>
+              <div className="pt-6 px-6 pb-6 justify-center items-center flex flex-wrap font-rubik sm:text-2xl text-xl text-center">
+                <p>Digital dog park for Sitters, Friends, Packmates</p>
+              </div>
+              {/* </div> */}
+            </div>
+          </div>
+          {token ? (
+            <div className="flex flex-col justify-center items-center text-xl">
+              <Link
+                to={`/profile/${userAuth.id}`}
+                className="bg-bold-pink px-6 py-3.5 rounded-xl text-white ease-in duration-200 hover:bg-pale-pink"
+              >
+                My Profile
+              </Link>
+            </div>
+          ) : (
+            <div className="flex flex-col justify-center items-center text-xl">
+              <Link
+                to="/signup"
+                className="bg-bold-pink px-6 py-3.5 rounded-xl text-white ease-in duration-200 hover:bg-pale-pink"
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
         </div>
-      ) : (
-        <div className="flex flex-col absolute top-[42rem] text-xl left-48">
-          <Link
-            to="/signup"
-            className="bg-bold-pink px-6 py-3.5 rounded-xl text-white ease-in duration-200 hover:bg-pale-pink"
-          >
-            Sign Up
-          </Link>
-        </div>
-      )}
+      </div>
     </div>
   );
 };
