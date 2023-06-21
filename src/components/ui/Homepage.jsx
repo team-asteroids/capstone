@@ -12,14 +12,14 @@ const Homepage = () => {
   return (
     <div className="bg-cover bg-right-top bg-no-repeat bg-[url('img/treats-bg.jpg')] h-full">
       <div className="w-full h-screen top-0 left-0">
-        <div className="max-w-[800px] m-auto h-full w-full flex flex-col justify-center items-center">
+        <div className="max-w-[600px] m-auto h-full w-full flex flex-col justify-center items-center">
           <div className="flex flex-row justify-center">
-            <div className="mb-10 ml-4 bg-bold-pink rounded-lg">
-              <div className="pt-10 px-8 pb-8 flex flex-wrap gap-4 justify-center items-center font-rubikmono sm:text-5xl text-4xl text-center">
-                <p>Welcome to the</p>
-                <p>Howlr Pack!</p>
+            <div className="mb-10 ml-4 ">
+              <div className="pt-10 px-6 pb-6 flex flex-wrap gap-4 justify-center items-center font-rubikmono text-center">
+                <p className="text-2xl sm:text-3xl">Welcome to the</p>
+                <p className="text-4xl sm:text-5xl">Howlr Pack!</p>
               </div>
-              <div className="pt-8 px-8 pb-6 justify-center items-center flex flex-wrap font-rubik text-2xl text-center">
+              <div className="pt-6 px-6 pb-6 justify-center items-center flex flex-wrap font-rubik sm:text-2xl text-xl text-center">
                 <p>Digital dog park for Sitters, Friends, Packmates</p>
               </div>
               {/* </div> */}
@@ -38,7 +38,7 @@ const Homepage = () => {
             <div className="flex flex-col justify-center items-center text-xl">
               <Link
                 to="/signup"
-                className="bg-[#3a86ff] px-6 py-3.5 rounded-xl text-white ease-in duration-200 hover:bg-pale-pink"
+                className="bg-bold-pink px-6 py-3.5 rounded-xl text-white ease-in duration-200 hover:bg-pale-pink"
               >
                 Sign Up
               </Link>
