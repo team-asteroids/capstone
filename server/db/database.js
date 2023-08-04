@@ -1,14 +1,26 @@
 // initialize postgres db
-// const Sequelize = require('sequelize-cockroachdb');
+
+// const { createClient } = require('@supabase/supabase-js');
 const Sequelize = require('sequelize');
 const dotenv = require('dotenv').config();
 const config = require('config');
 
 const database = process.env.REACT_APP_DATABASE_URL;
 
-console.log('database variable --> ', database);
+// Create a single supabase client for interacting with your database
 
-const db = new Sequelize(database);
+// const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+// const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
+// console.log('supabaseUrl variable --> ', supabaseUrl);
+// console.log('supabaseKey variable --> ', supabaseKey);
+
+// const database = createClient(supabaseUrl, supabaseKey);
+
+// console.log('database variable --> ', database);
+
+const db = new Sequelize(database, {
+  dialect: 'mysql',
+});
 
 const main = async () => {
   try {
